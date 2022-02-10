@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <RootNamespace>BDSP_Randomizer</RootNamespace>
+    <UseWindowsForms>true</UseWindowsForms>
+    <AssemblyName>Imposter's Ordeal BDSP Randomizer</AssemblyName>
+    <ApplicationIcon>132cropped.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AssetsTools.NET" Version="2.0.9" />
+  </ItemGroup>
+
+</Project>
