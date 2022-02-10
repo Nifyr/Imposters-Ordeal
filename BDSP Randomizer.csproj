@@ -6,7 +6,7 @@
     <RootNamespace>BDSP_Randomizer</RootNamespace>
     <UseWindowsForms>true</UseWindowsForms>
     <AssemblyName>Imposter's Ordeal BDSP Randomizer</AssemblyName>
-    <ApplicationIcon>132cropped.ico</ApplicationIcon>
+    <ApplicationIcon>132.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
