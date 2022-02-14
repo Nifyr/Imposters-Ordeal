@@ -868,7 +868,7 @@ namespace BDSP_Randomizer
         {
             foreach (Pokemon pokemon in gameData.personalEntries)
                 if (IsWithin(AbsoluteBoundary.ExpYield, pokemon.giveExp))
-                    pokemon.giveExp = (byte)Conform(AbsoluteBoundary.ExpYield, distribution.Next(pokemon.giveExp));
+                    pokemon.giveExp = (ushort)Conform(AbsoluteBoundary.ExpYield, distribution.Next(pokemon.giveExp));
 
             gameData.SetModified(GameDataSet.DataField.PersonalEntries);
         }
