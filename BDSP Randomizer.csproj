@@ -5,7 +5,7 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <RootNamespace>BDSP_Randomizer</RootNamespace>
     <UseWindowsForms>true</UseWindowsForms>
-    <AssemblyName>Imposter's Ordeal BDSP Randomizer</AssemblyName>
+    <AssemblyName>Imposter's Ordeal</AssemblyName>
     <ApplicationIcon>132.ico</ApplicationIcon>
   </PropertyGroup>
 
