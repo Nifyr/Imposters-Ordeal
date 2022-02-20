@@ -36,6 +36,7 @@ namespace BDSP_Randomizer
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button2 = new BDSP_Randomizer.MainForm.ItemDistributionControl();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button31 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -207,7 +208,7 @@ namespace BDSP_Randomizer
             this.checkBox29 = new System.Windows.Forms.CheckBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox31 = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.absoluteBoundaryDataGridView = new System.Windows.Forms.DataGridView();
             this.groupBox30 = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
             this.numericUpDown8 = new System.Windows.Forms.NumericUpDown();
@@ -225,6 +226,15 @@ namespace BDSP_Randomizer
             this.itemDistributionControl20 = new BDSP_Randomizer.MainForm.ItemDistributionControl();
             this.checkBox53 = new System.Windows.Forms.CheckBox();
             this.groupBox28 = new System.Windows.Forms.GroupBox();
+            this.button23 = new System.Windows.Forms.Button();
+            this.button24 = new System.Windows.Forms.Button();
+            this.button25 = new System.Windows.Forms.Button();
+            this.button26 = new System.Windows.Forms.Button();
+            this.button27 = new System.Windows.Forms.Button();
+            this.button28 = new System.Windows.Forms.Button();
+            this.button29 = new System.Windows.Forms.Button();
+            this.button30 = new System.Windows.Forms.Button();
+            this.groupBox32 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -282,11 +292,12 @@ namespace BDSP_Randomizer
             this.numericDistributionControl12.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.groupBox31.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.absoluteBoundaryDataGridView)).BeginInit();
             this.groupBox30.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown8)).BeginInit();
             this.groupBox29.SuspendLayout();
             this.groupBox27.SuspendLayout();
+            this.groupBox32.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -341,30 +352,41 @@ namespace BDSP_Randomizer
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.button31);
             this.groupBox2.Controls.Add(this.button5);
             this.groupBox2.Controls.Add(this.button3);
             this.groupBox2.Location = new System.Drawing.Point(12, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(185, 107);
+            this.groupBox2.Size = new System.Drawing.Size(185, 140);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Main";
+            // 
+            // button31
+            // 
+            this.button31.Location = new System.Drawing.Point(6, 96);
+            this.button31.Name = "button31";
+            this.button31.Size = new System.Drawing.Size(173, 29);
+            this.button31.TabIndex = 11;
+            this.button31.Text = "Export and Exit";
+            this.button31.UseVisualStyleBackColor = true;
+            this.button31.Click += new System.EventHandler(this.Export);
             // 
             // button5
             // 
             this.button5.Location = new System.Drawing.Point(6, 61);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(172, 29);
+            this.button5.Size = new System.Drawing.Size(173, 29);
             this.button5.TabIndex = 2;
-            this.button5.Text = "Randomize and Save";
+            this.button5.Text = "Randomize";
             this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.RandomizeAndSave);
+            this.button5.Click += new System.EventHandler(this.Randomize);
             // 
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(6, 26);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(172, 29);
+            this.button3.Size = new System.Drawing.Size(173, 29);
             this.button3.TabIndex = 0;
             this.button3.Text = "Add Mod";
             this.button3.UseVisualStyleBackColor = true;
@@ -2109,7 +2131,7 @@ namespace BDSP_Randomizer
             // 
             // groupBox31
             // 
-            this.groupBox31.Controls.Add(this.dataGridView1);
+            this.groupBox31.Controls.Add(this.absoluteBoundaryDataGridView);
             this.groupBox31.Location = new System.Drawing.Point(324, 45);
             this.groupBox31.Name = "groupBox31";
             this.groupBox31.Size = new System.Drawing.Size(600, 516);
@@ -2117,23 +2139,23 @@ namespace BDSP_Randomizer
             this.groupBox31.TabStop = false;
             this.groupBox31.Text = "Absolute Boundaries";
             // 
-            // dataGridView1
+            // absoluteBoundaryDataGridView
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToResizeRows = false;
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(6, 26);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dataGridView1.RowTemplate.Height = 29;
-            this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dataGridView1.Size = new System.Drawing.Size(588, 484);
-            this.dataGridView1.TabIndex = 3;
-            this.dataGridView1.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.DataError);
+            this.absoluteBoundaryDataGridView.AllowUserToAddRows = false;
+            this.absoluteBoundaryDataGridView.AllowUserToDeleteRows = false;
+            this.absoluteBoundaryDataGridView.AllowUserToResizeRows = false;
+            this.absoluteBoundaryDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.absoluteBoundaryDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.absoluteBoundaryDataGridView.Location = new System.Drawing.Point(6, 26);
+            this.absoluteBoundaryDataGridView.Name = "absoluteBoundaryDataGridView";
+            this.absoluteBoundaryDataGridView.RowHeadersVisible = false;
+            this.absoluteBoundaryDataGridView.RowHeadersWidth = 51;
+            this.absoluteBoundaryDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.absoluteBoundaryDataGridView.RowTemplate.Height = 29;
+            this.absoluteBoundaryDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.absoluteBoundaryDataGridView.Size = new System.Drawing.Size(588, 484);
+            this.absoluteBoundaryDataGridView.TabIndex = 3;
+            this.absoluteBoundaryDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.DataError);
             // 
             // groupBox30
             // 
@@ -2319,11 +2341,109 @@ namespace BDSP_Randomizer
             this.groupBox28.TabIndex = 0;
             this.groupBox28.TabStop = false;
             // 
+            // button23
+            // 
+            this.button23.Location = new System.Drawing.Point(6, 26);
+            this.button23.Name = "button23";
+            this.button23.Size = new System.Drawing.Size(173, 29);
+            this.button23.TabIndex = 3;
+            this.button23.Text = "Pokémon Editor";
+            this.button23.UseVisualStyleBackColor = true;
+            this.button23.Click += new System.EventHandler(this.OpenPokemonEditor);
+            // 
+            // button24
+            // 
+            this.button24.Location = new System.Drawing.Point(6, 61);
+            this.button24.Name = "button24";
+            this.button24.Size = new System.Drawing.Size(173, 29);
+            this.button24.TabIndex = 4;
+            this.button24.Text = "Move Editor";
+            this.button24.UseVisualStyleBackColor = true;
+            this.button24.Visible = false;
+            // 
+            // button25
+            // 
+            this.button25.Location = new System.Drawing.Point(6, 96);
+            this.button25.Name = "button25";
+            this.button25.Size = new System.Drawing.Size(173, 29);
+            this.button25.TabIndex = 5;
+            this.button25.Text = "TM Editor";
+            this.button25.UseVisualStyleBackColor = true;
+            this.button25.Visible = false;
+            // 
+            // button26
+            // 
+            this.button26.Location = new System.Drawing.Point(6, 131);
+            this.button26.Name = "button26";
+            this.button26.Size = new System.Drawing.Size(173, 29);
+            this.button26.TabIndex = 6;
+            this.button26.Text = "Item Editor";
+            this.button26.UseVisualStyleBackColor = true;
+            this.button26.Visible = false;
+            // 
+            // button27
+            // 
+            this.button27.Location = new System.Drawing.Point(6, 166);
+            this.button27.Name = "button27";
+            this.button27.Size = new System.Drawing.Size(173, 29);
+            this.button27.TabIndex = 7;
+            this.button27.Text = "Pickup Table Editor";
+            this.button27.UseVisualStyleBackColor = true;
+            this.button27.Visible = false;
+            // 
+            // button28
+            // 
+            this.button28.Location = new System.Drawing.Point(6, 201);
+            this.button28.Name = "button28";
+            this.button28.Size = new System.Drawing.Size(173, 29);
+            this.button28.TabIndex = 8;
+            this.button28.Text = "Shop Editor";
+            this.button28.UseVisualStyleBackColor = true;
+            this.button28.Visible = false;
+            // 
+            // button29
+            // 
+            this.button29.Location = new System.Drawing.Point(6, 236);
+            this.button29.Name = "button29";
+            this.button29.Size = new System.Drawing.Size(173, 29);
+            this.button29.TabIndex = 9;
+            this.button29.Text = "Wild Encounter Editor";
+            this.button29.UseVisualStyleBackColor = true;
+            this.button29.Visible = false;
+            // 
+            // button30
+            // 
+            this.button30.Location = new System.Drawing.Point(6, 271);
+            this.button30.Name = "button30";
+            this.button30.Size = new System.Drawing.Size(173, 29);
+            this.button30.TabIndex = 10;
+            this.button30.Text = "Trainer Editor";
+            this.button30.UseVisualStyleBackColor = true;
+            this.button30.Visible = false;
+            // 
+            // groupBox32
+            // 
+            this.groupBox32.Controls.Add(this.button23);
+            this.groupBox32.Controls.Add(this.button30);
+            this.groupBox32.Controls.Add(this.button24);
+            this.groupBox32.Controls.Add(this.button29);
+            this.groupBox32.Controls.Add(this.button25);
+            this.groupBox32.Controls.Add(this.button28);
+            this.groupBox32.Controls.Add(this.button26);
+            this.groupBox32.Controls.Add(this.button27);
+            this.groupBox32.Location = new System.Drawing.Point(12, 158);
+            this.groupBox32.Name = "groupBox32";
+            this.groupBox32.Size = new System.Drawing.Size(185, 320);
+            this.groupBox32.TabIndex = 5;
+            this.groupBox32.TabStop = false;
+            this.groupBox32.Text = "Editors";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1262, 673);
+            this.Controls.Add(this.groupBox32);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.groupBox2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -2430,7 +2550,7 @@ namespace BDSP_Randomizer
             this.numericDistributionControl12.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.groupBox31.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.absoluteBoundaryDataGridView)).EndInit();
             this.groupBox30.ResumeLayout(false);
             this.groupBox30.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown8)).EndInit();
@@ -2438,6 +2558,7 @@ namespace BDSP_Randomizer
             this.groupBox29.PerformLayout();
             this.groupBox27.ResumeLayout(false);
             this.groupBox27.PerformLayout();
+            this.groupBox32.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2634,10 +2755,20 @@ namespace BDSP_Randomizer
         public System.Windows.Forms.CheckBox checkBox59;
         public System.Windows.Forms.CheckBox checkBox58;
         public System.Windows.Forms.GroupBox groupBox31;
-        public System.Windows.Forms.DataGridView dataGridView1;
+        public System.Windows.Forms.DataGridView absoluteBoundaryDataGridView;
         public System.Windows.Forms.CheckBox checkBox61;
         public System.Windows.Forms.Label label2;
         public System.Windows.Forms.NumericUpDown numericUpDown2;
         public ItemDistributionControl itemDistributionControl1;
+        public System.Windows.Forms.Button button24;
+        public System.Windows.Forms.Button button23;
+        public System.Windows.Forms.Button button31;
+        public System.Windows.Forms.Button button25;
+        public System.Windows.Forms.Button button26;
+        public System.Windows.Forms.Button button27;
+        public System.Windows.Forms.Button button28;
+        public System.Windows.Forms.Button button29;
+        public System.Windows.Forms.Button button30;
+        private System.Windows.Forms.GroupBox groupBox32;
     }
 }

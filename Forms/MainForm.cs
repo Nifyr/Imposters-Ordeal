@@ -152,6 +152,7 @@ namespace BDSP_Randomizer
         private Thread loadingDisplay;
         private LoadingForm loadingForm;
         private Randomizer randomizer;
+        bool randomizeClicked = false;
 
         /// <summary>
         ///  Confirms with user to cancel loading dump.
@@ -256,13 +257,18 @@ namespace BDSP_Randomizer
             loadingForm = new("Ferociously investigating your dump...", flavor.GetSubTask());
             loadingDisplay = new(StartLoadingDisplay);
             loadingDisplay.Start();
+
+            //Sometimes UpdateSubTask would be called before the loadingForm was done setting up, causing me great grief.
+            //This is probably not a very good solution to that, but it works! ¯\_(ツ)_/¯
+            Thread.Sleep(10);
+
             DataParser.PrepareAnalysis();
 
             loadingForm.UpdateSubTask(flavor.GetSubTask());
             SetupConfig(Analyzer.GetSetupConfig());
             loadingForm.Finish();
 
-            dataGridView1.DataSource = GlobalData.absoluteBoundaries;
+            absoluteBoundaryDataGridView.DataSource = GlobalData.absoluteBoundaries;
         }
 
         private void OpenNumericDistributionForm(object sender, EventArgs e)
@@ -302,15 +308,17 @@ namespace BDSP_Randomizer
 
         private void AddMod(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Fancy, let's see if we can merge in a mod, shall we?\n" +
+            if (MessageBox.Show("Fancy! Let's see if we can merge in a mod, shall we?\n" +
                    "Gimme a folder that's got a \"romfs\" or \"exefs\" in it.",
                    "Add Mod", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.Cancel)
                 return;
+
             if (GlobalData.fileManager.AddMod())
             {
                 loadingForm = new("Some stuff changed...", flavor.GetSubTask());
                 loadingDisplay = new(StartLoadingDisplay);
                 loadingDisplay.Start();
+                Thread.Sleep(10);
                 DataParser.PrepareAnalysis();
 
                 loadingForm.UpdateSubTask(flavor.GetSubTask());
@@ -319,15 +327,41 @@ namespace BDSP_Randomizer
             }
         }
 
-        private void RandomizeAndSave(object sender, EventArgs e)
+        private void Randomize(object sender, EventArgs e)
         {
-            loadingForm = new("Finishing up...", flavor.GetThought());
+            //Notify if already randomized.
+            if (randomizeClicked && MessageBox.Show("You uh... You already made me randomize the files, and I\n" +
+                "wouldn't really recommend doing it multiple times...\n" +
+                "Randomize again anyway?",
+                   "Again?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+                return;
+
+            loadingForm = new("Makin' a mess...", flavor.GetThought());
             loadingDisplay = new(StartLoadingDisplay);
             loadingDisplay.Start();
-            randomizer.Randomize();
             Thread.Sleep(10);
+            randomizer.Randomize();
+            loadingForm.Finish();
 
-            loadingForm.UpdateSubTask(flavor.GetThought());
+            randomizeClicked = true;
+            MessageBox.Show(
+                "Randomization complete!",
+                  "All done!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void Export(object sender, EventArgs e)
+        {
+            //Notify if not randomized.
+            if (!randomizeClicked && MessageBox.Show("I haven't randomized anything yet...\n" +
+                "Just thought I'd mention it in case you forgot.\n" +
+                "Proceed anyway? I'll still export any changed files for you.",
+                   "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.No)
+                return;
+
+            loadingForm = new("Finishing up...", flavor.GetSubTask());
+            loadingDisplay = new(StartLoadingDisplay);
+            loadingDisplay.Start();
+            Thread.Sleep(10);
             DataParser.CommitChanges();
 
             loadingForm.UpdateSubTask(flavor.GetThought());
@@ -341,6 +375,13 @@ namespace BDSP_Randomizer
                 "alongside my executable, \"Randomizer Output\".",
                   "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Close();
+        }
+
+        private void OpenPokemonEditor(object sender, EventArgs e)
+        {
+            PokemonEditorForm pef = new();
+            pef.ShowDialog();
+            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.PersonalEntries);
         }
     }
 }

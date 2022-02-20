@@ -149,7 +149,8 @@ namespace BDSP_Randomizer
             AssetTypeValueField monoBehaviour = fileManager.GetMonoBehaviours(PathEnum.DprMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "TrainerTable");
 
             AssetTypeValueField[] trainerFields = monoBehaviour.children[5].children[0].children;
-            for (int trainerIdx = 0; trainerIdx < trainerFields.Length; trainerIdx++)
+            AssetTypeValueField[] trainerPokemonFields = monoBehaviour.children[6].children[0].children;
+            for (int trainerIdx = 0; trainerIdx < Math.Min(trainerFields.Length, trainerPokemonFields.Length); trainerIdx++)
             {
                 Trainer trainer = new();
                 trainer.trainerTypeID = trainerFields[trainerIdx].children[0].value.value.asInt32;
@@ -166,7 +167,7 @@ namespace BDSP_Randomizer
 
                 //Parse trainer pokemon
                 trainer.trainerPokemon = new();
-                AssetTypeValueField[] pokemonFields = monoBehaviour.children[6].children[0].children[trainerIdx].children;
+                AssetTypeValueField[] pokemonFields = trainerPokemonFields[trainerIdx].children;
                 for (int pokemonIdx = 1; pokemonIdx < pokemonFields.Length && pokemonFields[pokemonIdx].value.value.asUInt16 != 0; pokemonIdx += 26)
                 {
                     TrainerPokemon pokemon = new();

@@ -54,6 +54,7 @@ namespace BDSP_Randomizer
             public int exitLabel;
             public string connectionName;
 
+            //Readonly
             public int currentWarpIndex;
             public MapWarpAsset destination;
         }
@@ -457,7 +458,7 @@ namespace BDSP_Randomizer
             public List<ushort> eggMoves;
             public List<EvolutionPath> evolutionPaths;
 
-            //These are readonly, for easier randomizer logic
+            //Readonly
             public string name;
             public int formID;
             public (ushort, ushort) pastEvoLvs;
@@ -670,6 +671,7 @@ namespace BDSP_Randomizer
             public byte battleFunc;
             public uint flags0;
 
+            //Readonly
             public string name;
 
             public bool IsActive()
@@ -712,6 +714,7 @@ namespace BDSP_Randomizer
             public int machineNo;
             public int moveID;
 
+            //Readonly
             public int tmID;
             public string name;
 
@@ -767,6 +770,7 @@ namespace BDSP_Randomizer
             public uint flags;
             public uint contestWazaNo;
 
+            //Readonly
             public string name;
 
             public int GetID()
@@ -797,7 +801,16 @@ namespace BDSP_Randomizer
 
             public string GetName()
             {
-                return growthID.ToString();
+                return growthID switch
+                {
+                    0 => "Medium Fast",
+                    1 => "Erratic",
+                    2 => "Fluctuating",
+                    3 => "Medium Slow",
+                    4 => "Fast",
+                    5 => "Slow",
+                    _ => ""
+                };
             }
 
             public bool IsValid()

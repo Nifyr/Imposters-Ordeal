@@ -171,10 +171,11 @@ namespace BDSP_Randomizer
                     continue;
                 }
 
-                if (fileArchive[gamePath].fileSource == FileSource.Mod)
+                if (fileArchive[gamePath].fileSource == FileSource.Mod || fileArchive[gamePath].fileSource == FileSource.Randomizer)
                 {
                     BundleFileInstance bfi = am.LoadBundleFile(modFilePaths[fileIdx], false);
                     DecompressBundle(bfi);
+                    fileArchive[gamePath].fileSource = FileSource.Mod;
                     Merge(fileArchive[gamePath], bfi);
                     reanalysisNecessary = true;
                     continue;
@@ -269,7 +270,7 @@ namespace BDSP_Randomizer
         /// <summary>
         ///  Places a file relative to the mod root in accordance with its FileData.
         /// </summary>
-        private void ExportFile(FileData fd, string modRoot)
+        private static void ExportFile(FileData fd, string modRoot)
         {
             Directory.CreateDirectory(modRoot + "\\" + Path.GetDirectoryName(fd.gamePath));
             string newLocation = modRoot + "\\" + fd.gamePath;
@@ -367,7 +368,7 @@ namespace BDSP_Randomizer
             fd.tempLocation = true;
         }
 
-        private void DecompressBundle(BundleFileInstance bfi)
+        private static void DecompressBundle(BundleFileInstance bfi)
         {
             AssetBundleFile abf = bfi.file;
 
@@ -399,7 +400,7 @@ namespace BDSP_Randomizer
         /// <summary>
         ///  Gets the path of the AssetAssistant folder given a game directory.
         /// </summary>
-        private string GetAssetAssistantPath(string gameLocation)
+        private static string GetAssetAssistantPath(string gameLocation)
         {
             string correctPath = gameLocation + "\\romfs\\Data\\StreamingAssets\\AssetAssistant";
             if (Directory.Exists(correctPath))
