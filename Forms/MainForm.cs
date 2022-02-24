@@ -383,5 +383,12 @@ namespace BDSP_Randomizer
             pef.ShowDialog();
             GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.PersonalEntries);
         }
+
+        private void OpenMoveEditor(object sender, EventArgs e)
+        {
+            MoveEditorForm mef = new();
+            mef.ShowDialog();
+            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.Moves);
+        }
     }
 }

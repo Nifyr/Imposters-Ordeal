@@ -773,6 +773,21 @@ namespace BDSP_Randomizer
             //Readonly
             public string name;
 
+            public bool[] GetFlags()
+            {
+                bool[] flagArray = new bool[32];
+                for (int i = 0; i < 32; i++)
+                    flagArray[i] = (flags & ((uint)1 << i)) != 0;
+                return flagArray;
+            }
+
+            public void SetFlags(bool[] flagArray)
+            {
+                flags = 0;
+                for (int i = 0; i < 32; i++)
+                    flags |= flagArray[i] ? (uint)1 << i : 0;
+            }
+
             public int GetID()
             {
                 return moveID;

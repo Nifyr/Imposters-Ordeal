@@ -38,6 +38,7 @@ namespace BDSP_Randomizer
         public PokemonEditorForm()
         {
             InitializeComponent();
+
             dexEntries = gameData.dexEntries;
             pokemon = dexEntries.Select(m => m.GetName()).ToList();
             moves = gameData.moves.Select(m => m.GetName()).ToList();
@@ -47,7 +48,7 @@ namespace BDSP_Randomizer
             tms = gameData.tms.Where(t => t.IsValid()).Select(t => t.GetName() + " " + gameData.moves[t.moveID].GetName()).Take(128).ToList();
 
             dexIDComboBox.DataSource = dexEntries.Select(d => d.GetName()).ToArray();
-            dexIDComboBox.SelectedItem = 0;
+            dexIDComboBox.SelectedIndex = 0;
             formIDComboBox.DataSource = dexEntries[0].forms.Select((p, i) => i).ToArray();
             formIDComboBox.SelectedIndex = 0;
             p = dexEntries[0].forms[0];

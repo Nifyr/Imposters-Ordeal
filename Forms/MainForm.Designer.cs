@@ -2359,7 +2359,7 @@ namespace BDSP_Randomizer
             this.button24.TabIndex = 4;
             this.button24.Text = "Move Editor";
             this.button24.UseVisualStyleBackColor = true;
-            this.button24.Visible = false;
+            this.button24.Click += new System.EventHandler(this.OpenMoveEditor);
             // 
             // button25
             // 

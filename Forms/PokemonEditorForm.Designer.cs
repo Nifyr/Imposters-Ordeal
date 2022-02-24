@@ -1104,7 +1104,7 @@ namespace BDSP_Randomizer
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "PokemonEditorForm";
-            this.Text = "Pokemon Editor";
+            this.Text = "Pokémon Editor";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
