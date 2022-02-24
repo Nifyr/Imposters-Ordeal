@@ -49,11 +49,11 @@ namespace BDSP_Randomizer
             "Self and Allies",
             "Self Only",
             "Everyone",
-            "Self (Random)",
-            "Everyone (Field)",
-            "All Foes (Field)",
-            "Self and Allies (Field)",
-            "Self (Autotarget)"
+            "Self (random)",
+            "Everyone (field)",
+            "All Foes (field)",
+            "Self and Allies (field)",
+            "Self (autotarget)"
         };
 
         private string[] stats = new string[]
@@ -196,7 +196,7 @@ namespace BDSP_Randomizer
         private void CommitEdit(object sender, EventArgs e)
         {
             m.isValid = isValidCheckBox.Checked ? (byte)1 : (byte)0;
-            typingComboBox.SelectedIndex = m.typingID;
+            m.typingID = (byte)typingComboBox.SelectedIndex;
             m.damageCategoryID = (byte)damageCategoryComboBox.SelectedIndex;
             m.power = (byte)numericUpDown1.Value;
             m.hitPer = (byte)numericUpDown2.Value;
