@@ -93,24 +93,24 @@ namespace BDSP_Randomizer
             this.label21 = new System.Windows.Forms.Label();
             this.statTypeComboBox1 = new System.Windows.Forms.ComboBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
-            this.checkBox6 = new System.Windows.Forms.CheckBox();
-            this.checkBox7 = new System.Windows.Forms.CheckBox();
-            this.checkBox8 = new System.Windows.Forms.CheckBox();
-            this.checkBox9 = new System.Windows.Forms.CheckBox();
-            this.checkBox10 = new System.Windows.Forms.CheckBox();
-            this.checkBox11 = new System.Windows.Forms.CheckBox();
-            this.checkBox12 = new System.Windows.Forms.CheckBox();
-            this.checkBox13 = new System.Windows.Forms.CheckBox();
-            this.checkBox14 = new System.Windows.Forms.CheckBox();
-            this.checkBox15 = new System.Windows.Forms.CheckBox();
-            this.checkBox16 = new System.Windows.Forms.CheckBox();
-            this.checkBox17 = new System.Windows.Forms.CheckBox();
             this.checkBox18 = new System.Windows.Forms.CheckBox();
+            this.checkBox17 = new System.Windows.Forms.CheckBox();
+            this.checkBox16 = new System.Windows.Forms.CheckBox();
+            this.checkBox15 = new System.Windows.Forms.CheckBox();
+            this.checkBox14 = new System.Windows.Forms.CheckBox();
+            this.checkBox13 = new System.Windows.Forms.CheckBox();
+            this.checkBox12 = new System.Windows.Forms.CheckBox();
+            this.checkBox11 = new System.Windows.Forms.CheckBox();
+            this.checkBox10 = new System.Windows.Forms.CheckBox();
+            this.checkBox9 = new System.Windows.Forms.CheckBox();
+            this.checkBox8 = new System.Windows.Forms.CheckBox();
+            this.checkBox7 = new System.Windows.Forms.CheckBox();
+            this.checkBox6 = new System.Windows.Forms.CheckBox();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
@@ -146,7 +146,7 @@ namespace BDSP_Randomizer
             this.listBox.Location = new System.Drawing.Point(12, 45);
             this.listBox.Name = "listBox";
             this.listBox.Size = new System.Drawing.Size(189, 564);
-            this.listBox.TabIndex = 0;
+            this.listBox.TabIndex = 1;
             // 
             // moveDisplayTextBox
             // 
@@ -154,7 +154,7 @@ namespace BDSP_Randomizer
             this.moveDisplayTextBox.Name = "moveDisplayTextBox";
             this.moveDisplayTextBox.ReadOnly = true;
             this.moveDisplayTextBox.Size = new System.Drawing.Size(189, 27);
-            this.moveDisplayTextBox.TabIndex = 2;
+            this.moveDisplayTextBox.TabIndex = 0;
             // 
             // groupBox1
             // 
@@ -172,7 +172,7 @@ namespace BDSP_Randomizer
             this.groupBox1.Location = new System.Drawing.Point(207, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(189, 230);
-            this.groupBox1.TabIndex = 3;
+            this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Main";
             // 
@@ -195,7 +195,7 @@ namespace BDSP_Randomizer
             0});
             this.numericUpDown3.Name = "numericUpDown3";
             this.numericUpDown3.Size = new System.Drawing.Size(50, 27);
-            this.numericUpDown3.TabIndex = 10;
+            this.numericUpDown3.TabIndex = 5;
             // 
             // label4
             // 
@@ -216,7 +216,7 @@ namespace BDSP_Randomizer
             0});
             this.numericUpDown2.Name = "numericUpDown2";
             this.numericUpDown2.Size = new System.Drawing.Size(50, 27);
-            this.numericUpDown2.TabIndex = 8;
+            this.numericUpDown2.TabIndex = 4;
             // 
             // label3
             // 
@@ -237,7 +237,7 @@ namespace BDSP_Randomizer
             0});
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(50, 27);
-            this.numericUpDown1.TabIndex = 6;
+            this.numericUpDown1.TabIndex = 3;
             // 
             // label2
             // 
@@ -255,7 +255,7 @@ namespace BDSP_Randomizer
             this.damageCategoryComboBox.Location = new System.Drawing.Point(83, 90);
             this.damageCategoryComboBox.Name = "damageCategoryComboBox";
             this.damageCategoryComboBox.Size = new System.Drawing.Size(100, 28);
-            this.damageCategoryComboBox.TabIndex = 4;
+            this.damageCategoryComboBox.TabIndex = 2;
             // 
             // label1
             // 
@@ -549,7 +549,7 @@ namespace BDSP_Randomizer
             this.groupBox3.Location = new System.Drawing.Point(207, 248);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(189, 200);
-            this.groupBox3.TabIndex = 5;
+            this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Status Affliction";
             // 
@@ -572,7 +572,7 @@ namespace BDSP_Randomizer
             0});
             this.numericUpDown15.Name = "numericUpDown15";
             this.numericUpDown15.Size = new System.Drawing.Size(50, 27);
-            this.numericUpDown15.TabIndex = 29;
+            this.numericUpDown15.TabIndex = 4;
             // 
             // label17
             // 
@@ -593,7 +593,7 @@ namespace BDSP_Randomizer
             0});
             this.numericUpDown14.Name = "numericUpDown14";
             this.numericUpDown14.Size = new System.Drawing.Size(50, 27);
-            this.numericUpDown14.TabIndex = 27;
+            this.numericUpDown14.TabIndex = 3;
             // 
             // statusEffectComboBox
             // 
@@ -602,7 +602,7 @@ namespace BDSP_Randomizer
             this.statusEffectComboBox.Location = new System.Drawing.Point(83, 26);
             this.statusEffectComboBox.Name = "statusEffectComboBox";
             this.statusEffectComboBox.Size = new System.Drawing.Size(100, 28);
-            this.statusEffectComboBox.TabIndex = 26;
+            this.statusEffectComboBox.TabIndex = 0;
             // 
             // label16
             // 
@@ -623,7 +623,7 @@ namespace BDSP_Randomizer
             0});
             this.numericUpDown13.Name = "numericUpDown13";
             this.numericUpDown13.Size = new System.Drawing.Size(50, 27);
-            this.numericUpDown13.TabIndex = 24;
+            this.numericUpDown13.TabIndex = 2;
             // 
             // label15
             // 
@@ -644,7 +644,7 @@ namespace BDSP_Randomizer
             0});
             this.numericUpDown12.Name = "numericUpDown12";
             this.numericUpDown12.Size = new System.Drawing.Size(50, 27);
-            this.numericUpDown12.TabIndex = 22;
+            this.numericUpDown12.TabIndex = 1;
             // 
             // label14
             // 
@@ -675,7 +675,7 @@ namespace BDSP_Randomizer
             this.groupBox4.Location = new System.Drawing.Point(207, 454);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(384, 155);
-            this.groupBox4.TabIndex = 6;
+            this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Stat Changes";
             // 
@@ -708,7 +708,7 @@ namespace BDSP_Randomizer
             0});
             this.numericUpDown21.Name = "numericUpDown21";
             this.numericUpDown21.Size = new System.Drawing.Size(50, 27);
-            this.numericUpDown21.TabIndex = 38;
+            this.numericUpDown21.TabIndex = 8;
             // 
             // numericUpDown20
             // 
@@ -726,7 +726,7 @@ namespace BDSP_Randomizer
             -2147483648});
             this.numericUpDown20.Name = "numericUpDown20";
             this.numericUpDown20.Size = new System.Drawing.Size(50, 27);
-            this.numericUpDown20.TabIndex = 37;
+            this.numericUpDown20.TabIndex = 7;
             // 
             // numericUpDown19
             // 
@@ -739,7 +739,7 @@ namespace BDSP_Randomizer
             0});
             this.numericUpDown19.Name = "numericUpDown19";
             this.numericUpDown19.Size = new System.Drawing.Size(50, 27);
-            this.numericUpDown19.TabIndex = 36;
+            this.numericUpDown19.TabIndex = 5;
             // 
             // numericUpDown18
             // 
@@ -757,7 +757,7 @@ namespace BDSP_Randomizer
             -2147483648});
             this.numericUpDown18.Name = "numericUpDown18";
             this.numericUpDown18.Size = new System.Drawing.Size(50, 27);
-            this.numericUpDown18.TabIndex = 35;
+            this.numericUpDown18.TabIndex = 4;
             // 
             // numericUpDown17
             // 
@@ -770,7 +770,7 @@ namespace BDSP_Randomizer
             0});
             this.numericUpDown17.Name = "numericUpDown17";
             this.numericUpDown17.Size = new System.Drawing.Size(50, 27);
-            this.numericUpDown17.TabIndex = 34;
+            this.numericUpDown17.TabIndex = 2;
             // 
             // numericUpDown16
             // 
@@ -788,7 +788,7 @@ namespace BDSP_Randomizer
             -2147483648});
             this.numericUpDown16.Name = "numericUpDown16";
             this.numericUpDown16.Size = new System.Drawing.Size(50, 27);
-            this.numericUpDown16.TabIndex = 33;
+            this.numericUpDown16.TabIndex = 1;
             // 
             // label24
             // 
@@ -817,7 +817,7 @@ namespace BDSP_Randomizer
             this.statTypeComboBox3.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.statTypeComboBox3.Name = "statTypeComboBox3";
             this.statTypeComboBox3.Size = new System.Drawing.Size(100, 28);
-            this.statTypeComboBox3.TabIndex = 31;
+            this.statTypeComboBox3.TabIndex = 6;
             // 
             // label22
             // 
@@ -837,7 +837,7 @@ namespace BDSP_Randomizer
             this.statTypeComboBox2.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.statTypeComboBox2.Name = "statTypeComboBox2";
             this.statTypeComboBox2.Size = new System.Drawing.Size(100, 28);
-            this.statTypeComboBox2.TabIndex = 29;
+            this.statTypeComboBox2.TabIndex = 3;
             // 
             // label21
             // 
@@ -857,7 +857,7 @@ namespace BDSP_Randomizer
             this.statTypeComboBox1.Margin = new System.Windows.Forms.Padding(15, 3, 15, 3);
             this.statTypeComboBox1.Name = "statTypeComboBox1";
             this.statTypeComboBox1.Size = new System.Drawing.Size(100, 28);
-            this.statTypeComboBox1.TabIndex = 27;
+            this.statTypeComboBox1.TabIndex = 0;
             // 
             // groupBox5
             // 
@@ -882,185 +882,20 @@ namespace BDSP_Randomizer
             this.groupBox5.Location = new System.Drawing.Point(597, 12);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(189, 597);
-            this.groupBox5.TabIndex = 7;
+            this.groupBox5.TabIndex = 6;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Flags";
             // 
-            // checkBox1
+            // checkBox18
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(55, 26);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBox1.Size = new System.Drawing.Size(128, 24);
-            this.checkBox1.TabIndex = 1;
-            this.checkBox1.Text = "Makes Contact";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(51, 56);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBox2.Size = new System.Drawing.Size(132, 24);
-            this.checkBox2.TabIndex = 2;
-            this.checkBox2.Text = "Two Turn Move";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(29, 86);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBox3.Size = new System.Drawing.Size(154, 24);
-            this.checkBox3.TabIndex = 3;
-            this.checkBox3.Text = "Requires Recharge";
-            this.checkBox3.UseVisualStyleBackColor = true;
-            // 
-            // checkBox4
-            // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(44, 116);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBox4.Size = new System.Drawing.Size(139, 24);
-            this.checkBox4.TabIndex = 4;
-            this.checkBox4.Text = "Protect Effective";
-            this.checkBox4.UseVisualStyleBackColor = true;
-            // 
-            // checkBox5
-            // 
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(15, 146);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBox5.Size = new System.Drawing.Size(168, 24);
-            this.checkBox5.TabIndex = 5;
-            this.checkBox5.Text = "Magic Coat Effective";
-            this.checkBox5.UseVisualStyleBackColor = true;
-            // 
-            // checkBox6
-            // 
-            this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(47, 176);
-            this.checkBox6.Name = "checkBox6";
-            this.checkBox6.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBox6.Size = new System.Drawing.Size(136, 24);
-            this.checkBox6.TabIndex = 6;
-            this.checkBox6.Text = "Snatch Effective";
-            this.checkBox6.UseVisualStyleBackColor = true;
-            // 
-            // checkBox7
-            // 
-            this.checkBox7.AutoSize = true;
-            this.checkBox7.Location = new System.Drawing.Point(9, 206);
-            this.checkBox7.Name = "checkBox7";
-            this.checkBox7.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBox7.Size = new System.Drawing.Size(174, 24);
-            this.checkBox7.TabIndex = 8;
-            this.checkBox7.Text = "Mirror Move Effective";
-            this.checkBox7.UseVisualStyleBackColor = true;
-            // 
-            // checkBox8
-            // 
-            this.checkBox8.AutoSize = true;
-            this.checkBox8.Location = new System.Drawing.Point(72, 236);
-            this.checkBox8.Name = "checkBox8";
-            this.checkBox8.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBox8.Size = new System.Drawing.Size(111, 24);
-            this.checkBox8.TabIndex = 9;
-            this.checkBox8.Text = "Punch Move";
-            this.checkBox8.UseVisualStyleBackColor = true;
-            // 
-            // checkBox9
-            // 
-            this.checkBox9.AutoSize = true;
-            this.checkBox9.Location = new System.Drawing.Point(69, 266);
-            this.checkBox9.Name = "checkBox9";
-            this.checkBox9.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBox9.Size = new System.Drawing.Size(114, 24);
-            this.checkBox9.TabIndex = 10;
-            this.checkBox9.Text = "Sound Move";
-            this.checkBox9.UseVisualStyleBackColor = true;
-            // 
-            // checkBox10
-            // 
-            this.checkBox10.AutoSize = true;
-            this.checkBox10.Location = new System.Drawing.Point(45, 296);
-            this.checkBox10.Name = "checkBox10";
-            this.checkBox10.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBox10.Size = new System.Drawing.Size(138, 24);
-            this.checkBox10.TabIndex = 11;
-            this.checkBox10.Text = "Gravity Effective";
-            this.checkBox10.UseVisualStyleBackColor = true;
-            // 
-            // checkBox11
-            // 
-            this.checkBox11.AutoSize = true;
-            this.checkBox11.Location = new System.Drawing.Point(12, 326);
-            this.checkBox11.Name = "checkBox11";
-            this.checkBox11.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBox11.Size = new System.Drawing.Size(171, 24);
-            this.checkBox11.TabIndex = 12;
-            this.checkBox11.Text = "Thaws Frozen Targets";
-            this.checkBox11.UseVisualStyleBackColor = true;
-            // 
-            // checkBox12
-            // 
-            this.checkBox12.AutoSize = true;
-            this.checkBox12.Location = new System.Drawing.Point(41, 356);
-            this.checkBox12.Name = "checkBox12";
-            this.checkBox12.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBox12.Size = new System.Drawing.Size(142, 24);
-            this.checkBox12.TabIndex = 13;
-            this.checkBox12.Text = "Unlimited Range";
-            this.checkBox12.UseVisualStyleBackColor = true;
-            // 
-            // checkBox13
-            // 
-            this.checkBox13.AutoSize = true;
-            this.checkBox13.Location = new System.Drawing.Point(20, 386);
-            this.checkBox13.Name = "checkBox13";
-            this.checkBox13.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBox13.Size = new System.Drawing.Size(163, 24);
-            this.checkBox13.TabIndex = 14;
-            this.checkBox13.Text = "Heal Block Effective";
-            this.checkBox13.UseVisualStyleBackColor = true;
-            // 
-            // checkBox14
-            // 
-            this.checkBox14.AutoSize = true;
-            this.checkBox14.Location = new System.Drawing.Point(33, 416);
-            this.checkBox14.Name = "checkBox14";
-            this.checkBox14.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBox14.Size = new System.Drawing.Size(150, 24);
-            this.checkBox14.TabIndex = 12;
-            this.checkBox14.Text = "Ignores Substitute";
-            this.checkBox14.UseVisualStyleBackColor = true;
-            // 
-            // checkBox15
-            // 
-            this.checkBox15.AutoSize = true;
-            this.checkBox15.Location = new System.Drawing.Point(39, 446);
-            this.checkBox15.Name = "checkBox15";
-            this.checkBox15.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBox15.Size = new System.Drawing.Size(144, 24);
-            this.checkBox15.TabIndex = 15;
-            this.checkBox15.Text = "Fails in Sky Battle";
-            this.checkBox15.UseVisualStyleBackColor = true;
-            // 
-            // checkBox16
-            // 
-            this.checkBox16.AutoSize = true;
-            this.checkBox16.Location = new System.Drawing.Point(25, 476);
-            this.checkBox16.Name = "checkBox16";
-            this.checkBox16.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBox16.Size = new System.Drawing.Size(158, 24);
-            this.checkBox16.TabIndex = 16;
-            this.checkBox16.Text = "EFFECT_TO_FRIEND";
-            this.checkBox16.UseVisualStyleBackColor = true;
+            this.checkBox18.AutoSize = true;
+            this.checkBox18.Location = new System.Drawing.Point(37, 536);
+            this.checkBox18.Name = "checkBox18";
+            this.checkBox18.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBox18.Size = new System.Drawing.Size(146, 24);
+            this.checkBox18.TabIndex = 18;
+            this.checkBox18.Text = "Metronome Valid";
+            this.checkBox18.UseVisualStyleBackColor = true;
             // 
             // checkBox17
             // 
@@ -1073,16 +908,181 @@ namespace BDSP_Randomizer
             this.checkBox17.Text = "Dance Move";
             this.checkBox17.UseVisualStyleBackColor = true;
             // 
-            // checkBox18
+            // checkBox16
             // 
-            this.checkBox18.AutoSize = true;
-            this.checkBox18.Location = new System.Drawing.Point(37, 536);
-            this.checkBox18.Name = "checkBox18";
-            this.checkBox18.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBox18.Size = new System.Drawing.Size(146, 24);
-            this.checkBox18.TabIndex = 18;
-            this.checkBox18.Text = "Metronome Valid";
-            this.checkBox18.UseVisualStyleBackColor = true;
+            this.checkBox16.AutoSize = true;
+            this.checkBox16.Location = new System.Drawing.Point(25, 476);
+            this.checkBox16.Name = "checkBox16";
+            this.checkBox16.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBox16.Size = new System.Drawing.Size(158, 24);
+            this.checkBox16.TabIndex = 16;
+            this.checkBox16.Text = "EFFECT_TO_FRIEND";
+            this.checkBox16.UseVisualStyleBackColor = true;
+            // 
+            // checkBox15
+            // 
+            this.checkBox15.AutoSize = true;
+            this.checkBox15.Location = new System.Drawing.Point(39, 446);
+            this.checkBox15.Name = "checkBox15";
+            this.checkBox15.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBox15.Size = new System.Drawing.Size(144, 24);
+            this.checkBox15.TabIndex = 15;
+            this.checkBox15.Text = "Fails in Sky Battle";
+            this.checkBox15.UseVisualStyleBackColor = true;
+            // 
+            // checkBox14
+            // 
+            this.checkBox14.AutoSize = true;
+            this.checkBox14.Location = new System.Drawing.Point(33, 416);
+            this.checkBox14.Name = "checkBox14";
+            this.checkBox14.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBox14.Size = new System.Drawing.Size(150, 24);
+            this.checkBox14.TabIndex = 12;
+            this.checkBox14.Text = "Ignores Substitute";
+            this.checkBox14.UseVisualStyleBackColor = true;
+            // 
+            // checkBox13
+            // 
+            this.checkBox13.AutoSize = true;
+            this.checkBox13.Location = new System.Drawing.Point(20, 386);
+            this.checkBox13.Name = "checkBox13";
+            this.checkBox13.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBox13.Size = new System.Drawing.Size(163, 24);
+            this.checkBox13.TabIndex = 14;
+            this.checkBox13.Text = "Heal Block Effective";
+            this.checkBox13.UseVisualStyleBackColor = true;
+            // 
+            // checkBox12
+            // 
+            this.checkBox12.AutoSize = true;
+            this.checkBox12.Location = new System.Drawing.Point(41, 356);
+            this.checkBox12.Name = "checkBox12";
+            this.checkBox12.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBox12.Size = new System.Drawing.Size(142, 24);
+            this.checkBox12.TabIndex = 13;
+            this.checkBox12.Text = "Unlimited Range";
+            this.checkBox12.UseVisualStyleBackColor = true;
+            // 
+            // checkBox11
+            // 
+            this.checkBox11.AutoSize = true;
+            this.checkBox11.Location = new System.Drawing.Point(12, 326);
+            this.checkBox11.Name = "checkBox11";
+            this.checkBox11.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBox11.Size = new System.Drawing.Size(171, 24);
+            this.checkBox11.TabIndex = 12;
+            this.checkBox11.Text = "Thaws Frozen Targets";
+            this.checkBox11.UseVisualStyleBackColor = true;
+            // 
+            // checkBox10
+            // 
+            this.checkBox10.AutoSize = true;
+            this.checkBox10.Location = new System.Drawing.Point(45, 296);
+            this.checkBox10.Name = "checkBox10";
+            this.checkBox10.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBox10.Size = new System.Drawing.Size(138, 24);
+            this.checkBox10.TabIndex = 11;
+            this.checkBox10.Text = "Gravity Effective";
+            this.checkBox10.UseVisualStyleBackColor = true;
+            // 
+            // checkBox9
+            // 
+            this.checkBox9.AutoSize = true;
+            this.checkBox9.Location = new System.Drawing.Point(69, 266);
+            this.checkBox9.Name = "checkBox9";
+            this.checkBox9.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBox9.Size = new System.Drawing.Size(114, 24);
+            this.checkBox9.TabIndex = 10;
+            this.checkBox9.Text = "Sound Move";
+            this.checkBox9.UseVisualStyleBackColor = true;
+            // 
+            // checkBox8
+            // 
+            this.checkBox8.AutoSize = true;
+            this.checkBox8.Location = new System.Drawing.Point(72, 236);
+            this.checkBox8.Name = "checkBox8";
+            this.checkBox8.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBox8.Size = new System.Drawing.Size(111, 24);
+            this.checkBox8.TabIndex = 9;
+            this.checkBox8.Text = "Punch Move";
+            this.checkBox8.UseVisualStyleBackColor = true;
+            // 
+            // checkBox7
+            // 
+            this.checkBox7.AutoSize = true;
+            this.checkBox7.Location = new System.Drawing.Point(9, 206);
+            this.checkBox7.Name = "checkBox7";
+            this.checkBox7.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBox7.Size = new System.Drawing.Size(174, 24);
+            this.checkBox7.TabIndex = 8;
+            this.checkBox7.Text = "Mirror Move Effective";
+            this.checkBox7.UseVisualStyleBackColor = true;
+            // 
+            // checkBox6
+            // 
+            this.checkBox6.AutoSize = true;
+            this.checkBox6.Location = new System.Drawing.Point(47, 176);
+            this.checkBox6.Name = "checkBox6";
+            this.checkBox6.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBox6.Size = new System.Drawing.Size(136, 24);
+            this.checkBox6.TabIndex = 6;
+            this.checkBox6.Text = "Snatch Effective";
+            this.checkBox6.UseVisualStyleBackColor = true;
+            // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.Location = new System.Drawing.Point(15, 146);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBox5.Size = new System.Drawing.Size(168, 24);
+            this.checkBox5.TabIndex = 5;
+            this.checkBox5.Text = "Magic Coat Effective";
+            this.checkBox5.UseVisualStyleBackColor = true;
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Location = new System.Drawing.Point(44, 116);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBox4.Size = new System.Drawing.Size(139, 24);
+            this.checkBox4.TabIndex = 4;
+            this.checkBox4.Text = "Protect Effective";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(29, 86);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBox3.Size = new System.Drawing.Size(154, 24);
+            this.checkBox3.TabIndex = 3;
+            this.checkBox3.Text = "Requires Recharge";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(51, 56);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBox2.Size = new System.Drawing.Size(132, 24);
+            this.checkBox2.TabIndex = 2;
+            this.checkBox2.Text = "Two Turn Move";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(55, 26);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBox1.Size = new System.Drawing.Size(128, 24);
+            this.checkBox1.TabIndex = 1;
+            this.checkBox1.Text = "Makes Contact";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // MoveEditorForm
             // 
