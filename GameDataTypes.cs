@@ -770,6 +770,15 @@ namespace BDSP_Randomizer
             public uint flags;
             public uint contestWazaNo;
 
+            public string cmdSeqName;
+            public string cmdSeqNameLegend;
+            public string notShortenTurnType0;
+            public string notShortenTurnType1;
+            public string turnType1;
+            public string turnType2;
+            public string turnType3;
+            public string turnType4;
+
             //Readonly
             public string name;
 

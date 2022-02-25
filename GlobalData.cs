@@ -121,7 +121,8 @@ namespace BDSP_Randomizer
             Spanish,
             TradChinese,
             PersonalMasterdatas,
-            Ugdata
+            Ugdata,
+            BattleMasterdatas
         }
 
         public enum LanguageNames
@@ -857,6 +858,7 @@ namespace BDSP_Randomizer
             randomizerPaths[PathEnum.TradChinese] = "romfs\\Data\\StreamingAssets\\AssetAssistant\\Message\\trad_chinese";
             randomizerPaths[PathEnum.PersonalMasterdatas] = "romfs\\Data\\StreamingAssets\\AssetAssistant\\Pml\\personal_masterdatas";
             randomizerPaths[PathEnum.Ugdata] = "romfs\\Data\\StreamingAssets\\AssetAssistant\\UnderGround\\data\\ugdata";
+            randomizerPaths[PathEnum.BattleMasterdatas] = "romfs\\Data\\StreamingAssets\\AssetAssistant\\Battle\\battle_masterdatas";
             DataColumn[] columns = { new DataColumn("Value", typeof(string)), new DataColumn("Minimum", typeof(int)), new DataColumn("Maximum", typeof(int)), new DataColumn("Increment", typeof(int)) };
             absoluteBoundaries.Columns.AddRange(columns);
             columns[0].ReadOnly = true;

@@ -46,6 +46,7 @@ namespace BDSP_Randomizer
             this.isValidCheckBox = new System.Windows.Forms.CheckBox();
             this.moveCategoryComboBox = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.openAnimationEditorButton = new System.Windows.Forms.Button();
             this.label20 = new System.Windows.Forms.Label();
             this.targetingComboBox = new System.Windows.Forms.ComboBox();
             this.label19 = new System.Windows.Forms.Label();
@@ -297,6 +298,7 @@ namespace BDSP_Randomizer
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.openAnimationEditorButton);
             this.groupBox2.Controls.Add(this.label20);
             this.groupBox2.Controls.Add(this.targetingComboBox);
             this.groupBox2.Controls.Add(this.label19);
@@ -323,6 +325,16 @@ namespace BDSP_Randomizer
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Misc";
+            // 
+            // openAnimationEditorButton
+            // 
+            this.openAnimationEditorButton.Location = new System.Drawing.Point(6, 398);
+            this.openAnimationEditorButton.Name = "openAnimationEditorButton";
+            this.openAnimationEditorButton.Size = new System.Drawing.Size(177, 29);
+            this.openAnimationEditorButton.TabIndex = 7;
+            this.openAnimationEditorButton.Text = "Animations";
+            this.openAnimationEditorButton.UseVisualStyleBackColor = true;
+            this.openAnimationEditorButton.Click += new System.EventHandler(this.OpenAnimationEditor);
             // 
             // label20
             // 
@@ -1221,5 +1233,6 @@ namespace BDSP_Randomizer
         private System.Windows.Forms.CheckBox checkBox10;
         private System.Windows.Forms.CheckBox checkBox9;
         private System.Windows.Forms.CheckBox checkBox8;
+        private System.Windows.Forms.Button openAnimationEditorButton;
     }
 }

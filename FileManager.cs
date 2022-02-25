@@ -31,9 +31,11 @@ namespace BDSP_Randomizer
             "\\Message\\spanish",
             "\\Message\\trad_chinese",
             "\\Pml\\personal_masterdatas",
-            "\\UnderGround\\data\\ugdata"
+            "\\UnderGround\\data\\ugdata",
+            "\\Battle\\battle_masterdatas"
         };
 
+        private string assetAssistantPath;
         private Dictionary<string, FileData> fileArchive;
         private AssetsManager am = new();
         private int fileIndex = 0;
@@ -80,7 +82,7 @@ namespace BDSP_Randomizer
             }
 
             //Get the AssetAssistant path
-            string assetAssistantPath = GetAssetAssistantPath(fbd.SelectedPath);
+            assetAssistantPath = GetAssetAssistantPath(fbd.SelectedPath);
             if (assetAssistantPath == "")
             {
                 MessageBox.Show("Path does not contain path:\n\\romfs\\Data\\StreamingAssets\\AssetAssistant",
@@ -265,6 +267,14 @@ namespace BDSP_Randomizer
             }
             MakeTempBundle(fd, ars, Environment.CurrentDirectory + "\\" + Path.GetFileName(fd.gamePath) + GetFileIndex());
             fd.fileSource = FileSource.Randomizer;
+        }
+
+        /// <summary>
+        ///  Returns an array containing the filenames of all move command sequences.
+        /// </summary>
+        public string[] GetMoveSequences()
+        {
+            return Directory.GetFiles(assetAssistantPath + "\\Battle\\btlv\\waza\\sequence", "*", SearchOption.TopDirectoryOnly).Select(s => Path.GetFileName(s)).ToArray();
         }
 
         /// <summary>

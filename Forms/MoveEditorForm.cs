@@ -16,6 +16,7 @@ namespace BDSP_Randomizer
     {
         private List<Move> moves;
         private Dictionary<int, string> statusEffects;
+        private List<string> moveSequences;
         private List<string> typings;
         private List<string> damageCategoies;
         private Move m;
@@ -371,6 +372,18 @@ namespace BDSP_Randomizer
             while (output.Length < digits)
                 output = '0' + output;
             return output;
+        }
+
+        private void OpenAnimationEditor(object sender, EventArgs e)
+        {
+            if (moveSequences == null)
+            {
+                moveSequences = new();
+                moveSequences.Add("");
+                moveSequences.AddRange(fileManager.GetMoveSequences());
+            }
+            MoveAnimationEditorForm maef = new(m, moveSequences);
+            maef.ShowDialog();
         }
     }
 }

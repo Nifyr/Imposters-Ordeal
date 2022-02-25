@@ -657,9 +657,11 @@ namespace BDSP_Randomizer
         {
             gameData.moves = new();
             AssetTypeValueField monoBehaviour = fileManager.GetMonoBehaviours(PathEnum.PersonalMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "WazaTable");
+            AssetTypeValueField animationData = fileManager.GetMonoBehaviours(PathEnum.BattleMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "BattleDataTable");
             AssetTypeValueField textData = fileManager.GetMonoBehaviours(PathEnum.English).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_ss_wazaname");
 
             AssetTypeValueField[] moveFields = monoBehaviour.children[4].children[0].children;
+            AssetTypeValueField[] animationFields = animationData.children[8].children[0].children;
             AssetTypeValueField[] textFields = textData.children[8].children[0].children;
             for (int moveID = 0; moveID < moveFields.Length; moveID++)
             {
@@ -697,6 +699,15 @@ namespace BDSP_Randomizer
                 move.rankEffPer3 = moveFields[moveID].children[30].value.value.asUInt8;
                 move.flags = moveFields[moveID].children[31].value.value.asUInt32;
                 move.contestWazaNo = moveFields[moveID].children[32].value.value.asUInt32;
+
+                move.cmdSeqName = animationFields[moveID].children[1].GetValue().AsString();
+                move.cmdSeqNameLegend = animationFields[moveID].children[2].GetValue().AsString();
+                move.notShortenTurnType0 = animationFields[moveID].children[3].GetValue().AsString();
+                move.notShortenTurnType1 = animationFields[moveID].children[4].GetValue().AsString();
+                move.turnType1 = animationFields[moveID].children[5].GetValue().AsString();
+                move.turnType2 = animationFields[moveID].children[6].GetValue().AsString();
+                move.turnType3 = animationFields[moveID].children[7].GetValue().AsString();
+                move.turnType4 = animationFields[moveID].children[8].GetValue().AsString();
 
                 move.name = "";
                 if (textFields[moveID].children[6].children[0].childrenCount > 0)
@@ -1152,9 +1163,11 @@ namespace BDSP_Randomizer
         private static void CommitMoves()
         {
             AssetTypeValueField monoBehaviour = fileManager.GetMonoBehaviours(PathEnum.PersonalMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "WazaTable");
+            AssetTypeValueField animationData = fileManager.GetMonoBehaviours(PathEnum.BattleMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "BattleDataTable");
             AssetTypeValueField textData = fileManager.GetMonoBehaviours(PathEnum.English).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_ss_wazaname");
 
             AssetTypeValueField[] moveFields = monoBehaviour.children[4].children[0].children;
+            AssetTypeValueField[] animationFields = animationData.children[8].children[0].children;
             AssetTypeValueField[] textFields = textData.children[8].children[0].children;
             for (int moveID = 0; moveID < moveFields.Length; moveID++)
             {
@@ -1192,9 +1205,18 @@ namespace BDSP_Randomizer
                 moveFields[moveID].children[30].GetValue().Set(move.rankEffPer3);
                 moveFields[moveID].children[31].GetValue().Set(move.flags);
                 moveFields[moveID].children[32].GetValue().Set(move.contestWazaNo);
+                animationFields[moveID].children[1].GetValue().Set(move.cmdSeqName);
+                animationFields[moveID].children[2].GetValue().Set(move.cmdSeqNameLegend);
+                animationFields[moveID].children[3].GetValue().Set(move.notShortenTurnType0);
+                animationFields[moveID].children[4].GetValue().Set(move.notShortenTurnType1);
+                animationFields[moveID].children[5].GetValue().Set(move.turnType1);
+                animationFields[moveID].children[6].GetValue().Set(move.turnType2);
+                animationFields[moveID].children[7].GetValue().Set(move.turnType3);
+                animationFields[moveID].children[8].GetValue().Set(move.turnType4);
             }
 
             fileManager.WriteMonoBehaviour(PathEnum.PersonalMasterdatas, monoBehaviour);
+            fileManager.WriteMonoBehaviour(PathEnum.BattleMasterdatas, animationData);
         }
 
         /// <summary>
