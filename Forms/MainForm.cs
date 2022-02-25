@@ -372,7 +372,7 @@ namespace BDSP_Randomizer
                 "And that should be it! Your very own mod has\n" +
                 "been created! I'll see myself out now.\n" +
                 "Oh, and if you wonder where it is, I placed it right\n" +
-                "alongside my executable, \"Randomizer Output\".",
+                "alongside my executable, \"" + FileManager.outputModName + "\".",
                   "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Close();
         }

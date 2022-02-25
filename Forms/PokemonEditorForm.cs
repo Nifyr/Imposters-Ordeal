@@ -20,7 +20,7 @@ namespace BDSP_Randomizer
         public List<string> typings;
         public List<string> items;
         public List<string> abilities;
-        public List<string> tms;
+        public Dictionary<int, string> tms;
         public Pokemon p;
 
         public readonly string[] colors = new string[]
@@ -45,7 +45,10 @@ namespace BDSP_Randomizer
             typings = gameData.typings.Select(t => t.GetName()).ToList();
             items = gameData.items.Select(i => i.GetName()).ToList();
             abilities = gameData.abilities.Select(a => a.GetName()).ToList();
-            tms = gameData.tms.Where(t => t.IsValid()).Select(t => t.GetName() + " " + gameData.moves[t.moveID].GetName()).Take(128).ToList();
+            tms = new();
+            for (int tmID = 0; tmID < gameData.tms.Count; tmID++)
+                if (gameData.tms[tmID].IsValid() && !tms.ContainsKey(gameData.items[gameData.tms[tmID].itemID].groupID - 1))
+                    tms[gameData.items[gameData.tms[tmID].itemID].groupID - 1] = gameData.tms[tmID].GetName() + " " + gameData.moves[gameData.tms[tmID].moveID].GetName();
 
             dexIDComboBox.DataSource = dexEntries.Select(d => d.GetName()).ToArray();
             dexIDComboBox.SelectedIndex = 0;
@@ -70,7 +73,7 @@ namespace BDSP_Randomizer
             growthComboBox.DataSource = gameData.growthRates.Select(g => g.GetName()).ToArray();
 
             tmCompatibilityCheckedListBox.Items.Clear();
-            tmCompatibilityCheckedListBox.Items.AddRange(tms.ToArray());
+            tmCompatibilityCheckedListBox.Items.AddRange(tms.Values.ToArray());
 
             levelUpMoveColumn.DataSource = moves.ToArray();
             levelColumn.ValueType = typeof(ushort);
@@ -149,8 +152,8 @@ namespace BDSP_Randomizer
             numericUpDown21.Value = p.weight;
 
             bool[] tmCompatibility = p.GetTMCompatibility();
-            for (int tmID = 0; tmID < tmCompatibilityCheckedListBox.Items.Count; tmID++)
-                tmCompatibilityCheckedListBox.SetItemChecked(tmID, tmCompatibility[tmID]);
+            for (int i = 0; i < tmCompatibilityCheckedListBox.Items.Count; i++)
+                tmCompatibilityCheckedListBox.SetItemChecked(i, tmCompatibility[tms.Keys.ToArray()[i]]);
 
             levelUpMoveDataGridView.Rows.Clear();
             for (int i = 0; i < p.levelUpMoves.Count; i++)
@@ -207,8 +210,8 @@ namespace BDSP_Randomizer
             p.weight = (byte)numericUpDown21.Value;
 
             bool[] tmCompatibility = new bool[128];
-            for (int tmID = 0; tmID < tmCompatibilityCheckedListBox.Items.Count; tmID++)
-                tmCompatibility[tmID] = tmCompatibilityCheckedListBox.GetItemChecked(tmID);
+            for (int i = 0; i < tmCompatibilityCheckedListBox.Items.Count; i++)
+                tmCompatibility[tms.Keys.ToArray()[i]] = tmCompatibilityCheckedListBox.GetItemChecked(i);
             p.SetTMCompatibility(tmCompatibility);
 
             List<LevelUpMove> levelUpMoves = new();

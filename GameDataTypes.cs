@@ -664,11 +664,37 @@ namespace BDSP_Randomizer
         {
             public short itemID;
             public byte type;
+            public int iconID;
             public int price;
             public int bpPrice;
+            public byte nageAtc;
+            public byte sizenAtc;
+            public byte sizenType;
+            public byte tuibamuEff;
+            public byte sort;
+            public byte group;
+            public byte groupID;
             public byte fldPocket;
             public byte fieldFunc;
             public byte battleFunc;
+            public byte criticalRanks;
+            public byte atkStages;
+            public byte defStages;
+            public byte spdStages;
+            public byte accStages;
+            public byte spAtkStages;
+            public byte spDefStages;
+            public byte ppRestoreAmount;
+            public sbyte hpEvIncrease;
+            public sbyte atkEvIncrease;
+            public sbyte defEvIncrease;
+            public sbyte spdEvIncrease;
+            public sbyte spAtkEvIncrease;
+            public sbyte spDefEvIncrease;
+            public sbyte friendshipIncrease1; //0-99
+            public sbyte friendshipIncrease2; //100-199
+            public sbyte friendshipIncrease3; //200-255
+            public byte hpRestoreAmount;
             public uint flags0;
 
             //Readonly
@@ -685,6 +711,13 @@ namespace BDSP_Randomizer
                 for (int i = 0; i < 32; i++)
                     flags[i] = (flags0 & ((uint)1 << i)) != 0;
                 return flags;
+            }
+
+            public void SetFlags(bool[] flagArray)
+            {
+                flags0 = 0;
+                for (int i = 0; i < 32; i++)
+                    flags0 |= flagArray[i] ? (uint)1 << i : 0;
             }
 
             public bool IsPurchasable()
@@ -705,6 +738,7 @@ namespace BDSP_Randomizer
             public bool IsValid()
             {
                 return IsPurchasable();
+                //Not completely accurate, but randomization is easier this way.
             }
         }
 
@@ -730,7 +764,10 @@ namespace BDSP_Randomizer
 
             public bool IsValid()
             {
-                return GlobalData.gameData.items[itemID].IsValid() && GlobalData.gameData.moves[moveID].IsValid();
+                return GlobalData.gameData.items[itemID].IsActive() &&
+                    GlobalData.gameData.items[itemID].group == 4 &&
+                    GlobalData.gameData.items[itemID].groupID - 1 == tmID &&
+                    tmID < 128;
             }
         }
 

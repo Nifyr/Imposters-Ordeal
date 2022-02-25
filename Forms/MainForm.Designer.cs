@@ -235,6 +235,7 @@ namespace BDSP_Randomizer
             this.button29 = new System.Windows.Forms.Button();
             this.button30 = new System.Windows.Forms.Button();
             this.groupBox32 = new System.Windows.Forms.GroupBox();
+            this.button32 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -2423,6 +2424,7 @@ namespace BDSP_Randomizer
             // 
             // groupBox32
             // 
+            this.groupBox32.Controls.Add(this.button32);
             this.groupBox32.Controls.Add(this.button23);
             this.groupBox32.Controls.Add(this.button30);
             this.groupBox32.Controls.Add(this.button24);
@@ -2433,10 +2435,20 @@ namespace BDSP_Randomizer
             this.groupBox32.Controls.Add(this.button27);
             this.groupBox32.Location = new System.Drawing.Point(12, 158);
             this.groupBox32.Name = "groupBox32";
-            this.groupBox32.Size = new System.Drawing.Size(185, 320);
+            this.groupBox32.Size = new System.Drawing.Size(185, 350);
             this.groupBox32.TabIndex = 5;
             this.groupBox32.TabStop = false;
             this.groupBox32.Text = "Editors";
+            // 
+            // button32
+            // 
+            this.button32.Location = new System.Drawing.Point(6, 306);
+            this.button32.Name = "button32";
+            this.button32.Size = new System.Drawing.Size(173, 29);
+            this.button32.TabIndex = 11;
+            this.button32.Text = "Text Editor";
+            this.button32.UseVisualStyleBackColor = true;
+            this.button32.Visible = false;
             // 
             // MainForm
             // 
@@ -2450,7 +2462,7 @@ namespace BDSP_Randomizer
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "MainForm";
-            this.Text = "Imposter\'s Ordeal BDSP Randomizer";
+            this.Text = "Imposter\'s Ordeal";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -2770,5 +2782,6 @@ namespace BDSP_Randomizer
         public System.Windows.Forms.Button button29;
         public System.Windows.Forms.Button button30;
         private System.Windows.Forms.GroupBox groupBox32;
+        public System.Windows.Forms.Button button32;
     }
 }

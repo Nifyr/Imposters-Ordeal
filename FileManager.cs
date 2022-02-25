@@ -13,8 +13,8 @@ namespace BDSP_Randomizer
     /// </summary>
     public class FileManager
     {
-        private readonly string randomizerModName = "Randomizer Output";
-        public static readonly string[] assetAssistantRandomizerFiles = new string[]
+        public static readonly string outputModName = "Output";
+        public static readonly string[] assetAssistantRelevantFiles = new string[]
         {
             "\\Dpr\\ev_script",
             "\\Dpr\\masterdatas",
@@ -59,7 +59,7 @@ namespace BDSP_Randomizer
             Dump,
             Mod,
             UnrelatedMod,
-            Randomizer
+            This
         }
 
         /// <summary>
@@ -92,10 +92,10 @@ namespace BDSP_Randomizer
 
             //Setup fileArchive
             fileArchive = new();
-            for (int i = 0; i < assetAssistantRandomizerFiles.Length; i++)
+            for (int i = 0; i < assetAssistantRelevantFiles.Length; i++)
             {
-                string absolutePath = assetAssistantPath + assetAssistantRandomizerFiles[i];
-                string gamePath = "romfs\\Data\\StreamingAssets\\AssetAssistant" + assetAssistantRandomizerFiles[i];
+                string absolutePath = assetAssistantPath + assetAssistantRelevantFiles[i];
+                string gamePath = "romfs\\Data\\StreamingAssets\\AssetAssistant" + assetAssistantRelevantFiles[i];
                 if (!File.Exists(absolutePath))
                 {
                     MessageBox.Show("File not found:\n" + gamePath + "\nIncomplete dump.",
@@ -173,7 +173,7 @@ namespace BDSP_Randomizer
                     continue;
                 }
 
-                if (fileArchive[gamePath].fileSource == FileSource.Mod || fileArchive[gamePath].fileSource == FileSource.Randomizer)
+                if (fileArchive[gamePath].fileSource == FileSource.Mod || fileArchive[gamePath].fileSource == FileSource.This)
                 {
                     BundleFileInstance bfi = am.LoadBundleFile(modFilePaths[fileIdx], false);
                     DecompressBundle(bfi);
@@ -219,7 +219,7 @@ namespace BDSP_Randomizer
         /// </summary>
         public void ExportMod()
         {
-            string outputDirectory = Environment.CurrentDirectory + "\\" + randomizerModName;
+            string outputDirectory = Environment.CurrentDirectory + "\\" + outputModName;
             if (Directory.Exists(outputDirectory))
                 Directory.Delete(outputDirectory, true);
             Directory.CreateDirectory(outputDirectory);
@@ -266,7 +266,7 @@ namespace BDSP_Randomizer
                 ars.Add(arfm);
             }
             MakeTempBundle(fd, ars, Environment.CurrentDirectory + "\\" + Path.GetFileName(fd.gamePath) + GetFileIndex());
-            fd.fileSource = FileSource.Randomizer;
+            fd.fileSource = FileSource.This;
         }
 
         /// <summary>
