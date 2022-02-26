@@ -15,7 +15,7 @@ namespace ImpostersOrdeal
     public partial class MoveEditorForm : Form
     {
         private List<Move> moves;
-        private Dictionary<int, string> statusEffects;
+        private Dictionary<int, string> statusEffects = new();
         private List<string> moveSequences;
         private List<string> typings;
         private List<string> damageCategoies;
@@ -72,7 +72,6 @@ namespace ImpostersOrdeal
 
         public MoveEditorForm()
         {
-            statusEffects = new();
             statusEffects[0] = "None";
             statusEffects[1] = "Paralysis";
             statusEffects[2] = "Sleep";

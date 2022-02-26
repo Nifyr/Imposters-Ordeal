@@ -390,5 +390,12 @@ namespace ImpostersOrdeal
             mef.ShowDialog();
             GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.Moves);
         }
+
+        private void OpenTMEditor(object sender, EventArgs e)
+        {
+            TMEditorForm tmef = new();
+            tmef.ShowDialog();
+            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.TMs);
+        }
     }
 }

@@ -48,7 +48,7 @@ namespace ImpostersOrdeal
             tms = new();
             for (int tmID = 0; tmID < gameData.tms.Count; tmID++)
                 if (gameData.tms[tmID].IsValid() && !tms.ContainsKey(gameData.items[gameData.tms[tmID].itemID].groupID - 1))
-                    tms[gameData.items[gameData.tms[tmID].itemID].groupID - 1] = gameData.tms[tmID].GetName() + " " + gameData.moves[gameData.tms[tmID].moveID].GetName();
+                    tms[gameData.items[gameData.tms[tmID].itemID].groupID - 1] = gameData.tms[tmID].GetFullName();
 
             dexIDComboBox.DataSource = dexEntries.Select(d => d.GetName()).ToArray();
             dexIDComboBox.SelectedIndex = 0;

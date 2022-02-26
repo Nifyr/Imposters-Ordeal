@@ -752,6 +752,11 @@ namespace ImpostersOrdeal
             public int tmID;
             public string name;
 
+            public string GetFullName()
+            {
+                return GetName() + " " + GlobalData.gameData.moves[moveID].GetName();
+            }
+
             public int GetID()
             {
                 return tmID;
@@ -766,8 +771,8 @@ namespace ImpostersOrdeal
             {
                 return GlobalData.gameData.items[itemID].IsActive() &&
                     GlobalData.gameData.items[itemID].group == 4 &&
-                    GlobalData.gameData.items[itemID].groupID - 1 == tmID &&
-                    tmID < 128;
+                    GlobalData.gameData.items[itemID].groupID <= 128 &&
+                    GlobalData.gameData.items[itemID].groupID > 0;
             }
         }
 
@@ -876,7 +881,7 @@ namespace ImpostersOrdeal
 
             public bool IsValid()
             {
-                return true;
+                return growthID <= 5;
             }
         }
 

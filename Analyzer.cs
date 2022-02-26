@@ -98,7 +98,7 @@ namespace ImpostersOrdeal
             }
             List<int> validInstances = new();
             for (int tmID = 0; tmID < instances.Length; tmID++)
-                if (gameData.items[gameData.tms[tmID].itemID].IsActive())
+                if (gameData.tms[tmID].IsValid())
                     validInstances.Add(instances[tmID]);
             randomizerSetupConfig.tmCompatibilityP = 100 * validInstances.Average() / gameData.personalEntries.Count;
 
