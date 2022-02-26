@@ -7,10 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static BDSP_Randomizer.GameDataTypes;
-using static BDSP_Randomizer.GlobalData;
+using static ImpostersOrdeal.GameDataTypes;
+using static ImpostersOrdeal.GlobalData;
 
-namespace BDSP_Randomizer
+namespace ImpostersOrdeal
 {
     public partial class MoveAnimationEditorForm : Form
     {

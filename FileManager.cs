@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace BDSP_Randomizer
+namespace ImpostersOrdeal
 {
     /// <summary>
     ///  Responsible for handling all files.

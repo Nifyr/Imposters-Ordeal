@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BDSP_Randomizer
+namespace ImpostersOrdeal
 {
     /// <summary>
     ///  Stores data for easy access.

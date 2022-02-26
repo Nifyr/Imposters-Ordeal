@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static BDSP_Randomizer.Distributions;
-using static BDSP_Randomizer.GameDataTypes;
-using static BDSP_Randomizer.GlobalData;
+using static ImpostersOrdeal.Distributions;
+using static ImpostersOrdeal.GameDataTypes;
+using static ImpostersOrdeal.GlobalData;
 
-namespace BDSP_Randomizer
+namespace ImpostersOrdeal
 {
     /// <summary>
     ///  Responsible for all randomization related logic and execution.

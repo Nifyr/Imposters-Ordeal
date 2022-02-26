@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace BDSP_Randomizer
+namespace ImpostersOrdeal
 {
     /// <summary>
     ///  Container for classes handling discrete probability distributions.

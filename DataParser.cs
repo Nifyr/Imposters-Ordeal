@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static BDSP_Randomizer.GlobalData;
-using static BDSP_Randomizer.GameDataTypes;
+using static ImpostersOrdeal.GlobalData;
+using static ImpostersOrdeal.GameDataTypes;
 
-namespace BDSP_Randomizer
+namespace ImpostersOrdeal
 {
     /// <summary>
     ///  Responsible for converting AssetsTools.NET objects into easier to work with objects and back.

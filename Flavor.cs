@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static BDSP_Randomizer.GlobalData;
+using static ImpostersOrdeal.GlobalData;
 
-namespace BDSP_Randomizer
+namespace ImpostersOrdeal
 {
     /// <summary>
     ///  Responsible for ensuring an enjoyable experience for the user. Don't worry about it.

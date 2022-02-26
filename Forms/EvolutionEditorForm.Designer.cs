@@ -1,5 +1,5 @@
 ﻿
-namespace BDSP_Randomizer
+namespace ImpostersOrdeal
 {
     partial class EvolutionEditorForm
     {

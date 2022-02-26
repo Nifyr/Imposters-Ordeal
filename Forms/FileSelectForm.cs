@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BDSP_Randomizer
+namespace ImpostersOrdeal
 {
     public partial class FileSelectForm : Form
     {

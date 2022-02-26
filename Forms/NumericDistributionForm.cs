@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static BDSP_Randomizer.Distributions;
+using static ImpostersOrdeal.Distributions;
 
-namespace BDSP_Randomizer
+namespace ImpostersOrdeal
 {
     public partial class NumericDistributionForm : Form
     {
