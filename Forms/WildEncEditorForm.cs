@@ -61,6 +61,7 @@ namespace ImpostersOrdeal
 
             ActivateControls();
         }
+
         private void RefreshTimeDisplay()
         {
             // Ground Mons
@@ -109,6 +110,7 @@ namespace ImpostersOrdeal
                 }
             }
         }
+
         private void RefreshDisplay()
         {
             zoneIDLabel.Text = zoneIDs[zoneIDListBox.SelectedIndex];
@@ -171,6 +173,7 @@ namespace ImpostersOrdeal
             encRateGoodRod.Value = encounterTable.encRateGoodRod;
             encRateSuperRod.Value = encounterTable.encRateSuperRod;
         }
+
         private void CommitEdit(object sender, EventArgs e)
         {
             List<Encounter> swayGrass = new();
@@ -303,6 +306,7 @@ namespace ImpostersOrdeal
 
             ActivateControls();
         }
+
         private void CommitNightEdit(object sender, EventArgs e)
         {
             List<Encounter> groundMons = new();
@@ -379,7 +383,6 @@ namespace ImpostersOrdeal
             dataGridView8.CellEndEdit += CommitEdit;
         }
 
-
         private void DeactivateControls()
         {
             zoneIDListBox.SelectedIndexChanged -= ZoneIDChanged;
@@ -399,21 +402,6 @@ namespace ImpostersOrdeal
             dataGridView6.CellEndEdit -= CommitEdit;
             dataGridView7.CellEndEdit -= CommitEdit;
             dataGridView8.CellEndEdit -= CommitEdit;
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }
