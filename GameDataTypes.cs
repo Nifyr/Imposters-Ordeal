@@ -258,7 +258,7 @@ namespace ImpostersOrdeal
 
         public class EncounterTable
         {
-            public int zoneID;
+            public ZoneID zoneID;
             public int encRateGround;
             public List<Encounter> groundMons;
             public List<Encounter> tairyo;
