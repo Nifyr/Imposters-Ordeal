@@ -230,7 +230,7 @@ namespace ImpostersOrdeal
                 for (int encounterTableIdx = 0; encounterTableIdx < encounterTableFields.Length; encounterTableIdx++)
                 {
                     EncounterTable encounterTable = new();
-                    encounterTable.zoneID = encounterTableFields[encounterTableIdx].children[0].value.value.asInt32;
+                    encounterTable.zoneID = (ZoneID) encounterTableFields[encounterTableIdx].children[0].value.value.asInt32;
                     encounterTable.encRateGround = encounterTableFields[encounterTableIdx].children[1].value.value.asInt32;
                     encounterTable.formProb = encounterTableFields[encounterTableIdx].children[7].children[0].children[0].value.value.asInt32;
                     encounterTable.unownTable = encounterTableFields[encounterTableIdx].children[9].children[0].children[1].value.value.asInt32;
