@@ -2380,7 +2380,7 @@ namespace ImpostersOrdeal
             this.button26.TabIndex = 6;
             this.button26.Text = "Item Editor";
             this.button26.UseVisualStyleBackColor = true;
-            this.button26.Visible = false;
+            this.button26.Click += new System.EventHandler(this.OpenItemEditor);
             // 
             // button27
             // 

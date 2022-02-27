@@ -396,6 +396,14 @@ namespace ImpostersOrdeal
             TMEditorForm tmef = new();
             tmef.ShowDialog();
             GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.TMs);
+            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.Items);
+        }
+
+        private void OpenItemEditor(object sender, EventArgs e)
+        {
+            ItemEditorForm ief = new();
+            ief.ShowDialog();
+            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.Items);
         }
 
         private void OpenWildEncEditor(object sender, EventArgs e)
