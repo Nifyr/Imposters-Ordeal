@@ -87,6 +87,11 @@ namespace ImpostersOrdeal
             this.zoneIDListBox = new System.Windows.Forms.ListBox();
             this.zoneIDLabel = new System.Windows.Forms.TextBox();
             this.versionComboBox = new System.Windows.Forms.ComboBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.formProbNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
+            this.unownTableNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
             this.Morning.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -111,6 +116,9 @@ namespace ImpostersOrdeal
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView7)).BeginInit();
             this.tabPage6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView8)).BeginInit();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.formProbNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unownTableNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // Morning
@@ -724,11 +732,77 @@ namespace ImpostersOrdeal
             this.versionComboBox.Size = new System.Drawing.Size(189, 28);
             this.versionComboBox.TabIndex = 8;
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.unownTableNumericUpDown);
+            this.groupBox4.Controls.Add(this.label7);
+            this.groupBox4.Controls.Add(this.formProbNumericUpDown);
+            this.groupBox4.Controls.Add(this.label6);
+            this.groupBox4.Location = new System.Drawing.Point(402, 438);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(189, 225);
+            this.groupBox4.TabIndex = 9;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Forms";
+            // 
+            // numericUpDown1
+            // 
+            this.formProbNumericUpDown.Location = new System.Drawing.Point(133, 26);
+            this.formProbNumericUpDown.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
+            this.formProbNumericUpDown.Minimum = new decimal(new int[] {
+            -2147483648,
+            0,
+            0,
+            -2147483648});
+            this.formProbNumericUpDown.Name = "numericUpDown1";
+            this.formProbNumericUpDown.Size = new System.Drawing.Size(50, 27);
+            this.formProbNumericUpDown.TabIndex = 7;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(55, 28);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(72, 20);
+            this.label6.TabIndex = 6;
+            this.label6.Text = "formProb";
+            // 
+            // numericUpDown2
+            // 
+            this.unownTableNumericUpDown.Location = new System.Drawing.Point(133, 59);
+            this.unownTableNumericUpDown.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
+            this.unownTableNumericUpDown.Minimum = new decimal(new int[] {
+            -2147483648,
+            0,
+            0,
+            -2147483648});
+            this.unownTableNumericUpDown.Name = "numericUpDown2";
+            this.unownTableNumericUpDown.Size = new System.Drawing.Size(50, 27);
+            this.unownTableNumericUpDown.TabIndex = 9;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(33, 61);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(94, 20);
+            this.label7.TabIndex = 8;
+            this.label7.Text = "Unown Table";
+            // 
             // WildEncEditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(993, 675);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.versionComboBox);
             this.Controls.Add(this.zoneIDLabel);
             this.Controls.Add(this.zoneIDListBox);
@@ -768,6 +842,10 @@ namespace ImpostersOrdeal
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView7)).EndInit();
             this.tabPage6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView8)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.formProbNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unownTableNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -832,5 +910,10 @@ namespace ImpostersOrdeal
         private System.Windows.Forms.DataGridViewComboBoxColumn monsNoSuperRod;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn20;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn21;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.NumericUpDown unownTableNumericUpDown;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.NumericUpDown formProbNumericUpDown;
+        private System.Windows.Forms.Label label6;
     }
 }

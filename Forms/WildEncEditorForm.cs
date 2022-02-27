@@ -198,6 +198,9 @@ namespace ImpostersOrdeal
             encRateOldRod.Value = encounterTable.encRateOldRod;
             encRateGoodRod.Value = encounterTable.encRateGoodRod;
             encRateSuperRod.Value = encounterTable.encRateSuperRod;
+
+            formProbNumericUpDown.Value = encounterTable.formProb;
+            unownTableNumericUpDown.Value = encounterTable.unownTable;
         }
 
         private void CommitEdit(object sender, EventArgs e)
@@ -268,6 +271,9 @@ namespace ImpostersOrdeal
             encounterTable.encRateOldRod = (int) encRateOldRod.Value;
             encounterTable.encRateGoodRod = (int) encRateGoodRod.Value;
             encounterTable.encRateSuperRod = (int) encRateSuperRod.Value;
+
+            encounterTable.formProb = (int)formProbNumericUpDown.Value;
+            encounterTable.unownTable = (int)unownTableNumericUpDown.Value;
         }
         private void CommitMorningEdit(object sender, EventArgs e)
         {
@@ -398,7 +404,10 @@ namespace ImpostersOrdeal
             encRateOldRod.ValueChanged += CommitEdit;
             encRateGoodRod.ValueChanged += CommitEdit;
             encRateSuperRod.ValueChanged += CommitEdit;
-            
+
+            formProbNumericUpDown.ValueChanged += CommitEdit;
+            unownTableNumericUpDown.ValueChanged += CommitEdit;
+
             dataGridView1.CellEndEdit += CommitMorningEdit;
             dataGridView2.CellEndEdit += CommitDayEdit;
             dataGridView3.CellEndEdit += CommitNightEdit;
@@ -419,6 +428,9 @@ namespace ImpostersOrdeal
             encRateOldRod.ValueChanged -= CommitEdit;
             encRateGoodRod.ValueChanged -= CommitEdit;
             encRateSuperRod.ValueChanged -= CommitEdit;
+
+            formProbNumericUpDown.ValueChanged -= CommitEdit;
+            unownTableNumericUpDown.ValueChanged -= CommitEdit;
 
             dataGridView1.CellEndEdit -= CommitMorningEdit;
             dataGridView2.CellEndEdit -= CommitDayEdit;
