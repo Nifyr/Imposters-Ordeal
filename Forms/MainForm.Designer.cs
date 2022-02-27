@@ -226,13 +226,13 @@ namespace ImpostersOrdeal
             this.itemDistributionControl20 = new ImpostersOrdeal.MainForm.ItemDistributionControl();
             this.checkBox53 = new System.Windows.Forms.CheckBox();
             this.groupBox28 = new System.Windows.Forms.GroupBox();
-            this.button23 = new System.Windows.Forms.Button();
+            this.pokemonEditorButton = new System.Windows.Forms.Button();
             this.button24 = new System.Windows.Forms.Button();
             this.button25 = new System.Windows.Forms.Button();
             this.button26 = new System.Windows.Forms.Button();
             this.button27 = new System.Windows.Forms.Button();
             this.button28 = new System.Windows.Forms.Button();
-            this.button29 = new System.Windows.Forms.Button();
+            this.wildEncButton = new System.Windows.Forms.Button();
             this.button30 = new System.Windows.Forms.Button();
             this.groupBox32 = new System.Windows.Forms.GroupBox();
             this.button32 = new System.Windows.Forms.Button();
@@ -2342,15 +2342,15 @@ namespace ImpostersOrdeal
             this.groupBox28.TabIndex = 0;
             this.groupBox28.TabStop = false;
             // 
-            // button23
+            // pokemonEditorButton
             // 
-            this.button23.Location = new System.Drawing.Point(6, 26);
-            this.button23.Name = "button23";
-            this.button23.Size = new System.Drawing.Size(173, 29);
-            this.button23.TabIndex = 3;
-            this.button23.Text = "Pokémon Editor";
-            this.button23.UseVisualStyleBackColor = true;
-            this.button23.Click += new System.EventHandler(this.OpenPokemonEditor);
+            this.pokemonEditorButton.Location = new System.Drawing.Point(6, 26);
+            this.pokemonEditorButton.Name = "pokemonEditorButton";
+            this.pokemonEditorButton.Size = new System.Drawing.Size(173, 29);
+            this.pokemonEditorButton.TabIndex = 3;
+            this.pokemonEditorButton.Text = "Pokémon Editor";
+            this.pokemonEditorButton.UseVisualStyleBackColor = true;
+            this.pokemonEditorButton.Click += new System.EventHandler(this.OpenPokemonEditor);
             // 
             // button24
             // 
@@ -2402,15 +2402,15 @@ namespace ImpostersOrdeal
             this.button28.UseVisualStyleBackColor = true;
             this.button28.Visible = false;
             // 
-            // button29
+            // wildEncButton
             // 
-            this.button29.Location = new System.Drawing.Point(6, 236);
-            this.button29.Name = "button29";
-            this.button29.Size = new System.Drawing.Size(173, 29);
-            this.button29.TabIndex = 9;
-            this.button29.Text = "Wild Encounter Editor";
-            this.button29.UseVisualStyleBackColor = true;
-            this.button29.Visible = false;
+            this.wildEncButton.Location = new System.Drawing.Point(6, 236);
+            this.wildEncButton.Name = "wildEncButton";
+            this.wildEncButton.Size = new System.Drawing.Size(173, 29);
+            this.wildEncButton.TabIndex = 9;
+            this.wildEncButton.Text = "Wild Encounter Editor";
+            this.wildEncButton.UseVisualStyleBackColor = true;
+            this.wildEncButton.Click += new System.EventHandler(this.OpenWildEncEditor);
             // 
             // button30
             // 
@@ -2425,10 +2425,10 @@ namespace ImpostersOrdeal
             // groupBox32
             // 
             this.groupBox32.Controls.Add(this.button32);
-            this.groupBox32.Controls.Add(this.button23);
+            this.groupBox32.Controls.Add(this.pokemonEditorButton);
             this.groupBox32.Controls.Add(this.button30);
             this.groupBox32.Controls.Add(this.button24);
-            this.groupBox32.Controls.Add(this.button29);
+            this.groupBox32.Controls.Add(this.wildEncButton);
             this.groupBox32.Controls.Add(this.button25);
             this.groupBox32.Controls.Add(this.button28);
             this.groupBox32.Controls.Add(this.button26);
@@ -2773,13 +2773,13 @@ namespace ImpostersOrdeal
         public System.Windows.Forms.NumericUpDown numericUpDown2;
         public ItemDistributionControl itemDistributionControl1;
         public System.Windows.Forms.Button button24;
-        public System.Windows.Forms.Button button23;
+        public System.Windows.Forms.Button pokemonEditorButton;
         public System.Windows.Forms.Button button31;
         public System.Windows.Forms.Button button25;
         public System.Windows.Forms.Button button26;
         public System.Windows.Forms.Button button27;
         public System.Windows.Forms.Button button28;
-        public System.Windows.Forms.Button button29;
+        public System.Windows.Forms.Button wildEncButton;
         public System.Windows.Forms.Button button30;
         private System.Windows.Forms.GroupBox groupBox32;
         public System.Windows.Forms.Button button32;

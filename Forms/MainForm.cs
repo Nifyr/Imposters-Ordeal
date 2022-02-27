@@ -397,5 +397,12 @@ namespace ImpostersOrdeal
             tmef.ShowDialog();
             GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.TMs);
         }
+
+        private void OpenWildEncEditor(object sender, EventArgs e)
+        {
+            WildEncEditorForm weef = new();
+            weef.ShowDialog();
+            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.EncounterTableFiles);
+        }
     }
 }
