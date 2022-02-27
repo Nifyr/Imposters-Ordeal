@@ -30,7 +30,7 @@ namespace ImpostersOrdeal
         {
             InitializeComponent();
 
-            pokemon = gameData.personalEntries.Select(m => m.GetName()).ToList();
+            pokemon = gameData.dexEntries.Select(m => m.GetName()).ToList();
             encounterTables = gameData.encounterTableFiles[0].encounterTables;
             zoneIDs = encounterTables.Select(e => e.zoneID.ToString()).ToList();
 
@@ -46,6 +46,23 @@ namespace ImpostersOrdeal
             monsNoGoodRod.DataSource = pokemonSource;
             monsNoSuperRod.DataSource = pokemonSource;
 
+            dataGridView1.Columns[1].ValueType = typeof(int);
+            dataGridView1.Columns[2].ValueType = typeof(int);
+            dataGridView2.Columns[1].ValueType = typeof(int);
+            dataGridView2.Columns[2].ValueType = typeof(int);
+            dataGridView3.Columns[1].ValueType = typeof(int);
+            dataGridView3.Columns[2].ValueType = typeof(int);
+            dataGridView4.Columns[1].ValueType = typeof(int);
+            dataGridView4.Columns[2].ValueType = typeof(int);
+            dataGridView5.Columns[1].ValueType = typeof(int);
+            dataGridView5.Columns[2].ValueType = typeof(int);
+            dataGridView6.Columns[1].ValueType = typeof(int);
+            dataGridView6.Columns[2].ValueType = typeof(int);
+            dataGridView7.Columns[1].ValueType = typeof(int);
+            dataGridView7.Columns[2].ValueType = typeof(int);
+            dataGridView8.Columns[1].ValueType = typeof(int);
+            dataGridView8.Columns[2].ValueType = typeof(int);
+
             dataGridView1.Rows.Add(12);
             dataGridView2.Rows.Add(12);
             dataGridView3.Rows.Add(12);
@@ -54,6 +71,15 @@ namespace ImpostersOrdeal
             dataGridView6.Rows.Add(5);
             dataGridView7.Rows.Add(5);
             dataGridView8.Rows.Add(5);
+
+            dataGridView1.DataError += DataError;
+            dataGridView2.DataError += DataError;
+            dataGridView3.DataError += DataError;
+            dataGridView4.DataError += DataError;
+            dataGridView5.DataError += DataError;
+            dataGridView6.DataError += DataError;
+            dataGridView7.DataError += DataError;
+            dataGridView8.DataError += DataError;
 
             encounterTable = encounterTables[0];
 
@@ -402,6 +428,12 @@ namespace ImpostersOrdeal
             dataGridView6.CellEndEdit -= CommitEdit;
             dataGridView7.CellEndEdit -= CommitEdit;
             dataGridView8.CellEndEdit -= CommitEdit;
+        }
+
+        private void DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            MessageBox.Show("Yeah, no. That's not gonna fly buster.\nInput some actual valid data please.",
+                "Data Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

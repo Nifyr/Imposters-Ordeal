@@ -291,7 +291,7 @@ namespace ImpostersOrdeal
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(207, 438);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(189, 233);
+            this.groupBox1.Size = new System.Drawing.Size(189, 225);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Encounter Rates";
@@ -541,7 +541,7 @@ namespace ImpostersOrdeal
             this.tabControl1.Location = new System.Drawing.Point(597, 438);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(384, 233);
+            this.tabControl1.Size = new System.Drawing.Size(384, 225);
             this.tabControl1.TabIndex = 5;
             // 
             // tabPage4
@@ -550,7 +550,7 @@ namespace ImpostersOrdeal
             this.tabPage4.Location = new System.Drawing.Point(4, 29);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(376, 200);
+            this.tabPage4.Size = new System.Drawing.Size(376, 192);
             this.tabPage4.TabIndex = 0;
             this.tabPage4.Text = "Old Rod";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -570,7 +570,7 @@ namespace ImpostersOrdeal
             this.dataGridView6.RowHeadersVisible = false;
             this.dataGridView6.RowHeadersWidth = 51;
             this.dataGridView6.RowTemplate.Height = 29;
-            this.dataGridView6.Size = new System.Drawing.Size(370, 194);
+            this.dataGridView6.Size = new System.Drawing.Size(370, 186);
             this.dataGridView6.TabIndex = 2;
             // 
             // monsNoOldRod
@@ -601,7 +601,7 @@ namespace ImpostersOrdeal
             this.tabPage5.Location = new System.Drawing.Point(4, 29);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(376, 200);
+            this.tabPage5.Size = new System.Drawing.Size(376, 192);
             this.tabPage5.TabIndex = 1;
             this.tabPage5.Text = "Good Rod";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -621,7 +621,7 @@ namespace ImpostersOrdeal
             this.dataGridView7.RowHeadersVisible = false;
             this.dataGridView7.RowHeadersWidth = 51;
             this.dataGridView7.RowTemplate.Height = 29;
-            this.dataGridView7.Size = new System.Drawing.Size(370, 194);
+            this.dataGridView7.Size = new System.Drawing.Size(370, 186);
             this.dataGridView7.TabIndex = 3;
             // 
             // monsNoGoodRod
@@ -652,7 +652,7 @@ namespace ImpostersOrdeal
             this.tabPage6.Location = new System.Drawing.Point(4, 29);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(376, 200);
+            this.tabPage6.Size = new System.Drawing.Size(376, 192);
             this.tabPage6.TabIndex = 2;
             this.tabPage6.Text = "Super Rod";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -672,7 +672,7 @@ namespace ImpostersOrdeal
             this.dataGridView8.RowHeadersVisible = false;
             this.dataGridView8.RowHeadersWidth = 51;
             this.dataGridView8.RowTemplate.Height = 29;
-            this.dataGridView8.Size = new System.Drawing.Size(370, 194);
+            this.dataGridView8.Size = new System.Drawing.Size(370, 186);
             this.dataGridView8.TabIndex = 3;
             // 
             // monsNoSuperRod
@@ -701,7 +701,7 @@ namespace ImpostersOrdeal
             // 
             this.zoneIDListBox.FormattingEnabled = true;
             this.zoneIDListBox.ItemHeight = 20;
-            this.zoneIDListBox.Location = new System.Drawing.Point(12, 87);
+            this.zoneIDListBox.Location = new System.Drawing.Point(12, 79);
             this.zoneIDListBox.Name = "zoneIDListBox";
             this.zoneIDListBox.Size = new System.Drawing.Size(189, 584);
             this.zoneIDListBox.TabIndex = 6;
@@ -709,7 +709,6 @@ namespace ImpostersOrdeal
             // zoneIDLabel
             // 
             this.zoneIDLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.zoneIDLabel.Enabled = false;
             this.zoneIDLabel.Location = new System.Drawing.Point(12, 46);
             this.zoneIDLabel.Name = "zoneIDLabel";
             this.zoneIDLabel.ReadOnly = true;
@@ -718,6 +717,7 @@ namespace ImpostersOrdeal
             // 
             // versionComboBox
             // 
+            this.versionComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.versionComboBox.FormattingEnabled = true;
             this.versionComboBox.Location = new System.Drawing.Point(12, 12);
             this.versionComboBox.Name = "versionComboBox";
@@ -728,7 +728,7 @@ namespace ImpostersOrdeal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(993, 683);
+            this.ClientSize = new System.Drawing.Size(993, 675);
             this.Controls.Add(this.versionComboBox);
             this.Controls.Add(this.zoneIDLabel);
             this.Controls.Add(this.zoneIDListBox);
