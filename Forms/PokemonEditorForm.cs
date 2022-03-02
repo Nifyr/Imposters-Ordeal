@@ -205,9 +205,9 @@ namespace ImpostersOrdeal
             p.eggGroup1 = (byte)eggGroup1ComboBox.SelectedIndex;
             p.eggGroup2 = (byte)eggGroup2ComboBox.SelectedIndex;
             p.grow = (byte)growthComboBox.SelectedIndex;
-            p.giveExp = (byte)numericUpDown19.Value;
-            p.height = (byte)numericUpDown20.Value;
-            p.weight = (byte)numericUpDown21.Value;
+            p.giveExp = (ushort)numericUpDown19.Value;
+            p.height = (ushort)numericUpDown20.Value;
+            p.weight = (ushort)numericUpDown21.Value;
 
             bool[] tmCompatibility = new bool[128];
             for (int i = 0; i < tmCompatibilityCheckedListBox.Items.Count; i++)
