@@ -406,6 +406,13 @@ namespace ImpostersOrdeal
             GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.Items);
         }
 
+        private void OpenPickupEditor(object sender, EventArgs e)
+        {
+            PickupEditorForm pef = new();
+            pef.ShowDialog();
+            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.PickupItems);
+        }
+
         private void OpenWildEncEditor(object sender, EventArgs e)
         {
             WildEncEditorForm weef = new();

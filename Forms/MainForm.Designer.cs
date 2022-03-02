@@ -2390,7 +2390,7 @@ namespace ImpostersOrdeal
             this.button27.TabIndex = 7;
             this.button27.Text = "Pickup Table Editor";
             this.button27.UseVisualStyleBackColor = true;
-            this.button27.Visible = false;
+            this.button27.Click += new System.EventHandler(this.OpenPickupEditor);
             // 
             // button28
             // 

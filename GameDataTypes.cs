@@ -770,7 +770,7 @@ namespace ImpostersOrdeal
             public bool IsValid()
             {
                 return GlobalData.gameData.items[itemID].IsActive() &&
-                    GlobalData.gameData.items[itemID].group == 4 &&
+                    GlobalData.gameData.items[itemID].fieldFunc == 2 &&
                     GlobalData.gameData.items[itemID].groupID <= 128 &&
                     GlobalData.gameData.items[itemID].groupID > 0;
             }
