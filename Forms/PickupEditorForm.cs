@@ -68,5 +68,10 @@ namespace ImpostersOrdeal
         {
             dataGridView.CellEndEdit -= CommitEdit;
         }
+
+        private void DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            MainForm.ShowDataError();
+        }
     }
 }

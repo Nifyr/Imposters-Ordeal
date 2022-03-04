@@ -71,6 +71,7 @@ namespace ImpostersOrdeal
             this.dataGridView.RowTemplate.Height = 29;
             this.dataGridView.Size = new System.Drawing.Size(1238, 649);
             this.dataGridView.TabIndex = 0;
+            this.dataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.DataError);
             // 
             // ItemColumn
             // 

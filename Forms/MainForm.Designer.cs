@@ -2400,7 +2400,7 @@ namespace ImpostersOrdeal
             this.button28.TabIndex = 8;
             this.button28.Text = "Shop Editor";
             this.button28.UseVisualStyleBackColor = true;
-            this.button28.Visible = false;
+            this.button28.Click += new System.EventHandler(this.OpenShopEditor);
             // 
             // wildEncButton
             // 

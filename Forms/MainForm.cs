@@ -302,6 +302,11 @@ namespace ImpostersOrdeal
 
         private void DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
+            ShowDataError();
+        }
+
+        public static void ShowDataError()
+        {
             MessageBox.Show("Yeah, no. That's not gonna fly buster.\nInput some actual valid data please.",
                 "Data Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
@@ -411,6 +416,13 @@ namespace ImpostersOrdeal
             PickupEditorForm pef = new();
             pef.ShowDialog();
             GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.PickupItems);
+        }
+
+        private void OpenShopEditor(object sender, EventArgs e)
+        {
+            ShopEditorForm sef = new();
+            sef.ShowDialog();
+            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.ShopTables);
         }
 
         private void OpenWildEncEditor(object sender, EventArgs e)

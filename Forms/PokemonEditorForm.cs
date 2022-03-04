@@ -329,8 +329,7 @@ namespace ImpostersOrdeal
 
         private void DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
-            MessageBox.Show("Yeah, no. That's not gonna fly buster.\nInput some actual valid data please.",
-                "Data Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MainForm.ShowDataError();
         }
 
         private void LevelUpMoveDefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
