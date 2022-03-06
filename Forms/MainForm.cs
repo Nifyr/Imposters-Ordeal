@@ -311,6 +311,11 @@ namespace ImpostersOrdeal
                 "Data Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+        public static void ShowParserError(string message)
+        {
+            MessageBox.Show(message, "Parse Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
         private void AddMod(object sender, EventArgs e)
         {
             if (MessageBox.Show("Fancy! Let's see if we can merge in a mod, shall we?\n" +

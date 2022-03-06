@@ -34,7 +34,8 @@ namespace ImpostersOrdeal
 
         private void OpenMiscEncounterEditor(object sender, EventArgs e)
         {
-
+            MiscEncounterEditorForm meef = new();
+            meef.ShowDialog();
             GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.EncounterTableFiles);
         }
     }
