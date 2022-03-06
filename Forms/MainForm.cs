@@ -425,11 +425,10 @@ namespace ImpostersOrdeal
             GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.ShopTables);
         }
 
-        private void OpenWildEncEditor(object sender, EventArgs e)
+        private void OpenWildEncounterEditors(object sender, EventArgs e)
         {
-            WildEncEditorForm weef = new();
-            weef.ShowDialog();
-            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.EncounterTableFiles);
+            WildEncounterForm wef = new();
+            wef.ShowDialog();
         }
     }
 }

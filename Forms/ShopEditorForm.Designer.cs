@@ -32,9 +32,6 @@ namespace ImpostersOrdeal
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ShopEditorForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.martDataGridView = new System.Windows.Forms.DataGridView();
-            this.commonItemColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.badgeCountColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.zoneIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.fixedShopDataGridView = new System.Windows.Forms.DataGridView();
             this.fixedItemColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
@@ -43,6 +40,9 @@ namespace ImpostersOrdeal
             this.bpShopDataGridView = new System.Windows.Forms.DataGridView();
             this.bpItemColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.npcColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.commonItemColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.badgeCountColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.zoneIDColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.martDataGridView)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -78,28 +78,6 @@ namespace ImpostersOrdeal
             this.martDataGridView.TabIndex = 0;
             this.martDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.DataError);
             this.martDataGridView.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.MartDefaultValuesNeeded);
-            // 
-            // commonItemColumn
-            // 
-            this.commonItemColumn.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.commonItemColumn.FillWeight = 200F;
-            this.commonItemColumn.HeaderText = "Item";
-            this.commonItemColumn.MinimumWidth = 6;
-            this.commonItemColumn.Name = "commonItemColumn";
-            // 
-            // badgeCountColumn
-            // 
-            this.badgeCountColumn.HeaderText = "Badges";
-            this.badgeCountColumn.MinimumWidth = 6;
-            this.badgeCountColumn.Name = "badgeCountColumn";
-            this.badgeCountColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // zoneIDColumn
-            // 
-            this.zoneIDColumn.HeaderText = "zoneID";
-            this.zoneIDColumn.MinimumWidth = 6;
-            this.zoneIDColumn.Name = "zoneIDColumn";
-            this.zoneIDColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // groupBox2
             // 
@@ -138,7 +116,7 @@ namespace ImpostersOrdeal
             // 
             // shopColumn
             // 
-            this.shopColumn.HeaderText = "Shop";
+            this.shopColumn.HeaderText = "shopID";
             this.shopColumn.MinimumWidth = 6;
             this.shopColumn.Name = "shopColumn";
             this.shopColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
@@ -181,11 +159,35 @@ namespace ImpostersOrdeal
             // 
             // npcColumn
             // 
-            this.npcColumn.HeaderText = "NPC";
+            this.npcColumn.HeaderText = "npcID";
             this.npcColumn.MinimumWidth = 6;
             this.npcColumn.Name = "npcColumn";
             this.npcColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.npcColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // commonItemColumn
+            // 
+            this.commonItemColumn.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.commonItemColumn.FillWeight = 200F;
+            this.commonItemColumn.HeaderText = "Item";
+            this.commonItemColumn.MinimumWidth = 6;
+            this.commonItemColumn.Name = "commonItemColumn";
+            // 
+            // badgeCountColumn
+            // 
+            this.badgeCountColumn.HeaderText = "Badges";
+            this.badgeCountColumn.MinimumWidth = 6;
+            this.badgeCountColumn.Name = "badgeCountColumn";
+            this.badgeCountColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // zoneIDColumn
+            // 
+            this.zoneIDColumn.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
+            this.zoneIDColumn.FillWeight = 200F;
+            this.zoneIDColumn.HeaderText = "zoneID";
+            this.zoneIDColumn.MinimumWidth = 6;
+            this.zoneIDColumn.Name = "zoneIDColumn";
+            this.zoneIDColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // ShopEditorForm
             // 
@@ -219,12 +221,12 @@ namespace ImpostersOrdeal
         private System.Windows.Forms.DataGridView fixedShopDataGridView;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.DataGridView bpShopDataGridView;
-        private System.Windows.Forms.DataGridViewComboBoxColumn commonItemColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn badgeCountColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn zoneIDColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn fixedItemColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn shopColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn bpItemColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn npcColumn;
+        private System.Windows.Forms.DataGridViewComboBoxColumn commonItemColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn badgeCountColumn;
+        private System.Windows.Forms.DataGridViewComboBoxColumn zoneIDColumn;
     }
 }

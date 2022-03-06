@@ -888,7 +888,14 @@ namespace ImpostersOrdeal
         public class UgEncounterFile
         {
             public string mName;
-            public List<int> ugMons;
+            public List<UgEncounter> ugEncounter;
+        }
+
+        public class UgEncounter
+        {
+            public int dexID;
+            public int version;
+            public int zukanFlag;
         }
 
         public class UgEncounterLevelSet

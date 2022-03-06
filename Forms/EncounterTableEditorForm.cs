@@ -12,7 +12,7 @@ using static ImpostersOrdeal.GlobalData;
 
 namespace ImpostersOrdeal
 {
-    public partial class WildEncEditorForm : Form
+    public partial class EncounterTableEditorForm : Form
     {
         public List<string> pokemon;
         public List<string> zoneIDs;
@@ -26,13 +26,13 @@ namespace ImpostersOrdeal
             "Diamond", "Pearl"
         };
 
-        public WildEncEditorForm()
+        public EncounterTableEditorForm()
         {
             InitializeComponent();
 
             pokemon = gameData.dexEntries.Select(m => m.GetName()).ToList();
             encounterTables = gameData.encounterTableFiles[0].encounterTables;
-            zoneIDs = encounterTables.Select(e => e.zoneID.ToString()).ToList();
+            zoneIDs = encounterTables.Select(e => GetZoneName((int)e.zoneID)).ToList();
 
             versionComboBox.DataSource = gameVersions;
             zoneIDListBox.DataSource = zoneIDs;

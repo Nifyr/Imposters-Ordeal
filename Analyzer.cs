@@ -281,9 +281,9 @@ namespace ImpostersOrdeal
 
             }
             for (int file = 0; file < gameData.ugEncounterFiles.Count; file++)
-                for (int i = 0; i < gameData.ugEncounterFiles[file].ugMons.Count; i++)
-                    if (gameData.ugEncounterFiles[file].ugMons[i] > 0)
-                        instances[gameData.ugEncounterFiles[file].ugMons[i]]++;
+                for (int i = 0; i < gameData.ugEncounterFiles[file].ugEncounter.Count; i++)
+                    if (gameData.ugEncounterFiles[file].ugEncounter[i].dexID > 0)
+                        instances[gameData.ugEncounterFiles[file].ugEncounter[i].dexID]++;
             randomizerSetupConfig.wildPokemon = ToItemDistributionConfig(instances, entities);
 
             //Wild Pokémon Levels

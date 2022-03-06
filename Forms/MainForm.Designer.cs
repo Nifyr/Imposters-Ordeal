@@ -2410,7 +2410,7 @@ namespace ImpostersOrdeal
             this.wildEncButton.TabIndex = 9;
             this.wildEncButton.Text = "Wild Encounter Editor";
             this.wildEncButton.UseVisualStyleBackColor = true;
-            this.wildEncButton.Click += new System.EventHandler(this.OpenWildEncEditor);
+            this.wildEncButton.Click += new System.EventHandler(this.OpenWildEncounterEditors);
             // 
             // button30
             // 

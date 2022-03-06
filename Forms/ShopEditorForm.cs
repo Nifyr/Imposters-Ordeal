@@ -18,6 +18,7 @@ namespace ImpostersOrdeal
         List<FixedShopItem> fixedShopItems;
         List<BpShopItem> bpShopItems;
         List<string> items;
+        List<string> zones;
 
         public ShopEditorForm()
         {
@@ -25,19 +26,21 @@ namespace ImpostersOrdeal
             fixedShopItems = gameData.shopTables.fixedShopItems;
             bpShopItems = gameData.shopTables.bpShopItems;
             items = gameData.items.Select(i => i.GetName()).ToList();
+            zones = zoneNames.ToList();
+            zones[zones.Count - 1] = "All";
 
             InitializeComponent();
 
             commonItemColumn.DataSource = items.ToArray();
             badgeCountColumn.ValueType = typeof(int);
-            zoneIDColumn.ValueType = typeof(int);
+            zoneIDColumn.DataSource = zones.ToArray();
             fixedItemColumn.DataSource = items.ToArray();
             shopColumn.ValueType = typeof(int);
             bpItemColumn.DataSource = items.ToArray();
             npcColumn.ValueType = typeof(int);
 
             foreach (MartItem m in martItems)
-                martDataGridView.Rows.Add(new object[] { items[m.itemID], m.badgeNum, m.zoneID });
+                martDataGridView.Rows.Add(new object[] { items[m.itemID], m.badgeNum, m.zoneID == -1 ? zones.Last() : zones[m.zoneID] });
 
             foreach (FixedShopItem f in fixedShopItems)
                 fixedShopDataGridView.Rows.Add(new object[] { items[f.itemID], f.shopID });
@@ -61,7 +64,9 @@ namespace ImpostersOrdeal
                 MartItem m = new();
                 m.itemID = (ushort)items.IndexOf((string)row.Cells[0].Value);
                 m.badgeNum = (int)row.Cells[1].Value;
-                m.zoneID = (int)row.Cells[2].Value;
+                m.zoneID = zones.IndexOf((string)row.Cells[2].Value);
+                if (m.zoneID == zones.Count - 1)
+                    m.zoneID = -1;
                 martItems.Add(m);
             }
             gameData.shopTables.martItems = martItems;
@@ -117,7 +122,7 @@ namespace ImpostersOrdeal
 
         private void MartDefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
         {
-            e.Row.SetValues(new object[] { items[0], 0, -1 });
+            e.Row.SetValues(new object[] { items[0], 0, zones.Last() });
         }
 
         private void FixedShopDefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
