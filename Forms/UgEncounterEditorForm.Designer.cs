@@ -162,7 +162,7 @@ namespace ImpostersOrdeal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(836, 433);
+            this.ClientSize = new System.Drawing.Size(798, 428);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.listBox);
             this.Controls.Add(this.groupBox1);
