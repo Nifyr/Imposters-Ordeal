@@ -296,6 +296,9 @@ namespace ImpostersOrdeal
             return File.ReadAllBytes(fileArchive[delphisMainPath].fileLocation);
         }
 
+        /// <summary>
+        ///  Makes it so the audioCollection data is included when exporting.
+        /// </summary>
         public void CommitAudio()
         {
             fileArchive[delphisMainPath].fileSource = FileSource.App;
@@ -309,7 +312,7 @@ namespace ImpostersOrdeal
             Directory.CreateDirectory(modRoot + "\\" + Path.GetDirectoryName(fd.gamePath));
             string newLocation = modRoot + "\\" + fd.gamePath;
 
-            if (Path.GetFileName(fd.gamePath) == "Delphis_Main.bnk")
+            if (fd.fileSource == FileSource.App && Path.GetFileName(fd.gamePath) == "Delphis_Main.bnk")
             {
                 FileStream fs = File.Create(newLocation);
                 fs.Write(GlobalData.gameData.audioCollection.delphisMainBuffer, 0, GlobalData.gameData.audioCollection.delphisMainBuffer.Length);
