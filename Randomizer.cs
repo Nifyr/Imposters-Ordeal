@@ -116,6 +116,45 @@ namespace ImpostersOrdeal
                 RandomizeScriptedItems(m.itemDistributionControl21.Get());
             if (m.checkBox55.Checked)
                 RandomizeText(m.checkBox56.Checked);
+
+            if (m.checkBox62.Checked)
+                RandomizeMusic();
+        }
+
+        private void RandomizeMusic()
+        {
+            if (gameData.audioCollection == null)
+                DataParser.ParseAudioCollection();
+
+            double minDuration = 20000;
+            uint[] musicSwitchIDs = new uint[]
+            {
+                319787682,
+                805188190,
+                101322741,
+                275563224,
+                429717840,
+                120949528,
+                182025970,
+                620908413,
+                175587878,
+                717132912
+            };
+
+            foreach (uint musicSwitchID in musicSwitchIDs)
+            {
+                List<HircItem> mrsCollection = gameData.audioCollection.mrsBySourceIDs.Values.SelectMany(l => l).Where(h => h.sourceDuration > minDuration && musicSwitchID == h.parentID).ToList();
+                List<int> mrsMapping = new();
+                for (int i = 0; i < mrsCollection.Count; i++)
+                    mrsMapping.Add(i);
+
+                Shuffle(mrsMapping);
+
+                for (int i = 0; i < mrsMapping.Count; i++)
+                    gameData.audioCollection.SetID(mrsCollection[i].id, mrsCollection[mrsMapping[i]].id);
+            }
+            
+            gameData.SetModified(GameDataSet.DataField.AudioCollection);
         }
 
         private void ScaleTrainerPokemon(double coefficient)

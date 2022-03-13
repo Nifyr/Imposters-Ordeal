@@ -236,6 +236,7 @@ namespace ImpostersOrdeal
             this.button30 = new System.Windows.Forms.Button();
             this.groupBox32 = new System.Windows.Forms.GroupBox();
             this.button32 = new System.Windows.Forms.Button();
+            this.checkBox62 = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -2133,9 +2134,9 @@ namespace ImpostersOrdeal
             // groupBox31
             // 
             this.groupBox31.Controls.Add(this.absoluteBoundaryDataGridView);
-            this.groupBox31.Location = new System.Drawing.Point(324, 45);
+            this.groupBox31.Location = new System.Drawing.Point(324, 41);
             this.groupBox31.Name = "groupBox31";
-            this.groupBox31.Size = new System.Drawing.Size(600, 516);
+            this.groupBox31.Size = new System.Drawing.Size(600, 532);
             this.groupBox31.TabIndex = 4;
             this.groupBox31.TabStop = false;
             this.groupBox31.Text = "Absolute Boundaries";
@@ -2154,7 +2155,7 @@ namespace ImpostersOrdeal
             this.absoluteBoundaryDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.absoluteBoundaryDataGridView.RowTemplate.Height = 29;
             this.absoluteBoundaryDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.absoluteBoundaryDataGridView.Size = new System.Drawing.Size(588, 484);
+            this.absoluteBoundaryDataGridView.Size = new System.Drawing.Size(588, 499);
             this.absoluteBoundaryDataGridView.TabIndex = 3;
             this.absoluteBoundaryDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.DataError);
             // 
@@ -2167,9 +2168,9 @@ namespace ImpostersOrdeal
             this.groupBox30.Controls.Add(this.checkBox58);
             this.groupBox30.Controls.Add(this.label8);
             this.groupBox30.Controls.Add(this.checkBox57);
-            this.groupBox30.Location = new System.Drawing.Point(133, 306);
+            this.groupBox30.Location = new System.Drawing.Point(133, 333);
             this.groupBox30.Name = "groupBox30";
-            this.groupBox30.Size = new System.Drawing.Size(185, 255);
+            this.groupBox30.Size = new System.Drawing.Size(185, 240);
             this.groupBox30.TabIndex = 2;
             this.groupBox30.TabStop = false;
             this.groupBox30.Text = "Level Multiplier";
@@ -2252,14 +2253,15 @@ namespace ImpostersOrdeal
             // 
             // groupBox29
             // 
+            this.groupBox29.Controls.Add(this.checkBox62);
             this.groupBox29.Controls.Add(this.checkBox56);
             this.groupBox29.Controls.Add(this.checkBox55);
-            this.groupBox29.Location = new System.Drawing.Point(133, 210);
+            this.groupBox29.Location = new System.Drawing.Point(133, 207);
             this.groupBox29.Name = "groupBox29";
-            this.groupBox29.Size = new System.Drawing.Size(185, 90);
+            this.groupBox29.Size = new System.Drawing.Size(185, 120);
             this.groupBox29.TabIndex = 1;
             this.groupBox29.TabStop = false;
-            this.groupBox29.Text = "Text";
+            this.groupBox29.Text = "Text and Music";
             // 
             // checkBox56
             // 
@@ -2276,9 +2278,9 @@ namespace ImpostersOrdeal
             this.checkBox55.AutoSize = true;
             this.checkBox55.Location = new System.Drawing.Point(6, 26);
             this.checkBox55.Name = "checkBox55";
-            this.checkBox55.Size = new System.Drawing.Size(77, 24);
+            this.checkBox55.Size = new System.Drawing.Size(108, 24);
             this.checkBox55.TabIndex = 0;
-            this.checkBox55.Text = "Shuffle";
+            this.checkBox55.Text = "Shuffle Text";
             this.checkBox55.UseVisualStyleBackColor = true;
             // 
             // groupBox27
@@ -2287,16 +2289,16 @@ namespace ImpostersOrdeal
             this.groupBox27.Controls.Add(this.checkBox54);
             this.groupBox27.Controls.Add(this.itemDistributionControl20);
             this.groupBox27.Controls.Add(this.checkBox53);
-            this.groupBox27.Location = new System.Drawing.Point(133, 45);
+            this.groupBox27.Location = new System.Drawing.Point(133, 41);
             this.groupBox27.Name = "groupBox27";
-            this.groupBox27.Size = new System.Drawing.Size(185, 159);
+            this.groupBox27.Size = new System.Drawing.Size(185, 160);
             this.groupBox27.TabIndex = 0;
             this.groupBox27.TabStop = false;
             this.groupBox27.Text = "Scripts";
             // 
             // itemDistributionControl21
             // 
-            this.itemDistributionControl21.Location = new System.Drawing.Point(6, 115);
+            this.itemDistributionControl21.Location = new System.Drawing.Point(6, 121);
             this.itemDistributionControl21.Name = "itemDistributionControl21";
             this.itemDistributionControl21.Size = new System.Drawing.Size(173, 29);
             this.itemDistributionControl21.TabIndex = 6;
@@ -2307,7 +2309,7 @@ namespace ImpostersOrdeal
             // checkBox54
             // 
             this.checkBox54.AutoSize = true;
-            this.checkBox54.Location = new System.Drawing.Point(6, 88);
+            this.checkBox54.Location = new System.Drawing.Point(6, 91);
             this.checkBox54.Name = "checkBox54";
             this.checkBox54.Size = new System.Drawing.Size(127, 24);
             this.checkBox54.TabIndex = 5;
@@ -2316,7 +2318,7 @@ namespace ImpostersOrdeal
             // 
             // itemDistributionControl20
             // 
-            this.itemDistributionControl20.Location = new System.Drawing.Point(6, 53);
+            this.itemDistributionControl20.Location = new System.Drawing.Point(6, 56);
             this.itemDistributionControl20.Name = "itemDistributionControl20";
             this.itemDistributionControl20.Size = new System.Drawing.Size(173, 29);
             this.itemDistributionControl20.TabIndex = 4;
@@ -2449,6 +2451,16 @@ namespace ImpostersOrdeal
             this.button32.Text = "Text Editor";
             this.button32.UseVisualStyleBackColor = true;
             this.button32.Visible = false;
+            // 
+            // checkBox62
+            // 
+            this.checkBox62.AutoSize = true;
+            this.checkBox62.Location = new System.Drawing.Point(6, 86);
+            this.checkBox62.Name = "checkBox62";
+            this.checkBox62.Size = new System.Drawing.Size(113, 24);
+            this.checkBox62.TabIndex = 2;
+            this.checkBox62.Text = "Shuffle BGM";
+            this.checkBox62.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -2783,5 +2795,6 @@ namespace ImpostersOrdeal
         public System.Windows.Forms.Button button30;
         private System.Windows.Forms.GroupBox groupBox32;
         public System.Windows.Forms.Button button32;
+        public System.Windows.Forms.CheckBox checkBox62;
     }
 }

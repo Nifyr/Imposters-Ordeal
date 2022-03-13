@@ -34,8 +34,10 @@ namespace ImpostersOrdeal
             "\\UnderGround\\data\\ugdata",
             "\\Battle\\battle_masterdatas"
         };
+        private static readonly string delphisMainPath = "romfs\\Data\\StreamingAssets\\Audio\\GeneratedSoundBanks\\Switch\\Delphis_Main.bnk";
 
         private string assetAssistantPath;
+        private string audioPath;
         private Dictionary<string, FileData> fileArchive;
         private AssetsManager am = new();
         private int fileIndex = 0;
@@ -59,7 +61,7 @@ namespace ImpostersOrdeal
             Dump,
             Mod,
             UnrelatedMod,
-            This
+            App
         }
 
         /// <summary>
@@ -89,6 +91,7 @@ namespace ImpostersOrdeal
                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
+            audioPath = Directory.GetParent(assetAssistantPath).FullName + "\\Audio\\GeneratedSoundBanks\\Switch";
 
             //Setup fileArchive
             fileArchive = new();
@@ -173,7 +176,7 @@ namespace ImpostersOrdeal
                     continue;
                 }
 
-                if (fileArchive[gamePath].fileSource == FileSource.Mod || fileArchive[gamePath].fileSource == FileSource.This)
+                if (fileArchive[gamePath].fileSource == FileSource.Mod || fileArchive[gamePath].fileSource == FileSource.App)
                 {
                     BundleFileInstance bfi = am.LoadBundleFile(modFilePaths[fileIdx], false);
                     DecompressBundle(bfi);
@@ -266,7 +269,7 @@ namespace ImpostersOrdeal
                 ars.Add(arfm);
             }
             MakeTempBundle(fd, ars, Environment.CurrentDirectory + "\\" + Path.GetFileName(fd.gamePath) + GetFileIndex());
-            fd.fileSource = FileSource.This;
+            fd.fileSource = FileSource.App;
         }
 
         /// <summary>
@@ -278,12 +281,41 @@ namespace ImpostersOrdeal
         }
 
         /// <summary>
+        ///  Returns the Delphis_Main.bnk file as a byte array.
+        /// </summary>
+        public byte[] GetDelphisMainBuffer()
+        {
+            if (!fileArchive.ContainsKey(delphisMainPath))
+            {
+                FileData fd = new();
+                fd.fileLocation = audioPath + "\\Delphis_Main.bnk";
+                fd.fileSource = FileSource.Dump;
+                fd.gamePath = delphisMainPath;
+                fileArchive[delphisMainPath] = fd;
+            }
+            return File.ReadAllBytes(fileArchive[delphisMainPath].fileLocation);
+        }
+
+        public void CommitAudio()
+        {
+            fileArchive[delphisMainPath].fileSource = FileSource.App;
+        }
+
+        /// <summary>
         ///  Places a file relative to the mod root in accordance with its FileData.
         /// </summary>
         private static void ExportFile(FileData fd, string modRoot)
         {
             Directory.CreateDirectory(modRoot + "\\" + Path.GetDirectoryName(fd.gamePath));
             string newLocation = modRoot + "\\" + fd.gamePath;
+
+            if (Path.GetFileName(fd.gamePath) == "Delphis_Main.bnk")
+            {
+                FileStream fs = File.Create(newLocation);
+                fs.Write(GlobalData.gameData.audioCollection.delphisMainBuffer, 0, GlobalData.gameData.audioCollection.delphisMainBuffer.Length);
+                fs.Close();
+                return;
+            }
 
             if (!fd.IsBundle())
             {

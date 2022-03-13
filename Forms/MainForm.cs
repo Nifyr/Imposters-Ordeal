@@ -260,7 +260,7 @@ namespace ImpostersOrdeal
 
             //Sometimes UpdateSubTask would be called before the loadingForm was done setting up, causing me great grief.
             //This is probably not a very good solution to that, but it works! ¯\_(ツ)_/¯
-            Thread.Sleep(10);
+            Thread.Sleep(100);
 
             DataParser.PrepareAnalysis();
 
@@ -328,7 +328,7 @@ namespace ImpostersOrdeal
                 loadingForm = new("Some stuff changed...", flavor.GetSubTask());
                 loadingDisplay = new(StartLoadingDisplay);
                 loadingDisplay.Start();
-                Thread.Sleep(10);
+                Thread.Sleep(100);
                 DataParser.PrepareAnalysis();
 
                 loadingForm.UpdateSubTask(flavor.GetSubTask());
@@ -345,11 +345,11 @@ namespace ImpostersOrdeal
                 "Randomize again anyway?",
                    "Again?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
                 return;
-
+            
             loadingForm = new("Makin' a mess...", flavor.GetThought());
             loadingDisplay = new(StartLoadingDisplay);
             loadingDisplay.Start();
-            Thread.Sleep(10);
+            Thread.Sleep(100);
             randomizer.Randomize();
             loadingForm.Finish();
 
@@ -371,7 +371,7 @@ namespace ImpostersOrdeal
             loadingForm = new("Finishing up...", flavor.GetSubTask());
             loadingDisplay = new(StartLoadingDisplay);
             loadingDisplay.Start();
-            Thread.Sleep(10);
+            Thread.Sleep(100);
             DataParser.CommitChanges();
 
             loadingForm.UpdateSubTask(flavor.GetThought());

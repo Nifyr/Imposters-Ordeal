@@ -1001,6 +1001,46 @@ namespace ImpostersOrdeal
             }
         }
 
+        public class AudioCollection
+        {
+            public byte[] delphisMainBuffer;
+
+            //Readonly
+            public Dictionary<uint, HircItem> itemsByIDs;
+            public Dictionary<uint, HashSet<HircItem>> mrsBySourceIDs;
+
+            public void SetID(uint targetHirc, uint newID)
+            {
+                HircItem h = itemsByIDs[targetHirc];
+                BitConverter.GetBytes(itemsByIDs[newID].parentID).CopyTo(delphisMainBuffer, h.parentIDOffset);
+                BitConverter.GetBytes(newID).CopyTo(delphisMainBuffer, h.idOffset);
+                foreach (long offset in h.idReferenceOffsets)
+                    BitConverter.GetBytes(newID).CopyTo(delphisMainBuffer, offset);
+            }
+        }
+
+        public class HircItem
+        {
+            //All
+            public byte hircType;
+            public uint id;
+            public long idOffset;
+            public uint parentID;
+
+            //Music Switch
+            public List<(uint, long)> childReferences;
+
+            //Music Random Sequence
+            public List<long> idReferenceOffsets;
+
+            //Music Segment
+            public long parentIDOffset;
+
+            //Music Track
+            public uint sourceID;
+            public double sourceDuration;
+        }
+
         public interface INamedEntity
         {
             public int GetID();
