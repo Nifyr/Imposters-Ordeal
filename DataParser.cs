@@ -19,6 +19,7 @@ namespace ImpostersOrdeal
         /// </summary>
         public static void PrepareAnalysis()
         {
+            ParseNatures();
             ParseEvScripts();
             //ParseMapWarpAssets();
             //ParseMessageFiles();
@@ -35,7 +36,6 @@ namespace ImpostersOrdeal
             ParseAbilities();
             ParseTypings();
             ParseDamagaCategories();
-            ParseNatures();
         }
 
         /// <summary>
@@ -211,6 +211,13 @@ namespace ImpostersOrdeal
                             "trainerID: " + trainerIdx + "\n" +
                             "monsNo: " + pokemon.dexID + "\n" +
                             "formNo: " + pokemon.formID + "??");
+
+                    if (pokemon.natureID >= gameData.natures.Count)
+                        MainForm.ShowParserError("Oh my, this nature's way outta bounds...\n" +
+                            "I don't feel so good...\n" +
+                            "trainerID: " + trainerIdx + "\n" +
+                            "monsNo: " + pokemon.dexID + "\n" +
+                            "natureID: " + pokemon.natureID + "??");
 
                     trainer.trainerPokemon.Add(pokemon);
                 }
