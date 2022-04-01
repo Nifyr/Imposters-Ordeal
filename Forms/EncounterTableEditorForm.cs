@@ -266,6 +266,12 @@ namespace ImpostersOrdeal
                 superRodMons.Add(superRodMon);
             }
 
+            encounterTable.swayGrass = swayGrass;
+            encounterTable.waterMons = waterMons;
+            encounterTable.oldRodMons = oldRodMons;
+            encounterTable.goodRodMons = goodRodMons;
+            encounterTable.superRodMons = superRodMons;
+
             encounterTable.encRateGround = (int) encRateGround.Value;
             encounterTable.encRateWater = (int) encRateWater.Value;
             encounterTable.encRateOldRod = (int) encRateOldRod.Value;
