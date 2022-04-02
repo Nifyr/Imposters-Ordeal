@@ -1923,7 +1923,7 @@ namespace ImpostersOrdeal
             AssetTypeValueField monoBehaviour = fileManager.GetMonoBehaviours(PathEnum.DprMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "TrainerTable");
 
             AssetTypeValueField[] trainerFields = monoBehaviour.children[5].children[0].children;
-            for (int trainerIdx = 0; trainerIdx < trainerFields.Length; trainerIdx++)
+            for (int trainerIdx = 0; trainerIdx < gameData.trainers.Count; trainerIdx++)
             {
                 Trainer trainer = gameData.trainers[trainerIdx];
                 trainerFields[trainerIdx].children[0].GetValue().Set(trainer.trainerTypeID);
