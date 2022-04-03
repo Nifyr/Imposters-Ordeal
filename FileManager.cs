@@ -153,15 +153,6 @@ namespace ImpostersOrdeal
                     fd.fileLocation = modFilePaths[fileIdx];
                     fd.gamePath = gamePath;
                     fd.fileSource = FileSource.UnrelatedMod;
-
-                    if (gamePath.Contains("AssetAssistant") && Path.GetExtension(gamePath) == "")
-                        try
-                        {
-                            fd.bundle = am.LoadBundleFile(modFilePaths[fileIdx], false);
-                            DecompressBundle(fd.bundle);
-                        }
-                        catch (Exception) { }
-
                     fileArchive[gamePath] = fd;
                     continue;
                 }
@@ -188,6 +179,15 @@ namespace ImpostersOrdeal
 
                 if (fileArchive[gamePath].fileSource == FileSource.UnrelatedMod)
                 {
+                    //Loads unrelated bundle if possible
+                    if (!fileArchive[gamePath].IsBundle() && gamePath.Contains("AssetAssistant") && Path.GetExtension(gamePath) == "")
+                        try
+                        {
+                            fileArchive[gamePath].bundle = am.LoadBundleFile(fileArchive[gamePath].fileLocation, false);
+                            DecompressBundle(fileArchive[gamePath].bundle);
+                        }
+                        catch (Exception) { }
+
                     if (fileArchive[gamePath].IsBundle())
                     {
                         BundleFileInstance bfi = am.LoadBundleFile(modFilePaths[fileIdx], false);
