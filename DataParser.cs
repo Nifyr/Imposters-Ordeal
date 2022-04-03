@@ -205,6 +205,12 @@ namespace ImpostersOrdeal
                     pokemon.spAtkEV = pokemonFields[pokemonIdx + 24].value.value.asUInt8;
                     pokemon.spDefEV = pokemonFields[pokemonIdx + 25].value.value.asUInt8;
 
+                    if (pokemon.dexID >= gameData.dexEntries.Count)
+                        MainForm.ShowParserError("Oh my, this monsNo's way outta bounds...\n" +
+                            "I don't feel so good...\n" +
+                            "trainerID: " + trainerIdx + "\n" +
+                            "monsNo: " + pokemon.dexID + "??");
+
                     if (pokemon.formID >= gameData.dexEntries[pokemon.dexID].forms.Count)
                         MainForm.ShowParserError("Oh my, this formNo's way outta bounds...\n" +
                             "I don't feel so good...\n" +
