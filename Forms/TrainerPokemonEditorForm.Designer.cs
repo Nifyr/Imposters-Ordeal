@@ -222,7 +222,7 @@ namespace ImpostersOrdeal
             this.groupBox2.Location = new System.Drawing.Point(207, 12);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(189, 130);
-            this.groupBox2.TabIndex = 1;
+            this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Visuals";
             // 
@@ -286,7 +286,7 @@ namespace ImpostersOrdeal
             this.groupBox3.Location = new System.Drawing.Point(402, 12);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(189, 180);
-            this.groupBox3.TabIndex = 2;
+            this.groupBox3.TabIndex = 7;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Attributes";
             // 
@@ -359,7 +359,7 @@ namespace ImpostersOrdeal
             this.groupBox4.Location = new System.Drawing.Point(402, 198);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(189, 180);
-            this.groupBox4.TabIndex = 3;
+            this.groupBox4.TabIndex = 8;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Moveset";
             // 
@@ -603,7 +603,7 @@ namespace ImpostersOrdeal
             this.groupBox6.Location = new System.Drawing.Point(207, 148);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(189, 230);
-            this.groupBox6.TabIndex = 5;
+            this.groupBox6.TabIndex = 6;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "EVs";
             // 

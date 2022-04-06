@@ -80,7 +80,7 @@ namespace ImpostersOrdeal
             this.listBox.Location = new System.Drawing.Point(12, 45);
             this.listBox.Name = "listBox";
             this.listBox.Size = new System.Drawing.Size(189, 604);
-            this.listBox.TabIndex = 0;
+            this.listBox.TabIndex = 1;
             // 
             // trainerDisplayTextBox
             // 
@@ -88,7 +88,7 @@ namespace ImpostersOrdeal
             this.trainerDisplayTextBox.Name = "trainerDisplayTextBox";
             this.trainerDisplayTextBox.ReadOnly = true;
             this.trainerDisplayTextBox.Size = new System.Drawing.Size(189, 27);
-            this.trainerDisplayTextBox.TabIndex = 1;
+            this.trainerDisplayTextBox.TabIndex = 0;
             // 
             // groupBox1
             // 
@@ -101,7 +101,7 @@ namespace ImpostersOrdeal
             this.groupBox1.Location = new System.Drawing.Point(207, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(189, 150);
-            this.groupBox1.TabIndex = 3;
+            this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Visuals";
             // 
@@ -191,7 +191,7 @@ namespace ImpostersOrdeal
             this.groupBox2.Location = new System.Drawing.Point(207, 168);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(189, 230);
-            this.groupBox2.TabIndex = 4;
+            this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Main";
             // 
@@ -315,7 +315,7 @@ namespace ImpostersOrdeal
             this.groupBox3.Location = new System.Drawing.Point(207, 404);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(189, 245);
-            this.groupBox3.TabIndex = 5;
+            this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "AI Flags";
             // 
@@ -402,7 +402,7 @@ namespace ImpostersOrdeal
             this.groupBox4.Location = new System.Drawing.Point(402, 12);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(384, 637);
-            this.groupBox4.TabIndex = 6;
+            this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Party";
             // 
