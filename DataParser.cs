@@ -36,6 +36,38 @@ namespace ImpostersOrdeal
             ParseAbilities();
             ParseTypings();
             ParseDamagaCategories();
+            ParseTrainerTypes();
+        }
+
+        /// <summary>
+        ///  Overwrites GlobalData with parsed TrainerTypes.
+        /// </summary>
+        private static void ParseTrainerTypes()
+        {
+            gameData.trainerTypes = new();
+            AssetTypeValueField monoBehaviour = fileManager.GetMonoBehaviours(PathEnum.DprMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "TrainerTable");
+            AssetTypeValueField nameData = fileManager.GetMonoBehaviours(PathEnum.English).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_dp_trainers_type");
+
+            AssetTypeValueField[] nameFields = nameData.children[8].children[0].children;
+            Dictionary<string, string> trainerTypeNames = new();
+            foreach (AssetTypeValueField label in nameFields)
+                if (label.children[6].children[0].childrenCount > 0)
+                    trainerTypeNames[label.children[2].GetValue().AsString()] = label.children[6].children[0].children[0].children[4].GetValue().AsString();
+
+            AssetTypeValueField[] trainerTypeFields = monoBehaviour.children[4].children[0].children;
+            for (int trainerTypeIdx = 0; trainerTypeIdx < trainerTypeFields.Length; trainerTypeIdx++)
+            {
+                if (trainerTypeFields[trainerTypeIdx].children[0].GetValue().AsInt() == -1)
+                    continue;
+
+                TrainerType trainerType = new();
+                trainerType.trainerTypeID = trainerTypeIdx;
+                trainerType.label = trainerTypeFields[trainerTypeIdx].children[1].GetValue().AsString();
+
+                trainerType.name = !trainerTypeNames.ContainsKey(trainerType.label) ? "" : trainerTypeNames[trainerType.label];
+
+                gameData.trainerTypes.Add(trainerType);
+            }
         }
 
         /// <summary>
@@ -154,6 +186,13 @@ namespace ImpostersOrdeal
         {
             gameData.trainers = new();
             AssetTypeValueField monoBehaviour = fileManager.GetMonoBehaviours(PathEnum.DprMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "TrainerTable");
+            AssetTypeValueField nameData = fileManager.GetMonoBehaviours(PathEnum.English).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_dp_trainers_name");
+
+            AssetTypeValueField[] nameFields = nameData.children[8].children[0].children;
+            Dictionary<string, string> trainerNames = new();
+            foreach (AssetTypeValueField label in nameFields)
+                if (label.children[6].children[0].childrenCount > 0)
+                    trainerNames[label.children[2].GetValue().AsString()] = label.children[6].children[0].children[0].children[4].GetValue().AsString();
 
             AssetTypeValueField[] trainerFields = monoBehaviour.children[5].children[0].children;
             AssetTypeValueField[] trainerPokemonFields = monoBehaviour.children[6].children[0].children;
@@ -161,6 +200,8 @@ namespace ImpostersOrdeal
             {
                 Trainer trainer = new();
                 trainer.trainerTypeID = trainerFields[trainerIdx].children[0].value.value.asInt32;
+                trainer.colorID = trainerFields[trainerIdx].children[1].value.value.asUInt8;
+                trainer.fightType = trainerFields[trainerIdx].children[2].value.value.asUInt8;
                 trainer.arenaID = trainerFields[trainerIdx].children[3].value.value.asInt32;
                 trainer.effectID = trainerFields[trainerIdx].children[4].value.value.asInt32;
                 trainer.gold = trainerFields[trainerIdx].children[5].value.value.asUInt8;
@@ -171,6 +212,9 @@ namespace ImpostersOrdeal
                 trainer.hpRecoverFlag = trainerFields[trainerIdx].children[10].value.value.asUInt8;
                 trainer.giftItem = trainerFields[trainerIdx].children[11].value.value.asUInt16;
                 trainer.aiBit = trainerFields[trainerIdx].children[19].value.value.asUInt32;
+
+                trainer.trainerID = trainerIdx;
+                trainer.name = trainerNames[trainerFields[trainerIdx].children[12].GetValue().AsString()];
 
                 //Parse trainer pokemon
                 trainer.trainerPokemon = new();
@@ -1933,6 +1977,8 @@ namespace ImpostersOrdeal
             {
                 Trainer trainer = gameData.trainers[trainerIdx];
                 trainerFields[trainerIdx].children[0].GetValue().Set(trainer.trainerTypeID);
+                trainerFields[trainerIdx].children[1].GetValue().Set(trainer.colorID);
+                trainerFields[trainerIdx].children[2].GetValue().Set(trainer.fightType);
                 trainerFields[trainerIdx].children[3].GetValue().Set(trainer.arenaID);
                 trainerFields[trainerIdx].children[4].GetValue().Set(trainer.effectID);
                 trainerFields[trainerIdx].children[5].GetValue().Set(trainer.gold);

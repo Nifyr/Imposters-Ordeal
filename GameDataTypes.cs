@@ -91,9 +91,11 @@ namespace ImpostersOrdeal
             public int npcID;
         }
 
-        public class Trainer
+        public class Trainer : INamedEntity
         {
             public int trainerTypeID;
+            public byte colorID;
+            public byte fightType;
             public int arenaID;
             public int effectID;
             public byte gold;
@@ -105,6 +107,10 @@ namespace ImpostersOrdeal
             public ushort giftItem;
             public uint aiBit;
             public List<TrainerPokemon> trainerPokemon;
+
+            //Readonly
+            public int trainerID;
+            public string name;
 
             public List<int> GetItems()
             {
@@ -157,6 +163,36 @@ namespace ImpostersOrdeal
             {
                 return trainerPokemon.Select(p => (int)p.level).Average();
             }
+
+            public bool[] GetAIFlags()
+            {
+                bool[] flags = new bool[32];
+                for (int i = 0; i < 32; i++)
+                    flags[i] = (aiBit & ((uint)1 << i)) != 0;
+                return flags;
+            }
+
+            public void SetAIFlags(bool[] flagArray)
+            {
+                aiBit = 0;
+                for (int i = 0; i < 32; i++)
+                    aiBit |= flagArray[i] ? (uint)1 << i : 0;
+            }
+
+            public int GetID()
+            {
+                return trainerID;
+            }
+
+            public string GetName()
+            {
+                return name;
+            }
+
+            public bool IsValid()
+            {
+                return true;
+            }
         }
 
         public class TrainerPokemon
@@ -187,6 +223,38 @@ namespace ImpostersOrdeal
             public byte spdEV;
             public byte spAtkEV;
             public byte spDefEV;
+
+            public TrainerPokemon() { }
+
+            public TrainerPokemon(TrainerPokemon tp)
+            {
+                dexID = tp.dexID;
+                formID = tp.formID;
+                isRare = tp.isRare;
+                level = tp.level;
+                sex = tp.sex;
+                natureID = tp.natureID;
+                abilityID = tp.abilityID;
+                moveID1 = tp.moveID1;
+                moveID2 = tp.moveID2;
+                moveID3 = tp.moveID3;
+                moveID4 = tp.moveID4;
+                itemID = tp.itemID;
+                ballID = tp.ballID;
+                seal = tp.seal;
+                hpIV = tp.hpIV;
+                atkIV = tp.atkIV;
+                defIV = tp.defIV;
+                spdIV = tp.spdIV;
+                spAtkIV = tp.spAtkIV;
+                spDefIV = tp.spDefIV;
+                hpEV = tp.hpEV;
+                atkEV = tp.atkEV;
+                defEV = tp.defEV;
+                spdEV = tp.spdEV;
+                spAtkEV = tp.spAtkEV;
+                spDefEV = tp.spDefEV;
+            }
 
             public List<ushort> GetMoves()
             {
@@ -244,6 +312,28 @@ namespace ImpostersOrdeal
                 spAtkEV = (byte)evs[3];
                 spDefEV = (byte)evs[4];
                 spdEV = (byte)evs[5];
+            }
+        }
+
+        public class TrainerType : INamedEntity
+        {
+            public int trainerTypeID;
+            public string label;
+            public string name;
+
+            public int GetID()
+            {
+                return trainerTypeID;
+            }
+
+            public string GetName()
+            {
+                return name;
+            }
+
+            public bool IsValid()
+            {
+                return label != "";
             }
         }
 

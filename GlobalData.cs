@@ -28,6 +28,7 @@ namespace ImpostersOrdeal
             public List<GameDataTypes.Typing> typings; //Readonly
             public List<GameDataTypes.DamageCategory> damageCategories; //Readonly
             public List<GameDataTypes.Nature> natures; //Readonly
+            public List<GameDataTypes.TrainerType> trainerTypes; //Readonly
             public List<GameDataTypes.Pokemon> personalEntries; //Ordered, idx=personalID
             public List<GameDataTypes.DexEntry> dexEntries; //Ordered, idx=dexID
             public List<GameDataTypes.Item> items; //Ordered, idx=itemID
@@ -74,6 +75,11 @@ namespace ImpostersOrdeal
             public GameDataTypes.Pokemon GetPokemon(int dexID, int formID)
             {
                 return dexEntries[dexID].forms[formID];
+            }
+
+            public string GetTPDisplayName(GameDataTypes.TrainerPokemon tp)
+            {
+                return "Lv. " + tp.level + " " + GetPokemon(tp.dexID, tp.formID).GetName();
             }
         }
 

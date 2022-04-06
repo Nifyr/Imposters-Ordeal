@@ -218,6 +218,7 @@ namespace ImpostersOrdeal
             this.label8 = new System.Windows.Forms.Label();
             this.checkBox57 = new System.Windows.Forms.CheckBox();
             this.groupBox29 = new System.Windows.Forms.GroupBox();
+            this.checkBox62 = new System.Windows.Forms.CheckBox();
             this.checkBox56 = new System.Windows.Forms.CheckBox();
             this.checkBox55 = new System.Windows.Forms.CheckBox();
             this.groupBox27 = new System.Windows.Forms.GroupBox();
@@ -236,7 +237,6 @@ namespace ImpostersOrdeal
             this.button30 = new System.Windows.Forms.Button();
             this.groupBox32 = new System.Windows.Forms.GroupBox();
             this.button32 = new System.Windows.Forms.Button();
-            this.checkBox62 = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -2263,6 +2263,16 @@ namespace ImpostersOrdeal
             this.groupBox29.TabStop = false;
             this.groupBox29.Text = "Text and Music";
             // 
+            // checkBox62
+            // 
+            this.checkBox62.AutoSize = true;
+            this.checkBox62.Location = new System.Drawing.Point(6, 86);
+            this.checkBox62.Name = "checkBox62";
+            this.checkBox62.Size = new System.Drawing.Size(113, 24);
+            this.checkBox62.TabIndex = 2;
+            this.checkBox62.Text = "Shuffle BGM";
+            this.checkBox62.UseVisualStyleBackColor = true;
+            // 
             // checkBox56
             // 
             this.checkBox56.AutoSize = true;
@@ -2422,7 +2432,7 @@ namespace ImpostersOrdeal
             this.button30.TabIndex = 10;
             this.button30.Text = "Trainer Editor";
             this.button30.UseVisualStyleBackColor = true;
-            this.button30.Visible = false;
+            this.button30.Click += new System.EventHandler(this.OpenTrainerEditor);
             // 
             // groupBox32
             // 
@@ -2451,16 +2461,6 @@ namespace ImpostersOrdeal
             this.button32.Text = "Text Editor";
             this.button32.UseVisualStyleBackColor = true;
             this.button32.Visible = false;
-            // 
-            // checkBox62
-            // 
-            this.checkBox62.AutoSize = true;
-            this.checkBox62.Location = new System.Drawing.Point(6, 86);
-            this.checkBox62.Name = "checkBox62";
-            this.checkBox62.Size = new System.Drawing.Size(113, 24);
-            this.checkBox62.TabIndex = 2;
-            this.checkBox62.Text = "Shuffle BGM";
-            this.checkBox62.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 

@@ -435,5 +435,12 @@ namespace ImpostersOrdeal
             WildEncounterForm wef = new();
             wef.ShowDialog();
         }
+
+        private void OpenTrainerEditor(object sender, EventArgs e)
+        {
+            TrainerEditorForm tef = new();
+            tef.ShowDialog();
+            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.Trainers);
+        }
     }
 }
