@@ -16,6 +16,7 @@ namespace ImpostersOrdeal
     {
         public List<Trainer> trainers;
         public Dictionary<int, string> trainerTypeLabels;
+        public Dictionary<int, int> trainerTypeToCC;
         public List<string> items;
         public Trainer t;
         private TrainerPokemonEditorForm tpef;
@@ -23,9 +24,15 @@ namespace ImpostersOrdeal
         public TrainerEditorForm()
         {
             trainerTypeLabels = new();
+            trainerTypeToCC = new();
             trainerTypeLabels.Add(-1, "None");
-            foreach (TrainerType tt in gameData.trainerTypes)
+            trainerTypeToCC.Add(-1, 0);
+            for (int i = 0; i < gameData.trainerTypes.Count; i++)
+            {
+                TrainerType tt = gameData.trainerTypes[i];
                 trainerTypeLabels.Add(tt.GetID(), tt.GetName());
+                trainerTypeToCC.Add(tt.GetID(), i + 1);
+            }
             items = gameData.items.Select(o => o.GetName()).ToList();
 
             InitializeComponent();
@@ -65,7 +72,7 @@ namespace ImpostersOrdeal
         {
             RefreshTextBoxDisplay();
 
-            trainerTypeComboBox.SelectedItem = trainerTypeLabels[t.trainerTypeID];
+            trainerTypeComboBox.SelectedIndex = trainerTypeToCC[t.trainerTypeID];
             arenaIDNumericUpDown.Value = t.arenaID;
             effectIDNumericUpDown.Value = t.effectID;
 
