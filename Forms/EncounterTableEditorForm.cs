@@ -144,7 +144,7 @@ namespace ImpostersOrdeal
             RefreshTimeDisplay();
 
             // Pokeradar Mons
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < encounterTable.swayGrass.Count; i++)
             {
                 Encounter encounter = encounterTable.swayGrass[i];
                 DataGridViewRow iRow = dataGridView4.Rows[i];
@@ -154,7 +154,7 @@ namespace ImpostersOrdeal
             }
 
             // Water Mons
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < encounterTable.waterMons.Count; i++)
             {
                 Encounter encounter = encounterTable.waterMons[i];
                 DataGridViewRow iRow = dataGridView5.Rows[i];
@@ -164,7 +164,7 @@ namespace ImpostersOrdeal
             }
 
             // Old Rod
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < encounterTable.oldRodMons.Count; i++)
             {
                 Encounter encounter = encounterTable.oldRodMons[i];
                 DataGridViewRow iRow = dataGridView6.Rows[i];
@@ -174,7 +174,7 @@ namespace ImpostersOrdeal
             }
             
             // Good Rod
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < encounterTable.goodRodMons.Count; i++)
             {
                 Encounter encounter = encounterTable.goodRodMons[i];
                 DataGridViewRow iRow = dataGridView7.Rows[i];
@@ -184,7 +184,7 @@ namespace ImpostersOrdeal
             }
 
             // Super Rod
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < encounterTable.superRodMons.Count; i++)
             {
                 Encounter encounter = encounterTable.superRodMons[i];
                 DataGridViewRow iRow = dataGridView8.Rows[i];
@@ -212,7 +212,7 @@ namespace ImpostersOrdeal
             List<Encounter> superRodMons = new();
 
             // Pokeradar Mons
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < encounterTable.swayGrass.Count; i++)
             {
                 DataGridViewRow iRow = dataGridView4.Rows[i];
                 Encounter swayGrassEnc = new();
@@ -223,7 +223,7 @@ namespace ImpostersOrdeal
             }
 
             // Water Mons
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < encounterTable.waterMons.Count; i++)
             {
                 DataGridViewRow iRow = dataGridView5.Rows[i];
                 Encounter waterMon = new();
@@ -234,7 +234,7 @@ namespace ImpostersOrdeal
             }
 
             // Old Rod
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < encounterTable.oldRodMons.Count; i++)
             {
                 DataGridViewRow iRow = dataGridView6.Rows[i];
                 Encounter oldRodMon = new();
@@ -245,7 +245,7 @@ namespace ImpostersOrdeal
             }
 
             // Good Rod
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < encounterTable.goodRodMons.Count; i++)
             {
                 DataGridViewRow iRow = dataGridView7.Rows[i];
                 Encounter goodRodMon = new();
@@ -256,7 +256,7 @@ namespace ImpostersOrdeal
             }
 
             // Super Rod
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < encounterTable.superRodMons.Count; i++)
             {
                 DataGridViewRow iRow = dataGridView8.Rows[i];
                 Encounter superRodMon = new();
