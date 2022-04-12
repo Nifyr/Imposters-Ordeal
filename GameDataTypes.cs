@@ -489,8 +489,8 @@ namespace ImpostersOrdeal
                     0 => "", //No marker
                     1 => "\n", //New line marker
                     2 => "", //Wait marker
-                    3 => "\n", //End of textbox marker
-                    4 => "", //Unknown
+                    3 => "\n", //New textbox marker
+                    4 => "\n", //Scroll textbox marker
                     5 => "", //Start/join event marker?
                     7 => "", //End of message
                     _ => "\0", //Unknown
