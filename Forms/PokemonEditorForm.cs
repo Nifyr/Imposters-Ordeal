@@ -184,27 +184,27 @@ namespace ImpostersOrdeal
                 (int)numericUpDown10.Value
             });
 
-            p.typingID1 = (byte)type1ComboBox.SelectedIndex;
-            p.typingID2 = (byte)type2ComboBox.SelectedIndex;
+            p.typingID1 = (byte)(type1ComboBox.SelectedIndex == -1 ? 0 : type1ComboBox.SelectedIndex);
+            p.typingID2 = (byte)(type2ComboBox.SelectedIndex == -1 ? 0 : type2ComboBox.SelectedIndex);
 
-            p.item1 = (ushort)item1ComboBox.SelectedIndex;
-            p.item2 = (ushort)item2ComboBox.SelectedIndex;
-            p.item3 = (ushort)item3ComboBox.SelectedIndex;
+            p.item1 = (ushort)(item1ComboBox.SelectedIndex == -1 ? 0 : item1ComboBox.SelectedIndex);
+            p.item2 = (ushort)(item2ComboBox.SelectedIndex == -1 ? 0 : item2ComboBox.SelectedIndex);
+            p.item3 = (ushort)(item3ComboBox.SelectedIndex == -1 ? 0 : item3ComboBox.SelectedIndex);
 
-            p.abilityID1 = (ushort)ability1ComboBox.SelectedIndex;
-            p.abilityID2 = (ushort)ability2ComboBox.SelectedIndex;
-            p.abilityID3 = (ushort)hiddenAbilityComboBox.SelectedIndex;
+            p.abilityID1 = (ushort)(ability1ComboBox.SelectedIndex == -1 ? 0 : ability1ComboBox.SelectedIndex);
+            p.abilityID2 = (ushort)(ability2ComboBox.SelectedIndex == -1 ? 0 : ability2ComboBox.SelectedIndex);
+            p.abilityID3 = (ushort)(hiddenAbilityComboBox.SelectedIndex == -1 ? 0 : hiddenAbilityComboBox.SelectedIndex);
 
-            p.color = (byte)colorComboBox.SelectedIndex;
+            p.color = (byte)(colorComboBox.SelectedIndex == -1 ? 0 : colorComboBox.SelectedIndex);
             p.graNo = (ushort)numericUpDown13.Value;
             p.getRate = (byte)numericUpDown14.Value;
             p.rank = (byte)numericUpDown15.Value;
             p.sex = (byte)numericUpDown16.Value;
             p.eggBirth = (byte)numericUpDown17.Value;
             p.initialFriendship = (byte)numericUpDown18.Value;
-            p.eggGroup1 = (byte)eggGroup1ComboBox.SelectedIndex;
-            p.eggGroup2 = (byte)eggGroup2ComboBox.SelectedIndex;
-            p.grow = (byte)growthComboBox.SelectedIndex;
+            p.eggGroup1 = (byte)(eggGroup1ComboBox.SelectedIndex == -1 ? 0 : eggGroup1ComboBox.SelectedIndex);
+            p.eggGroup2 = (byte)(eggGroup2ComboBox.SelectedIndex == -1 ? 0 : eggGroup2ComboBox.SelectedIndex);
+            p.grow = (byte)(growthComboBox.SelectedIndex == -1 ? 0 : growthComboBox.SelectedIndex);
             p.giveExp = (ushort)numericUpDown19.Value;
             p.height = (ushort)numericUpDown20.Value;
             p.weight = (ushort)numericUpDown21.Value;

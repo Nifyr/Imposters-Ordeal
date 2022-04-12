@@ -110,7 +110,7 @@ namespace ImpostersOrdeal
 
         private void CommitEdit(object sender, EventArgs e)
         {
-            tp.formID = (ushort)formComboBox.SelectedIndex;
+            tp.formID = (ushort)(formComboBox.SelectedIndex == -1 ? 0 : formComboBox.SelectedIndex);
             tp.level = (byte)levelNumericUpDown.Value;
 
             tp.hpIV = (byte)numericUpDown4.Value;
@@ -131,8 +131,8 @@ namespace ImpostersOrdeal
             tp.spDefEV = (byte)numericUpDown11.Value;
             tp.spdEV = (byte)numericUpDown10.Value;
 
-            tp.sex = (byte)comboBox3.SelectedIndex;
-            tp.natureID = (byte)comboBox4.SelectedIndex;
+            tp.sex = (byte)(comboBox3.SelectedIndex == -1 ? 0 : comboBox3.SelectedIndex);
+            tp.natureID = (byte)(comboBox4.SelectedIndex == -1 ? 0 : comboBox4.SelectedIndex);
             tp.abilityID = (ushort)(comboBox5.SelectedIndex == -1 ? 0 : comboBox5.SelectedIndex);
             tp.itemID = (ushort)(comboBox6.SelectedIndex == -1 ? 0 : comboBox6.SelectedIndex);
 

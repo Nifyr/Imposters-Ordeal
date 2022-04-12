@@ -103,10 +103,10 @@ namespace ImpostersOrdeal
 
             t.fightType = (byte)(doubleBattleCheckBox.Checked ? 1 : 0);
             t.gold = (byte)prizeMoneyNumericUpDown.Value;
-            t.useItem1 = (ushort)(item1ComboBox.SelectedIndex != -1 ? item1ComboBox.SelectedIndex : 0);
-            t.useItem2 = (ushort)(item2ComboBox.SelectedIndex != -1 ? item2ComboBox.SelectedIndex : 0);
-            t.useItem3 = (ushort)(item3ComboBox.SelectedIndex != -1 ? item3ComboBox.SelectedIndex : 0);
-            t.useItem4 = (ushort)(item4ComboBox.SelectedIndex != -1 ? item4ComboBox.SelectedIndex : 0);
+            t.useItem1 = (ushort)(item1ComboBox.SelectedIndex == -1 ? 0 : item1ComboBox.SelectedIndex);
+            t.useItem2 = (ushort)(item2ComboBox.SelectedIndex == -1 ? 0 : item2ComboBox.SelectedIndex);
+            t.useItem3 = (ushort)(item3ComboBox.SelectedIndex == -1 ? 0 : item3ComboBox.SelectedIndex);
+            t.useItem4 = (ushort)(item4ComboBox.SelectedIndex == -1 ? 0 : item4ComboBox.SelectedIndex);
 
             bool[] aiFlags = new bool[32];
             aiFlags[0] = checkBox1.Checked;

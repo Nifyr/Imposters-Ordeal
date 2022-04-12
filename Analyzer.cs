@@ -132,7 +132,7 @@ namespace ImpostersOrdeal
                     instances[abilities[i]]++;
             }
             randomizerSetupConfig.abilities = ToItemDistributionConfig(instances, entities);
-
+            
             //Catch Rate
             randomizerSetupConfig.catchRate = GetNumericDistributionConfig(gameData.personalEntries, p => p.getRate, AbsoluteBoundary.CatchRate);
 

@@ -196,8 +196,8 @@ namespace ImpostersOrdeal
         private void CommitEdit(object sender, EventArgs e)
         {
             m.isValid = isValidCheckBox.Checked ? (byte)1 : (byte)0;
-            m.typingID = (byte)typingComboBox.SelectedIndex;
-            m.damageCategoryID = (byte)damageCategoryComboBox.SelectedIndex;
+            m.typingID = (byte)(typingComboBox.SelectedIndex == -1 ? 0 : typingComboBox.SelectedIndex);
+            m.damageCategoryID = (byte)(damageCategoryComboBox.SelectedIndex == -1 ? 0 : damageCategoryComboBox.SelectedIndex);
             m.power = (byte)numericUpDown1.Value;
             m.hitPer = (byte)numericUpDown2.Value;
             m.basePP = (byte)numericUpDown3.Value;
@@ -208,9 +208,9 @@ namespace ImpostersOrdeal
             m.sickTurnMin = (byte)numericUpDown14.Value;
             m.sickTurnMax = (byte)numericUpDown15.Value;
 
-            m.rankEffType1 = (byte)statTypeComboBox1.SelectedIndex;
-            m.rankEffType2 = (byte)statTypeComboBox2.SelectedIndex;
-            m.rankEffType3 = (byte)statTypeComboBox3.SelectedIndex;
+            m.rankEffType1 = (byte)(statTypeComboBox1.SelectedIndex == -1 ? 0 : statTypeComboBox1.SelectedIndex);
+            m.rankEffType2 = (byte)(statTypeComboBox2.SelectedIndex == -1 ? 0 : statTypeComboBox2.SelectedIndex);
+            m.rankEffType3 = (byte)(statTypeComboBox3.SelectedIndex == -1 ? 0 : statTypeComboBox3.SelectedIndex);
             m.rankEffValue1 = (sbyte)numericUpDown16.Value;
             m.rankEffValue2 = (sbyte)numericUpDown18.Value;
             m.rankEffValue3 = (sbyte)numericUpDown20.Value;
@@ -218,7 +218,7 @@ namespace ImpostersOrdeal
             m.rankEffPer2 = (byte)numericUpDown19.Value;
             m.rankEffPer3 = (byte)numericUpDown21.Value;
 
-            m.category = (byte)moveCategoryComboBox.SelectedIndex;
+            m.category = (byte)(moveCategoryComboBox.SelectedIndex == -1 ? 0 : moveCategoryComboBox.SelectedIndex);
             m.priority = (sbyte)numericUpDown4.Value;
             m.hitCountMin = (byte)numericUpDown5.Value;
             m.hitCountMax = (byte)numericUpDown6.Value;
@@ -227,7 +227,7 @@ namespace ImpostersOrdeal
             m.aiSeqNo = (ushort)numericUpDown9.Value;
             m.damageRecoverRatio = (sbyte)numericUpDown10.Value;
             m.hpRecoverRatio = (sbyte)numericUpDown11.Value;
-            m.target = (byte)targetingComboBox.SelectedIndex;
+            m.target = (byte)(targetingComboBox.SelectedIndex == -1 ? 0 : targetingComboBox.SelectedIndex);
 
             bool[] flags = new bool[32];
             flags[0] = checkBox1.Checked;

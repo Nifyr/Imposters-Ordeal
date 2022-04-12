@@ -204,11 +204,11 @@ namespace ImpostersOrdeal
         private void CommitEdit(object sender, EventArgs e)
         {
             if (formIDComboBox.Visible)
-                m.destFormID = (ushort)formIDComboBox.SelectedIndex;
+                m.destFormID = (ushort)(formIDComboBox.SelectedIndex == -1 ? 0 : formIDComboBox.SelectedIndex);
             if (lvReqNumericUpDown.Visible)
                 m.level = (ushort)lvReqNumericUpDown.Value;
             if (evoParamComboBox.Visible)
-                m.parameter = (ushort)evoParamComboBox.SelectedIndex;
+                m.parameter = (ushort)(evoParamComboBox.SelectedIndex == -1 ? 0 : evoParamComboBox.SelectedIndex);
         }
 
         private void ActivateControls()
