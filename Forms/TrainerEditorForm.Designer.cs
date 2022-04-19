@@ -63,6 +63,8 @@ namespace ImpostersOrdeal
             this.partyDataGridView = new System.Windows.Forms.DataGridView();
             this.tpDisplayColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tpButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.copyButton = new System.Windows.Forms.Button();
+            this.pasteButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.effectIDNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.arenaIDNumericUpDown)).BeginInit();
@@ -398,6 +400,8 @@ namespace ImpostersOrdeal
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.pasteButton);
+            this.groupBox4.Controls.Add(this.copyButton);
             this.groupBox4.Controls.Add(this.partyDataGridView);
             this.groupBox4.Location = new System.Drawing.Point(402, 12);
             this.groupBox4.Name = "groupBox4";
@@ -418,7 +422,7 @@ namespace ImpostersOrdeal
             this.partyDataGridView.Name = "partyDataGridView";
             this.partyDataGridView.RowHeadersWidth = 20;
             this.partyDataGridView.RowTemplate.Height = 29;
-            this.partyDataGridView.Size = new System.Drawing.Size(372, 605);
+            this.partyDataGridView.Size = new System.Drawing.Size(372, 570);
             this.partyDataGridView.TabIndex = 0;
             this.partyDataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.UserDeletingRow);
             // 
@@ -438,6 +442,26 @@ namespace ImpostersOrdeal
             this.tpButtonColumn.ReadOnly = true;
             this.tpButtonColumn.Text = "Configure";
             this.tpButtonColumn.UseColumnTextForButtonValue = true;
+            // 
+            // copyButton
+            // 
+            this.copyButton.Location = new System.Drawing.Point(172, 602);
+            this.copyButton.Name = "copyButton";
+            this.copyButton.Size = new System.Drawing.Size(100, 29);
+            this.copyButton.TabIndex = 1;
+            this.copyButton.Text = "Copy";
+            this.copyButton.UseVisualStyleBackColor = true;
+            this.copyButton.Click += new System.EventHandler(this.CopyButtonClick);
+            // 
+            // pasteButton
+            // 
+            this.pasteButton.Location = new System.Drawing.Point(278, 602);
+            this.pasteButton.Name = "pasteButton";
+            this.pasteButton.Size = new System.Drawing.Size(100, 29);
+            this.pasteButton.TabIndex = 2;
+            this.pasteButton.Text = "Paste";
+            this.pasteButton.UseVisualStyleBackColor = true;
+            this.pasteButton.Click += new System.EventHandler(this.PasteButtonClick);
             // 
             // TrainerEditorForm
             // 
@@ -507,5 +531,7 @@ namespace ImpostersOrdeal
         private System.Windows.Forms.DataGridView partyDataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn tpDisplayColumn;
         private System.Windows.Forms.DataGridViewButtonColumn tpButtonColumn;
+        private System.Windows.Forms.Button pasteButton;
+        private System.Windows.Forms.Button copyButton;
     }
 }

@@ -20,6 +20,7 @@ namespace ImpostersOrdeal
         public List<string> items;
         public Trainer t;
         private TrainerPokemonEditorForm tpef;
+        private List<TrainerPokemon> partyClipboard;
 
         public TrainerEditorForm()
         {
@@ -208,6 +209,26 @@ namespace ImpostersOrdeal
         private void UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
             t.trainerPokemon.RemoveAt(e.Row.Index);
+        }
+
+        private void CopyButtonClick(object sender, EventArgs e)
+        {
+            partyClipboard = new();
+            foreach (TrainerPokemon tp in t.trainerPokemon)
+                partyClipboard.Add(new(tp));
+        }
+
+        private void PasteButtonClick(object sender, EventArgs e)
+        {
+            if (partyClipboard == null)
+                return;
+
+            List<TrainerPokemon> newParty = new();
+            foreach (TrainerPokemon tp in partyClipboard)
+                newParty.Add(new(tp));
+            t.trainerPokemon = newParty;
+
+            PopulatePartyDataGridView();
         }
     }
 }
