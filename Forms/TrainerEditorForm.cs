@@ -20,6 +20,7 @@ namespace ImpostersOrdeal
         public List<string> items;
         public Trainer t;
         private TrainerPokemonEditorForm tpef;
+        private Forms.TrainerShowdownEditorForm tsef;
         private List<TrainerPokemon> partyClipboard;
 
         public TrainerEditorForm()
@@ -38,6 +39,7 @@ namespace ImpostersOrdeal
 
             InitializeComponent();
             tpef = new(this);
+            tsef = new(this);
 
             trainers = new();
             trainers.AddRange(gameData.trainers);
@@ -229,6 +231,12 @@ namespace ImpostersOrdeal
             t.trainerPokemon = newParty;
 
             PopulatePartyDataGridView();
+        }
+
+        private void ShowdownButtonClick(object sender, EventArgs e)
+        {
+            tsef.SetTP(t);
+            tsef.ShowDialog();
         }
     }
 }

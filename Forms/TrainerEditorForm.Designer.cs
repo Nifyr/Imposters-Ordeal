@@ -60,11 +60,12 @@ namespace ImpostersOrdeal
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.pasteButton = new System.Windows.Forms.Button();
+            this.copyButton = new System.Windows.Forms.Button();
             this.partyDataGridView = new System.Windows.Forms.DataGridView();
             this.tpDisplayColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tpButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.copyButton = new System.Windows.Forms.Button();
-            this.pasteButton = new System.Windows.Forms.Button();
+            this.ShowdownButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.effectIDNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.arenaIDNumericUpDown)).BeginInit();
@@ -78,18 +79,20 @@ namespace ImpostersOrdeal
             // listBox
             // 
             this.listBox.FormattingEnabled = true;
-            this.listBox.ItemHeight = 20;
-            this.listBox.Location = new System.Drawing.Point(12, 45);
+            this.listBox.ItemHeight = 25;
+            this.listBox.Location = new System.Drawing.Point(15, 56);
+            this.listBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.listBox.Name = "listBox";
-            this.listBox.Size = new System.Drawing.Size(189, 604);
+            this.listBox.Size = new System.Drawing.Size(235, 754);
             this.listBox.TabIndex = 1;
             // 
             // trainerDisplayTextBox
             // 
-            this.trainerDisplayTextBox.Location = new System.Drawing.Point(12, 12);
+            this.trainerDisplayTextBox.Location = new System.Drawing.Point(15, 15);
+            this.trainerDisplayTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.trainerDisplayTextBox.Name = "trainerDisplayTextBox";
             this.trainerDisplayTextBox.ReadOnly = true;
-            this.trainerDisplayTextBox.Size = new System.Drawing.Size(189, 27);
+            this.trainerDisplayTextBox.Size = new System.Drawing.Size(235, 31);
             this.trainerDisplayTextBox.TabIndex = 0;
             // 
             // groupBox1
@@ -100,9 +103,11 @@ namespace ImpostersOrdeal
             this.groupBox1.Controls.Add(this.arenaIDNumericUpDown);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.trainerTypeComboBox);
-            this.groupBox1.Location = new System.Drawing.Point(207, 12);
+            this.groupBox1.Location = new System.Drawing.Point(259, 15);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(189, 150);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Size = new System.Drawing.Size(236, 188);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Visuals";
@@ -110,15 +115,17 @@ namespace ImpostersOrdeal
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(15, 115);
+            this.label4.Location = new System.Drawing.Point(19, 144);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(62, 20);
+            this.label4.Size = new System.Drawing.Size(74, 25);
             this.label4.TabIndex = 7;
             this.label4.Text = "effectID";
             // 
             // effectIDNumericUpDown
             // 
-            this.effectIDNumericUpDown.Location = new System.Drawing.Point(83, 113);
+            this.effectIDNumericUpDown.Location = new System.Drawing.Point(104, 141);
+            this.effectIDNumericUpDown.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.effectIDNumericUpDown.Maximum = new decimal(new int[] {
             2147483647,
             0,
@@ -130,21 +137,23 @@ namespace ImpostersOrdeal
             0,
             -2147483648});
             this.effectIDNumericUpDown.Name = "effectIDNumericUpDown";
-            this.effectIDNumericUpDown.Size = new System.Drawing.Size(100, 27);
+            this.effectIDNumericUpDown.Size = new System.Drawing.Size(125, 31);
             this.effectIDNumericUpDown.TabIndex = 6;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(16, 82);
+            this.label3.Location = new System.Drawing.Point(20, 102);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(61, 20);
+            this.label3.Size = new System.Drawing.Size(73, 25);
             this.label3.TabIndex = 5;
             this.label3.Text = "arenaID";
             // 
             // arenaIDNumericUpDown
             // 
-            this.arenaIDNumericUpDown.Location = new System.Drawing.Point(83, 80);
+            this.arenaIDNumericUpDown.Location = new System.Drawing.Point(104, 100);
+            this.arenaIDNumericUpDown.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.arenaIDNumericUpDown.Maximum = new decimal(new int[] {
             2147483647,
             0,
@@ -156,15 +165,16 @@ namespace ImpostersOrdeal
             0,
             -2147483648});
             this.arenaIDNumericUpDown.Name = "arenaIDNumericUpDown";
-            this.arenaIDNumericUpDown.Size = new System.Drawing.Size(100, 27);
+            this.arenaIDNumericUpDown.Size = new System.Drawing.Size(125, 31);
             this.arenaIDNumericUpDown.TabIndex = 4;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 23);
+            this.label1.Location = new System.Drawing.Point(8, 29);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(89, 20);
+            this.label1.Size = new System.Drawing.Size(105, 25);
             this.label1.TabIndex = 1;
             this.label1.Text = "Trainer Type";
             // 
@@ -172,9 +182,10 @@ namespace ImpostersOrdeal
             // 
             this.trainerTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.trainerTypeComboBox.FormattingEnabled = true;
-            this.trainerTypeComboBox.Location = new System.Drawing.Point(6, 46);
+            this.trainerTypeComboBox.Location = new System.Drawing.Point(8, 58);
+            this.trainerTypeComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.trainerTypeComboBox.Name = "trainerTypeComboBox";
-            this.trainerTypeComboBox.Size = new System.Drawing.Size(177, 28);
+            this.trainerTypeComboBox.Size = new System.Drawing.Size(220, 33);
             this.trainerTypeComboBox.TabIndex = 0;
             // 
             // groupBox2
@@ -190,9 +201,11 @@ namespace ImpostersOrdeal
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.prizeMoneyNumericUpDown);
             this.groupBox2.Controls.Add(this.doubleBattleCheckBox);
-            this.groupBox2.Location = new System.Drawing.Point(207, 168);
+            this.groupBox2.Location = new System.Drawing.Point(259, 210);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(189, 230);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Size = new System.Drawing.Size(236, 288);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Main";
@@ -200,9 +213,10 @@ namespace ImpostersOrdeal
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(26, 194);
+            this.label8.Location = new System.Drawing.Point(32, 242);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(51, 20);
+            this.label8.Size = new System.Drawing.Size(63, 25);
             this.label8.TabIndex = 14;
             this.label8.Text = "Item 4";
             // 
@@ -211,17 +225,19 @@ namespace ImpostersOrdeal
             this.item4ComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.item4ComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.item4ComboBox.FormattingEnabled = true;
-            this.item4ComboBox.Location = new System.Drawing.Point(83, 191);
+            this.item4ComboBox.Location = new System.Drawing.Point(104, 239);
+            this.item4ComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.item4ComboBox.Name = "item4ComboBox";
-            this.item4ComboBox.Size = new System.Drawing.Size(100, 28);
+            this.item4ComboBox.Size = new System.Drawing.Size(124, 33);
             this.item4ComboBox.TabIndex = 13;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(26, 160);
+            this.label7.Location = new System.Drawing.Point(32, 200);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(51, 20);
+            this.label7.Size = new System.Drawing.Size(63, 25);
             this.label7.TabIndex = 12;
             this.label7.Text = "Item 3";
             // 
@@ -230,17 +246,19 @@ namespace ImpostersOrdeal
             this.item3ComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.item3ComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.item3ComboBox.FormattingEnabled = true;
-            this.item3ComboBox.Location = new System.Drawing.Point(83, 157);
+            this.item3ComboBox.Location = new System.Drawing.Point(104, 196);
+            this.item3ComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.item3ComboBox.Name = "item3ComboBox";
-            this.item3ComboBox.Size = new System.Drawing.Size(100, 28);
+            this.item3ComboBox.Size = new System.Drawing.Size(124, 33);
             this.item3ComboBox.TabIndex = 11;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(26, 126);
+            this.label6.Location = new System.Drawing.Point(32, 158);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(51, 20);
+            this.label6.Size = new System.Drawing.Size(63, 25);
             this.label6.TabIndex = 10;
             this.label6.Text = "Item 2";
             // 
@@ -249,17 +267,19 @@ namespace ImpostersOrdeal
             this.item2ComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.item2ComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.item2ComboBox.FormattingEnabled = true;
-            this.item2ComboBox.Location = new System.Drawing.Point(83, 123);
+            this.item2ComboBox.Location = new System.Drawing.Point(104, 154);
+            this.item2ComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.item2ComboBox.Name = "item2ComboBox";
-            this.item2ComboBox.Size = new System.Drawing.Size(100, 28);
+            this.item2ComboBox.Size = new System.Drawing.Size(124, 33);
             this.item2ComboBox.TabIndex = 9;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(26, 92);
+            this.label2.Location = new System.Drawing.Point(32, 115);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(51, 20);
+            this.label2.Size = new System.Drawing.Size(63, 25);
             this.label2.TabIndex = 8;
             this.label2.Text = "Item 1";
             // 
@@ -268,39 +288,43 @@ namespace ImpostersOrdeal
             this.item1ComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.item1ComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.item1ComboBox.FormattingEnabled = true;
-            this.item1ComboBox.Location = new System.Drawing.Point(83, 89);
+            this.item1ComboBox.Location = new System.Drawing.Point(104, 111);
+            this.item1ComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.item1ComboBox.Name = "item1ComboBox";
-            this.item1ComboBox.Size = new System.Drawing.Size(100, 28);
+            this.item1ComboBox.Size = new System.Drawing.Size(124, 33);
             this.item1ComboBox.TabIndex = 6;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(37, 58);
+            this.label5.Location = new System.Drawing.Point(46, 72);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(90, 20);
+            this.label5.Size = new System.Drawing.Size(109, 25);
             this.label5.TabIndex = 5;
             this.label5.Text = "Prize Money";
             // 
             // prizeMoneyNumericUpDown
             // 
-            this.prizeMoneyNumericUpDown.Location = new System.Drawing.Point(133, 56);
+            this.prizeMoneyNumericUpDown.Location = new System.Drawing.Point(166, 70);
+            this.prizeMoneyNumericUpDown.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.prizeMoneyNumericUpDown.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.prizeMoneyNumericUpDown.Name = "prizeMoneyNumericUpDown";
-            this.prizeMoneyNumericUpDown.Size = new System.Drawing.Size(50, 27);
+            this.prizeMoneyNumericUpDown.Size = new System.Drawing.Size(62, 31);
             this.prizeMoneyNumericUpDown.TabIndex = 4;
             // 
             // doubleBattleCheckBox
             // 
             this.doubleBattleCheckBox.AutoSize = true;
-            this.doubleBattleCheckBox.Location = new System.Drawing.Point(60, 26);
+            this.doubleBattleCheckBox.Location = new System.Drawing.Point(75, 32);
+            this.doubleBattleCheckBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.doubleBattleCheckBox.Name = "doubleBattleCheckBox";
             this.doubleBattleCheckBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.doubleBattleCheckBox.Size = new System.Drawing.Size(123, 24);
+            this.doubleBattleCheckBox.Size = new System.Drawing.Size(145, 29);
             this.doubleBattleCheckBox.TabIndex = 0;
             this.doubleBattleCheckBox.Text = "Double Battle";
             this.doubleBattleCheckBox.UseVisualStyleBackColor = true;
@@ -314,9 +338,11 @@ namespace ImpostersOrdeal
             this.groupBox3.Controls.Add(this.checkBox3);
             this.groupBox3.Controls.Add(this.checkBox2);
             this.groupBox3.Controls.Add(this.checkBox1);
-            this.groupBox3.Location = new System.Drawing.Point(207, 404);
+            this.groupBox3.Location = new System.Drawing.Point(259, 505);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(189, 245);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox3.Size = new System.Drawing.Size(236, 306);
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "AI Flags";
@@ -324,10 +350,11 @@ namespace ImpostersOrdeal
             // checkBox7
             // 
             this.checkBox7.AutoSize = true;
-            this.checkBox7.Location = new System.Drawing.Point(15, 206);
+            this.checkBox7.Location = new System.Drawing.Point(19, 258);
+            this.checkBox7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.checkBox7.Name = "checkBox7";
             this.checkBox7.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBox7.Size = new System.Drawing.Size(168, 24);
+            this.checkBox7.Size = new System.Drawing.Size(204, 29);
             this.checkBox7.TabIndex = 7;
             this.checkBox7.Text = "Can Switch Pokémon";
             this.checkBox7.UseVisualStyleBackColor = true;
@@ -335,10 +362,11 @@ namespace ImpostersOrdeal
             // checkBox6
             // 
             this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(59, 176);
+            this.checkBox6.Location = new System.Drawing.Point(74, 220);
+            this.checkBox6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.checkBox6.Name = "checkBox6";
             this.checkBox6.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBox6.Size = new System.Drawing.Size(124, 24);
+            this.checkBox6.Size = new System.Drawing.Size(151, 29);
             this.checkBox6.TabIndex = 6;
             this.checkBox6.Text = "Can Use Items";
             this.checkBox6.UseVisualStyleBackColor = true;
@@ -346,10 +374,11 @@ namespace ImpostersOrdeal
             // checkBox5
             // 
             this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(80, 146);
+            this.checkBox5.Location = new System.Drawing.Point(100, 182);
+            this.checkBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.checkBox5.Name = "checkBox5";
             this.checkBox5.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBox5.Size = new System.Drawing.Size(103, 24);
+            this.checkBox5.Size = new System.Drawing.Size(123, 29);
             this.checkBox5.TabIndex = 5;
             this.checkBox5.Text = "Merciful AI";
             this.checkBox5.UseVisualStyleBackColor = true;
@@ -357,10 +386,11 @@ namespace ImpostersOrdeal
             // checkBox4
             // 
             this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(42, 116);
+            this.checkBox4.Location = new System.Drawing.Point(52, 145);
+            this.checkBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBox4.Size = new System.Drawing.Size(141, 24);
+            this.checkBox4.Size = new System.Drawing.Size(167, 29);
             this.checkBox4.TabIndex = 4;
             this.checkBox4.Text = "Double Battle AI";
             this.checkBox4.UseVisualStyleBackColor = true;
@@ -368,10 +398,11 @@ namespace ImpostersOrdeal
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(92, 86);
+            this.checkBox3.Location = new System.Drawing.Point(115, 108);
+            this.checkBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBox3.Size = new System.Drawing.Size(91, 24);
+            this.checkBox3.Size = new System.Drawing.Size(109, 29);
             this.checkBox3.TabIndex = 3;
             this.checkBox3.Text = "Expert AI";
             this.checkBox3.UseVisualStyleBackColor = true;
@@ -379,10 +410,11 @@ namespace ImpostersOrdeal
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(90, 56);
+            this.checkBox2.Location = new System.Drawing.Point(112, 70);
+            this.checkBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBox2.Size = new System.Drawing.Size(93, 24);
+            this.checkBox2.Size = new System.Drawing.Size(113, 29);
             this.checkBox2.TabIndex = 2;
             this.checkBox2.Text = "Strong AI";
             this.checkBox2.UseVisualStyleBackColor = true;
@@ -390,25 +422,51 @@ namespace ImpostersOrdeal
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(100, 26);
+            this.checkBox1.Location = new System.Drawing.Point(125, 32);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBox1.Size = new System.Drawing.Size(83, 24);
+            this.checkBox1.Size = new System.Drawing.Size(99, 29);
             this.checkBox1.TabIndex = 1;
             this.checkBox1.Text = "Basic AI";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.ShowdownButton);
             this.groupBox4.Controls.Add(this.pasteButton);
             this.groupBox4.Controls.Add(this.copyButton);
             this.groupBox4.Controls.Add(this.partyDataGridView);
-            this.groupBox4.Location = new System.Drawing.Point(402, 12);
+            this.groupBox4.Location = new System.Drawing.Point(502, 15);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(384, 637);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Size = new System.Drawing.Size(480, 796);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Party";
+            // 
+            // pasteButton
+            // 
+            this.pasteButton.Location = new System.Drawing.Point(348, 752);
+            this.pasteButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pasteButton.Name = "pasteButton";
+            this.pasteButton.Size = new System.Drawing.Size(125, 36);
+            this.pasteButton.TabIndex = 2;
+            this.pasteButton.Text = "Paste";
+            this.pasteButton.UseVisualStyleBackColor = true;
+            this.pasteButton.Click += new System.EventHandler(this.PasteButtonClick);
+            // 
+            // copyButton
+            // 
+            this.copyButton.Location = new System.Drawing.Point(215, 752);
+            this.copyButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.copyButton.Name = "copyButton";
+            this.copyButton.Size = new System.Drawing.Size(125, 36);
+            this.copyButton.TabIndex = 1;
+            this.copyButton.Text = "Copy";
+            this.copyButton.UseVisualStyleBackColor = true;
+            this.copyButton.Click += new System.EventHandler(this.CopyButtonClick);
             // 
             // partyDataGridView
             // 
@@ -418,11 +476,12 @@ namespace ImpostersOrdeal
             this.partyDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.tpDisplayColumn,
             this.tpButtonColumn});
-            this.partyDataGridView.Location = new System.Drawing.Point(6, 26);
+            this.partyDataGridView.Location = new System.Drawing.Point(8, 32);
+            this.partyDataGridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.partyDataGridView.Name = "partyDataGridView";
             this.partyDataGridView.RowHeadersWidth = 20;
             this.partyDataGridView.RowTemplate.Height = 29;
-            this.partyDataGridView.Size = new System.Drawing.Size(372, 570);
+            this.partyDataGridView.Size = new System.Drawing.Size(465, 712);
             this.partyDataGridView.TabIndex = 0;
             this.partyDataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.UserDeletingRow);
             // 
@@ -443,31 +502,21 @@ namespace ImpostersOrdeal
             this.tpButtonColumn.Text = "Configure";
             this.tpButtonColumn.UseColumnTextForButtonValue = true;
             // 
-            // copyButton
+            // ShowdownButton
             // 
-            this.copyButton.Location = new System.Drawing.Point(172, 602);
-            this.copyButton.Name = "copyButton";
-            this.copyButton.Size = new System.Drawing.Size(100, 29);
-            this.copyButton.TabIndex = 1;
-            this.copyButton.Text = "Copy";
-            this.copyButton.UseVisualStyleBackColor = true;
-            this.copyButton.Click += new System.EventHandler(this.CopyButtonClick);
-            // 
-            // pasteButton
-            // 
-            this.pasteButton.Location = new System.Drawing.Point(278, 602);
-            this.pasteButton.Name = "pasteButton";
-            this.pasteButton.Size = new System.Drawing.Size(100, 29);
-            this.pasteButton.TabIndex = 2;
-            this.pasteButton.Text = "Paste";
-            this.pasteButton.UseVisualStyleBackColor = true;
-            this.pasteButton.Click += new System.EventHandler(this.PasteButtonClick);
+            this.ShowdownButton.Location = new System.Drawing.Point(8, 754);
+            this.ShowdownButton.Name = "ShowdownButton";
+            this.ShowdownButton.Size = new System.Drawing.Size(200, 34);
+            this.ShowdownButton.TabIndex = 3;
+            this.ShowdownButton.Text = "Showdown Editor";
+            this.ShowdownButton.UseVisualStyleBackColor = true;
+            this.ShowdownButton.Click += new System.EventHandler(this.ShowdownButtonClick);
             // 
             // TrainerEditorForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(798, 661);
+            this.ClientSize = new System.Drawing.Size(998, 826);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -476,6 +525,7 @@ namespace ImpostersOrdeal
             this.Controls.Add(this.listBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "TrainerEditorForm";
@@ -533,5 +583,6 @@ namespace ImpostersOrdeal
         private System.Windows.Forms.DataGridViewButtonColumn tpButtonColumn;
         private System.Windows.Forms.Button pasteButton;
         private System.Windows.Forms.Button copyButton;
+        private System.Windows.Forms.Button ShowdownButton;
     }
 }
