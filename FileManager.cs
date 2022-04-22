@@ -171,8 +171,14 @@ namespace ImpostersOrdeal
                 {
                     BundleFileInstance bfi = am.LoadBundleFile(modFilePaths[fileIdx], false);
                     DecompressBundle(bfi);
+                    if (!Merge(fileArchive[gamePath], bfi))
+                    {
+                        MainForm.ShowParserError("Unable to merge instances of:\n" +
+                            gamePath + "\n" +
+                            "Asset count mismatch.");
+                        continue;
+                    }
                     fileArchive[gamePath].fileSource = FileSource.Mod;
-                    Merge(fileArchive[gamePath], bfi);
                     reanalysisNecessary = true;
                     continue;
                 }
@@ -192,7 +198,10 @@ namespace ImpostersOrdeal
                     {
                         BundleFileInstance bfi = am.LoadBundleFile(modFilePaths[fileIdx], false);
                         DecompressBundle(bfi);
-                        Merge(fileArchive[gamePath], bfi);
+                        if (!Merge(fileArchive[gamePath], bfi))
+                            MainForm.ShowParserError("Unable to merge instances of:\n" +
+                                gamePath + "\n" +
+                                "Asset count mismatch.");
                     }
                     else
                         conflicts.Add((fileIdx, Path.GetFileName(fileArchive[gamePath].fileLocation)));
@@ -339,7 +348,7 @@ namespace ImpostersOrdeal
         /// <summary>
         ///  Merges two bundles by swapping out select files.
         /// </summary>
-        private void Merge(FileData fd, BundleFileInstance bfi2)
+        private bool Merge(FileData fd, BundleFileInstance bfi2)
         {
             BundleFileInstance bfi1 = fd.bundle;
             AssetsFileInstance afi1 = am.LoadAssetsFileFromBundle(bfi1, bfi1.file.bundleInf6.dirInf[0].name);
@@ -347,6 +356,10 @@ namespace ImpostersOrdeal
             AssetsFileInstance afi2 = am.LoadAssetsFileFromBundle(bfi2, bfi2.file.bundleInf6.dirInf[0].name);
             AssetFileInfoEx[] assetFiles1 = afi1.table.assetFileInfo;
             AssetFileInfoEx[] assetFiles2 = afi2.table.assetFileInfo;
+
+            //Checks if bundles even match
+            if (assetFiles1.Length != assetFiles2.Length)
+                return false;
 
             //Collects conflicts
             List<(int, string)> conflicts = new();
@@ -363,7 +376,7 @@ namespace ImpostersOrdeal
 
             //No conflicts, everyone is happy
             if (conflicts.Count == 0)
-                return;
+                return true;
 
             //Gets what files to overwrite from user
             List<int> overwrites = new();
@@ -386,6 +399,7 @@ namespace ImpostersOrdeal
             }
 
             MakeTempBundle(fd, ars, Environment.CurrentDirectory + "\\" + Path.GetFileName(fd.gamePath) + GetFileIndex());
+            return true;
         }
 
         /// <summary>
