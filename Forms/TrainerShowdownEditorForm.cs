@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static ImpostersOrdeal.GameDataTypes;
 using static ImpostersOrdeal.GlobalData;
 
-namespace ImpostersOrdeal.Forms
+namespace ImpostersOrdeal
 {
     public partial class TrainerShowdownEditorForm : Form
     {
@@ -32,7 +28,7 @@ namespace ImpostersOrdeal.Forms
             "HP", "Atk", "Def", "SpA", "SpD", "Spe"
         };
 
-        private readonly Dictionary<string, int[]> monForms = new Dictionary<string, int[]>
+        private readonly Dictionary<string, int[]> monForms = new()
         {
             {"Unown-B", new int[] {201,1}},
             {"Unown-C", new int[] {201,2}},
@@ -123,24 +119,24 @@ namespace ImpostersOrdeal.Forms
         private void OnLoad(object sender, EventArgs e)
         {
             richTextBox1.Text = ToShowdownText(t);
-            richTextBox2.Text = "Preview should match up with copied text";
+            richTextBox2.Text = "Preview should match up with copied text.";
         }
 
-        private void save_Click(object sender, EventArgs e)
+        private void Save_Click(object sender, EventArgs e)
         {
             try
             {
                 ShowdownToData(richTextBox1.Text, t);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 richTextBox2.Text = "Error in parsing";
             }
         }
 
-        private void preview_Click(object sender, EventArgs e)
+        private void Preview_Click(object sender, EventArgs e)
         {
-            List<TrainerPokemon> trainer = new List<TrainerPokemon>();
+            List<TrainerPokemon> trainer = new();
 
             for(int i = 0; i < t.Count; i++)
             {
@@ -152,7 +148,7 @@ namespace ImpostersOrdeal.Forms
                 ShowdownToData(richTextBox1.Text, trainer);
                 richTextBox2.Text = ToShowdownText(trainer);
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 richTextBox2.Text = "Error in parsing";
             }
@@ -161,12 +157,12 @@ namespace ImpostersOrdeal.Forms
         private void ShowdownToData(String showdownText, List<TrainerPokemon> trainer)
         {
             String[] team = showdownText.Trim('\r', '\n', ' ').Split("\n");
-            List<int> breakpoints = new List<int>();
+            List<int> breakpoints = new();
 
             if(team.Length > 1) //Makes sure it isn't just newlines
             {
                 breakpoints.Add(0);
-                    for (int i = 0; i < team.Length; i++)
+                for (int i = 0; i < team.Length; i++)
                 {
                     team[i] = team[i].Trim();
                     if (team[i] == "")
@@ -200,9 +196,9 @@ namespace ImpostersOrdeal.Forms
                 //Counter Values
                 int moveNum = 0;
 
-                List<ushort> newMoves = new List<ushort>() { 0, 0, 0, 0 };
-                List<byte> EVs = new List<byte>() { 0, 0, 0, 0, 0, 0 };
-                List<byte> IVs = new List<byte>() { 31, 31, 31, 31, 31, 31 };
+                List<ushort> newMoves = new() { 0, 0, 0, 0 };
+                List<byte> EVs = new() { 0, 0, 0, 0, 0, 0 };
+                List<byte> IVs = new() { 31, 31, 31, 31, 31, 31 };
 
                 pokeNum++;
 
@@ -224,7 +220,7 @@ namespace ImpostersOrdeal.Forms
                     }
                 }
                 //Mr. Mime and Mime Jr. are both two word pokemon
-                catch(Exception ex)
+                catch(Exception)
                 {
                     String mon = firstline.Split(" ")[0] + " " + firstline.Split(" ")[1];
                     tp.dexID = (ushort) dexEntries.IndexOf(mon);
@@ -248,7 +244,7 @@ namespace ImpostersOrdeal.Forms
                 {
                     int Index = firstline.IndexOf("@");
 
-                    String itemStr = firstline.Substring(Index + 1).Trim();
+                    String itemStr = firstline[(Index + 1)..].Trim();
                     tp.itemID = (ushort) items.IndexOf(itemStr);
                 }
 
@@ -281,7 +277,7 @@ namespace ImpostersOrdeal.Forms
                     else if(data.ToUpper().StartsWith("EVS"))
                     {
                         int statNum = 0;
-                        foreach (int stat in formatStats(data, 0))
+                        foreach (int stat in FormatStats(data, 0))
                         {
                             EVs[statNum] = (byte) stat;
                             statNum++;
@@ -290,7 +286,7 @@ namespace ImpostersOrdeal.Forms
                     else if (data.ToUpper().StartsWith("IVS"))
                     {
                         int statNum = 0;
-                        foreach (int stat in formatStats(data, 31))
+                        foreach (int stat in FormatStats(data, 31))
                         {
                             IVs[statNum] = (byte) stat;
                             statNum++;
@@ -358,14 +354,14 @@ namespace ImpostersOrdeal.Forms
                     showdownText += "Shiny: Yes\n";
                 }
 
-                showdownText += getEVText(tp);
+                showdownText += GetEVText(tp);
 
                 showdownText += String.Format("{0} Nature", natures[tp.natureID]);
                 showdownText += "\n";
 
-                showdownText += getIVText(tp);
+                showdownText += GetIVText(tp);
             
-                List<ushort> moveList = new List<ushort>() {0, 0, 0, 0};
+                List<ushort> moveList = new() {0, 0, 0, 0};
                 moveList.Add(tp.moveID1);
                 moveList.Add(tp.moveID2);
                 moveList.Add(tp.moveID3);
@@ -386,9 +382,9 @@ namespace ImpostersOrdeal.Forms
         }  
 
         //0 Is implied EVs
-        private String getEVText(TrainerPokemon tp)
+        private String GetEVText(TrainerPokemon tp)
         {
-            List<Byte> EVList = new List<Byte>();
+            List<Byte> EVList = new();
             EVList.Add(tp.hpEV);
             EVList.Add(tp.atkEV);
             EVList.Add(tp.defEV);
@@ -425,9 +421,9 @@ namespace ImpostersOrdeal.Forms
         }
 
         //31 Is implied IVs
-        private String getIVText(TrainerPokemon tp)
+        private String GetIVText(TrainerPokemon tp)
         {
-            List<Byte> IVList = new List<Byte>();
+            List<Byte> IVList = new();
             IVList.Add(tp.hpIV);
             IVList.Add(tp.atkIV);
             IVList.Add(tp.defIV);
@@ -463,9 +459,9 @@ namespace ImpostersOrdeal.Forms
             return returnString;
         }
 
-        private List<int> formatStats(String statString, int defaultVal)
+        private List<int> FormatStats(String statString, int defaultVal)
         {
-            List<int> returnList = new List<int>();
+            List<int> returnList = new();
 
             for(int i = 0; i < 6; i++)
             {
@@ -485,15 +481,6 @@ namespace ImpostersOrdeal.Forms
             }
 
             return returnList;
-        }
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
-        { 
-
-        }
-
-        private void richTextBox2_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }
