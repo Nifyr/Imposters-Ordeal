@@ -237,6 +237,12 @@ namespace ImpostersOrdeal
         {
             tsef.SetTP(t);
             tsef.ShowDialog();
+            PopulatePartyDataGridView();
+        }
+
+        private void TrainerEditorForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

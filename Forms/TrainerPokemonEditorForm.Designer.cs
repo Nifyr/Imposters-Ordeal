@@ -658,6 +658,7 @@ namespace ImpostersOrdeal
             this.groupBox6.TabIndex = 6;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "EVs";
+            this.groupBox6.Enter += new System.EventHandler(this.groupBox6_Enter);
             // 
             // label20
             // 

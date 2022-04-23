@@ -60,12 +60,12 @@ namespace ImpostersOrdeal
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.ShowdownButton = new System.Windows.Forms.Button();
             this.pasteButton = new System.Windows.Forms.Button();
             this.copyButton = new System.Windows.Forms.Button();
             this.partyDataGridView = new System.Windows.Forms.DataGridView();
             this.tpDisplayColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tpButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.ShowdownButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.effectIDNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.arenaIDNumericUpDown)).BeginInit();
@@ -81,7 +81,7 @@ namespace ImpostersOrdeal
             this.listBox.FormattingEnabled = true;
             this.listBox.ItemHeight = 25;
             this.listBox.Location = new System.Drawing.Point(15, 56);
-            this.listBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listBox.Margin = new System.Windows.Forms.Padding(4);
             this.listBox.Name = "listBox";
             this.listBox.Size = new System.Drawing.Size(235, 754);
             this.listBox.TabIndex = 1;
@@ -89,7 +89,7 @@ namespace ImpostersOrdeal
             // trainerDisplayTextBox
             // 
             this.trainerDisplayTextBox.Location = new System.Drawing.Point(15, 15);
-            this.trainerDisplayTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.trainerDisplayTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.trainerDisplayTextBox.Name = "trainerDisplayTextBox";
             this.trainerDisplayTextBox.ReadOnly = true;
             this.trainerDisplayTextBox.Size = new System.Drawing.Size(235, 31);
@@ -104,9 +104,9 @@ namespace ImpostersOrdeal
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.trainerTypeComboBox);
             this.groupBox1.Location = new System.Drawing.Point(259, 15);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(236, 188);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
@@ -125,7 +125,7 @@ namespace ImpostersOrdeal
             // effectIDNumericUpDown
             // 
             this.effectIDNumericUpDown.Location = new System.Drawing.Point(104, 141);
-            this.effectIDNumericUpDown.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.effectIDNumericUpDown.Margin = new System.Windows.Forms.Padding(4);
             this.effectIDNumericUpDown.Maximum = new decimal(new int[] {
             2147483647,
             0,
@@ -153,7 +153,7 @@ namespace ImpostersOrdeal
             // arenaIDNumericUpDown
             // 
             this.arenaIDNumericUpDown.Location = new System.Drawing.Point(104, 100);
-            this.arenaIDNumericUpDown.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.arenaIDNumericUpDown.Margin = new System.Windows.Forms.Padding(4);
             this.arenaIDNumericUpDown.Maximum = new decimal(new int[] {
             2147483647,
             0,
@@ -183,7 +183,7 @@ namespace ImpostersOrdeal
             this.trainerTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.trainerTypeComboBox.FormattingEnabled = true;
             this.trainerTypeComboBox.Location = new System.Drawing.Point(8, 58);
-            this.trainerTypeComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.trainerTypeComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.trainerTypeComboBox.Name = "trainerTypeComboBox";
             this.trainerTypeComboBox.Size = new System.Drawing.Size(220, 33);
             this.trainerTypeComboBox.TabIndex = 0;
@@ -202,9 +202,9 @@ namespace ImpostersOrdeal
             this.groupBox2.Controls.Add(this.prizeMoneyNumericUpDown);
             this.groupBox2.Controls.Add(this.doubleBattleCheckBox);
             this.groupBox2.Location = new System.Drawing.Point(259, 210);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox2.Size = new System.Drawing.Size(236, 288);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
@@ -226,7 +226,7 @@ namespace ImpostersOrdeal
             this.item4ComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.item4ComboBox.FormattingEnabled = true;
             this.item4ComboBox.Location = new System.Drawing.Point(104, 239);
-            this.item4ComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.item4ComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.item4ComboBox.Name = "item4ComboBox";
             this.item4ComboBox.Size = new System.Drawing.Size(124, 33);
             this.item4ComboBox.TabIndex = 13;
@@ -247,7 +247,7 @@ namespace ImpostersOrdeal
             this.item3ComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.item3ComboBox.FormattingEnabled = true;
             this.item3ComboBox.Location = new System.Drawing.Point(104, 196);
-            this.item3ComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.item3ComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.item3ComboBox.Name = "item3ComboBox";
             this.item3ComboBox.Size = new System.Drawing.Size(124, 33);
             this.item3ComboBox.TabIndex = 11;
@@ -268,7 +268,7 @@ namespace ImpostersOrdeal
             this.item2ComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.item2ComboBox.FormattingEnabled = true;
             this.item2ComboBox.Location = new System.Drawing.Point(104, 154);
-            this.item2ComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.item2ComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.item2ComboBox.Name = "item2ComboBox";
             this.item2ComboBox.Size = new System.Drawing.Size(124, 33);
             this.item2ComboBox.TabIndex = 9;
@@ -289,7 +289,7 @@ namespace ImpostersOrdeal
             this.item1ComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.item1ComboBox.FormattingEnabled = true;
             this.item1ComboBox.Location = new System.Drawing.Point(104, 111);
-            this.item1ComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.item1ComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.item1ComboBox.Name = "item1ComboBox";
             this.item1ComboBox.Size = new System.Drawing.Size(124, 33);
             this.item1ComboBox.TabIndex = 6;
@@ -307,7 +307,7 @@ namespace ImpostersOrdeal
             // prizeMoneyNumericUpDown
             // 
             this.prizeMoneyNumericUpDown.Location = new System.Drawing.Point(166, 70);
-            this.prizeMoneyNumericUpDown.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.prizeMoneyNumericUpDown.Margin = new System.Windows.Forms.Padding(4);
             this.prizeMoneyNumericUpDown.Maximum = new decimal(new int[] {
             255,
             0,
@@ -321,7 +321,7 @@ namespace ImpostersOrdeal
             // 
             this.doubleBattleCheckBox.AutoSize = true;
             this.doubleBattleCheckBox.Location = new System.Drawing.Point(75, 32);
-            this.doubleBattleCheckBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.doubleBattleCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.doubleBattleCheckBox.Name = "doubleBattleCheckBox";
             this.doubleBattleCheckBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.doubleBattleCheckBox.Size = new System.Drawing.Size(145, 29);
@@ -339,9 +339,9 @@ namespace ImpostersOrdeal
             this.groupBox3.Controls.Add(this.checkBox2);
             this.groupBox3.Controls.Add(this.checkBox1);
             this.groupBox3.Location = new System.Drawing.Point(259, 505);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox3.Size = new System.Drawing.Size(236, 306);
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
@@ -351,7 +351,7 @@ namespace ImpostersOrdeal
             // 
             this.checkBox7.AutoSize = true;
             this.checkBox7.Location = new System.Drawing.Point(19, 258);
-            this.checkBox7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBox7.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox7.Name = "checkBox7";
             this.checkBox7.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.checkBox7.Size = new System.Drawing.Size(204, 29);
@@ -363,7 +363,7 @@ namespace ImpostersOrdeal
             // 
             this.checkBox6.AutoSize = true;
             this.checkBox6.Location = new System.Drawing.Point(74, 220);
-            this.checkBox6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBox6.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox6.Name = "checkBox6";
             this.checkBox6.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.checkBox6.Size = new System.Drawing.Size(151, 29);
@@ -375,7 +375,7 @@ namespace ImpostersOrdeal
             // 
             this.checkBox5.AutoSize = true;
             this.checkBox5.Location = new System.Drawing.Point(100, 182);
-            this.checkBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBox5.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox5.Name = "checkBox5";
             this.checkBox5.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.checkBox5.Size = new System.Drawing.Size(123, 29);
@@ -387,7 +387,7 @@ namespace ImpostersOrdeal
             // 
             this.checkBox4.AutoSize = true;
             this.checkBox4.Location = new System.Drawing.Point(52, 145);
-            this.checkBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBox4.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.checkBox4.Size = new System.Drawing.Size(167, 29);
@@ -399,7 +399,7 @@ namespace ImpostersOrdeal
             // 
             this.checkBox3.AutoSize = true;
             this.checkBox3.Location = new System.Drawing.Point(115, 108);
-            this.checkBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBox3.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.checkBox3.Size = new System.Drawing.Size(109, 29);
@@ -411,7 +411,7 @@ namespace ImpostersOrdeal
             // 
             this.checkBox2.AutoSize = true;
             this.checkBox2.Location = new System.Drawing.Point(112, 70);
-            this.checkBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBox2.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.checkBox2.Size = new System.Drawing.Size(113, 29);
@@ -423,7 +423,7 @@ namespace ImpostersOrdeal
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Location = new System.Drawing.Point(125, 32);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.checkBox1.Size = new System.Drawing.Size(99, 29);
@@ -438,18 +438,28 @@ namespace ImpostersOrdeal
             this.groupBox4.Controls.Add(this.copyButton);
             this.groupBox4.Controls.Add(this.partyDataGridView);
             this.groupBox4.Location = new System.Drawing.Point(502, 15);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox4.Size = new System.Drawing.Size(480, 796);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Party";
             // 
+            // ShowdownButton
+            // 
+            this.ShowdownButton.Location = new System.Drawing.Point(8, 754);
+            this.ShowdownButton.Name = "ShowdownButton";
+            this.ShowdownButton.Size = new System.Drawing.Size(200, 34);
+            this.ShowdownButton.TabIndex = 3;
+            this.ShowdownButton.Text = "Showdown Editor";
+            this.ShowdownButton.UseVisualStyleBackColor = true;
+            this.ShowdownButton.Click += new System.EventHandler(this.ShowdownButtonClick);
+            // 
             // pasteButton
             // 
             this.pasteButton.Location = new System.Drawing.Point(348, 752);
-            this.pasteButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pasteButton.Margin = new System.Windows.Forms.Padding(4);
             this.pasteButton.Name = "pasteButton";
             this.pasteButton.Size = new System.Drawing.Size(125, 36);
             this.pasteButton.TabIndex = 2;
@@ -460,7 +470,7 @@ namespace ImpostersOrdeal
             // copyButton
             // 
             this.copyButton.Location = new System.Drawing.Point(215, 752);
-            this.copyButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.copyButton.Margin = new System.Windows.Forms.Padding(4);
             this.copyButton.Name = "copyButton";
             this.copyButton.Size = new System.Drawing.Size(125, 36);
             this.copyButton.TabIndex = 1;
@@ -477,7 +487,7 @@ namespace ImpostersOrdeal
             this.tpDisplayColumn,
             this.tpButtonColumn});
             this.partyDataGridView.Location = new System.Drawing.Point(8, 32);
-            this.partyDataGridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.partyDataGridView.Margin = new System.Windows.Forms.Padding(4);
             this.partyDataGridView.Name = "partyDataGridView";
             this.partyDataGridView.RowHeadersWidth = 20;
             this.partyDataGridView.RowTemplate.Height = 29;
@@ -502,16 +512,6 @@ namespace ImpostersOrdeal
             this.tpButtonColumn.Text = "Configure";
             this.tpButtonColumn.UseColumnTextForButtonValue = true;
             // 
-            // ShowdownButton
-            // 
-            this.ShowdownButton.Location = new System.Drawing.Point(8, 754);
-            this.ShowdownButton.Name = "ShowdownButton";
-            this.ShowdownButton.Size = new System.Drawing.Size(200, 34);
-            this.ShowdownButton.TabIndex = 3;
-            this.ShowdownButton.Text = "Showdown Editor";
-            this.ShowdownButton.UseVisualStyleBackColor = true;
-            this.ShowdownButton.Click += new System.EventHandler(this.ShowdownButtonClick);
-            // 
             // TrainerEditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
@@ -525,11 +525,12 @@ namespace ImpostersOrdeal
             this.Controls.Add(this.listBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "TrainerEditorForm";
             this.Text = "Trainer Editor";
+            this.Load += new System.EventHandler(this.TrainerEditorForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.effectIDNumericUpDown)).EndInit();

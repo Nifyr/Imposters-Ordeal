@@ -1,4 +1,6 @@
-﻿namespace ImpostersOrdeal.Forms
+﻿using System;
+
+namespace ImpostersOrdeal.Forms
 {
     partial class TrainerShowdownEditorForm
     {
@@ -30,8 +32,8 @@
         {
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.Save = new System.Windows.Forms.Button();
+            this.Preview = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // richTextBox1
@@ -41,6 +43,7 @@
             this.richTextBox1.Size = new System.Drawing.Size(400, 575);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "Paste Showdown Here";
+            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
             // richTextBox2
             // 
@@ -52,35 +55,37 @@
             this.richTextBox2.Text = "Preview";
             this.richTextBox2.TextChanged += new System.EventHandler(this.richTextBox2_TextChanged);
             // 
-            // button1
+            // Save
             // 
-            this.button1.Location = new System.Drawing.Point(553, 593);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(112, 34);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Save";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.Save.Location = new System.Drawing.Point(553, 593);
+            this.Save.Name = "Save";
+            this.Save.Size = new System.Drawing.Size(112, 34);
+            this.Save.TabIndex = 2;
+            this.Save.Text = "Save";
+            this.Save.UseVisualStyleBackColor = true;
+            this.Save.Click += new System.EventHandler(this.save_Click);
             // 
-            // button2
+            // Preview
             // 
-            this.button2.Location = new System.Drawing.Point(695, 593);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(112, 34);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Preview";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.Preview.Location = new System.Drawing.Point(695, 593);
+            this.Preview.Name = "Preview";
+            this.Preview.Size = new System.Drawing.Size(112, 34);
+            this.Preview.TabIndex = 3;
+            this.Preview.Text = "Preview";
+            this.Preview.UseVisualStyleBackColor = true;
+            this.Preview.Click += new System.EventHandler(this.preview_Click);
             // 
             // TrainerShowdownEditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(828, 636);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.Preview);
+            this.Controls.Add(this.Save);
             this.Controls.Add(this.richTextBox2);
             this.Controls.Add(this.richTextBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
             this.Name = "TrainerShowdownEditorForm";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.OnLoad);
@@ -92,7 +97,7 @@
 
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.RichTextBox richTextBox2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button Save;
+        private System.Windows.Forms.Button Preview;
     }
 }
