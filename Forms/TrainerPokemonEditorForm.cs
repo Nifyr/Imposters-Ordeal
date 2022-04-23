@@ -218,5 +218,15 @@ namespace ImpostersOrdeal
             formComboBox.DataSource = gameData.dexEntries[tp.dexID].forms.Select((p, i) => i.ToString()).ToArray();
             formComboBox.SelectedIndex = tp.formID;
         }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox6_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }
