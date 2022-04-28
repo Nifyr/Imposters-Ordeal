@@ -1298,7 +1298,15 @@ namespace ImpostersOrdeal
                         offset += 1 + buffer[offset] * 5;
                         if (buffer[offset] > 0)
                             offset++;
-                        offset += 16;
+                        offset += 14;
+
+                        ushort rtpcCount = BitConverter.ToUInt16(buffer, (int)offset);
+                        offset += 2;
+                        for (int j = 0; j < rtpcCount; j++)
+                        {
+                            offset += 12;
+                            offset += 2 + BitConverter.ToUInt16(buffer, (int)offset) * 12;
+                        }
 
                         uint childCount1 = BitConverter.ToUInt32(buffer, (int)offset);
                         offset += 4;
