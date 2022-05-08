@@ -66,6 +66,8 @@ namespace ImpostersOrdeal
             this.partyDataGridView = new System.Windows.Forms.DataGridView();
             this.tpDisplayColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tpButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.effectIDNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.arenaIDNumericUpDown)).BeginInit();
@@ -82,7 +84,7 @@ namespace ImpostersOrdeal
             this.listBox.ItemHeight = 20;
             this.listBox.Location = new System.Drawing.Point(12, 45);
             this.listBox.Name = "listBox";
-            this.listBox.Size = new System.Drawing.Size(189, 604);
+            this.listBox.Size = new System.Drawing.Size(189, 404);
             this.listBox.TabIndex = 1;
             // 
             // trainerDisplayTextBox
@@ -101,9 +103,9 @@ namespace ImpostersOrdeal
             this.groupBox1.Controls.Add(this.arenaIDNumericUpDown);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.trainerTypeComboBox);
-            this.groupBox1.Location = new System.Drawing.Point(207, 12);
+            this.groupBox1.Location = new System.Drawing.Point(402, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(189, 150);
+            this.groupBox1.Size = new System.Drawing.Size(384, 120);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Visuals";
@@ -111,7 +113,7 @@ namespace ImpostersOrdeal
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(15, 115);
+            this.label4.Location = new System.Drawing.Point(210, 82);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(62, 20);
             this.label4.TabIndex = 7;
@@ -119,7 +121,7 @@ namespace ImpostersOrdeal
             // 
             // effectIDNumericUpDown
             // 
-            this.effectIDNumericUpDown.Location = new System.Drawing.Point(83, 113);
+            this.effectIDNumericUpDown.Location = new System.Drawing.Point(278, 80);
             this.effectIDNumericUpDown.Maximum = new decimal(new int[] {
             2147483647,
             0,
@@ -175,7 +177,7 @@ namespace ImpostersOrdeal
             this.trainerTypeComboBox.FormattingEnabled = true;
             this.trainerTypeComboBox.Location = new System.Drawing.Point(6, 46);
             this.trainerTypeComboBox.Name = "trainerTypeComboBox";
-            this.trainerTypeComboBox.Size = new System.Drawing.Size(177, 28);
+            this.trainerTypeComboBox.Size = new System.Drawing.Size(372, 28);
             this.trainerTypeComboBox.TabIndex = 0;
             // 
             // groupBox2
@@ -191,7 +193,7 @@ namespace ImpostersOrdeal
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.prizeMoneyNumericUpDown);
             this.groupBox2.Controls.Add(this.doubleBattleCheckBox);
-            this.groupBox2.Location = new System.Drawing.Point(207, 168);
+            this.groupBox2.Location = new System.Drawing.Point(207, 12);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(189, 230);
             this.groupBox2.TabIndex = 3;
@@ -315,9 +317,9 @@ namespace ImpostersOrdeal
             this.groupBox3.Controls.Add(this.checkBox3);
             this.groupBox3.Controls.Add(this.checkBox2);
             this.groupBox3.Controls.Add(this.checkBox1);
-            this.groupBox3.Location = new System.Drawing.Point(207, 404);
+            this.groupBox3.Location = new System.Drawing.Point(207, 248);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(189, 245);
+            this.groupBox3.Size = new System.Drawing.Size(189, 271);
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "AI Flags";
@@ -405,16 +407,16 @@ namespace ImpostersOrdeal
             this.groupBox4.Controls.Add(this.pasteButton);
             this.groupBox4.Controls.Add(this.copyButton);
             this.groupBox4.Controls.Add(this.partyDataGridView);
-            this.groupBox4.Location = new System.Drawing.Point(402, 12);
+            this.groupBox4.Location = new System.Drawing.Point(402, 138);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(384, 637);
+            this.groupBox4.Size = new System.Drawing.Size(384, 381);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Party";
             // 
             // ShowdownButton
             // 
-            this.ShowdownButton.Location = new System.Drawing.Point(6, 602);
+            this.ShowdownButton.Location = new System.Drawing.Point(6, 346);
             this.ShowdownButton.Name = "ShowdownButton";
             this.ShowdownButton.Size = new System.Drawing.Size(160, 29);
             this.ShowdownButton.TabIndex = 3;
@@ -424,23 +426,23 @@ namespace ImpostersOrdeal
             // 
             // pasteButton
             // 
-            this.pasteButton.Location = new System.Drawing.Point(278, 602);
+            this.pasteButton.Location = new System.Drawing.Point(278, 346);
             this.pasteButton.Name = "pasteButton";
             this.pasteButton.Size = new System.Drawing.Size(100, 29);
             this.pasteButton.TabIndex = 2;
             this.pasteButton.Text = "Paste";
             this.pasteButton.UseVisualStyleBackColor = true;
-            this.pasteButton.Click += new System.EventHandler(this.PasteButtonClick);
+            this.pasteButton.Click += new System.EventHandler(this.PasteTPButtonClick);
             // 
             // copyButton
             // 
-            this.copyButton.Location = new System.Drawing.Point(172, 602);
+            this.copyButton.Location = new System.Drawing.Point(172, 346);
             this.copyButton.Name = "copyButton";
             this.copyButton.Size = new System.Drawing.Size(100, 29);
             this.copyButton.TabIndex = 1;
             this.copyButton.Text = "Copy";
             this.copyButton.UseVisualStyleBackColor = true;
-            this.copyButton.Click += new System.EventHandler(this.CopyButtonClick);
+            this.copyButton.Click += new System.EventHandler(this.CopyTPButtonClick);
             // 
             // partyDataGridView
             // 
@@ -454,7 +456,7 @@ namespace ImpostersOrdeal
             this.partyDataGridView.Name = "partyDataGridView";
             this.partyDataGridView.RowHeadersWidth = 20;
             this.partyDataGridView.RowTemplate.Height = 29;
-            this.partyDataGridView.Size = new System.Drawing.Size(372, 570);
+            this.partyDataGridView.Size = new System.Drawing.Size(372, 314);
             this.partyDataGridView.TabIndex = 0;
             this.partyDataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.UserDeletingRow);
             // 
@@ -475,11 +477,33 @@ namespace ImpostersOrdeal
             this.tpButtonColumn.Text = "Configure";
             this.tpButtonColumn.UseColumnTextForButtonValue = true;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(12, 490);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(189, 29);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "Paste Trainer";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.PasteTrainerButtonClick);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(12, 455);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(189, 29);
+            this.button2.TabIndex = 6;
+            this.button2.Text = "Copy Trainer";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.CopyTrainerButtonClick);
+            // 
             // TrainerEditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(798, 661);
+            this.ClientSize = new System.Drawing.Size(798, 531);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -546,5 +570,7 @@ namespace ImpostersOrdeal
         private System.Windows.Forms.Button pasteButton;
         private System.Windows.Forms.Button copyButton;
         private System.Windows.Forms.Button ShowdownButton;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }

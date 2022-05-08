@@ -16,23 +16,28 @@ namespace ImpostersOrdeal
     {
         public List<Trainer> trainers;
         public Dictionary<int, string> trainerTypeLabels;
+        public Dictionary<int, string> trainerTypeNames;
         public Dictionary<int, int> trainerTypeToCC;
         public List<string> items;
         public Trainer t;
         private TrainerPokemonEditorForm tpef;
         private TrainerShowdownEditorForm tsef;
-        private List<TrainerPokemon> partyClipboard;
+        private Trainer trainerClipboard;
+        private List<TrainerPokemon> tpClipboard;
 
         public TrainerEditorForm()
         {
             trainerTypeLabels = new();
+            trainerTypeNames = new();
             trainerTypeToCC = new();
             trainerTypeLabels.Add(-1, "None");
+            trainerTypeNames.Add(-1, "None");
             trainerTypeToCC.Add(-1, 0);
             for (int i = 0; i < gameData.trainerTypes.Count; i++)
             {
                 TrainerType tt = gameData.trainerTypes[i];
-                trainerTypeLabels.Add(tt.GetID(), tt.GetName());
+                trainerTypeLabels.Add(tt.GetID(), tt.label);
+                trainerTypeNames.Add(tt.GetID(), tt.GetName());
                 trainerTypeToCC.Add(tt.GetID(), i + 1);
             }
             items = gameData.items.Select(o => o.GetName()).ToList();
@@ -100,7 +105,7 @@ namespace ImpostersOrdeal
 
         private void CommitEdit(object sender, EventArgs e)
         {
-            t.trainerTypeID = trainerTypeLabels.Keys.ToArray()[trainerTypeComboBox.SelectedIndex];
+            t.trainerTypeID = trainerTypeNames.Keys.ToArray()[trainerTypeComboBox.SelectedIndex];
             t.arenaID = (int)arenaIDNumericUpDown.Value;
             t.effectID = (int)effectIDNumericUpDown.Value;
 
@@ -178,7 +183,7 @@ namespace ImpostersOrdeal
 
         private void RefreshTextBoxDisplay()
         {
-            trainerDisplayTextBox.Text = t.GetID() + " - " + trainerTypeLabels[t.trainerTypeID] + " " + t.GetName();
+            trainerDisplayTextBox.Text = t.GetID() + " - " + trainerTypeNames[t.trainerTypeID] + " " + t.GetName();
         }
 
         private void PopulatePartyDataGridView()
@@ -213,21 +218,32 @@ namespace ImpostersOrdeal
             t.trainerPokemon.RemoveAt(e.Row.Index);
         }
 
-        private void CopyButtonClick(object sender, EventArgs e)
+        private void CopyTPButtonClick(object sender, EventArgs e)
         {
-            partyClipboard = new();
-            foreach (TrainerPokemon tp in t.trainerPokemon)
-                partyClipboard.Add(new(tp));
+            tpClipboard = new();
+            foreach (DataGridViewRow row in partyDataGridView.SelectedRows)
+                if (row.Index >= 0 && row.Index < t.trainerPokemon.Count)
+                    tpClipboard.Add(new(t.trainerPokemon[row.Index]));
         }
 
-        private void PasteButtonClick(object sender, EventArgs e)
+        private void PasteTPButtonClick(object sender, EventArgs e)
         {
-            if (partyClipboard == null)
+            if (tpClipboard == null)
                 return;
 
             List<TrainerPokemon> newParty = new();
-            foreach (TrainerPokemon tp in partyClipboard)
+            List<DataGridViewRow> selection = new();
+            foreach (DataGridViewRow row in partyDataGridView.SelectedRows)
+                selection.Add(row);
+
+            int firstIndex = selection.Count > 0 ? selection.Select(r => r.Index).Min() : t.trainerPokemon.Count;
+            int lastIndex = selection.Count > 0 ? selection.Select(r => r.Index).Max() : t.trainerPokemon.Count;
+            for (int i = 0; i < firstIndex; i++)
+                newParty.Add(new(t.trainerPokemon[i]));
+            foreach (TrainerPokemon tp in tpClipboard)
                 newParty.Add(new(tp));
+            for (int i = lastIndex + 1; i < t.trainerPokemon.Count; i++)
+                newParty.Add(new(t.trainerPokemon[i]));
             t.trainerPokemon = newParty;
 
             PopulatePartyDataGridView();
@@ -238,6 +254,22 @@ namespace ImpostersOrdeal
             tsef.SetTP(t);
             tsef.ShowDialog();
             PopulatePartyDataGridView();
+        }
+
+        private void CopyTrainerButtonClick(object sender, EventArgs e)
+        {
+            trainerClipboard = new(t);
+        }
+
+        private void PasteTrainerButtonClick(object sender, EventArgs e)
+        {
+            if (trainerClipboard != null)
+            {
+                trainers[listBox.SelectedIndex] = new(trainerClipboard);
+                trainers[listBox.SelectedIndex].trainerID = t.trainerID;
+                trainers[listBox.SelectedIndex].name = t.name;
+                TrainerChanged(null, null);
+            }
         }
     }
 }

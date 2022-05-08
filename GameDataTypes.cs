@@ -112,6 +112,30 @@ namespace ImpostersOrdeal
             public int trainerID;
             public string name;
 
+            public Trainer() { }
+
+            public Trainer(Trainer t)
+            {
+                trainerTypeID = t.trainerTypeID;
+                colorID = t.colorID;
+                fightType = t.fightType;
+                arenaID = t.arenaID;
+                effectID = t.effectID;
+                gold = t.gold;
+                useItem1 = t.useItem1;
+                useItem2 = t.useItem2;
+                useItem3 = t.useItem3;
+                useItem4 = t.useItem4;
+                hpRecoverFlag = t.hpRecoverFlag;
+                giftItem = t.giftItem;
+                aiBit = t.aiBit;
+                trainerPokemon = new();
+                foreach (TrainerPokemon tp in t.trainerPokemon)
+                    trainerPokemon.Add(new(tp));
+                trainerID = t.trainerID;
+                name = t.name;
+            }
+
             public List<int> GetItems()
             {
                 List<int> items = new();

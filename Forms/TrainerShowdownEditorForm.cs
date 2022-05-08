@@ -100,7 +100,7 @@ namespace ImpostersOrdeal
         public void SetTP(Trainer t)
         {
             this.t = t.trainerPokemon;
-            Text = "Trainer Pokémon Editor: " + tef.trainerTypeLabels[t.trainerTypeID] +
+            Text = "Trainer Pokémon Editor: " + tef.trainerTypeNames[t.trainerTypeID] +
                 " " + t.GetName();
         }
 
