@@ -35,9 +35,11 @@ namespace ImpostersOrdeal
             "\\Battle\\battle_masterdatas"
         };
         private static readonly string delphisMainPath = "romfs\\Data\\StreamingAssets\\Audio\\GeneratedSoundBanks\\Switch\\Delphis_Main.bnk";
+        private static readonly string globalMetadataPath = "romfs\\Data\\Managed\\Metadata\\global-metadata.dat";
 
         private string assetAssistantPath;
         private string audioPath;
+        private string metadataPath;
         private Dictionary<string, FileData> fileArchive;
         private AssetsManager am = new();
         private int fileIndex = 0;
@@ -92,6 +94,8 @@ namespace ImpostersOrdeal
                 return false;
             }
             audioPath = Directory.GetParent(assetAssistantPath).FullName + "\\Audio\\GeneratedSoundBanks\\Switch";
+            metadataPath = GetDataPath(fbd.SelectedPath) + "\\Managed\\Metadata";
+
 
             //Setup fileArchive
             fileArchive = new();
@@ -306,6 +310,22 @@ namespace ImpostersOrdeal
         }
 
         /// <summary>
+        ///  Returns the Delphis_Main.bnk file as a byte array.
+        /// </summary>
+        public byte[] GetGlobalMetadataBuffer()
+        {
+            if (!fileArchive.ContainsKey(globalMetadataPath))
+            {
+                FileData fd = new();
+                fd.fileLocation = metadataPath + "\\global-metadata.dat";
+                fd.fileSource = FileSource.Dump;
+                fd.gamePath = globalMetadataPath;
+                fileArchive[globalMetadataPath] = fd;
+            }
+            return File.ReadAllBytes(fileArchive[globalMetadataPath].fileLocation);
+        }
+
+        /// <summary>
         ///  Makes it so the audioCollection data is included when exporting.
         /// </summary>
         public void CommitAudio()
@@ -467,6 +487,23 @@ namespace ImpostersOrdeal
 
             //Yuzu outputs a stupid dump with the wrong folder structure.
             string yuzuDumpPath = gameLocation + "\\romfs\\StreamingAssets\\AssetAssistant";
+            if (Directory.Exists(yuzuDumpPath))
+                return yuzuDumpPath;
+
+            return "";
+        }
+
+        /// <summary>
+        ///  Gets the path of the Data folder given a game directory.
+        /// </summary>
+        private static string GetDataPath(string gameLocation)
+        {
+            string correctPath = gameLocation + "\\romfs\\Data";
+            if (Directory.Exists(correctPath))
+                return correctPath;
+
+            //Yuzu outputs a stupid dump with the wrong folder structure.
+            string yuzuDumpPath = gameLocation + "\\romfs";
             if (Directory.Exists(yuzuDumpPath))
                 return yuzuDumpPath;
 
