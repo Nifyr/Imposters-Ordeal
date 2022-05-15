@@ -212,7 +212,7 @@ namespace ImpostersOrdeal
                         if (IsWithin(AbsoluteBoundary.Level, (int)encounter.GetAvgLevel()))
                         {
                             encounter.minLv = Conform(AbsoluteBoundary.Level, (int)(encounter.minLv * coefficient));
-                            encounter.minLv = Conform(AbsoluteBoundary.Level, (int)(encounter.maxLv * coefficient));
+                            encounter.maxLv = Conform(AbsoluteBoundary.Level, (int)(encounter.maxLv * coefficient));
                         }
                 }
 
