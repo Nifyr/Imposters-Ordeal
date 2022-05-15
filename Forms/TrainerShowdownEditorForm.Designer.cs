@@ -38,26 +38,30 @@ namespace ImpostersOrdeal
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(12, 12);
+            this.richTextBox1.Location = new System.Drawing.Point(15, 15);
+            this.richTextBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(384, 461);
+            this.richTextBox1.Size = new System.Drawing.Size(479, 575);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "Paste Showdown Here";
+            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
             // richTextBox2
             // 
-            this.richTextBox2.Location = new System.Drawing.Point(402, 12);
+            this.richTextBox2.Location = new System.Drawing.Point(502, 15);
+            this.richTextBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.richTextBox2.Name = "richTextBox2";
             this.richTextBox2.ReadOnly = true;
-            this.richTextBox2.Size = new System.Drawing.Size(384, 461);
+            this.richTextBox2.Size = new System.Drawing.Size(479, 575);
             this.richTextBox2.TabIndex = 1;
             this.richTextBox2.Text = "Preview";
             // 
             // Save
             // 
-            this.Save.Location = new System.Drawing.Point(580, 479);
+            this.Save.Location = new System.Drawing.Point(725, 599);
+            this.Save.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Save.Name = "Save";
-            this.Save.Size = new System.Drawing.Size(100, 29);
+            this.Save.Size = new System.Drawing.Size(125, 36);
             this.Save.TabIndex = 2;
             this.Save.Text = "Save";
             this.Save.UseVisualStyleBackColor = true;
@@ -65,9 +69,10 @@ namespace ImpostersOrdeal
             // 
             // Preview
             // 
-            this.Preview.Location = new System.Drawing.Point(686, 479);
+            this.Preview.Location = new System.Drawing.Point(858, 599);
+            this.Preview.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Preview.Name = "Preview";
-            this.Preview.Size = new System.Drawing.Size(100, 29);
+            this.Preview.Size = new System.Drawing.Size(125, 36);
             this.Preview.TabIndex = 3;
             this.Preview.Text = "Preview";
             this.Preview.UseVisualStyleBackColor = true;
@@ -75,9 +80,9 @@ namespace ImpostersOrdeal
             // 
             // TrainerShowdownEditorForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(798, 520);
+            this.ClientSize = new System.Drawing.Size(998, 650);
             this.Controls.Add(this.Preview);
             this.Controls.Add(this.Save);
             this.Controls.Add(this.richTextBox2);
