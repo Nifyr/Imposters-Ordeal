@@ -165,8 +165,11 @@ namespace ImpostersOrdeal
                 {
                     fileArchive[gamePath].fileLocation = modFilePaths[fileIdx];
                     fileArchive[gamePath].fileSource = FileSource.Mod;
-                    fileArchive[gamePath].bundle = am.LoadBundleFile(modFilePaths[fileIdx], false);
-                    DecompressBundle(fileArchive[gamePath].bundle);
+                    if (fileArchive[gamePath].IsBundle())
+                    {
+                        fileArchive[gamePath].bundle = am.LoadBundleFile(modFilePaths[fileIdx], false);
+                        DecompressBundle(fileArchive[gamePath].bundle);
+                    }
                     reanalysisNecessary = true;
                     continue;
                 }
@@ -334,6 +337,14 @@ namespace ImpostersOrdeal
         }
 
         /// <summary>
+        ///  Makes it so the audioCollection data is included when exporting.
+        /// </summary>
+        public void CommitGlobalMetadata()
+        {
+            fileArchive[globalMetadataPath].fileSource = FileSource.App;
+        }
+
+        /// <summary>
         ///  Places a file relative to the mod root in accordance with its FileData.
         /// </summary>
         private static void ExportFile(FileData fd, string modRoot)
@@ -341,12 +352,25 @@ namespace ImpostersOrdeal
             Directory.CreateDirectory(modRoot + "\\" + Path.GetDirectoryName(fd.gamePath));
             string newLocation = modRoot + "\\" + fd.gamePath;
 
-            if (fd.fileSource == FileSource.App && Path.GetFileName(fd.gamePath) == "Delphis_Main.bnk")
+            if (fd.fileSource == FileSource.App)
             {
-                FileStream fs = File.Create(newLocation);
-                fs.Write(GlobalData.gameData.audioCollection.delphisMainBuffer, 0, GlobalData.gameData.audioCollection.delphisMainBuffer.Length);
-                fs.Close();
-                return;
+                byte[] buffer = null;
+                switch (Path.GetFileName(fd.gamePath))
+                {
+                    case "Delphis_Main.bnk":
+                        buffer = GlobalData.gameData.audioCollection.delphisMainBuffer;
+                        break;
+                    case "global-metadata.dat":
+                        buffer = GlobalData.gameData.globalMetadata.buffer;
+                        break;
+                }
+                if (buffer != null)
+                {
+                    FileStream fs = File.Create(newLocation);
+                    fs.Write(buffer, 0, buffer.Length);
+                    fs.Close();
+                    return;
+                }
             }
 
             if (!fd.IsBundle())

@@ -428,6 +428,38 @@ namespace ImpostersOrdeal
             //Scripted Items
             randomizerSetupConfig.scriptedItems = GetItemDistributionConfig(commands.Where(c => c.cmdType == 187 && c.args[0].argType == 1 && gameData.items[(int)c.args[0].data].IsPurchasable()).ToList(), c => (int)c.args[0].data, gameData.items.Select(o => (INamedEntity)o).ToList());
 
+            //Type Matchups
+            instances = new int[4];
+            int typeCount = 18;
+            for (int o = 0; o < typeCount; o++)
+                for (int d = 0; d < typeCount; d++)
+                    switch(gameData.globalMetadata.GetTypeMatchup(o, d))
+                    {
+                        case 0:
+                            instances[0]++;
+                            break;
+                        case 2:
+                            instances[1]++;
+                            break;
+                        case 4:
+                            instances[2]++;
+                            break;
+                        case 8:
+                            instances[3]++;
+                            break;
+                    }
+            List<string> affinities = new List<string>();
+            affinities.Add("0x");
+            affinities.Add("1/2x");
+            affinities.Add("1x");
+            affinities.Add("2x");
+            IDistribution[] affinityDistributions = new IDistribution[]
+            {
+                new Empirical(100, instances.ToList()),
+                new UniformSelection(100, instances.Select(i => true).ToList())
+            };
+            randomizerSetupConfig.typeMatchups = (affinityDistributions, affinities, 0);
+
             //Level Coefficient
             randomizerSetupConfig.levelCoefficient = 1;
 

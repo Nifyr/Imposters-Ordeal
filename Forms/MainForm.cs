@@ -72,6 +72,7 @@ namespace ImpostersOrdeal
             public (IDistribution[], int) trainerPokemonIvs;
             public (IDistribution[], int) trainerPokemonEvs;
 
+            public (IDistribution[], List<string>, int) typeMatchups;
             public (IDistribution[], List<string>, int) scriptedPokemon;
             public (IDistribution[], List<string>, int) scriptedItems;
             public double levelCoefficient;
@@ -213,6 +214,7 @@ namespace ImpostersOrdeal
             numericDistributionControl15.Initialize(rsc.trainerPokemonLevels);
             numericDistributionControl16.Initialize(rsc.trainerPokemonIvs);
             numericDistributionControl17.Initialize(rsc.trainerPokemonEvs);
+            itemDistributionControl5.Initialize(rsc.typeMatchups);
             itemDistributionControl20.Initialize(rsc.scriptedPokemon);
             itemDistributionControl21.Initialize(rsc.scriptedItems);
             numericUpDown8.Value = (decimal)rsc.levelCoefficient;
@@ -269,6 +271,11 @@ namespace ImpostersOrdeal
             loadingForm.Finish();
 
             absoluteBoundaryDataGridView.DataSource = GlobalData.absoluteBoundaries;
+            foreach (DataGridViewColumn c in absoluteBoundaryDataGridView.Columns)
+            {
+                if (c.Name == "Value")
+                    c.FillWeight = 300;
+            }
         }
 
         private void OpenNumericDistributionForm(object sender, EventArgs e)
@@ -441,6 +448,13 @@ namespace ImpostersOrdeal
             TrainerEditorForm tef = new();
             tef.ShowDialog();
             GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.Trainers);
+        }
+
+        private void OpenTypeMatchupEditor(object sender, EventArgs e)
+        {
+            TypeMatchupEditorForm tmef = new();
+            tmef.ShowDialog();
+            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.GlobalMetadata);
         }
     }
 }

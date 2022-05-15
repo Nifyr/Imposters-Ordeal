@@ -110,6 +110,8 @@ namespace ImpostersOrdeal
             if (m.checkBox44.Checked)
                 RandomizeTrainerPokemonEVs(m.numericDistributionControl17.Get());
 
+            if (m.checkBox63.Checked)
+                RandomizeTypeMatchups(m.itemDistributionControl5.Get());
             if (m.checkBox53.Checked)
                 RandomizeScriptedPokemon(m.itemDistributionControl20.Get());
             if (m.checkBox54.Checked)
@@ -119,6 +121,30 @@ namespace ImpostersOrdeal
 
             if (m.checkBox62.Checked)
                 RandomizeMusic();
+        }
+
+        private void RandomizeTypeMatchups(IDistribution distribution)
+        {
+            int typeCount = 18;
+            for (int o = 0; o < typeCount; o++)
+                for (int d = 0; d < typeCount; d++)
+                    switch (distribution.Next(gameData.globalMetadata.GetTypeMatchup(o, d)))
+                    {
+                        case 0:
+                            gameData.globalMetadata.SetTypeMatchup(o, d, 0);
+                            break;
+                        case 1:
+                            gameData.globalMetadata.SetTypeMatchup(o, d, 2);
+                            break;
+                        case 2:
+                            gameData.globalMetadata.SetTypeMatchup(o, d, 4);
+                            break;
+                        case 3:
+                            gameData.globalMetadata.SetTypeMatchup(o, d, 8);
+                            break;
+                    }
+
+            gameData.SetModified(GameDataSet.DataField.GlobalMetadata);
         }
 
         private void RandomizeMusic()

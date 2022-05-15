@@ -207,6 +207,9 @@ namespace ImpostersOrdeal
             this.itemDistributionControl10 = new ImpostersOrdeal.MainForm.ItemDistributionControl();
             this.checkBox29 = new System.Windows.Forms.CheckBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.groupBox33 = new System.Windows.Forms.GroupBox();
+            this.itemDistributionControl5 = new ImpostersOrdeal.MainForm.ItemDistributionControl();
+            this.checkBox63 = new System.Windows.Forms.CheckBox();
             this.groupBox31 = new System.Windows.Forms.GroupBox();
             this.absoluteBoundaryDataGridView = new System.Windows.Forms.DataGridView();
             this.groupBox30 = new System.Windows.Forms.GroupBox();
@@ -293,6 +296,7 @@ namespace ImpostersOrdeal
             this.groupBox15.SuspendLayout();
             this.numericDistributionControl12.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.groupBox33.SuspendLayout();
             this.groupBox31.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.absoluteBoundaryDataGridView)).BeginInit();
             this.groupBox30.SuspendLayout();
@@ -2119,6 +2123,7 @@ namespace ImpostersOrdeal
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.groupBox33);
             this.tabPage4.Controls.Add(this.groupBox31);
             this.tabPage4.Controls.Add(this.groupBox30);
             this.tabPage4.Controls.Add(this.groupBox29);
@@ -2131,12 +2136,43 @@ namespace ImpostersOrdeal
             this.tabPage4.Text = "Misc.";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // groupBox33
+            // 
+            this.groupBox33.Controls.Add(this.itemDistributionControl5);
+            this.groupBox33.Controls.Add(this.checkBox63);
+            this.groupBox33.Location = new System.Drawing.Point(133, 53);
+            this.groupBox33.Name = "groupBox33";
+            this.groupBox33.Size = new System.Drawing.Size(185, 120);
+            this.groupBox33.TabIndex = 5;
+            this.groupBox33.TabStop = false;
+            this.groupBox33.Text = "Type Matchups";
+            // 
+            // itemDistributionControl5
+            // 
+            this.itemDistributionControl5.Location = new System.Drawing.Point(6, 56);
+            this.itemDistributionControl5.Name = "itemDistributionControl5";
+            this.itemDistributionControl5.Size = new System.Drawing.Size(173, 29);
+            this.itemDistributionControl5.TabIndex = 6;
+            this.itemDistributionControl5.Text = "Type Matchups";
+            this.itemDistributionControl5.UseVisualStyleBackColor = true;
+            this.itemDistributionControl5.Click += new System.EventHandler(this.OpenItemDistributionForm);
+            // 
+            // checkBox63
+            // 
+            this.checkBox63.AutoSize = true;
+            this.checkBox63.Location = new System.Drawing.Point(6, 26);
+            this.checkBox63.Name = "checkBox63";
+            this.checkBox63.Size = new System.Drawing.Size(155, 24);
+            this.checkBox63.TabIndex = 5;
+            this.checkBox63.Text = "Random Matchups";
+            this.checkBox63.UseVisualStyleBackColor = true;
+            // 
             // groupBox31
             // 
             this.groupBox31.Controls.Add(this.absoluteBoundaryDataGridView);
-            this.groupBox31.Location = new System.Drawing.Point(324, 41);
+            this.groupBox31.Location = new System.Drawing.Point(515, 53);
             this.groupBox31.Name = "groupBox31";
-            this.groupBox31.Size = new System.Drawing.Size(600, 532);
+            this.groupBox31.Size = new System.Drawing.Size(376, 532);
             this.groupBox31.TabIndex = 4;
             this.groupBox31.TabStop = false;
             this.groupBox31.Text = "Absolute Boundaries";
@@ -2155,7 +2191,7 @@ namespace ImpostersOrdeal
             this.absoluteBoundaryDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.absoluteBoundaryDataGridView.RowTemplate.Height = 29;
             this.absoluteBoundaryDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.absoluteBoundaryDataGridView.Size = new System.Drawing.Size(588, 499);
+            this.absoluteBoundaryDataGridView.Size = new System.Drawing.Size(364, 499);
             this.absoluteBoundaryDataGridView.TabIndex = 3;
             this.absoluteBoundaryDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.DataError);
             // 
@@ -2168,9 +2204,9 @@ namespace ImpostersOrdeal
             this.groupBox30.Controls.Add(this.checkBox58);
             this.groupBox30.Controls.Add(this.label8);
             this.groupBox30.Controls.Add(this.checkBox57);
-            this.groupBox30.Location = new System.Drawing.Point(133, 333);
+            this.groupBox30.Location = new System.Drawing.Point(324, 179);
             this.groupBox30.Name = "groupBox30";
-            this.groupBox30.Size = new System.Drawing.Size(185, 240);
+            this.groupBox30.Size = new System.Drawing.Size(185, 406);
             this.groupBox30.TabIndex = 2;
             this.groupBox30.TabStop = false;
             this.groupBox30.Text = "Level Multiplier";
@@ -2256,7 +2292,7 @@ namespace ImpostersOrdeal
             this.groupBox29.Controls.Add(this.checkBox62);
             this.groupBox29.Controls.Add(this.checkBox56);
             this.groupBox29.Controls.Add(this.checkBox55);
-            this.groupBox29.Location = new System.Drawing.Point(133, 207);
+            this.groupBox29.Location = new System.Drawing.Point(324, 53);
             this.groupBox29.Name = "groupBox29";
             this.groupBox29.Size = new System.Drawing.Size(185, 120);
             this.groupBox29.TabIndex = 1;
@@ -2299,9 +2335,9 @@ namespace ImpostersOrdeal
             this.groupBox27.Controls.Add(this.checkBox54);
             this.groupBox27.Controls.Add(this.itemDistributionControl20);
             this.groupBox27.Controls.Add(this.checkBox53);
-            this.groupBox27.Location = new System.Drawing.Point(133, 41);
+            this.groupBox27.Location = new System.Drawing.Point(133, 179);
             this.groupBox27.Name = "groupBox27";
-            this.groupBox27.Size = new System.Drawing.Size(185, 160);
+            this.groupBox27.Size = new System.Drawing.Size(185, 406);
             this.groupBox27.TabIndex = 0;
             this.groupBox27.TabStop = false;
             this.groupBox27.Text = "Scripts";
@@ -2458,9 +2494,9 @@ namespace ImpostersOrdeal
             this.button32.Name = "button32";
             this.button32.Size = new System.Drawing.Size(173, 29);
             this.button32.TabIndex = 11;
-            this.button32.Text = "Text Editor";
+            this.button32.Text = "Type Matchup Editor";
             this.button32.UseVisualStyleBackColor = true;
-            this.button32.Visible = false;
+            this.button32.Click += new System.EventHandler(this.OpenTypeMatchupEditor);
             // 
             // MainForm
             // 
@@ -2573,6 +2609,8 @@ namespace ImpostersOrdeal
             this.numericDistributionControl12.ResumeLayout(false);
             this.numericDistributionControl12.PerformLayout();
             this.tabPage4.ResumeLayout(false);
+            this.groupBox33.ResumeLayout(false);
+            this.groupBox33.PerformLayout();
             this.groupBox31.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.absoluteBoundaryDataGridView)).EndInit();
             this.groupBox30.ResumeLayout(false);
@@ -2796,5 +2834,8 @@ namespace ImpostersOrdeal
         private System.Windows.Forms.GroupBox groupBox32;
         public System.Windows.Forms.Button button32;
         public System.Windows.Forms.CheckBox checkBox62;
+        private System.Windows.Forms.GroupBox groupBox33;
+        public ItemDistributionControl itemDistributionControl5;
+        public System.Windows.Forms.CheckBox checkBox63;
     }
 }

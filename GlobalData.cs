@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ImpostersOrdeal.GameDataTypes;
 
 namespace ImpostersOrdeal
 {
@@ -14,27 +15,28 @@ namespace ImpostersOrdeal
     {
         public class GameDataSet
         {
-            public List<GameDataTypes.EvScript> evScripts;
-            public List<GameDataTypes.MapWarpAsset> mapWarpAssets;
-            public List<GameDataTypes.PickupItem> pickupItems;
-            public GameDataTypes.ShopTables shopTables;
-            public List<GameDataTypes.Trainer> trainers;
-            public GameDataTypes.EncounterTableFile[] encounterTableFiles;
-            public GameDataTypes.MessageFileSet[] messageFileSets;
-            public List<GameDataTypes.GrowthRate> growthRates;
-            public List<GameDataTypes.UgEncounterFile> ugEncounterFiles;
-            public List<GameDataTypes.UgEncounterLevelSet> ugEncounterLevelSets;
-            public List<GameDataTypes.Ability> abilities; //Readonly
-            public List<GameDataTypes.Typing> typings; //Readonly
-            public List<GameDataTypes.DamageCategory> damageCategories; //Readonly
-            public List<GameDataTypes.Nature> natures; //Readonly
-            public List<GameDataTypes.TrainerType> trainerTypes; //Readonly
-            public List<GameDataTypes.Pokemon> personalEntries; //Ordered, idx=personalID
-            public List<GameDataTypes.DexEntry> dexEntries; //Ordered, idx=dexID
-            public List<GameDataTypes.Item> items; //Ordered, idx=itemID
-            public List<GameDataTypes.TM> tms; //Ordered, idx=tmID
-            public List<GameDataTypes.Move> moves; //Ordered, idx=moveID
-            public GameDataTypes.AudioCollection audioCollection;
+            public List<EvScript> evScripts;
+            public List<MapWarpAsset> mapWarpAssets;
+            public List<PickupItem> pickupItems;
+            public ShopTables shopTables;
+            public List<Trainer> trainers;
+            public EncounterTableFile[] encounterTableFiles;
+            public MessageFileSet[] messageFileSets;
+            public List<GrowthRate> growthRates;
+            public List<UgEncounterFile> ugEncounterFiles;
+            public List<UgEncounterLevelSet> ugEncounterLevelSets;
+            public List<Ability> abilities; //Readonly
+            public List<Typing> typings; //Readonly
+            public List<DamageCategory> damageCategories; //Readonly
+            public List<Nature> natures; //Readonly
+            public List<TrainerType> trainerTypes; //Readonly
+            public List<Pokemon> personalEntries; //Ordered, idx=personalID
+            public List<DexEntry> dexEntries; //Ordered, idx=dexID
+            public List<Item> items; //Ordered, idx=itemID
+            public List<TM> tms; //Ordered, idx=tmID
+            public List<Move> moves; //Ordered, idx=moveID
+            public AudioCollection audioCollection;
+            public GlobalMetadata globalMetadata;
 
             private bool[] fieldStates = new bool[Enum.GetNames(typeof(DataField)).Length];
 
@@ -59,7 +61,8 @@ namespace ImpostersOrdeal
                 Items,
                 TMs,
                 Moves,
-                AudioCollection
+                AudioCollection,
+                GlobalMetadata
             }
 
             public bool IsModified(DataField d)
@@ -72,12 +75,12 @@ namespace ImpostersOrdeal
                 fieldStates[(int)d] = true;
             }
 
-            public GameDataTypes.Pokemon GetPokemon(int dexID, int formID)
+            public Pokemon GetPokemon(int dexID, int formID)
             {
                 return dexEntries[dexID].forms[formID];
             }
 
-            public string GetTPDisplayName(GameDataTypes.TrainerPokemon tp)
+            public string GetTPDisplayName(TrainerPokemon tp)
             {
                 return "Lv. " + tp.level + " " + GetPokemon(tp.dexID, tp.formID).GetName();
             }

@@ -19,6 +19,7 @@ namespace ImpostersOrdeal
         /// </summary>
         public static void PrepareAnalysis()
         {
+            ParseGlobalMetadata();
             ParseNatures();
             ParseEvScripts();
             //ParseMapWarpAssets();
@@ -1442,7 +1443,139 @@ namespace ImpostersOrdeal
         }
 
         /// <summary>
-        ///  Commits all modified files to their respective asset bundles
+        ///  Overwrites GlobalData with a parsed GlobalMetadata.
+        /// </summary>
+        private static void ParseGlobalMetadata()
+        {
+            gameData.globalMetadata = new();
+            byte[] buffer = fileManager.GetGlobalMetadataBuffer();
+            gameData.globalMetadata.buffer = buffer;
+
+            gameData.globalMetadata.stringOffset = BitConverter.ToUInt32(buffer, 0x18);
+
+            gameData.globalMetadata.defaultValuePtrOffset = BitConverter.ToUInt32(buffer, 0x40);
+            gameData.globalMetadata.defaultValuePtrSecSize = BitConverter.ToUInt32(buffer, 0x44);
+            uint defaultValuePtrSize = 0xC;
+            uint defaultValuePtrCount = gameData.globalMetadata.defaultValuePtrSecSize / defaultValuePtrSize;
+
+            gameData.globalMetadata.defaultValueOffset = BitConverter.ToUInt32(buffer, 0x48);
+            gameData.globalMetadata.defaultValueSecSize = BitConverter.ToUInt32(buffer, 0x4C);
+
+            gameData.globalMetadata.fieldOffset = BitConverter.ToUInt32(buffer, 0x60);
+            uint fieldSize = 0xC;
+
+            gameData.globalMetadata.typeOffset = BitConverter.ToUInt32(buffer, 0xA0);
+            uint typeSize = 0x5C;
+
+            gameData.globalMetadata.imageOffset = BitConverter.ToUInt32(buffer, 0xA8);
+            gameData.globalMetadata.imageSecSize = BitConverter.ToUInt32(buffer, 0xAC);
+            uint imageSize = 0x28;
+            uint imageCount = gameData.globalMetadata.imageSecSize / imageSize;
+
+            gameData.globalMetadata.defaultValueDic = new();
+            uint defaultValuePtrOffset = gameData.globalMetadata.defaultValuePtrOffset;
+            for (int defaultValuePtrIdx = 0; defaultValuePtrIdx < defaultValuePtrCount; defaultValuePtrIdx++)
+            {
+                FieldDefaultValue fdv = new();
+                fdv.offset = gameData.globalMetadata.defaultValueOffset + BitConverter.ToUInt32(buffer, (int)defaultValuePtrOffset + 8);
+                long nextOffset = gameData.globalMetadata.defaultValueOffset + gameData.globalMetadata.defaultValueSecSize;
+                if (defaultValuePtrIdx < defaultValuePtrCount - 1)
+                    nextOffset = gameData.globalMetadata.defaultValueOffset + BitConverter.ToUInt32(buffer, (int)defaultValuePtrOffset + 20);
+                fdv.length = (int)(nextOffset - fdv.offset);
+                uint fieldIdx = BitConverter.ToUInt32(buffer, (int)defaultValuePtrOffset + 0);
+
+                gameData.globalMetadata.defaultValueDic[fieldIdx] = fdv;
+                defaultValuePtrOffset += defaultValuePtrSize;
+            }
+
+            gameData.globalMetadata.images = new();
+            uint imageOffset = gameData.globalMetadata.imageOffset;
+            for (int imageIdx = 0; imageIdx < imageCount; imageIdx++)
+            {
+                ImageDefinition id = new();
+                uint imageNameIdx = BitConverter.ToUInt32(buffer, (int)imageOffset + 0);
+                id.name = ReadNullTerminatedString(buffer, gameData.globalMetadata.stringOffset + imageNameIdx);
+                id.typeStart = BitConverter.ToUInt32(buffer, (int)imageOffset + 8);
+                id.typeCount = BitConverter.ToUInt32(buffer, (int)imageOffset + 12);
+
+                id.types = new();
+                uint typeOffset = gameData.globalMetadata.typeOffset + id.typeStart * typeSize;
+                for (uint typeIdx = id.typeStart; typeIdx < id.typeStart + id.typeCount; typeIdx++)
+                {
+                    TypeDefinition td = new();
+                    uint typeNameIdx = BitConverter.ToUInt32(buffer, (int)typeOffset + 0);
+                    uint namespaceNameIdx = BitConverter.ToUInt32(buffer, (int)typeOffset + 4);
+                    td.name = ReadNullTerminatedString(buffer, gameData.globalMetadata.stringOffset + namespaceNameIdx);
+                    td.name += td.name.Length > 0 ? "." : "";
+                    td.name += ReadNullTerminatedString(buffer, gameData.globalMetadata.stringOffset + typeNameIdx);
+                    td.fieldStart = BitConverter.ToInt32(buffer, (int)typeOffset + 36);
+                    td.fieldCount = BitConverter.ToUInt16(buffer, (int)typeOffset + 72);
+
+                    td.fields = new();
+                    uint fieldOffset = (uint)(gameData.globalMetadata.fieldOffset + td.fieldStart * fieldSize);
+                    for (uint fieldIdx = (uint)td.fieldStart; fieldIdx < td.fieldStart + td.fieldCount; fieldIdx++)
+                    {
+                        FieldDefinition fd = new();
+                        uint fieldNameIdx = BitConverter.ToUInt32(buffer, (int)fieldOffset + 0);
+                        fd.name = ReadNullTerminatedString(buffer, gameData.globalMetadata.stringOffset + fieldNameIdx);
+                        if (gameData.globalMetadata.defaultValueDic.TryGetValue(fieldIdx, out FieldDefaultValue fdv))
+                            fd.defautValue = fdv;
+
+                        td.fields.Add(fd);
+                        fieldOffset += fieldSize;
+                    }
+
+                    id.types.Add(td);
+                    typeOffset += typeSize;
+                }
+
+                gameData.globalMetadata.images.Add(id);
+                imageOffset += imageSize;
+            }
+
+            string[] typeArrayNames = new string[]
+            {
+                "A3758C06C7FB42A47D220A11FBA532C6E8C62A77",
+                "4B289ECFF3C0F0970CFBB23E3106E05803CB0010",
+                "B9D3FD531E1A63CC167C4B98C0EC93F0249D9944",
+                "347E5A9763B5C5AD3094AEC4B91A98983001E87D",
+                "C089A0863406C198B5654996536BAC473C816234",
+                "BCEEC8610D8506C3EDAC1C28CED532E5E2D8AD32",
+                "A6F987666C679A4472D8CD64F600B501D2241486",
+                "ACBC28AD33161A13959E63783CBFC94EB7FB2D90",
+                "0459498E9764395D87F7F43BE89CCE657C669BFC",
+                "C4215116A59F8DBC29910FA47BFBC6A82702816F",
+                "AEDBD0B97A96E5BDD926058406DB246904438044",
+                "DF2387E4B816070AE396698F2BD7359657EADE81",
+                "64FFED43123BBC9517F387412947F1C700527EB4",
+                "B5D988D1CB442CF60C021541BF2DC2A008819FD4",
+                "D64329EA3A838F1B4186746A734070A5DFDA4983",
+                "37DF3221C4030AC4E0EB9DD64616D020BB628CC1",
+                "B2DD1970DDE852F750899708154090300541F4DE",
+                "F774719D6A36449B152496136177E900605C9778"
+            };
+
+            TypeDefinition privateImplementationDetails = gameData.globalMetadata.images
+                .Where(i => i.name == "Assembly-CSharp.dll").SelectMany(i => i.types)
+                .First(t => t.name == "<PrivateImplementationDetails>");
+
+            gameData.globalMetadata.typeMatchupOffsets = typeArrayNames
+                .Select(s => privateImplementationDetails.fields.First(f => f.name == s).defautValue.offset).ToArray();
+        }
+
+        /// <summary>
+        ///  Returns the null terminated UTF8 string starting at the specified offset.
+        /// </summary>
+        private static string ReadNullTerminatedString(byte[] buffer, long offset)
+        {
+            long endOffset = offset;
+            while (buffer[endOffset] != 0)
+                endOffset++;
+            return Encoding.UTF8.GetString(buffer, (int)offset, (int)(endOffset - offset));
+        }
+
+        /// <summary>
+        ///  Commits all modified files and prepares them for exporting.
         /// </summary>
         public static void CommitChanges()
         {
@@ -1474,6 +1607,13 @@ namespace ImpostersOrdeal
                 CommitMoves();
             if (gameData.IsModified(GameDataSet.DataField.AudioCollection))
                 CommitAudio();
+            if (gameData.IsModified(GameDataSet.DataField.GlobalMetadata))
+                CommitGlobalMetadata();
+        }
+
+        private static void CommitGlobalMetadata()
+        {
+            fileManager.CommitGlobalMetadata();
         }
 
         private static void CommitAudio()

@@ -1155,6 +1155,65 @@ namespace ImpostersOrdeal
             public double sourceDuration;
         }
 
+        public class GlobalMetadata
+        {
+            public byte[] buffer;
+
+            //Readonly
+            public uint stringOffset;
+            public uint defaultValuePtrOffset;
+            public uint defaultValuePtrSecSize;
+            public uint defaultValueOffset;
+            public uint defaultValueSecSize;
+            public uint fieldOffset;
+            public uint typeOffset;
+            public uint imageOffset;
+            public uint imageSecSize;
+
+            public Dictionary<uint, FieldDefaultValue> defaultValueDic;
+            public List<ImageDefinition> images;
+
+            public long[] typeMatchupOffsets;
+
+            public byte GetTypeMatchup(int off, int def)
+            {
+                return buffer[typeMatchupOffsets[off] + def];
+            }
+
+            public void SetTypeMatchup(int off, int def, byte aff)
+            {
+                buffer[typeMatchupOffsets[off] + def] = aff;
+            }
+        }
+
+        public class ImageDefinition
+        {
+            public string name;
+            public uint typeStart;
+            public uint typeCount;
+            public List<TypeDefinition> types;
+        }
+
+        public class TypeDefinition
+        {
+            public string name;
+            public int fieldStart;
+            public ushort fieldCount;
+            public List<FieldDefinition> fields;
+        }
+
+        public class FieldDefinition
+        {
+            public string name;
+            public FieldDefaultValue defautValue;
+        }
+
+        public class FieldDefaultValue
+        {
+            public long offset;
+            public int length;
+        }
+
         public interface INamedEntity
         {
             public int GetID();
