@@ -33,6 +33,8 @@ namespace ImpostersOrdeal
             this.listBox = new System.Windows.Forms.ListBox();
             this.trainerDisplayTextBox = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.trainerNameComboBox = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.effectIDNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
@@ -97,6 +99,8 @@ namespace ImpostersOrdeal
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.trainerNameComboBox);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.effectIDNumericUpDown);
             this.groupBox1.Controls.Add(this.label3);
@@ -105,15 +109,34 @@ namespace ImpostersOrdeal
             this.groupBox1.Controls.Add(this.trainerTypeComboBox);
             this.groupBox1.Location = new System.Drawing.Point(402, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(384, 120);
+            this.groupBox1.Size = new System.Drawing.Size(384, 150);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Visuals";
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(223, 83);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(49, 20);
+            this.label9.TabIndex = 9;
+            this.label9.Text = "Name";
+            // 
+            // trainerNameComboBox
+            // 
+            this.trainerNameComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.trainerNameComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.trainerNameComboBox.FormattingEnabled = true;
+            this.trainerNameComboBox.Location = new System.Drawing.Point(278, 80);
+            this.trainerNameComboBox.Name = "trainerNameComboBox";
+            this.trainerNameComboBox.Size = new System.Drawing.Size(100, 28);
+            this.trainerNameComboBox.TabIndex = 8;
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(210, 82);
+            this.label4.Location = new System.Drawing.Point(210, 116);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(62, 20);
             this.label4.TabIndex = 7;
@@ -121,7 +144,7 @@ namespace ImpostersOrdeal
             // 
             // effectIDNumericUpDown
             // 
-            this.effectIDNumericUpDown.Location = new System.Drawing.Point(278, 80);
+            this.effectIDNumericUpDown.Location = new System.Drawing.Point(278, 114);
             this.effectIDNumericUpDown.Maximum = new decimal(new int[] {
             2147483647,
             0,
@@ -139,7 +162,7 @@ namespace ImpostersOrdeal
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(16, 82);
+            this.label3.Location = new System.Drawing.Point(16, 116);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(61, 20);
             this.label3.TabIndex = 5;
@@ -147,7 +170,7 @@ namespace ImpostersOrdeal
             // 
             // arenaIDNumericUpDown
             // 
-            this.arenaIDNumericUpDown.Location = new System.Drawing.Point(83, 80);
+            this.arenaIDNumericUpDown.Location = new System.Drawing.Point(83, 114);
             this.arenaIDNumericUpDown.Maximum = new decimal(new int[] {
             2147483647,
             0,
@@ -407,16 +430,16 @@ namespace ImpostersOrdeal
             this.groupBox4.Controls.Add(this.pasteButton);
             this.groupBox4.Controls.Add(this.copyButton);
             this.groupBox4.Controls.Add(this.partyDataGridView);
-            this.groupBox4.Location = new System.Drawing.Point(402, 138);
+            this.groupBox4.Location = new System.Drawing.Point(402, 168);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(384, 381);
+            this.groupBox4.Size = new System.Drawing.Size(384, 351);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Party";
             // 
             // ShowdownButton
             // 
-            this.ShowdownButton.Location = new System.Drawing.Point(6, 346);
+            this.ShowdownButton.Location = new System.Drawing.Point(6, 316);
             this.ShowdownButton.Name = "ShowdownButton";
             this.ShowdownButton.Size = new System.Drawing.Size(160, 29);
             this.ShowdownButton.TabIndex = 3;
@@ -426,7 +449,7 @@ namespace ImpostersOrdeal
             // 
             // pasteButton
             // 
-            this.pasteButton.Location = new System.Drawing.Point(278, 346);
+            this.pasteButton.Location = new System.Drawing.Point(278, 316);
             this.pasteButton.Name = "pasteButton";
             this.pasteButton.Size = new System.Drawing.Size(100, 29);
             this.pasteButton.TabIndex = 2;
@@ -436,7 +459,7 @@ namespace ImpostersOrdeal
             // 
             // copyButton
             // 
-            this.copyButton.Location = new System.Drawing.Point(172, 346);
+            this.copyButton.Location = new System.Drawing.Point(172, 316);
             this.copyButton.Name = "copyButton";
             this.copyButton.Size = new System.Drawing.Size(100, 29);
             this.copyButton.TabIndex = 1;
@@ -456,7 +479,7 @@ namespace ImpostersOrdeal
             this.partyDataGridView.Name = "partyDataGridView";
             this.partyDataGridView.RowHeadersWidth = 20;
             this.partyDataGridView.RowTemplate.Height = 29;
-            this.partyDataGridView.Size = new System.Drawing.Size(372, 314);
+            this.partyDataGridView.Size = new System.Drawing.Size(372, 284);
             this.partyDataGridView.TabIndex = 0;
             this.partyDataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.UserDeletingRow);
             // 
@@ -572,5 +595,7 @@ namespace ImpostersOrdeal
         private System.Windows.Forms.Button ShowdownButton;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox trainerNameComboBox;
     }
 }

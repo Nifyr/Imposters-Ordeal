@@ -19,7 +19,6 @@ namespace ImpostersOrdeal
         /// </summary>
         public static void PrepareAnalysis()
         {
-            ParseGlobalMetadata();
             ParseNatures();
             ParseEvScripts();
             //ParseMapWarpAssets();
@@ -38,6 +37,7 @@ namespace ImpostersOrdeal
             ParseTypings();
             ParseDamagaCategories();
             ParseTrainerTypes();
+            ParseGlobalMetadata();
         }
 
         /// <summary>
@@ -191,6 +191,7 @@ namespace ImpostersOrdeal
 
             AssetTypeValueField[] nameFields = nameData.children[8].children[0].children;
             Dictionary<string, string> trainerNames = new();
+            gameData.trainerNames = trainerNames;
             foreach (AssetTypeValueField label in nameFields)
                 if (label.children[6].children[0].childrenCount > 0)
                     trainerNames[label.children[2].GetValue().AsString()] = label.children[6].children[0].children[0].children[4].GetValue().AsString();
@@ -212,10 +213,11 @@ namespace ImpostersOrdeal
                 trainer.useItem4 = trainerFields[trainerIdx].children[9].value.value.asUInt16;
                 trainer.hpRecoverFlag = trainerFields[trainerIdx].children[10].value.value.asUInt8;
                 trainer.giftItem = trainerFields[trainerIdx].children[11].value.value.asUInt16;
+                trainer.nameLabel = trainerFields[trainerIdx].children[12].GetValue().AsString();
                 trainer.aiBit = trainerFields[trainerIdx].children[19].value.value.asUInt32;
 
                 trainer.trainerID = trainerIdx;
-                trainer.name = trainerNames[trainerFields[trainerIdx].children[12].GetValue().AsString()];
+                trainer.name = trainerNames[trainer.nameLabel];
 
                 //Parse trainer pokemon
                 trainer.trainerPokemon = new();
@@ -2136,6 +2138,7 @@ namespace ImpostersOrdeal
                 trainerFields[trainerIdx].children[9].GetValue().Set(trainer.useItem4);
                 trainerFields[trainerIdx].children[10].GetValue().Set(trainer.hpRecoverFlag);
                 trainerFields[trainerIdx].children[11].GetValue().Set(trainer.giftItem);
+                trainerFields[trainerIdx].children[12].GetValue().Set(trainer.nameLabel);
                 trainerFields[trainerIdx].children[19].GetValue().Set(trainer.aiBit);
 
                 //Write trainer pokemon

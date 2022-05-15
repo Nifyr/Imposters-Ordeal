@@ -38,6 +38,8 @@ namespace ImpostersOrdeal
             public AudioCollection audioCollection;
             public GlobalMetadata globalMetadata;
 
+            public Dictionary<string, string> trainerNames;
+
             private bool[] fieldStates = new bool[Enum.GetNames(typeof(DataField)).Length];
 
             public enum DataField

@@ -105,6 +105,7 @@ namespace ImpostersOrdeal
             public ushort useItem4;
             public byte hpRecoverFlag;
             public ushort giftItem;
+            public string nameLabel;
             public uint aiBit;
             public List<TrainerPokemon> trainerPokemon;
 
@@ -128,6 +129,7 @@ namespace ImpostersOrdeal
                 useItem4 = t.useItem4;
                 hpRecoverFlag = t.hpRecoverFlag;
                 giftItem = t.giftItem;
+                nameLabel = t.nameLabel;
                 aiBit = t.aiBit;
                 trainerPokemon = new();
                 foreach (TrainerPokemon tp in t.trainerPokemon)

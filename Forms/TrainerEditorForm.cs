@@ -15,9 +15,10 @@ namespace ImpostersOrdeal
     public partial class TrainerEditorForm : Form
     {
         public List<Trainer> trainers;
-        public Dictionary<int, string> trainerTypeLabels;
+        private Dictionary<int, string> trainerTypeLabels;
         public Dictionary<int, string> trainerTypeNames;
-        public Dictionary<int, int> trainerTypeToCC;
+        private Dictionary<int, int> trainerTypeToCC;
+        private Dictionary<string, string> labelToTrainerName;
         public List<string> items;
         public Trainer t;
         private TrainerPokemonEditorForm tpef;
@@ -40,6 +41,7 @@ namespace ImpostersOrdeal
                 trainerTypeNames.Add(tt.GetID(), tt.GetName());
                 trainerTypeToCC.Add(tt.GetID(), i + 1);
             }
+            labelToTrainerName = gameData.trainerNames;
             items = gameData.items.Select(o => o.GetName()).ToList();
 
             InitializeComponent();
@@ -51,11 +53,11 @@ namespace ImpostersOrdeal
 
             //trainers.Sort((t1, t2) => (int)(t1.aiBit - t2.aiBit));
 
-            listBox.DataSource = trainers.Select(o => o.GetID() + " - " + o.GetName()).ToArray();
-            listBox.SelectedIndex = 0;
+            PopulateListBox();
             t = trainers[0];
 
             trainerTypeComboBox.DataSource = trainerTypeLabels.Values.ToArray();
+            trainerNameComboBox.DataSource = labelToTrainerName.Values.ToArray();
 
             item1ComboBox.DataSource = items.ToArray();
             item2ComboBox.DataSource = items.ToArray();
@@ -81,6 +83,7 @@ namespace ImpostersOrdeal
             RefreshTextBoxDisplay();
 
             trainerTypeComboBox.SelectedIndex = trainerTypeToCC[t.trainerTypeID];
+            trainerNameComboBox.SelectedItem = labelToTrainerName[t.nameLabel];
             arenaIDNumericUpDown.Value = t.arenaID;
             effectIDNumericUpDown.Value = t.effectID;
 
@@ -129,11 +132,24 @@ namespace ImpostersOrdeal
             RefreshTextBoxDisplay();
         }
 
+        private void CommitNameEdit(object sender, EventArgs e)
+        {
+            DeactivateControls();
+
+            t.nameLabel = labelToTrainerName.Keys.ToArray()[trainerNameComboBox.SelectedIndex];
+            t.name = (string)trainerNameComboBox.SelectedItem;
+            PopulateListBox();
+            RefreshTextBoxDisplay();
+
+            ActivateControls();
+        }
+
         private void ActivateControls()
         {
             listBox.SelectedIndexChanged += TrainerChanged;
 
             trainerTypeComboBox.SelectedIndexChanged += CommitEdit;
+            trainerNameComboBox.SelectedIndexChanged += CommitNameEdit;
             arenaIDNumericUpDown.ValueChanged += CommitEdit;
             effectIDNumericUpDown.ValueChanged += CommitEdit;
 
@@ -160,6 +176,7 @@ namespace ImpostersOrdeal
             listBox.SelectedIndexChanged -= TrainerChanged;
 
             trainerTypeComboBox.SelectedIndexChanged -= CommitEdit;
+            trainerNameComboBox.SelectedIndexChanged -= CommitNameEdit;
             arenaIDNumericUpDown.ValueChanged -= CommitEdit;
             effectIDNumericUpDown.ValueChanged -= CommitEdit;
 
@@ -267,9 +284,17 @@ namespace ImpostersOrdeal
             {
                 trainers[listBox.SelectedIndex] = new(trainerClipboard);
                 trainers[listBox.SelectedIndex].trainerID = t.trainerID;
-                trainers[listBox.SelectedIndex].name = t.name;
                 TrainerChanged(null, null);
             }
+        }
+
+        private void PopulateListBox()
+        {
+            int index = listBox.SelectedIndex;
+            if (index < 0)
+                index = 0;
+            listBox.DataSource = trainers.Select(o => o.GetID() + " - " + o.GetName()).ToArray();
+            listBox.SelectedIndex = index;
         }
     }
 }
