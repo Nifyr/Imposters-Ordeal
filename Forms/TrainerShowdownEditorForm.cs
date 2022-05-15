@@ -30,6 +30,8 @@ namespace ImpostersOrdeal
 
         private readonly Dictionary<string, int[]> monForms = new()
         {
+            {"Nidoran-F", new int[] {29,0}},
+            {"Nidoran-M", new int[] {32,0}},
             {"Unown-B", new int[] {201,1}},
             {"Unown-C", new int[] {201,2}},
             {"Unown-D", new int[] {201,3}},
@@ -148,9 +150,9 @@ namespace ImpostersOrdeal
                 ShowdownToData(richTextBox1.Text, trainer);
                 richTextBox2.Text = ToShowdownText(trainer);
             }
-            catch(Exception)
+            catch(Exception excp)
             {
-                richTextBox2.Text = "Error in parsing";
+                richTextBox2.Text = "Error in parsing" + excp.ToString();
             }
         }
 
@@ -183,7 +185,7 @@ namespace ImpostersOrdeal
 
             for(point = 0; point < breakpoints.Count - 1; point++)
             {
-                while (trainer.Count < point)
+                while (trainer.Count <= point)
                 {
                     trainer.Add(new TrainerPokemon());
                 }
@@ -192,6 +194,7 @@ namespace ImpostersOrdeal
                 tp.isRare = 0;
                 tp.level = 100;
                 tp.natureID = 0;
+                tp.sex = 3; //Default to random
 
                 //Counter Values
                 int moveNum = 0;
@@ -231,7 +234,7 @@ namespace ImpostersOrdeal
                 if(firstline.Contains("("))
                 {
                     int index = firstline.IndexOf("(");
-                    String genderStr = firstline.Substring(index, index + 3);
+                    String genderStr = firstline.Substring(index, 3);
                     tp.sex = (byte) Array.IndexOf(genders, genderStr);
                 }
                 else
@@ -255,6 +258,10 @@ namespace ImpostersOrdeal
                     if(data.ToUpper().StartsWith("-"))
                     {
                         newMoves[moveNum] = (ushort) moves.IndexOf(data[2..]);
+                        if(data[2..].StartsWith("Hidden Power"))
+                        {
+                            newMoves[moveNum] = (ushort)237; //Hardcode for hidden power
+                        }
                         moveNum++;
                     }
                     else if(data.ToUpper().StartsWith("ABILITY"))
@@ -343,6 +350,12 @@ namespace ImpostersOrdeal
                     showdownText += String.Format("@ {0}", items[tp.itemID]);
                 }
 
+                if(tp.level != 100) //Level 100 isn't shown
+                {
+                    showdownText += "\n";
+                    showdownText += String.Format("Level: {0}", tp.level);
+                }
+
                 showdownText += "\n";
 
                 showdownText += "Ability: " + abilities[tp.abilityID];
@@ -369,7 +382,7 @@ namespace ImpostersOrdeal
 
                 foreach (ushort moveID in moveList)
                 {
-                    if (moveID != 0)
+                    if (moveID != 0 && moveID != 65535)
                     {
                         showdownText += String.Format("- {0}\n", moves[moveID]);
                     }
@@ -481,6 +494,11 @@ namespace ImpostersOrdeal
             }
 
             return returnList;
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
