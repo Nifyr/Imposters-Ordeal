@@ -133,38 +133,28 @@ namespace ImpostersOrdeal
             gameData.SetModified(GameDataSet.DataField.GlobalMetadata);
         }
 
-        private int ToAffinityEnum(byte affinity)
+        private static int ToAffinityEnum(byte affinity)
         {
-            switch (affinity)
+            return affinity switch
             {
-                case 0:
-                    return 0;
-                case 2:
-                    return 1;
-                case 4:
-                    return 2;
-                case 8:
-                    return 3;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+                0 => 0,
+                2 => 1,
+                4 => 2,
+                8 => 3,
+                _ => throw new ArgumentOutOfRangeException(nameof(affinity)),
+            };
         }
 
-        private byte ToAffinity(int affinityEnum)
+        private static byte ToAffinity(int affinityEnum)
         {
-            switch (affinityEnum)
+            return affinityEnum switch
             {
-                case 0:
-                    return 0;
-                case 1:
-                    return 2;
-                case 2:
-                    return 4;
-                case 3:
-                    return 8;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+                0 => 0,
+                1 => 2,
+                2 => 4,
+                3 => 8,
+                _ => throw new ArgumentOutOfRangeException(nameof(affinityEnum)),
+            };
         }
 
         private void RandomizeMusic()
