@@ -220,7 +220,7 @@ namespace ImpostersOrdeal
                 if (IsWithin(AbsoluteBoundary.Level, (int)ugEncounterLevelSet.GetAvgLevel()))
                 {
                     ugEncounterLevelSet.minLv = Conform(AbsoluteBoundary.Level, (int)(ugEncounterLevelSet.minLv * coefficient));
-                    ugEncounterLevelSet.minLv = Conform(AbsoluteBoundary.Level, (int)(ugEncounterLevelSet.maxLv * coefficient));
+                    ugEncounterLevelSet.maxLv = Conform(AbsoluteBoundary.Level, (int)(ugEncounterLevelSet.maxLv * coefficient));
                 }
 
             gameData.SetModified(GameDataSet.DataField.EncounterTableFiles);
