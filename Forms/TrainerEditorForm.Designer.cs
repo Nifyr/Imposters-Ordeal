@@ -110,7 +110,7 @@ namespace ImpostersOrdeal
             this.groupBox1.Location = new System.Drawing.Point(402, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(384, 150);
-            this.groupBox1.TabIndex = 2;
+            this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Visuals";
             // 
@@ -131,7 +131,7 @@ namespace ImpostersOrdeal
             this.trainerNameComboBox.Location = new System.Drawing.Point(278, 80);
             this.trainerNameComboBox.Name = "trainerNameComboBox";
             this.trainerNameComboBox.Size = new System.Drawing.Size(100, 28);
-            this.trainerNameComboBox.TabIndex = 8;
+            this.trainerNameComboBox.TabIndex = 1;
             // 
             // label4
             // 
@@ -219,7 +219,7 @@ namespace ImpostersOrdeal
             this.groupBox2.Location = new System.Drawing.Point(207, 12);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(189, 230);
-            this.groupBox2.TabIndex = 3;
+            this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Main";
             // 
@@ -343,7 +343,7 @@ namespace ImpostersOrdeal
             this.groupBox3.Location = new System.Drawing.Point(207, 248);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(189, 271);
-            this.groupBox3.TabIndex = 4;
+            this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "AI Flags";
             // 
@@ -433,7 +433,7 @@ namespace ImpostersOrdeal
             this.groupBox4.Location = new System.Drawing.Point(402, 168);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(384, 351);
-            this.groupBox4.TabIndex = 5;
+            this.groupBox4.TabIndex = 7;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Party";
             // 
@@ -442,7 +442,7 @@ namespace ImpostersOrdeal
             this.ShowdownButton.Location = new System.Drawing.Point(6, 316);
             this.ShowdownButton.Name = "ShowdownButton";
             this.ShowdownButton.Size = new System.Drawing.Size(160, 29);
-            this.ShowdownButton.TabIndex = 3;
+            this.ShowdownButton.TabIndex = 1;
             this.ShowdownButton.Text = "Showdown Editor";
             this.ShowdownButton.UseVisualStyleBackColor = true;
             this.ShowdownButton.Click += new System.EventHandler(this.ShowdownButtonClick);
@@ -452,7 +452,7 @@ namespace ImpostersOrdeal
             this.pasteButton.Location = new System.Drawing.Point(278, 316);
             this.pasteButton.Name = "pasteButton";
             this.pasteButton.Size = new System.Drawing.Size(100, 29);
-            this.pasteButton.TabIndex = 2;
+            this.pasteButton.TabIndex = 3;
             this.pasteButton.Text = "Paste";
             this.pasteButton.UseVisualStyleBackColor = true;
             this.pasteButton.Click += new System.EventHandler(this.PasteTPButtonClick);
@@ -462,7 +462,7 @@ namespace ImpostersOrdeal
             this.copyButton.Location = new System.Drawing.Point(172, 316);
             this.copyButton.Name = "copyButton";
             this.copyButton.Size = new System.Drawing.Size(100, 29);
-            this.copyButton.TabIndex = 1;
+            this.copyButton.TabIndex = 2;
             this.copyButton.Text = "Copy";
             this.copyButton.UseVisualStyleBackColor = true;
             this.copyButton.Click += new System.EventHandler(this.CopyTPButtonClick);
@@ -505,7 +505,7 @@ namespace ImpostersOrdeal
             this.button1.Location = new System.Drawing.Point(12, 490);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(189, 29);
-            this.button1.TabIndex = 7;
+            this.button1.TabIndex = 3;
             this.button1.Text = "Paste Trainer";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.PasteTrainerButtonClick);
@@ -515,7 +515,7 @@ namespace ImpostersOrdeal
             this.button2.Location = new System.Drawing.Point(12, 455);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(189, 29);
-            this.button2.TabIndex = 6;
+            this.button2.TabIndex = 2;
             this.button2.Text = "Copy Trainer";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.CopyTrainerButtonClick);
