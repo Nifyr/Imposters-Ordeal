@@ -128,23 +128,43 @@ namespace ImpostersOrdeal
             int typeCount = 18;
             for (int o = 0; o < typeCount; o++)
                 for (int d = 0; d < typeCount; d++)
-                    switch (distribution.Next(gameData.globalMetadata.GetTypeMatchup(o, d)))
-                    {
-                        case 0:
-                            gameData.globalMetadata.SetTypeMatchup(o, d, 0);
-                            break;
-                        case 1:
-                            gameData.globalMetadata.SetTypeMatchup(o, d, 2);
-                            break;
-                        case 2:
-                            gameData.globalMetadata.SetTypeMatchup(o, d, 4);
-                            break;
-                        case 3:
-                            gameData.globalMetadata.SetTypeMatchup(o, d, 8);
-                            break;
-                    }
+                    gameData.globalMetadata.SetTypeMatchup(o, d, ToAffinity(distribution.Next(ToAffinityEnum(gameData.globalMetadata.GetTypeMatchup(o, d)))));
 
             gameData.SetModified(GameDataSet.DataField.GlobalMetadata);
+        }
+
+        private int ToAffinityEnum(byte affinity)
+        {
+            switch (affinity)
+            {
+                case 0:
+                    return 0;
+                case 2:
+                    return 1;
+                case 4:
+                    return 2;
+                case 8:
+                    return 3;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private byte ToAffinity(int affinityEnum)
+        {
+            switch (affinityEnum)
+            {
+                case 0:
+                    return 0;
+                case 1:
+                    return 2;
+                case 2:
+                    return 4;
+                case 3:
+                    return 8;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         private void RandomizeMusic()
