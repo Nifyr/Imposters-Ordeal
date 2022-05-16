@@ -456,5 +456,12 @@ namespace ImpostersOrdeal
             tmef.ShowDialog();
             GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.GlobalMetadata);
         }
+
+        private void OpenGlobalMetadataEditor(object sender, EventArgs e)
+        {
+            GlobalMetadataEditorForm gmef = new();
+            gmef.ShowDialog();
+            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.GlobalMetadata);
+        }
     }
 }

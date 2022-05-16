@@ -1188,32 +1188,68 @@ namespace ImpostersOrdeal
             }
         }
 
-        public class ImageDefinition
+        public class ImageDefinition : IGMObject
         {
             public string name;
             public uint typeStart;
             public uint typeCount;
             public List<TypeDefinition> types;
+
+            public override string ToString()
+            {
+                return name;
+            }
+
+            public bool HasDefault()
+            {
+                return types.Any(t => t.HasDefault());
+            }
         }
 
-        public class TypeDefinition
+        public class TypeDefinition : IGMObject
         {
             public string name;
             public int fieldStart;
             public ushort fieldCount;
             public List<FieldDefinition> fields;
+
+            public override string ToString()
+            {
+                return name;
+            }
+
+            public bool HasDefault()
+            {
+                return fields.Any(f => f.HasDefault());
+            }
         }
 
-        public class FieldDefinition
+        public class FieldDefinition : IGMObject
         {
             public string name;
             public FieldDefaultValue defautValue;
+
+            public override string ToString()
+            {
+                return name;
+            }
+
+            public bool HasDefault()
+            {
+                return defautValue != null;
+            }
         }
 
         public class FieldDefaultValue
         {
             public long offset;
             public int length;
+        }
+
+        public interface IGMObject
+        {
+            public bool HasDefault();
+            public string ToString();
         }
 
         public interface INamedEntity

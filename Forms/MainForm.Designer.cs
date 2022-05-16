@@ -239,6 +239,7 @@ namespace ImpostersOrdeal
             this.wildEncButton = new System.Windows.Forms.Button();
             this.button30 = new System.Windows.Forms.Button();
             this.groupBox32 = new System.Windows.Forms.GroupBox();
+            this.button23 = new System.Windows.Forms.Button();
             this.button32 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -2472,6 +2473,7 @@ namespace ImpostersOrdeal
             // 
             // groupBox32
             // 
+            this.groupBox32.Controls.Add(this.button23);
             this.groupBox32.Controls.Add(this.button32);
             this.groupBox32.Controls.Add(this.pokemonEditorButton);
             this.groupBox32.Controls.Add(this.button30);
@@ -2483,10 +2485,20 @@ namespace ImpostersOrdeal
             this.groupBox32.Controls.Add(this.button27);
             this.groupBox32.Location = new System.Drawing.Point(12, 158);
             this.groupBox32.Name = "groupBox32";
-            this.groupBox32.Size = new System.Drawing.Size(185, 350);
+            this.groupBox32.Size = new System.Drawing.Size(185, 380);
             this.groupBox32.TabIndex = 5;
             this.groupBox32.TabStop = false;
             this.groupBox32.Text = "Editors";
+            // 
+            // button23
+            // 
+            this.button23.Location = new System.Drawing.Point(6, 341);
+            this.button23.Name = "button23";
+            this.button23.Size = new System.Drawing.Size(173, 29);
+            this.button23.TabIndex = 12;
+            this.button23.Text = "Global Metadata Editor";
+            this.button23.UseVisualStyleBackColor = true;
+            this.button23.Click += new System.EventHandler(this.OpenGlobalMetadataEditor);
             // 
             // button32
             // 
@@ -2837,5 +2849,6 @@ namespace ImpostersOrdeal
         private System.Windows.Forms.GroupBox groupBox33;
         public ItemDistributionControl itemDistributionControl5;
         public System.Windows.Forms.CheckBox checkBox63;
+        public System.Windows.Forms.Button button23;
     }
 }
