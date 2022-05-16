@@ -207,25 +207,24 @@ namespace ImpostersOrdeal
 
                 String firstline = team[breakpoints[point]];
 
-                try
-                {
-                    String mon = firstline.Split(" ")[0];
-                    if(monForms.ContainsKey(mon))
-                    {
-                        tp.dexID = (ushort) monForms[mon][0];
-                        tp.formID = (ushort) monForms[mon][1];
-                    }
 
-                    else
-                    {
-                        tp.dexID = (ushort) dexEntries.IndexOf(mon);
-                        tp.formID = 0;
-                    }
+                String mon = firstline.Split(" ")[0];
+                if(monForms.ContainsKey(mon))
+                {
+                    tp.dexID = (ushort) monForms[mon][0];
+                    tp.formID = (ushort) monForms[mon][1];
+                }
+
+                else
+                {
+                    tp.dexID = (ushort) dexEntries.IndexOf(mon);
+                    tp.formID = 0;
                 }
                 //Mr. Mime and Mime Jr. are both two word pokemon
-                catch(Exception)
+                //-1 is 65535 for ushort numbers
+                if (tp.dexID == 65535)
                 {
-                    String mon = firstline.Split(" ")[0] + " " + firstline.Split(" ")[1];
+                    mon = firstline.Split(" ")[0] + " " + firstline.Split(" ")[1];
                     tp.dexID = (ushort) dexEntries.IndexOf(mon);
                     tp.formID = 0;
                 }
