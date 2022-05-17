@@ -88,10 +88,10 @@ namespace ImpostersOrdeal
             this.zoneIDLabel = new System.Windows.Forms.TextBox();
             this.versionComboBox = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.formProbNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label6 = new System.Windows.Forms.Label();
             this.unownTableNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
+            this.formProbNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
             this.Morning.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -117,8 +117,8 @@ namespace ImpostersOrdeal
             this.tabPage6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView8)).BeginInit();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.formProbNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.unownTableNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.formProbNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // Morning
@@ -745,33 +745,7 @@ namespace ImpostersOrdeal
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Forms";
             // 
-            // numericUpDown1
-            // 
-            this.formProbNumericUpDown.Location = new System.Drawing.Point(133, 26);
-            this.formProbNumericUpDown.Maximum = new decimal(new int[] {
-            2147483647,
-            0,
-            0,
-            0});
-            this.formProbNumericUpDown.Minimum = new decimal(new int[] {
-            -2147483648,
-            0,
-            0,
-            -2147483648});
-            this.formProbNumericUpDown.Name = "numericUpDown1";
-            this.formProbNumericUpDown.Size = new System.Drawing.Size(50, 27);
-            this.formProbNumericUpDown.TabIndex = 7;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(55, 28);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(72, 20);
-            this.label6.TabIndex = 6;
-            this.label6.Text = "formProb";
-            // 
-            // numericUpDown2
+            // unownTableNumericUpDown
             // 
             this.unownTableNumericUpDown.Location = new System.Drawing.Point(133, 59);
             this.unownTableNumericUpDown.Maximum = new decimal(new int[] {
@@ -784,7 +758,7 @@ namespace ImpostersOrdeal
             0,
             0,
             -2147483648});
-            this.unownTableNumericUpDown.Name = "numericUpDown2";
+            this.unownTableNumericUpDown.Name = "unownTableNumericUpDown";
             this.unownTableNumericUpDown.Size = new System.Drawing.Size(50, 27);
             this.unownTableNumericUpDown.TabIndex = 9;
             // 
@@ -797,7 +771,33 @@ namespace ImpostersOrdeal
             this.label7.TabIndex = 8;
             this.label7.Text = "Unown Table";
             // 
-            // WildEncEditorForm
+            // formProbNumericUpDown
+            // 
+            this.formProbNumericUpDown.Location = new System.Drawing.Point(133, 26);
+            this.formProbNumericUpDown.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
+            this.formProbNumericUpDown.Minimum = new decimal(new int[] {
+            -2147483648,
+            0,
+            0,
+            -2147483648});
+            this.formProbNumericUpDown.Name = "formProbNumericUpDown";
+            this.formProbNumericUpDown.Size = new System.Drawing.Size(50, 27);
+            this.formProbNumericUpDown.TabIndex = 7;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(55, 28);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(72, 20);
+            this.label6.TabIndex = 6;
+            this.label6.Text = "formProb";
+            // 
+            // EncounterTableEditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -815,7 +815,7 @@ namespace ImpostersOrdeal
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "WildEncEditorForm";
+            this.Name = "EncounterTableEditorForm";
             this.Text = "Wild Encounter Editor";
             this.Morning.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -844,8 +844,8 @@ namespace ImpostersOrdeal
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView8)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.formProbNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.unownTableNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.formProbNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
