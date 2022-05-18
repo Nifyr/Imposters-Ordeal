@@ -825,7 +825,17 @@ namespace ImpostersOrdeal
             {
                 BpShopItem bpShopItem = new();
                 bpShopItem.itemID = bpShopItemFields[bpShopItemIdx].children[0].value.value.asUInt16;
-                bpShopItem.npcID = bpShopItemFields[bpShopItemIdx].children[1].value.value.asInt32;
+                try
+                {
+                    bpShopItem.npcID = bpShopItemFields[bpShopItemIdx].children[1].value.value.asInt32;
+                }
+                catch (IndexOutOfRangeException e)
+                {
+                    MainForm.ShowParserError("Oh my, this dump might be a bit outdated...\n" +
+                        "Please input at least the v1.1.3 version of BDSP.\n" +
+                        "I don't feel so good...");
+                    throw e;
+                }
 
                 gameData.shopTables.bpShopItems.Add(bpShopItem);
             }
