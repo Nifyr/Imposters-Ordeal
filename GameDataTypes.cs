@@ -187,6 +187,8 @@ namespace ImpostersOrdeal
 
             public double GetAvgLevel()
             {
+                if (trainerPokemon.Count == 0)
+                    return 0;
                 return trainerPokemon.Select(p => (int)p.level).Average();
             }
 

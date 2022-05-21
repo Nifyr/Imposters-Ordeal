@@ -26,6 +26,19 @@ namespace ImpostersOrdeal
         private Trainer trainerClipboard;
         private List<TrainerPokemon> tpClipboard;
 
+        private readonly string[] sortNames = new string[]
+        {
+            "Sort by ID",
+            "Sort by name",
+            "Sort by level"
+        };
+        private readonly Comparison<Trainer>[] sortComparisons = new Comparison<Trainer>[]
+        {
+            (t1, t2) => t1.GetID().CompareTo(t2.GetID()),
+            (t1, t2) => t1.GetName().CompareTo(t2.GetName()),
+            (t1, t2) => t1.GetAvgLevel().CompareTo(t2.GetAvgLevel())
+        };
+
         public TrainerEditorForm()
         {
             trainerTypeLabels = new();
@@ -51,7 +64,9 @@ namespace ImpostersOrdeal
             trainers = new();
             trainers.AddRange(gameData.trainers);
 
-            //trainers.Sort((t1, t2) => (int)(t1.aiBit - t2.aiBit));
+            sortByComboBox.DataSource = sortNames;
+            sortByComboBox.SelectedIndex = 0;
+            trainers.Sort(sortComparisons[sortByComboBox.SelectedIndex]);
 
             PopulateListBox();
             t = trainers[0];
@@ -74,6 +89,17 @@ namespace ImpostersOrdeal
 
             t = trainers[listBox.SelectedIndex];
             RefreshTrainerDisplay();
+
+            ActivateControls();
+        }
+
+        private void SortChanged(object sender, EventArgs e)
+        {
+            DeactivateControls();
+
+            trainers.Sort(sortComparisons[sortByComboBox.SelectedIndex]);
+            PopulateListBox();
+            listBox.SelectedIndex = trainers.IndexOf(t);
 
             ActivateControls();
         }
@@ -146,6 +172,7 @@ namespace ImpostersOrdeal
 
         private void ActivateControls()
         {
+            sortByComboBox.SelectedIndexChanged += SortChanged;
             listBox.SelectedIndexChanged += TrainerChanged;
 
             trainerTypeComboBox.SelectedIndexChanged += CommitEdit;
@@ -173,6 +200,7 @@ namespace ImpostersOrdeal
 
         private void DeactivateControls()
         {
+            sortByComboBox.SelectedIndexChanged -= SortChanged;
             listBox.SelectedIndexChanged -= TrainerChanged;
 
             trainerTypeComboBox.SelectedIndexChanged -= CommitEdit;
