@@ -179,9 +179,9 @@ namespace ImpostersOrdeal
                 (int)numericUpDown7.Value,
                 (int)numericUpDown8.Value,
                 (int)numericUpDown9.Value,
-                (int)numericUpDown11.Value,
                 (int)numericUpDown12.Value,
-                (int)numericUpDown10.Value
+                (int)numericUpDown10.Value,
+                (int)numericUpDown11.Value
             });
 
             p.typingID1 = (byte)(type1ComboBox.SelectedIndex == -1 ? 0 : type1ComboBox.SelectedIndex);
