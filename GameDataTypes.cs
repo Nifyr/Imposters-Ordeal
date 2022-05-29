@@ -117,6 +117,11 @@ namespace ImpostersOrdeal
 
             public Trainer(Trainer t)
             {
+                SetAll(t);
+            }
+
+            public void SetAll(Trainer t)
+            {
                 trainerTypeID = t.trainerTypeID;
                 colorID = t.colorID;
                 fightType = t.fightType;

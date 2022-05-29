@@ -310,8 +310,13 @@ namespace ImpostersOrdeal
         {
             if (trainerClipboard != null)
             {
-                trainers[listBox.SelectedIndex] = new(trainerClipboard);
-                trainers[listBox.SelectedIndex].trainerID = t.trainerID;
+                DeactivateControls();
+                int id = trainers[listBox.SelectedIndex].trainerID;
+                trainers[listBox.SelectedIndex].SetAll(trainerClipboard);
+                trainers[listBox.SelectedIndex].trainerID = id;
+                PopulateListBox();
+                ActivateControls();
+
                 TrainerChanged(null, null);
             }
         }
