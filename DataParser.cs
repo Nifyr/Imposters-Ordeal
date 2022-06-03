@@ -403,6 +403,23 @@ namespace ImpostersOrdeal
             AssetTypeValueField[] evolveFields = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "EvolveTable").children[4].children[0].children;
             AssetTypeValueField[] personalFields = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "PersonalTable").children[4].children[0].children;
             AssetTypeValueField[] textFields = textData.children[8].children[0].children;
+
+            if (levelUpMoveFields.Length < personalFields.Length)
+                MainForm.ShowParserError("Oh my, this WazaOboeTable is missing some stuff...\n" +
+                    "I don't feel so good...\n" +
+                    "PersonalTable entries: " + personalFields.Length + "\n" +
+                    "WazaOboeTable entries: " + levelUpMoveFields.Length + "??");
+            if (eggMoveFields.Length < personalFields.Length)
+                MainForm.ShowParserError("Oh my, this TamagoWazaTable is missing some stuff...\n" +
+                    "I don't feel so good...\n" +
+                    "PersonalTable entries: " + personalFields.Length + "\n" +
+                    "TamagoWazaTable entries: " + eggMoveFields.Length + "??");
+            if (evolveFields.Length < personalFields.Length)
+                MainForm.ShowParserError("Oh my, this EvolveTable is missing some stuff...\n" +
+                    "I don't feel so good...\n" +
+                    "PersonalTable entries: " + personalFields.Length + "\n" +
+                    "EvolveTable entries: " + evolveFields.Length + "??");
+
             for (int personalID = 0; personalID < personalFields.Length; personalID++)
             {
                 Pokemon pokemon = new();
