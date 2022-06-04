@@ -16,6 +16,7 @@ namespace ImpostersOrdeal
     public partial class TypeMatchupEditorForm : Form
     {
         private GlobalMetadata gm;
+        private int typeHeight;
         private int typeWidth;
         private const int TypeCount = 18;
 
@@ -34,9 +35,6 @@ namespace ImpostersOrdeal
         {
             gm = gameData.globalMetadata;
             InitializeComponent();
-
-            typeWidth = pictureBox.Width / TypeCount;
-
             PopulateChart();
         }
 
@@ -52,14 +50,19 @@ namespace ImpostersOrdeal
         // Borrowing this part from pk3DS
         private void PopulateChart()
         {
-            pictureBox.Image = GetBitmap(typeWidth, TypeCount, GetAffinities());
+            typeHeight = pictureBox.Height / TypeCount;
+            typeWidth = pictureBox.Width / TypeCount;
+            pictureBox.Image = GetBitmap(typeHeight, typeWidth, TypeCount, GetAffinities());
         }
 
-        private static Bitmap GetBitmap(int itemsize, int itemsPerRow, byte[] vals)
+        private static Bitmap GetBitmap(int itemHeight, int itemWidth, int itemsPerRow, byte[] vals)
         {
+            if (itemHeight * itemWidth == 0)
+                return null;
+
             // set up image
-            var width = itemsize * itemsPerRow;
-            var height = itemsize * vals.Length / itemsPerRow;
+            var width = itemWidth * itemsPerRow;
+            var height = itemHeight * vals.Length / itemsPerRow;
             byte[] bmpData = new byte[4 * width * height];
 
             // loop over area
@@ -70,17 +73,17 @@ namespace ImpostersOrdeal
 
                 // Plop into image
                 byte[] itemColor = BitConverter.GetBytes(affinityColours[vals[i]]);
-                for (int x = 0; x < itemsize * itemsize; x++)
+                for (int x = 0; x < itemHeight * itemWidth; x++)
                 {
-                    Buffer.BlockCopy(itemColor, 0, bmpData, (((Y * itemsize) + (x % itemsize)) * width * 4) + (((X * itemsize) + (x / itemsize)) * 4), 4);
+                    Buffer.BlockCopy(itemColor, 0, bmpData, (((Y * itemHeight) + (x % itemHeight)) * width * 4) + (((X * itemWidth) + (x / itemHeight)) * 4), 4);
                 }
             }
             // slap on a grid
-            byte[] gridColor = BitConverter.GetBytes(0x17000000);
+            byte[] gridColor = BitConverter.GetBytes(0xFFF0F0F0);
             for (int i = 0; i < width * height; i++)
             {
-                if (i % itemsize == 0 || i / (itemsize * itemsPerRow) % itemsize == 0)
-                    Buffer.BlockCopy(gridColor, 0, bmpData, (i / (itemsize * itemsPerRow) * width * 4) + (i % (itemsize * itemsPerRow) * 4), 4);
+                if (i % itemWidth == 0 || i / (itemWidth * itemsPerRow) % itemHeight == 0)
+                    Buffer.BlockCopy(gridColor, 0, bmpData, (i / (itemWidth * itemsPerRow) * width * 4) + (i % (itemWidth * itemsPerRow) * 4), 4);
             }
 
             // assemble image
@@ -94,7 +97,7 @@ namespace ImpostersOrdeal
         public void GetCoordinate(Control sender, MouseEventArgs e, out int X, out int Y)
         {
             X = e.X / typeWidth;
-            Y = e.Y / typeWidth;
+            Y = e.Y / typeHeight;
             if (e.X == sender.Width - 1 - 2) // tweak because the furthest pixel is unused for transparent effect, and 2 px are used for border
                 X--;
             if (e.Y == sender.Height - 1 - 2)
@@ -103,6 +106,8 @@ namespace ImpostersOrdeal
 
         private void PictureBoxMouseClick(object sender, MouseEventArgs e)
         {
+            if (typeHeight * typeWidth == 0)
+                return;
             GetCoordinate((PictureBox)sender, e, out int X, out int Y);
             if (X >= TypeCount || Y >= TypeCount)
                 return;
@@ -127,6 +132,11 @@ namespace ImpostersOrdeal
         private void PictureBoxMouseDoubleClick(object sender, MouseEventArgs e)
         {
             PictureBoxMouseClick(sender, e);
+        }
+
+        private void PictureBoxResize(object sender, EventArgs e)
+        {
+            PopulateChart();
         }
     }
 }
