@@ -2,7 +2,7 @@
 A Randomizer and editor software for Pokémon Brilliant Diamond and Shining Pearl offering some rather extensive control over randomization, which also just so happens to be capable of merging together yuzu mods.
 
 # How to use
-1. Aquire a dump of either Brilliant Diamond or Shining Pearl.
+1. Aquire a dump of either Brilliant Diamond or Shining Pearl (v1.1.3 or later).
 2. Launch the application's executable and input said dump when prompted.
 3. After processing, you may add any number of mods with the "Add Mod" button, the application may take some time to process some mods. If prompted to resolve file conflicts, select only the files modified by the newly selected mod. Note: Not all mods are compatible for merging.
 4. From here you may randomize and/or edit the game in any way you see fit. After inputting a configuration into the randomizer, click the "Randomize" button to have the game modified accordingly.

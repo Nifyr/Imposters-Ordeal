@@ -91,9 +91,11 @@ namespace ImpostersOrdeal
             public int npcID;
         }
 
-        public class Trainer
+        public class Trainer : INamedEntity
         {
             public int trainerTypeID;
+            public byte colorID;
+            public byte fightType;
             public int arenaID;
             public int effectID;
             public byte gold;
@@ -103,8 +105,43 @@ namespace ImpostersOrdeal
             public ushort useItem4;
             public byte hpRecoverFlag;
             public ushort giftItem;
+            public string nameLabel;
             public uint aiBit;
             public List<TrainerPokemon> trainerPokemon;
+
+            //Readonly
+            public int trainerID;
+            public string name;
+
+            public Trainer() { }
+
+            public Trainer(Trainer t)
+            {
+                SetAll(t);
+            }
+
+            public void SetAll(Trainer t)
+            {
+                trainerTypeID = t.trainerTypeID;
+                colorID = t.colorID;
+                fightType = t.fightType;
+                arenaID = t.arenaID;
+                effectID = t.effectID;
+                gold = t.gold;
+                useItem1 = t.useItem1;
+                useItem2 = t.useItem2;
+                useItem3 = t.useItem3;
+                useItem4 = t.useItem4;
+                hpRecoverFlag = t.hpRecoverFlag;
+                giftItem = t.giftItem;
+                nameLabel = t.nameLabel;
+                aiBit = t.aiBit;
+                trainerPokemon = new();
+                foreach (TrainerPokemon tp in t.trainerPokemon)
+                    trainerPokemon.Add(new(tp));
+                trainerID = t.trainerID;
+                name = t.name;
+            }
 
             public List<int> GetItems()
             {
@@ -155,7 +192,39 @@ namespace ImpostersOrdeal
 
             public double GetAvgLevel()
             {
+                if (trainerPokemon.Count == 0)
+                    return 0;
                 return trainerPokemon.Select(p => (int)p.level).Average();
+            }
+
+            public bool[] GetAIFlags()
+            {
+                bool[] flags = new bool[32];
+                for (int i = 0; i < 32; i++)
+                    flags[i] = (aiBit & ((uint)1 << i)) != 0;
+                return flags;
+            }
+
+            public void SetAIFlags(bool[] flagArray)
+            {
+                aiBit = 0;
+                for (int i = 0; i < 32; i++)
+                    aiBit |= flagArray[i] ? (uint)1 << i : 0;
+            }
+
+            public int GetID()
+            {
+                return trainerID;
+            }
+
+            public string GetName()
+            {
+                return name;
+            }
+
+            public bool IsValid()
+            {
+                return true;
             }
         }
 
@@ -187,6 +256,38 @@ namespace ImpostersOrdeal
             public byte spdEV;
             public byte spAtkEV;
             public byte spDefEV;
+
+            public TrainerPokemon() { }
+
+            public TrainerPokemon(TrainerPokemon tp)
+            {
+                dexID = tp.dexID;
+                formID = tp.formID;
+                isRare = tp.isRare;
+                level = tp.level;
+                sex = tp.sex;
+                natureID = tp.natureID;
+                abilityID = tp.abilityID;
+                moveID1 = tp.moveID1;
+                moveID2 = tp.moveID2;
+                moveID3 = tp.moveID3;
+                moveID4 = tp.moveID4;
+                itemID = tp.itemID;
+                ballID = tp.ballID;
+                seal = tp.seal;
+                hpIV = tp.hpIV;
+                atkIV = tp.atkIV;
+                defIV = tp.defIV;
+                spdIV = tp.spdIV;
+                spAtkIV = tp.spAtkIV;
+                spDefIV = tp.spDefIV;
+                hpEV = tp.hpEV;
+                atkEV = tp.atkEV;
+                defEV = tp.defEV;
+                spdEV = tp.spdEV;
+                spAtkEV = tp.spAtkEV;
+                spDefEV = tp.spDefEV;
+            }
 
             public List<ushort> GetMoves()
             {
@@ -244,6 +345,28 @@ namespace ImpostersOrdeal
                 spAtkEV = (byte)evs[3];
                 spDefEV = (byte)evs[4];
                 spdEV = (byte)evs[5];
+            }
+        }
+
+        public class TrainerType : INamedEntity
+        {
+            public int trainerTypeID;
+            public string label;
+            public string name;
+
+            public int GetID()
+            {
+                return trainerTypeID;
+            }
+
+            public string GetName()
+            {
+                return name;
+            }
+
+            public bool IsValid()
+            {
+                return label != "";
             }
         }
 
@@ -399,8 +522,8 @@ namespace ImpostersOrdeal
                     0 => "", //No marker
                     1 => "\n", //New line marker
                     2 => "", //Wait marker
-                    3 => "\n", //End of textbox marker
-                    4 => "", //Unknown
+                    3 => "\n", //New textbox marker
+                    4 => "\n", //Scroll textbox marker
                     5 => "", //Start/join event marker?
                     7 => "", //End of message
                     _ => "\0", //Unknown
@@ -770,7 +893,7 @@ namespace ImpostersOrdeal
             public bool IsValid()
             {
                 return GlobalData.gameData.items[itemID].IsActive() &&
-                    GlobalData.gameData.items[itemID].group == 4 &&
+                    GlobalData.gameData.items[itemID].fieldFunc == 2 &&
                     GlobalData.gameData.items[itemID].groupID <= 128 &&
                     GlobalData.gameData.items[itemID].groupID > 0;
             }
@@ -888,7 +1011,14 @@ namespace ImpostersOrdeal
         public class UgEncounterFile
         {
             public string mName;
-            public List<int> ugMons;
+            public List<UgEncounter> ugEncounter;
+        }
+
+        public class UgEncounter
+        {
+            public int dexID;
+            public int version;
+            public int zukanFlag;
         }
 
         public class UgEncounterLevelSet
@@ -992,6 +1122,141 @@ namespace ImpostersOrdeal
             {
                 return true;
             }
+        }
+
+        public class AudioCollection
+        {
+            public byte[] delphisMainBuffer;
+
+            //Readonly
+            public Dictionary<uint, HircItem> itemsByIDs;
+            public Dictionary<uint, HashSet<HircItem>> mrsBySourceIDs;
+
+            public void SetID(uint targetHirc, uint newID)
+            {
+                HircItem h = itemsByIDs[targetHirc];
+                BitConverter.GetBytes(itemsByIDs[newID].parentID).CopyTo(delphisMainBuffer, h.parentIDOffset);
+                BitConverter.GetBytes(newID).CopyTo(delphisMainBuffer, h.idOffset);
+                foreach (long offset in h.idReferenceOffsets)
+                    BitConverter.GetBytes(newID).CopyTo(delphisMainBuffer, offset);
+            }
+        }
+
+        public class HircItem
+        {
+            //All
+            public byte hircType;
+            public uint id;
+            public long idOffset;
+            public uint parentID;
+
+            //Music Switch
+            public List<(uint, long)> childReferences;
+
+            //Music Random Sequence
+            public List<long> idReferenceOffsets;
+
+            //Music Segment
+            public long parentIDOffset;
+
+            //Music Track
+            public uint sourceID;
+            public double sourceDuration;
+        }
+
+        public class GlobalMetadata
+        {
+            public byte[] buffer;
+
+            //Readonly
+            public uint stringOffset;
+            public uint defaultValuePtrOffset;
+            public uint defaultValuePtrSecSize;
+            public uint defaultValueOffset;
+            public uint defaultValueSecSize;
+            public uint fieldOffset;
+            public uint typeOffset;
+            public uint imageOffset;
+            public uint imageSecSize;
+
+            public Dictionary<uint, FieldDefaultValue> defaultValueDic;
+            public List<ImageDefinition> images;
+
+            public long[] typeMatchupOffsets;
+
+            public byte GetTypeMatchup(int off, int def)
+            {
+                return buffer[typeMatchupOffsets[off] + def];
+            }
+
+            public void SetTypeMatchup(int off, int def, byte aff)
+            {
+                buffer[typeMatchupOffsets[off] + def] = aff;
+            }
+        }
+
+        public class ImageDefinition : IGMObject
+        {
+            public string name;
+            public uint typeStart;
+            public uint typeCount;
+            public List<TypeDefinition> types;
+
+            public override string ToString()
+            {
+                return name;
+            }
+
+            public bool HasDefault()
+            {
+                return types.Any(t => t.HasDefault());
+            }
+        }
+
+        public class TypeDefinition : IGMObject
+        {
+            public string name;
+            public int fieldStart;
+            public ushort fieldCount;
+            public List<FieldDefinition> fields;
+
+            public override string ToString()
+            {
+                return name;
+            }
+
+            public bool HasDefault()
+            {
+                return fields.Any(f => f.HasDefault());
+            }
+        }
+
+        public class FieldDefinition : IGMObject
+        {
+            public string name;
+            public FieldDefaultValue defautValue;
+
+            public override string ToString()
+            {
+                return name;
+            }
+
+            public bool HasDefault()
+            {
+                return defautValue != null;
+            }
+        }
+
+        public class FieldDefaultValue
+        {
+            public long offset;
+            public int length;
+        }
+
+        public interface IGMObject
+        {
+            public bool HasDefault();
+            public string ToString();
         }
 
         public interface INamedEntity

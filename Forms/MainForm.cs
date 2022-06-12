@@ -72,6 +72,7 @@ namespace ImpostersOrdeal
             public (IDistribution[], int) trainerPokemonIvs;
             public (IDistribution[], int) trainerPokemonEvs;
 
+            public (IDistribution[], List<string>, int) typeMatchups;
             public (IDistribution[], List<string>, int) scriptedPokemon;
             public (IDistribution[], List<string>, int) scriptedItems;
             public double levelCoefficient;
@@ -213,6 +214,7 @@ namespace ImpostersOrdeal
             numericDistributionControl15.Initialize(rsc.trainerPokemonLevels);
             numericDistributionControl16.Initialize(rsc.trainerPokemonIvs);
             numericDistributionControl17.Initialize(rsc.trainerPokemonEvs);
+            itemDistributionControl5.Initialize(rsc.typeMatchups);
             itemDistributionControl20.Initialize(rsc.scriptedPokemon);
             itemDistributionControl21.Initialize(rsc.scriptedItems);
             numericUpDown8.Value = (decimal)rsc.levelCoefficient;
@@ -260,7 +262,7 @@ namespace ImpostersOrdeal
 
             //Sometimes UpdateSubTask would be called before the loadingForm was done setting up, causing me great grief.
             //This is probably not a very good solution to that, but it works! ¯\_(ツ)_/¯
-            Thread.Sleep(10);
+            Thread.Sleep(100);
 
             DataParser.PrepareAnalysis();
 
@@ -269,6 +271,11 @@ namespace ImpostersOrdeal
             loadingForm.Finish();
 
             absoluteBoundaryDataGridView.DataSource = GlobalData.absoluteBoundaries;
+            foreach (DataGridViewColumn c in absoluteBoundaryDataGridView.Columns)
+            {
+                if (c.Name == "Value")
+                    c.FillWeight = 300;
+            }
         }
 
         private void OpenNumericDistributionForm(object sender, EventArgs e)
@@ -302,8 +309,18 @@ namespace ImpostersOrdeal
 
         private void DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
+            ShowDataError();
+        }
+
+        public static void ShowDataError()
+        {
             MessageBox.Show("Yeah, no. That's not gonna fly buster.\nInput some actual valid data please.",
                 "Data Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        public static void ShowParserError(string message)
+        {
+            MessageBox.Show(message, "Parse Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void AddMod(object sender, EventArgs e)
@@ -318,7 +335,7 @@ namespace ImpostersOrdeal
                 loadingForm = new("Some stuff changed...", flavor.GetSubTask());
                 loadingDisplay = new(StartLoadingDisplay);
                 loadingDisplay.Start();
-                Thread.Sleep(10);
+                Thread.Sleep(100);
                 DataParser.PrepareAnalysis();
 
                 loadingForm.UpdateSubTask(flavor.GetSubTask());
@@ -335,11 +352,11 @@ namespace ImpostersOrdeal
                 "Randomize again anyway?",
                    "Again?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
                 return;
-
+            
             loadingForm = new("Makin' a mess...", flavor.GetThought());
             loadingDisplay = new(StartLoadingDisplay);
             loadingDisplay.Start();
-            Thread.Sleep(10);
+            Thread.Sleep(100);
             randomizer.Randomize();
             loadingForm.Finish();
 
@@ -361,7 +378,7 @@ namespace ImpostersOrdeal
             loadingForm = new("Finishing up...", flavor.GetSubTask());
             loadingDisplay = new(StartLoadingDisplay);
             loadingDisplay.Start();
-            Thread.Sleep(10);
+            Thread.Sleep(100);
             DataParser.CommitChanges();
 
             loadingForm.UpdateSubTask(flavor.GetThought());
@@ -406,11 +423,45 @@ namespace ImpostersOrdeal
             GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.Items);
         }
 
-        private void OpenWildEncEditor(object sender, EventArgs e)
+        private void OpenPickupEditor(object sender, EventArgs e)
         {
-            WildEncEditorForm weef = new();
-            weef.ShowDialog();
-            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.EncounterTableFiles);
+            PickupEditorForm pef = new();
+            pef.ShowDialog();
+            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.PickupItems);
+        }
+
+        private void OpenShopEditor(object sender, EventArgs e)
+        {
+            ShopEditorForm sef = new();
+            sef.ShowDialog();
+            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.ShopTables);
+        }
+
+        private void OpenWildEncounterEditors(object sender, EventArgs e)
+        {
+            WildEncounterForm wef = new();
+            wef.ShowDialog();
+        }
+
+        private void OpenTrainerEditor(object sender, EventArgs e)
+        {
+            TrainerEditorForm tef = new();
+            tef.ShowDialog();
+            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.Trainers);
+        }
+
+        private void OpenTypeMatchupEditor(object sender, EventArgs e)
+        {
+            TypeMatchupEditorForm tmef = new();
+            tmef.ShowDialog();
+            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.GlobalMetadata);
+        }
+
+        private void OpenGlobalMetadataEditor(object sender, EventArgs e)
+        {
+            GlobalMetadataEditorForm gmef = new();
+            gmef.ShowDialog();
+            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.GlobalMetadata);
         }
     }
 }

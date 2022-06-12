@@ -19,6 +19,7 @@ namespace ImpostersOrdeal
         /// </summary>
         public static void PrepareAnalysis()
         {
+            ParseNatures();
             ParseEvScripts();
             //ParseMapWarpAssets();
             //ParseMessageFiles();
@@ -35,9 +36,41 @@ namespace ImpostersOrdeal
             ParseAbilities();
             ParseTypings();
             ParseDamagaCategories();
-            ParseNatures();
             ParseBattleMasterDatas();
             ParseMasterDatas();
+            ParseTrainerTypes();
+            ParseGlobalMetadata();
+        }
+
+        /// <summary>
+        ///  Overwrites GlobalData with parsed TrainerTypes.
+        /// </summary>
+        private static void ParseTrainerTypes()
+        {
+            gameData.trainerTypes = new();
+            AssetTypeValueField monoBehaviour = fileManager.GetMonoBehaviours(PathEnum.DprMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "TrainerTable");
+            AssetTypeValueField nameData = fileManager.GetMonoBehaviours(PathEnum.English).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_dp_trainers_type");
+
+            AssetTypeValueField[] nameFields = nameData.children[8].children[0].children;
+            Dictionary<string, string> trainerTypeNames = new();
+            foreach (AssetTypeValueField label in nameFields)
+                if (label.children[6].children[0].childrenCount > 0)
+                    trainerTypeNames[label.children[2].GetValue().AsString()] = label.children[6].children[0].children[0].children[4].GetValue().AsString();
+
+            AssetTypeValueField[] trainerTypeFields = monoBehaviour.children[4].children[0].children;
+            for (int trainerTypeIdx = 0; trainerTypeIdx < trainerTypeFields.Length; trainerTypeIdx++)
+            {
+                if (trainerTypeFields[trainerTypeIdx].children[0].GetValue().AsInt() == -1)
+                    continue;
+
+                TrainerType trainerType = new();
+                trainerType.trainerTypeID = trainerTypeIdx;
+                trainerType.label = trainerTypeFields[trainerTypeIdx].children[1].GetValue().AsString();
+
+                trainerType.name = !trainerTypeNames.ContainsKey(trainerType.label) ? "" : trainerTypeNames[trainerType.label];
+
+                gameData.trainerTypes.Add(trainerType);
+            }
         }
 
         /// <summary>
@@ -123,10 +156,17 @@ namespace ImpostersOrdeal
                 UgEncounterFile ugEncounterFile = new();
                 ugEncounterFile.mName = Encoding.Default.GetString(ugEncounterMonobehaviours[ugEncounterFileIdx].children[3].value.value.asString);
 
-                ugEncounterFile.ugMons = new();
+                ugEncounterFile.ugEncounter = new();
                 AssetTypeValueField[] ugMonFields = ugEncounterMonobehaviours[ugEncounterFileIdx].children[4].children[0].children;
                 for (int ugMonIdx = 0; ugMonIdx < ugMonFields.Length; ugMonIdx++)
-                    ugEncounterFile.ugMons.Add(ugMonFields[ugMonIdx].children[0].value.value.asInt32);
+                {
+                    UgEncounter ugEncounter = new();
+                    ugEncounter.dexID = ugMonFields[ugMonIdx].children[0].value.value.asInt32;
+                    ugEncounter.version = ugMonFields[ugMonIdx].children[1].value.value.asInt32;
+                    ugEncounter.zukanFlag = ugMonFields[ugMonIdx].children[2].value.value.asInt32;
+
+                    ugEncounterFile.ugEncounter.Add(ugEncounter);
+                }
 
                 gameData.ugEncounterFiles.Add(ugEncounterFile);
             }
@@ -149,6 +189,14 @@ namespace ImpostersOrdeal
         {
             gameData.trainers = new();
             AssetTypeValueField monoBehaviour = fileManager.GetMonoBehaviours(PathEnum.DprMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "TrainerTable");
+            AssetTypeValueField nameData = fileManager.GetMonoBehaviours(PathEnum.English).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_dp_trainers_name");
+
+            AssetTypeValueField[] nameFields = nameData.children[8].children[0].children;
+            Dictionary<string, string> trainerNames = new();
+            gameData.trainerNames = trainerNames;
+            foreach (AssetTypeValueField label in nameFields)
+                if (label.children[6].children[0].childrenCount > 0)
+                    trainerNames[label.children[2].GetValue().AsString()] = label.children[6].children[0].children[0].children[4].GetValue().AsString();
 
             AssetTypeValueField[] trainerFields = monoBehaviour.children[5].children[0].children;
             AssetTypeValueField[] trainerPokemonFields = monoBehaviour.children[6].children[0].children;
@@ -156,6 +204,8 @@ namespace ImpostersOrdeal
             {
                 Trainer trainer = new();
                 trainer.trainerTypeID = trainerFields[trainerIdx].children[0].value.value.asInt32;
+                trainer.colorID = trainerFields[trainerIdx].children[1].value.value.asUInt8;
+                trainer.fightType = trainerFields[trainerIdx].children[2].value.value.asUInt8;
                 trainer.arenaID = trainerFields[trainerIdx].children[3].value.value.asInt32;
                 trainer.effectID = trainerFields[trainerIdx].children[4].value.value.asInt32;
                 trainer.gold = trainerFields[trainerIdx].children[5].value.value.asUInt8;
@@ -165,7 +215,11 @@ namespace ImpostersOrdeal
                 trainer.useItem4 = trainerFields[trainerIdx].children[9].value.value.asUInt16;
                 trainer.hpRecoverFlag = trainerFields[trainerIdx].children[10].value.value.asUInt8;
                 trainer.giftItem = trainerFields[trainerIdx].children[11].value.value.asUInt16;
+                trainer.nameLabel = trainerFields[trainerIdx].children[12].GetValue().AsString();
                 trainer.aiBit = trainerFields[trainerIdx].children[19].value.value.asUInt32;
+
+                trainer.trainerID = trainerIdx;
+                trainer.name = trainerNames[trainer.nameLabel];
 
                 //Parse trainer pokemon
                 trainer.trainerPokemon = new();
@@ -200,8 +254,25 @@ namespace ImpostersOrdeal
                     pokemon.spAtkEV = pokemonFields[pokemonIdx + 24].value.value.asUInt8;
                     pokemon.spDefEV = pokemonFields[pokemonIdx + 25].value.value.asUInt8;
 
+                    if (pokemon.dexID >= gameData.dexEntries.Count)
+                        MainForm.ShowParserError("Oh my, this monsNo's way outta bounds...\n" +
+                            "I don't feel so good...\n" +
+                            "trainerID: " + trainerIdx + "\n" +
+                            "monsNo: " + pokemon.dexID + "??");
+
                     if (pokemon.formID >= gameData.dexEntries[pokemon.dexID].forms.Count)
-                        Console.WriteLine("Hmmm...");
+                        MainForm.ShowParserError("Oh my, this formNo's way outta bounds...\n" +
+                            "I don't feel so good...\n" +
+                            "trainerID: " + trainerIdx + "\n" +
+                            "monsNo: " + pokemon.dexID + "\n" +
+                            "formNo: " + pokemon.formID + "??");
+
+                    if (pokemon.natureID >= gameData.natures.Count)
+                        MainForm.ShowParserError("Oh my, this nature's way outta bounds...\n" +
+                            "I don't feel so good...\n" +
+                            "trainerID: " + trainerIdx + "\n" +
+                            "monsNo: " + pokemon.dexID + "\n" +
+                            "natureID: " + pokemon.natureID + "??");
 
                     trainer.trainerPokemon.Add(pokemon);
                 }
@@ -334,6 +405,23 @@ namespace ImpostersOrdeal
             AssetTypeValueField[] evolveFields = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "EvolveTable").children[4].children[0].children;
             AssetTypeValueField[] personalFields = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "PersonalTable").children[4].children[0].children;
             AssetTypeValueField[] textFields = textData.children[8].children[0].children;
+
+            if (levelUpMoveFields.Length < personalFields.Length)
+                MainForm.ShowParserError("Oh my, this WazaOboeTable is missing some stuff...\n" +
+                    "I don't feel so good...\n" +
+                    "PersonalTable entries: " + personalFields.Length + "\n" +
+                    "WazaOboeTable entries: " + levelUpMoveFields.Length + "??");
+            if (eggMoveFields.Length < personalFields.Length)
+                MainForm.ShowParserError("Oh my, this TamagoWazaTable is missing some stuff...\n" +
+                    "I don't feel so good...\n" +
+                    "PersonalTable entries: " + personalFields.Length + "\n" +
+                    "TamagoWazaTable entries: " + eggMoveFields.Length + "??");
+            if (evolveFields.Length < personalFields.Length)
+                MainForm.ShowParserError("Oh my, this EvolveTable is missing some stuff...\n" +
+                    "I don't feel so good...\n" +
+                    "PersonalTable entries: " + personalFields.Length + "\n" +
+                    "EvolveTable entries: " + evolveFields.Length + "??");
+
             for (int personalID = 0; personalID < personalFields.Length; personalID++)
             {
                 Pokemon pokemon = new();
@@ -914,7 +1002,17 @@ namespace ImpostersOrdeal
             {
                 BpShopItem bpShopItem = new();
                 bpShopItem.itemID = bpShopItemFields[bpShopItemIdx].children[0].value.value.asUInt16;
-                bpShopItem.npcID = bpShopItemFields[bpShopItemIdx].children[1].value.value.asInt32;
+                try
+                {
+                    bpShopItem.npcID = bpShopItemFields[bpShopItemIdx].children[1].value.value.asInt32;
+                }
+                catch (IndexOutOfRangeException e)
+                {
+                    MainForm.ShowParserError("Oh my, this dump might be a bit outdated...\n" +
+                        "Please input at least the v1.1.3 version of BDSP.\n" +
+                        "I don't feel so good...");
+                    throw e;
+                }
 
                 gameData.shopTables.bpShopItems.Add(bpShopItem);
             }
@@ -1314,7 +1412,359 @@ namespace ImpostersOrdeal
         }
 
         /// <summary>
-        ///  Commits all modified files to their respective asset bundles
+        ///  Overwrites GlobalData with a parsed AudioCollection.
+        /// </summary>
+        public static void ParseAudioCollection()
+        {
+            gameData.audioCollection = new();
+            gameData.audioCollection.itemsByIDs = new();
+            gameData.audioCollection.mrsBySourceIDs = new();
+            byte[] buffer = fileManager.GetDelphisMainBuffer();
+            gameData.audioCollection.delphisMainBuffer = buffer;
+
+            long offset = 4;
+            offset += BitConverter.ToUInt32(buffer, (int)offset);
+            offset += 8;
+            offset += BitConverter.ToUInt32(buffer, (int)offset);
+            offset += 8;
+            offset += BitConverter.ToUInt32(buffer, (int)offset);
+            offset += 12;
+            uint hircItemCount = BitConverter.ToUInt32(buffer, (int)offset);
+            offset += 4;
+
+            //Parse itemsByIDs
+            for (int i = 0; i < hircItemCount; i++)
+            {
+                HircItem h = new();
+                h.hircType = buffer[offset];
+                offset++;
+                long nextItemOffset = offset + 4 + BitConverter.ToUInt32(buffer, (int)offset);
+                offset += 4;
+                h.id = BitConverter.ToUInt32(buffer, (int)offset);
+                h.idOffset = offset;
+                offset += 4;
+
+                switch (h.hircType)
+                {
+                    case 11: //Music Track
+                        offset++;
+                        offset += 4 + BitConverter.ToUInt32(buffer, (int)offset) * 14;
+
+                        uint playlistItemCount = BitConverter.ToUInt32(buffer, (int)offset);
+                        offset += 4;
+                        for (int j = 0; j < playlistItemCount; j++)
+                        {
+                            if (BitConverter.ToUInt32(buffer, (int)offset + 8) == 0)
+                            {
+                                h.sourceID = BitConverter.ToUInt32(buffer, (int)offset + 4);
+                                h.sourceDuration = BitConverter.ToDouble(buffer, (int)offset + 36);
+                            }
+                            offset += 44;
+                        }
+                        offset += 4;
+
+                        uint clipAutomationCount = BitConverter.ToUInt32(buffer, (int)offset);
+                        offset += 4;
+                        for (int j = 0; j < clipAutomationCount; j++)
+                        {
+                            offset += 8;
+                            offset += 4 + BitConverter.ToUInt32(buffer, (int)offset) * 12;
+                        }
+                        h.parentID = BitConverter.ToUInt32(buffer, (int)offset + 7);
+                        break;
+                    case 10: //Music Segment
+                        h.parentID = BitConverter.ToUInt32(buffer, (int)offset + 8);
+                        h.parentIDOffset = offset + 8;
+                        break;
+                    case 13: //Music Random Sequence
+                        h.parentID = BitConverter.ToUInt32(buffer, (int)offset + 8);
+                        h.parentIDOffset = offset + 8;
+                        h.idReferenceOffsets = new();
+                        break;
+                    case 12:
+                        h.childReferences = new();
+                        offset += 13;
+                        offset += 1 + buffer[offset] * 5;
+                        offset += 1 + buffer[offset] * 5;
+                        if (buffer[offset] > 0)
+                            offset++;
+                        offset += 14;
+
+                        ushort rtpcCount = BitConverter.ToUInt16(buffer, (int)offset);
+                        offset += 2;
+                        for (int j = 0; j < rtpcCount; j++)
+                        {
+                            offset += 12;
+                            offset += 2 + BitConverter.ToUInt16(buffer, (int)offset) * 12;
+                        }
+
+                        uint childCount1 = BitConverter.ToUInt32(buffer, (int)offset);
+                        offset += 4;
+                        for (int j = 0; j < childCount1; j++)
+                        {
+                            h.childReferences.Add((BitConverter.ToUInt32(buffer, (int)offset), offset));
+                            offset += 4;
+                        }
+                        offset += 27;
+
+                        uint ruleCount = BitConverter.ToUInt32(buffer, (int)offset);
+                        offset += 4;
+                        for (int j = 0; j < ruleCount; j++)
+                        {
+                            uint srcCount = BitConverter.ToUInt32(buffer, (int)offset);
+                            offset += 4;
+                            for (int k = 0; k < srcCount; k++)
+                            {
+                                uint id = BitConverter.ToUInt32(buffer, (int)offset);
+                                if (id != 0 && id != 4294967295)
+                                    h.childReferences.Add((id, offset));
+                                offset += 4;
+                            }
+
+                            uint dstCount = BitConverter.ToUInt32(buffer, (int)offset);
+                            offset += 4;
+                            for (int k = 0; k < dstCount; k++)
+                            {
+                                uint id = BitConverter.ToUInt32(buffer, (int)offset);
+                                if (id != 0 && id != 4294967295)
+                                    h.childReferences.Add((id, offset));
+                                offset += 4;
+                            }
+                            offset += 47;
+                            offset += 1 + buffer[offset] * 30;
+                        }
+                        offset++;
+
+                        //THERE WAS A DECISION TREE HERE. ARE YOU KIDDING ME.
+                        //OH LORD THE TREE STRUCTURE HAS NO POINTERS. I SWEAR THE THINGS I GOTTA PUT UP WITH.
+                        uint treeDepth = BitConverter.ToUInt32(buffer, (int)offset);
+                        offset += 9 + treeDepth * 5;
+                        AddChildReferencesTree(buffer, h.childReferences, ref offset, treeDepth);
+                        break;
+                }
+
+                gameData.audioCollection.itemsByIDs[h.id] = h;
+                offset = nextItemOffset;
+            }
+
+            Dictionary<uint, HircItem> itemsByIDs = gameData.audioCollection.itemsByIDs;
+            foreach (HircItem item in gameData.audioCollection.itemsByIDs.Values)
+            {
+                if (item.hircType == 11)
+                {
+                    HircItem ms = itemsByIDs[item.parentID];
+                    if (ms.hircType != 10 || ms.parentID == 0)
+                        continue;
+                    HircItem mrs = itemsByIDs[ms.parentID];
+                    if (mrs.hircType != 13)
+                        continue;
+
+                    mrs.sourceID = item.sourceID;
+                    mrs.sourceDuration = item.sourceDuration;
+                    if (!gameData.audioCollection.mrsBySourceIDs.ContainsKey(item.sourceID))
+                        gameData.audioCollection.mrsBySourceIDs[item.sourceID] = new();
+                    gameData.audioCollection.mrsBySourceIDs[item.sourceID].Add(mrs);
+                }
+
+                if (item.hircType == 10 && item.parentID != 0)
+                {
+                    HircItem mrs = itemsByIDs[item.parentID];
+                    if (mrs.hircType == 13)
+                        mrs.idReferenceOffsets.Add(item.parentIDOffset);
+                }
+                /*
+                if (item.hircType == 12)
+                {
+                    for (int i = 0; i < item.childReferences.Count; i++)
+                    {
+                        if (!itemsByIDs.ContainsKey(item.childReferences[i].Item1))
+                            continue;
+                        HircItem mrs = itemsByIDs[item.childReferences[i].Item1];
+                        if (mrs.hircType == 13)
+                            mrs.idReferenceOffsets.Add(item.childReferences[i].Item2);
+                    }
+                }
+                */
+            }
+        }
+
+        /// <summary>
+        ///  Adds child references to list from tree at specified offset
+        /// </summary>
+        private static void AddChildReferencesTree(byte[] buffer, List<(uint, long)> childReferences, ref long offset, uint level)
+        {
+            ushort childCount = BitConverter.ToUInt16(buffer, (int)offset + 6);
+            offset += 12;
+            List<ushort> childCounts = new();
+            for (int i = 0; i < childCount; i++)
+                childCounts.Add(GetTreeChildCount(buffer, childReferences, ref offset, level - 1));
+            for (int i = 0; i < childCounts.Count; i++)
+                SearchChildren(buffer, childReferences, ref offset, level - 1, childCounts[i]);
+        }
+
+        /// <summary>
+        ///  Reads a node, moving the offset.
+        /// </summary>
+        private static ushort GetTreeChildCount(byte[] buffer, List<(uint, long)> childReferences, ref long offset, uint level)
+        {
+            if (level == 0)
+            {
+                childReferences.Add((BitConverter.ToUInt32(buffer, (int)offset + 4), offset + 4));
+                offset += 12;
+                return 0;
+            }
+
+            ushort childCount = BitConverter.ToUInt16(buffer, (int)offset + 6);
+            offset += 12;
+            return childCount;
+        }
+
+        /// <summary>
+        ///  Recursive traversal of tree.
+        /// </summary>
+        private static void SearchChildren(byte[] buffer, List<(uint, long)> childReferences, ref long offset, uint level, ushort childCount)
+        {
+            List<ushort> childCounts = new();
+            for (int i = 0; i < childCount; i++)
+                childCounts.Add(GetTreeChildCount(buffer, childReferences, ref offset, level - 1));
+            for (int i = 0; i < childCounts.Count; i++)
+                SearchChildren(buffer, childReferences, ref offset, level - 1, childCounts[i]);
+        }
+
+        /// <summary>
+        ///  Overwrites GlobalData with a parsed GlobalMetadata.
+        /// </summary>
+        private static void ParseGlobalMetadata()
+        {
+            gameData.globalMetadata = new();
+            byte[] buffer = fileManager.GetGlobalMetadataBuffer();
+            gameData.globalMetadata.buffer = buffer;
+
+            gameData.globalMetadata.stringOffset = BitConverter.ToUInt32(buffer, 0x18);
+
+            gameData.globalMetadata.defaultValuePtrOffset = BitConverter.ToUInt32(buffer, 0x40);
+            gameData.globalMetadata.defaultValuePtrSecSize = BitConverter.ToUInt32(buffer, 0x44);
+            uint defaultValuePtrSize = 0xC;
+            uint defaultValuePtrCount = gameData.globalMetadata.defaultValuePtrSecSize / defaultValuePtrSize;
+
+            gameData.globalMetadata.defaultValueOffset = BitConverter.ToUInt32(buffer, 0x48);
+            gameData.globalMetadata.defaultValueSecSize = BitConverter.ToUInt32(buffer, 0x4C);
+
+            gameData.globalMetadata.fieldOffset = BitConverter.ToUInt32(buffer, 0x60);
+            uint fieldSize = 0xC;
+
+            gameData.globalMetadata.typeOffset = BitConverter.ToUInt32(buffer, 0xA0);
+            uint typeSize = 0x5C;
+
+            gameData.globalMetadata.imageOffset = BitConverter.ToUInt32(buffer, 0xA8);
+            gameData.globalMetadata.imageSecSize = BitConverter.ToUInt32(buffer, 0xAC);
+            uint imageSize = 0x28;
+            uint imageCount = gameData.globalMetadata.imageSecSize / imageSize;
+
+            gameData.globalMetadata.defaultValueDic = new();
+            uint defaultValuePtrOffset = gameData.globalMetadata.defaultValuePtrOffset;
+            for (int defaultValuePtrIdx = 0; defaultValuePtrIdx < defaultValuePtrCount; defaultValuePtrIdx++)
+            {
+                FieldDefaultValue fdv = new();
+                fdv.offset = gameData.globalMetadata.defaultValueOffset + BitConverter.ToUInt32(buffer, (int)defaultValuePtrOffset + 8);
+                long nextOffset = gameData.globalMetadata.defaultValueOffset + gameData.globalMetadata.defaultValueSecSize;
+                if (defaultValuePtrIdx < defaultValuePtrCount - 1)
+                    nextOffset = gameData.globalMetadata.defaultValueOffset + BitConverter.ToUInt32(buffer, (int)defaultValuePtrOffset + 20);
+                fdv.length = (int)(nextOffset - fdv.offset);
+                uint fieldIdx = BitConverter.ToUInt32(buffer, (int)defaultValuePtrOffset + 0);
+
+                gameData.globalMetadata.defaultValueDic[fieldIdx] = fdv;
+                defaultValuePtrOffset += defaultValuePtrSize;
+            }
+
+            gameData.globalMetadata.images = new();
+            uint imageOffset = gameData.globalMetadata.imageOffset;
+            for (int imageIdx = 0; imageIdx < imageCount; imageIdx++)
+            {
+                ImageDefinition id = new();
+                uint imageNameIdx = BitConverter.ToUInt32(buffer, (int)imageOffset + 0);
+                id.name = ReadNullTerminatedString(buffer, gameData.globalMetadata.stringOffset + imageNameIdx);
+                id.typeStart = BitConverter.ToUInt32(buffer, (int)imageOffset + 8);
+                id.typeCount = BitConverter.ToUInt32(buffer, (int)imageOffset + 12);
+
+                id.types = new();
+                uint typeOffset = gameData.globalMetadata.typeOffset + id.typeStart * typeSize;
+                for (uint typeIdx = id.typeStart; typeIdx < id.typeStart + id.typeCount; typeIdx++)
+                {
+                    TypeDefinition td = new();
+                    uint typeNameIdx = BitConverter.ToUInt32(buffer, (int)typeOffset + 0);
+                    uint namespaceNameIdx = BitConverter.ToUInt32(buffer, (int)typeOffset + 4);
+                    td.name = ReadNullTerminatedString(buffer, gameData.globalMetadata.stringOffset + namespaceNameIdx);
+                    td.name += td.name.Length > 0 ? "." : "";
+                    td.name += ReadNullTerminatedString(buffer, gameData.globalMetadata.stringOffset + typeNameIdx);
+                    td.fieldStart = BitConverter.ToInt32(buffer, (int)typeOffset + 36);
+                    td.fieldCount = BitConverter.ToUInt16(buffer, (int)typeOffset + 72);
+
+                    td.fields = new();
+                    uint fieldOffset = (uint)(gameData.globalMetadata.fieldOffset + td.fieldStart * fieldSize);
+                    for (uint fieldIdx = (uint)td.fieldStart; fieldIdx < td.fieldStart + td.fieldCount; fieldIdx++)
+                    {
+                        FieldDefinition fd = new();
+                        uint fieldNameIdx = BitConverter.ToUInt32(buffer, (int)fieldOffset + 0);
+                        fd.name = ReadNullTerminatedString(buffer, gameData.globalMetadata.stringOffset + fieldNameIdx);
+                        if (gameData.globalMetadata.defaultValueDic.TryGetValue(fieldIdx, out FieldDefaultValue fdv))
+                            fd.defautValue = fdv;
+
+                        td.fields.Add(fd);
+                        fieldOffset += fieldSize;
+                    }
+
+                    id.types.Add(td);
+                    typeOffset += typeSize;
+                }
+
+                gameData.globalMetadata.images.Add(id);
+                imageOffset += imageSize;
+            }
+
+            string[] typeArrayNames = new string[]
+            {
+                "A3758C06C7FB42A47D220A11FBA532C6E8C62A77",
+                "4B289ECFF3C0F0970CFBB23E3106E05803CB0010",
+                "B9D3FD531E1A63CC167C4B98C0EC93F0249D9944",
+                "347E5A9763B5C5AD3094AEC4B91A98983001E87D",
+                "C089A0863406C198B5654996536BAC473C816234",
+                "BCEEC8610D8506C3EDAC1C28CED532E5E2D8AD32",
+                "A6F987666C679A4472D8CD64F600B501D2241486",
+                "ACBC28AD33161A13959E63783CBFC94EB7FB2D90",
+                "0459498E9764395D87F7F43BE89CCE657C669BFC",
+                "C4215116A59F8DBC29910FA47BFBC6A82702816F",
+                "AEDBD0B97A96E5BDD926058406DB246904438044",
+                "DF2387E4B816070AE396698F2BD7359657EADE81",
+                "64FFED43123BBC9517F387412947F1C700527EB4",
+                "B5D988D1CB442CF60C021541BF2DC2A008819FD4",
+                "D64329EA3A838F1B4186746A734070A5DFDA4983",
+                "37DF3221C4030AC4E0EB9DD64616D020BB628CC1",
+                "B2DD1970DDE852F750899708154090300541F4DE",
+                "F774719D6A36449B152496136177E900605C9778"
+            };
+
+            TypeDefinition privateImplementationDetails = gameData.globalMetadata.images
+                .Where(i => i.name == "Assembly-CSharp.dll").SelectMany(i => i.types)
+                .First(t => t.name == "<PrivateImplementationDetails>");
+
+            gameData.globalMetadata.typeMatchupOffsets = typeArrayNames
+                .Select(s => privateImplementationDetails.fields.First(f => f.name == s).defautValue.offset).ToArray();
+        }
+
+        /// <summary>
+        ///  Returns the null terminated UTF8 string starting at the specified offset.
+        /// </summary>
+        private static string ReadNullTerminatedString(byte[] buffer, long offset)
+        {
+            long endOffset = offset;
+            while (buffer[endOffset] != 0)
+                endOffset++;
+            return Encoding.UTF8.GetString(buffer, (int)offset, (int)(endOffset - offset));
+        }
+
+        /// <summary>
+        ///  Commits all modified files and prepares them for exporting.
         /// </summary>
         public static void CommitChanges()
         {
@@ -1344,6 +1794,20 @@ namespace ImpostersOrdeal
                 CommitTMs();
             if (gameData.IsModified(GameDataSet.DataField.Moves))
                 CommitMoves();
+            if (gameData.IsModified(GameDataSet.DataField.AudioCollection))
+                CommitAudio();
+            if (gameData.IsModified(GameDataSet.DataField.GlobalMetadata))
+                CommitGlobalMetadata();
+        }
+
+        private static void CommitGlobalMetadata()
+        {
+            fileManager.CommitGlobalMetadata();
+        }
+
+        private static void CommitAudio()
+        {
+            fileManager.CommitAudio();
         }
 
         private static void CommitMoves()
@@ -1632,9 +2096,18 @@ namespace ImpostersOrdeal
                 UgEncounterFile ugEncounterFile = gameData.ugEncounterFiles[ugEncounterFileIdx];
                 ugEncounterMonobehaviours[ugEncounterFileIdx].children[3].GetValue().Set(ugEncounterFile.mName);
 
-                AssetTypeValueField[] ugMonFields = ugEncounterMonobehaviours[ugEncounterFileIdx].children[4].children[0].children;
-                for (int ugMonIdx = 0; ugMonIdx < ugMonFields.Length; ugMonIdx++)
-                    ugMonFields[ugMonIdx].children[0].GetValue().Set(ugEncounterFile.ugMons[ugMonIdx]);
+                List<List<AssetTypeValue>> ugEncounters = new();
+                for (int ugEncounterIdx = 0; ugEncounterIdx < ugEncounterFile.ugEncounter.Count; ugEncounterIdx++)
+                {
+                    UgEncounter ugEncounter = ugEncounterFile.ugEncounter[ugEncounterIdx];
+                    List<AssetTypeValue> atvs = new();
+                    atvs.Add(new AssetTypeValue(EnumValueTypes.Int32, ugEncounter.dexID));
+                    atvs.Add(new AssetTypeValue(EnumValueTypes.Int32, ugEncounter.version));
+                    atvs.Add(new AssetTypeValue(EnumValueTypes.Int32, ugEncounter.zukanFlag));
+                    ugEncounters.Add(atvs);
+                }
+                AssetTypeValueField ugEncounterReference = ugEncounterMonobehaviours[ugEncounterFileIdx].children[4].children[0].children[0];
+                ugEncounterMonobehaviours[ugEncounterFileIdx].children[4].children[0].SetChildrenList(GetATVFs(ugEncounterReference, ugEncounters));
             }
 
             AssetTypeValueField ugEncounterLevelMonobehaviour = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "UgEncountLevel");
@@ -1837,10 +2310,12 @@ namespace ImpostersOrdeal
             AssetTypeValueField monoBehaviour = fileManager.GetMonoBehaviours(PathEnum.DprMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "TrainerTable");
 
             AssetTypeValueField[] trainerFields = monoBehaviour.children[5].children[0].children;
-            for (int trainerIdx = 0; trainerIdx < trainerFields.Length; trainerIdx++)
+            for (int trainerIdx = 0; trainerIdx < gameData.trainers.Count; trainerIdx++)
             {
                 Trainer trainer = gameData.trainers[trainerIdx];
                 trainerFields[trainerIdx].children[0].GetValue().Set(trainer.trainerTypeID);
+                trainerFields[trainerIdx].children[1].GetValue().Set(trainer.colorID);
+                trainerFields[trainerIdx].children[2].GetValue().Set(trainer.fightType);
                 trainerFields[trainerIdx].children[3].GetValue().Set(trainer.arenaID);
                 trainerFields[trainerIdx].children[4].GetValue().Set(trainer.effectID);
                 trainerFields[trainerIdx].children[5].GetValue().Set(trainer.gold);
@@ -1850,6 +2325,7 @@ namespace ImpostersOrdeal
                 trainerFields[trainerIdx].children[9].GetValue().Set(trainer.useItem4);
                 trainerFields[trainerIdx].children[10].GetValue().Set(trainer.hpRecoverFlag);
                 trainerFields[trainerIdx].children[11].GetValue().Set(trainer.giftItem);
+                trainerFields[trainerIdx].children[12].GetValue().Set(trainer.nameLabel);
                 trainerFields[trainerIdx].children[19].GetValue().Set(trainer.aiBit);
 
                 //Write trainer pokemon

@@ -244,12 +244,12 @@ namespace ImpostersOrdeal
             i.sort = (byte)sortNumericUpDown.Value;
             i.group = (byte)itemGroups.Keys.ToArray()[itemGroupComboBox.SelectedIndex];
             i.groupID = (byte)groupIDNumericUpDown.Value;
-            i.fldPocket = (byte)bagPocketComboBox.SelectedIndex;
+            i.fldPocket = (byte)(bagPocketComboBox.SelectedIndex == -1 ? 0 : bagPocketComboBox.SelectedIndex);
 
             i.nageAtc = (byte)flingPowerNumericUpDown.Value;
             i.sizenType = (byte)typings0.Keys.ToArray()[naturalGiftTypeComboBox.SelectedIndex];
             i.sizenAtc = (byte)naturalGiftPowerNumericUpDown.Value;
-            i.tuibamuEff = (byte)pluckEffectComboBox.SelectedIndex;
+            i.tuibamuEff = (byte)(pluckEffectComboBox.SelectedIndex == -1 ? 0 : pluckEffectComboBox.SelectedIndex);
 
             i.fieldFunc = (byte)fieldFunctions.Keys.ToArray()[fieldFunctionComboBox.SelectedIndex];
             i.hpEvIncrease = (sbyte)numericUpDown10.Value;
@@ -261,7 +261,7 @@ namespace ImpostersOrdeal
             i.friendshipIncrease1 = (sbyte)numericUpDown16.Value;
             i.friendshipIncrease2 = (sbyte)numericUpDown17.Value;
             i.friendshipIncrease3 = (sbyte)numericUpDown18.Value;
-            i.battleFunc = (byte)battleFunctionComboBox.SelectedIndex;
+            i.battleFunc = (byte)(battleFunctionComboBox.SelectedIndex == -1 ? 0 : battleFunctionComboBox.SelectedIndex);
             i.criticalRanks = (byte)numericUpDown3.Value;
             i.atkStages = (byte)numericUpDown4.Value;
             i.defStages = (byte)numericUpDown5.Value;

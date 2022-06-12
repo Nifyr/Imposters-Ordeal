@@ -110,12 +110,87 @@ namespace ImpostersOrdeal
             if (m.checkBox44.Checked)
                 RandomizeTrainerPokemonEVs(m.numericDistributionControl17.Get());
 
+            if (m.checkBox63.Checked)
+                RandomizeTypeMatchups(m.itemDistributionControl5.Get());
             if (m.checkBox53.Checked)
                 RandomizeScriptedPokemon(m.itemDistributionControl20.Get());
             if (m.checkBox54.Checked)
                 RandomizeScriptedItems(m.itemDistributionControl21.Get());
             if (m.checkBox55.Checked)
                 RandomizeText(m.checkBox56.Checked);
+
+            if (m.checkBox62.Checked)
+                RandomizeMusic();
+        }
+
+        private void RandomizeTypeMatchups(IDistribution distribution)
+        {
+            int typeCount = 18;
+            for (int o = 0; o < typeCount; o++)
+                for (int d = 0; d < typeCount; d++)
+                    gameData.globalMetadata.SetTypeMatchup(o, d, ToAffinity(distribution.Next(ToAffinityEnum(gameData.globalMetadata.GetTypeMatchup(o, d)))));
+
+            gameData.SetModified(GameDataSet.DataField.GlobalMetadata);
+        }
+
+        private static int ToAffinityEnum(byte affinity)
+        {
+            return affinity switch
+            {
+                0 => 0,
+                2 => 1,
+                4 => 2,
+                8 => 3,
+                _ => throw new ArgumentOutOfRangeException(nameof(affinity)),
+            };
+        }
+
+        private static byte ToAffinity(int affinityEnum)
+        {
+            return affinityEnum switch
+            {
+                0 => 0,
+                1 => 2,
+                2 => 4,
+                3 => 8,
+                _ => throw new ArgumentOutOfRangeException(nameof(affinityEnum)),
+            };
+        }
+
+        private void RandomizeMusic()
+        {
+            if (gameData.audioCollection == null)
+                DataParser.ParseAudioCollection();
+
+            double minDuration = 20000;
+            uint[] musicSwitchIDs = new uint[]
+            {
+                319787682,
+                805188190,
+                101322741,
+                275563224,
+                429717840,
+                120949528,
+                182025970,
+                620908413,
+                175587878,
+                717132912
+            };
+
+            foreach (uint musicSwitchID in musicSwitchIDs)
+            {
+                List<HircItem> mrsCollection = gameData.audioCollection.mrsBySourceIDs.Values.SelectMany(l => l).Where(h => h.sourceDuration > minDuration && musicSwitchID == h.parentID).ToList();
+                List<int> mrsMapping = new();
+                for (int i = 0; i < mrsCollection.Count; i++)
+                    mrsMapping.Add(i);
+
+                Shuffle(mrsMapping);
+
+                for (int i = 0; i < mrsMapping.Count; i++)
+                    gameData.audioCollection.SetID(mrsCollection[i].id, mrsCollection[mrsMapping[i]].id);
+            }
+            
+            gameData.SetModified(GameDataSet.DataField.AudioCollection);
         }
 
         private void ScaleTrainerPokemon(double coefficient)
@@ -147,7 +222,7 @@ namespace ImpostersOrdeal
                         if (IsWithin(AbsoluteBoundary.Level, (int)encounter.GetAvgLevel()))
                         {
                             encounter.minLv = Conform(AbsoluteBoundary.Level, (int)(encounter.minLv * coefficient));
-                            encounter.minLv = Conform(AbsoluteBoundary.Level, (int)(encounter.maxLv * coefficient));
+                            encounter.maxLv = Conform(AbsoluteBoundary.Level, (int)(encounter.maxLv * coefficient));
                         }
                 }
 
@@ -155,7 +230,7 @@ namespace ImpostersOrdeal
                 if (IsWithin(AbsoluteBoundary.Level, (int)ugEncounterLevelSet.GetAvgLevel()))
                 {
                     ugEncounterLevelSet.minLv = Conform(AbsoluteBoundary.Level, (int)(ugEncounterLevelSet.minLv * coefficient));
-                    ugEncounterLevelSet.minLv = Conform(AbsoluteBoundary.Level, (int)(ugEncounterLevelSet.maxLv * coefficient));
+                    ugEncounterLevelSet.maxLv = Conform(AbsoluteBoundary.Level, (int)(ugEncounterLevelSet.maxLv * coefficient));
                 }
 
             gameData.SetModified(GameDataSet.DataField.EncounterTableFiles);
@@ -574,8 +649,8 @@ namespace ImpostersOrdeal
 
             if (randomizeSpecies)
                 foreach (UgEncounterFile ugEncounterFile in gameData.ugEncounterFiles)
-                    for (int i = 0; i < ugEncounterFile.ugMons.Count; i++)
-                        ugEncounterFile.ugMons[i] = speciesDistribution.Next(ugEncounterFile.ugMons[i]);
+                    for (int i = 0; i < ugEncounterFile.ugEncounter.Count; i++)
+                        ugEncounterFile.ugEncounter[i].dexID = speciesDistribution.Next(ugEncounterFile.ugEncounter[i].dexID);
 
             if (randomizeLevels)
                 foreach (UgEncounterLevelSet ugEncounterLevelSet in gameData.ugEncounterLevelSets)

@@ -60,7 +60,7 @@ namespace ImpostersOrdeal
 
             if (t.itemID != itemComboBox.SelectedIndex)
             {
-                t.itemID = itemComboBox.SelectedIndex;
+                t.itemID = itemComboBox.SelectedIndex == -1 ? 0 : itemComboBox.SelectedIndex;
                 t.name = gameData.items[t.itemID].GetName();
                 PopulateListBox();
                 i = items[t.itemID];
@@ -69,7 +69,7 @@ namespace ImpostersOrdeal
 
             if (t.moveID != moveComboBox.SelectedIndex)
             {
-                t.moveID = moveComboBox.SelectedIndex;
+                t.moveID = moveComboBox.SelectedIndex == -1 ? 0 : moveComboBox.SelectedIndex;
                 PopulateListBox();
             }
 

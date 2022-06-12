@@ -87,7 +87,7 @@ namespace ImpostersOrdeal
             this.moveComboBox.Size = new System.Drawing.Size(100, 28);
             this.moveComboBox.TabIndex = 3;
             // 
-            // numericUpDown1
+            // compatibilityNumericUpDown
             // 
             this.compatibilityNumericUpDown.Location = new System.Drawing.Point(346, 80);
             this.compatibilityNumericUpDown.Maximum = new decimal(new int[] {
@@ -95,7 +95,7 @@ namespace ImpostersOrdeal
             0,
             0,
             0});
-            this.compatibilityNumericUpDown.Name = "numericUpDown1";
+            this.compatibilityNumericUpDown.Name = "compatibilityNumericUpDown";
             this.compatibilityNumericUpDown.Size = new System.Drawing.Size(50, 27);
             this.compatibilityNumericUpDown.TabIndex = 5;
             // 

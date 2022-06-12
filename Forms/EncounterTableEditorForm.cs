@@ -12,7 +12,7 @@ using static ImpostersOrdeal.GlobalData;
 
 namespace ImpostersOrdeal
 {
-    public partial class WildEncEditorForm : Form
+    public partial class EncounterTableEditorForm : Form
     {
         public List<string> pokemon;
         public List<string> zoneIDs;
@@ -26,13 +26,13 @@ namespace ImpostersOrdeal
             "Diamond", "Pearl"
         };
 
-        public WildEncEditorForm()
+        public EncounterTableEditorForm()
         {
             InitializeComponent();
 
-            pokemon = gameData.personalEntries.Select(m => m.GetName()).ToList();
+            pokemon = gameData.dexEntries.Select(m => m.GetName()).ToList();
             encounterTables = gameData.encounterTableFiles[0].encounterTables;
-            zoneIDs = encounterTables.Select(e => e.zoneID.ToString()).ToList();
+            zoneIDs = encounterTables.Select(e => GetZoneName((int)e.zoneID)).ToList();
 
             versionComboBox.DataSource = gameVersions;
             zoneIDListBox.DataSource = zoneIDs;
@@ -46,6 +46,23 @@ namespace ImpostersOrdeal
             monsNoGoodRod.DataSource = pokemonSource;
             monsNoSuperRod.DataSource = pokemonSource;
 
+            dataGridView1.Columns[1].ValueType = typeof(int);
+            dataGridView1.Columns[2].ValueType = typeof(int);
+            dataGridView2.Columns[1].ValueType = typeof(int);
+            dataGridView2.Columns[2].ValueType = typeof(int);
+            dataGridView3.Columns[1].ValueType = typeof(int);
+            dataGridView3.Columns[2].ValueType = typeof(int);
+            dataGridView4.Columns[1].ValueType = typeof(int);
+            dataGridView4.Columns[2].ValueType = typeof(int);
+            dataGridView5.Columns[1].ValueType = typeof(int);
+            dataGridView5.Columns[2].ValueType = typeof(int);
+            dataGridView6.Columns[1].ValueType = typeof(int);
+            dataGridView6.Columns[2].ValueType = typeof(int);
+            dataGridView7.Columns[1].ValueType = typeof(int);
+            dataGridView7.Columns[2].ValueType = typeof(int);
+            dataGridView8.Columns[1].ValueType = typeof(int);
+            dataGridView8.Columns[2].ValueType = typeof(int);
+
             dataGridView1.Rows.Add(12);
             dataGridView2.Rows.Add(12);
             dataGridView3.Rows.Add(12);
@@ -54,6 +71,15 @@ namespace ImpostersOrdeal
             dataGridView6.Rows.Add(5);
             dataGridView7.Rows.Add(5);
             dataGridView8.Rows.Add(5);
+
+            dataGridView1.DataError += DataError;
+            dataGridView2.DataError += DataError;
+            dataGridView3.DataError += DataError;
+            dataGridView4.DataError += DataError;
+            dataGridView5.DataError += DataError;
+            dataGridView6.DataError += DataError;
+            dataGridView7.DataError += DataError;
+            dataGridView8.DataError += DataError;
 
             encounterTable = encounterTables[0];
 
@@ -118,7 +144,7 @@ namespace ImpostersOrdeal
             RefreshTimeDisplay();
 
             // Pokeradar Mons
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < encounterTable.swayGrass.Count; i++)
             {
                 Encounter encounter = encounterTable.swayGrass[i];
                 DataGridViewRow iRow = dataGridView4.Rows[i];
@@ -128,7 +154,7 @@ namespace ImpostersOrdeal
             }
 
             // Water Mons
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < encounterTable.waterMons.Count; i++)
             {
                 Encounter encounter = encounterTable.waterMons[i];
                 DataGridViewRow iRow = dataGridView5.Rows[i];
@@ -138,7 +164,7 @@ namespace ImpostersOrdeal
             }
 
             // Old Rod
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < encounterTable.oldRodMons.Count; i++)
             {
                 Encounter encounter = encounterTable.oldRodMons[i];
                 DataGridViewRow iRow = dataGridView6.Rows[i];
@@ -148,7 +174,7 @@ namespace ImpostersOrdeal
             }
             
             // Good Rod
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < encounterTable.goodRodMons.Count; i++)
             {
                 Encounter encounter = encounterTable.goodRodMons[i];
                 DataGridViewRow iRow = dataGridView7.Rows[i];
@@ -158,7 +184,7 @@ namespace ImpostersOrdeal
             }
 
             // Super Rod
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < encounterTable.superRodMons.Count; i++)
             {
                 Encounter encounter = encounterTable.superRodMons[i];
                 DataGridViewRow iRow = dataGridView8.Rows[i];
@@ -172,6 +198,9 @@ namespace ImpostersOrdeal
             encRateOldRod.Value = encounterTable.encRateOldRod;
             encRateGoodRod.Value = encounterTable.encRateGoodRod;
             encRateSuperRod.Value = encounterTable.encRateSuperRod;
+
+            formProbNumericUpDown.Value = encounterTable.formProb;
+            unownTableNumericUpDown.Value = encounterTable.unownTable;
         }
 
         private void CommitEdit(object sender, EventArgs e)
@@ -183,7 +212,7 @@ namespace ImpostersOrdeal
             List<Encounter> superRodMons = new();
 
             // Pokeradar Mons
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < encounterTable.swayGrass.Count; i++)
             {
                 DataGridViewRow iRow = dataGridView4.Rows[i];
                 Encounter swayGrassEnc = new();
@@ -194,7 +223,7 @@ namespace ImpostersOrdeal
             }
 
             // Water Mons
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < encounterTable.waterMons.Count; i++)
             {
                 DataGridViewRow iRow = dataGridView5.Rows[i];
                 Encounter waterMon = new();
@@ -205,7 +234,7 @@ namespace ImpostersOrdeal
             }
 
             // Old Rod
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < encounterTable.oldRodMons.Count; i++)
             {
                 DataGridViewRow iRow = dataGridView6.Rows[i];
                 Encounter oldRodMon = new();
@@ -216,7 +245,7 @@ namespace ImpostersOrdeal
             }
 
             // Good Rod
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < encounterTable.goodRodMons.Count; i++)
             {
                 DataGridViewRow iRow = dataGridView7.Rows[i];
                 Encounter goodRodMon = new();
@@ -227,7 +256,7 @@ namespace ImpostersOrdeal
             }
 
             // Super Rod
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < encounterTable.superRodMons.Count; i++)
             {
                 DataGridViewRow iRow = dataGridView8.Rows[i];
                 Encounter superRodMon = new();
@@ -237,11 +266,20 @@ namespace ImpostersOrdeal
                 superRodMons.Add(superRodMon);
             }
 
+            encounterTable.swayGrass = swayGrass;
+            encounterTable.waterMons = waterMons;
+            encounterTable.oldRodMons = oldRodMons;
+            encounterTable.goodRodMons = goodRodMons;
+            encounterTable.superRodMons = superRodMons;
+
             encounterTable.encRateGround = (int) encRateGround.Value;
             encounterTable.encRateWater = (int) encRateWater.Value;
             encounterTable.encRateOldRod = (int) encRateOldRod.Value;
             encounterTable.encRateGoodRod = (int) encRateGoodRod.Value;
             encounterTable.encRateSuperRod = (int) encRateSuperRod.Value;
+
+            encounterTable.formProb = (int)formProbNumericUpDown.Value;
+            encounterTable.unownTable = (int)unownTableNumericUpDown.Value;
         }
         private void CommitMorningEdit(object sender, EventArgs e)
         {
@@ -372,7 +410,10 @@ namespace ImpostersOrdeal
             encRateOldRod.ValueChanged += CommitEdit;
             encRateGoodRod.ValueChanged += CommitEdit;
             encRateSuperRod.ValueChanged += CommitEdit;
-            
+
+            formProbNumericUpDown.ValueChanged += CommitEdit;
+            unownTableNumericUpDown.ValueChanged += CommitEdit;
+
             dataGridView1.CellEndEdit += CommitMorningEdit;
             dataGridView2.CellEndEdit += CommitDayEdit;
             dataGridView3.CellEndEdit += CommitNightEdit;
@@ -394,6 +435,9 @@ namespace ImpostersOrdeal
             encRateGoodRod.ValueChanged -= CommitEdit;
             encRateSuperRod.ValueChanged -= CommitEdit;
 
+            formProbNumericUpDown.ValueChanged -= CommitEdit;
+            unownTableNumericUpDown.ValueChanged -= CommitEdit;
+
             dataGridView1.CellEndEdit -= CommitMorningEdit;
             dataGridView2.CellEndEdit -= CommitDayEdit;
             dataGridView3.CellEndEdit -= CommitNightEdit;
@@ -402,6 +446,11 @@ namespace ImpostersOrdeal
             dataGridView6.CellEndEdit -= CommitEdit;
             dataGridView7.CellEndEdit -= CommitEdit;
             dataGridView8.CellEndEdit -= CommitEdit;
+        }
+
+        private void DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            MainForm.ShowDataError();
         }
     }
 }

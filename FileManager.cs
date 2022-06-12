@@ -34,8 +34,12 @@ namespace ImpostersOrdeal
             "\\UnderGround\\data\\ugdata",
             "\\Battle\\battle_masterdatas"
         };
+        private static readonly string delphisMainPath = "romfs\\Data\\StreamingAssets\\Audio\\GeneratedSoundBanks\\Switch\\Delphis_Main.bnk";
+        private static readonly string globalMetadataPath = "romfs\\Data\\Managed\\Metadata\\global-metadata.dat";
 
         private string assetAssistantPath;
+        private string audioPath;
+        private string metadataPath;
         private Dictionary<string, FileData> fileArchive;
         private AssetsManager am = new();
         private int fileIndex = 0;
@@ -59,7 +63,7 @@ namespace ImpostersOrdeal
             Dump,
             Mod,
             UnrelatedMod,
-            This
+            App
         }
 
         /// <summary>
@@ -89,6 +93,9 @@ namespace ImpostersOrdeal
                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
+            audioPath = Directory.GetParent(assetAssistantPath).FullName + "\\Audio\\GeneratedSoundBanks\\Switch";
+            metadataPath = GetDataPath(fbd.SelectedPath) + "\\Managed\\Metadata";
+
 
             //Setup fileArchive
             fileArchive = new();
@@ -150,15 +157,6 @@ namespace ImpostersOrdeal
                     fd.fileLocation = modFilePaths[fileIdx];
                     fd.gamePath = gamePath;
                     fd.fileSource = FileSource.UnrelatedMod;
-
-                    if (gamePath.Contains("AssetAssistant") && Path.GetExtension(gamePath) == "")
-                        try
-                        {
-                            fd.bundle = am.LoadBundleFile(modFilePaths[fileIdx], false);
-                            DecompressBundle(fd.bundle);
-                        }
-                        catch (Exception) { }
-
                     fileArchive[gamePath] = fd;
                     continue;
                 }
@@ -167,29 +165,50 @@ namespace ImpostersOrdeal
                 {
                     fileArchive[gamePath].fileLocation = modFilePaths[fileIdx];
                     fileArchive[gamePath].fileSource = FileSource.Mod;
-                    fileArchive[gamePath].bundle = am.LoadBundleFile(modFilePaths[fileIdx], false);
-                    DecompressBundle(fileArchive[gamePath].bundle);
+                    if (fileArchive[gamePath].IsBundle())
+                    {
+                        fileArchive[gamePath].bundle = am.LoadBundleFile(modFilePaths[fileIdx], false);
+                        DecompressBundle(fileArchive[gamePath].bundle);
+                    }
                     reanalysisNecessary = true;
                     continue;
                 }
 
-                if (fileArchive[gamePath].fileSource == FileSource.Mod || fileArchive[gamePath].fileSource == FileSource.This)
+                if (fileArchive[gamePath].fileSource == FileSource.Mod || fileArchive[gamePath].fileSource == FileSource.App)
                 {
                     BundleFileInstance bfi = am.LoadBundleFile(modFilePaths[fileIdx], false);
                     DecompressBundle(bfi);
+                    if (!Merge(fileArchive[gamePath], bfi))
+                    {
+                        MainForm.ShowParserError("Unable to merge instances of:\n" +
+                            gamePath + "\n" +
+                            "Asset count mismatch.");
+                        continue;
+                    }
                     fileArchive[gamePath].fileSource = FileSource.Mod;
-                    Merge(fileArchive[gamePath], bfi);
                     reanalysisNecessary = true;
                     continue;
                 }
 
                 if (fileArchive[gamePath].fileSource == FileSource.UnrelatedMod)
                 {
+                    //Loads unrelated bundle if possible
+                    if (!fileArchive[gamePath].IsBundle() && gamePath.Contains("AssetAssistant") && Path.GetExtension(gamePath) == "")
+                        try
+                        {
+                            fileArchive[gamePath].bundle = am.LoadBundleFile(fileArchive[gamePath].fileLocation, false);
+                            DecompressBundle(fileArchive[gamePath].bundle);
+                        }
+                        catch (Exception) { }
+
                     if (fileArchive[gamePath].IsBundle())
                     {
                         BundleFileInstance bfi = am.LoadBundleFile(modFilePaths[fileIdx], false);
                         DecompressBundle(bfi);
-                        Merge(fileArchive[gamePath], bfi);
+                        if (!Merge(fileArchive[gamePath], bfi))
+                            MainForm.ShowParserError("Unable to merge instances of:\n" +
+                                gamePath + "\n" +
+                                "Asset count mismatch.");
                     }
                     else
                         conflicts.Add((fileIdx, Path.GetFileName(fileArchive[gamePath].fileLocation)));
@@ -266,7 +285,7 @@ namespace ImpostersOrdeal
                 ars.Add(arfm);
             }
             MakeTempBundle(fd, ars, Environment.CurrentDirectory + "\\" + Path.GetFileName(fd.gamePath) + GetFileIndex());
-            fd.fileSource = FileSource.This;
+            fd.fileSource = FileSource.App;
         }
 
         /// <summary>
@@ -278,12 +297,81 @@ namespace ImpostersOrdeal
         }
 
         /// <summary>
+        ///  Returns the Delphis_Main.bnk file as a byte array.
+        /// </summary>
+        public byte[] GetDelphisMainBuffer()
+        {
+            if (!fileArchive.ContainsKey(delphisMainPath))
+            {
+                FileData fd = new();
+                fd.fileLocation = audioPath + "\\Delphis_Main.bnk";
+                fd.fileSource = FileSource.Dump;
+                fd.gamePath = delphisMainPath;
+                fileArchive[delphisMainPath] = fd;
+            }
+            return File.ReadAllBytes(fileArchive[delphisMainPath].fileLocation);
+        }
+
+        /// <summary>
+        ///  Returns the Delphis_Main.bnk file as a byte array.
+        /// </summary>
+        public byte[] GetGlobalMetadataBuffer()
+        {
+            if (!fileArchive.ContainsKey(globalMetadataPath))
+            {
+                FileData fd = new();
+                fd.fileLocation = metadataPath + "\\global-metadata.dat";
+                fd.fileSource = FileSource.Dump;
+                fd.gamePath = globalMetadataPath;
+                fileArchive[globalMetadataPath] = fd;
+            }
+            return File.ReadAllBytes(fileArchive[globalMetadataPath].fileLocation);
+        }
+
+        /// <summary>
+        ///  Makes it so the audioCollection data is included when exporting.
+        /// </summary>
+        public void CommitAudio()
+        {
+            fileArchive[delphisMainPath].fileSource = FileSource.App;
+        }
+
+        /// <summary>
+        ///  Makes it so the audioCollection data is included when exporting.
+        /// </summary>
+        public void CommitGlobalMetadata()
+        {
+            fileArchive[globalMetadataPath].fileSource = FileSource.App;
+        }
+
+        /// <summary>
         ///  Places a file relative to the mod root in accordance with its FileData.
         /// </summary>
         private static void ExportFile(FileData fd, string modRoot)
         {
             Directory.CreateDirectory(modRoot + "\\" + Path.GetDirectoryName(fd.gamePath));
             string newLocation = modRoot + "\\" + fd.gamePath;
+
+            if (fd.fileSource == FileSource.App)
+            {
+                byte[] buffer = null;
+                switch (Path.GetFileName(fd.gamePath))
+                {
+                    case "Delphis_Main.bnk":
+                        buffer = GlobalData.gameData.audioCollection.delphisMainBuffer;
+                        break;
+                    case "global-metadata.dat":
+                        buffer = GlobalData.gameData.globalMetadata.buffer;
+                        break;
+                }
+                if (buffer != null)
+                {
+                    FileStream fs = File.Create(newLocation);
+                    fs.Write(buffer, 0, buffer.Length);
+                    fs.Close();
+                    return;
+                }
+            }
 
             if (!fd.IsBundle())
             {
@@ -304,7 +392,7 @@ namespace ImpostersOrdeal
         /// <summary>
         ///  Merges two bundles by swapping out select files.
         /// </summary>
-        private void Merge(FileData fd, BundleFileInstance bfi2)
+        private bool Merge(FileData fd, BundleFileInstance bfi2)
         {
             BundleFileInstance bfi1 = fd.bundle;
             AssetsFileInstance afi1 = am.LoadAssetsFileFromBundle(bfi1, bfi1.file.bundleInf6.dirInf[0].name);
@@ -312,6 +400,10 @@ namespace ImpostersOrdeal
             AssetsFileInstance afi2 = am.LoadAssetsFileFromBundle(bfi2, bfi2.file.bundleInf6.dirInf[0].name);
             AssetFileInfoEx[] assetFiles1 = afi1.table.assetFileInfo;
             AssetFileInfoEx[] assetFiles2 = afi2.table.assetFileInfo;
+
+            //Checks if bundles even match
+            if (assetFiles1.Length != assetFiles2.Length)
+                return false;
 
             //Collects conflicts
             List<(int, string)> conflicts = new();
@@ -328,7 +420,7 @@ namespace ImpostersOrdeal
 
             //No conflicts, everyone is happy
             if (conflicts.Count == 0)
-                return;
+                return true;
 
             //Gets what files to overwrite from user
             List<int> overwrites = new();
@@ -351,6 +443,7 @@ namespace ImpostersOrdeal
             }
 
             MakeTempBundle(fd, ars, Environment.CurrentDirectory + "\\" + Path.GetFileName(fd.gamePath) + GetFileIndex());
+            return true;
         }
 
         /// <summary>
@@ -418,6 +511,23 @@ namespace ImpostersOrdeal
 
             //Yuzu outputs a stupid dump with the wrong folder structure.
             string yuzuDumpPath = gameLocation + "\\romfs\\StreamingAssets\\AssetAssistant";
+            if (Directory.Exists(yuzuDumpPath))
+                return yuzuDumpPath;
+
+            return "";
+        }
+
+        /// <summary>
+        ///  Gets the path of the Data folder given a game directory.
+        /// </summary>
+        private static string GetDataPath(string gameLocation)
+        {
+            string correctPath = gameLocation + "\\romfs\\Data";
+            if (Directory.Exists(correctPath))
+                return correctPath;
+
+            //Yuzu outputs a stupid dump with the wrong folder structure.
+            string yuzuDumpPath = gameLocation + "\\romfs";
             if (Directory.Exists(yuzuDumpPath))
                 return yuzuDumpPath;
 

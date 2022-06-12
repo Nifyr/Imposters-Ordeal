@@ -1,7 +1,7 @@
 ﻿
 namespace ImpostersOrdeal
 {
-    partial class WildEncEditorForm
+    partial class EncounterTableEditorForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@ namespace ImpostersOrdeal
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WildEncEditorForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EncounterTableEditorForm));
             this.Morning = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -87,6 +87,11 @@ namespace ImpostersOrdeal
             this.zoneIDListBox = new System.Windows.Forms.ListBox();
             this.zoneIDLabel = new System.Windows.Forms.TextBox();
             this.versionComboBox = new System.Windows.Forms.ComboBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.unownTableNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
+            this.formProbNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
             this.Morning.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -111,6 +116,9 @@ namespace ImpostersOrdeal
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView7)).BeginInit();
             this.tabPage6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView8)).BeginInit();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.unownTableNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.formProbNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // Morning
@@ -291,7 +299,7 @@ namespace ImpostersOrdeal
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(207, 438);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(189, 233);
+            this.groupBox1.Size = new System.Drawing.Size(189, 225);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Encounter Rates";
@@ -541,7 +549,7 @@ namespace ImpostersOrdeal
             this.tabControl1.Location = new System.Drawing.Point(597, 438);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(384, 233);
+            this.tabControl1.Size = new System.Drawing.Size(384, 225);
             this.tabControl1.TabIndex = 5;
             // 
             // tabPage4
@@ -550,7 +558,7 @@ namespace ImpostersOrdeal
             this.tabPage4.Location = new System.Drawing.Point(4, 29);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(376, 200);
+            this.tabPage4.Size = new System.Drawing.Size(376, 192);
             this.tabPage4.TabIndex = 0;
             this.tabPage4.Text = "Old Rod";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -570,7 +578,7 @@ namespace ImpostersOrdeal
             this.dataGridView6.RowHeadersVisible = false;
             this.dataGridView6.RowHeadersWidth = 51;
             this.dataGridView6.RowTemplate.Height = 29;
-            this.dataGridView6.Size = new System.Drawing.Size(370, 194);
+            this.dataGridView6.Size = new System.Drawing.Size(370, 186);
             this.dataGridView6.TabIndex = 2;
             // 
             // monsNoOldRod
@@ -601,7 +609,7 @@ namespace ImpostersOrdeal
             this.tabPage5.Location = new System.Drawing.Point(4, 29);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(376, 200);
+            this.tabPage5.Size = new System.Drawing.Size(376, 192);
             this.tabPage5.TabIndex = 1;
             this.tabPage5.Text = "Good Rod";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -621,7 +629,7 @@ namespace ImpostersOrdeal
             this.dataGridView7.RowHeadersVisible = false;
             this.dataGridView7.RowHeadersWidth = 51;
             this.dataGridView7.RowTemplate.Height = 29;
-            this.dataGridView7.Size = new System.Drawing.Size(370, 194);
+            this.dataGridView7.Size = new System.Drawing.Size(370, 186);
             this.dataGridView7.TabIndex = 3;
             // 
             // monsNoGoodRod
@@ -652,7 +660,7 @@ namespace ImpostersOrdeal
             this.tabPage6.Location = new System.Drawing.Point(4, 29);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(376, 200);
+            this.tabPage6.Size = new System.Drawing.Size(376, 192);
             this.tabPage6.TabIndex = 2;
             this.tabPage6.Text = "Super Rod";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -672,7 +680,7 @@ namespace ImpostersOrdeal
             this.dataGridView8.RowHeadersVisible = false;
             this.dataGridView8.RowHeadersWidth = 51;
             this.dataGridView8.RowTemplate.Height = 29;
-            this.dataGridView8.Size = new System.Drawing.Size(370, 194);
+            this.dataGridView8.Size = new System.Drawing.Size(370, 186);
             this.dataGridView8.TabIndex = 3;
             // 
             // monsNoSuperRod
@@ -701,7 +709,7 @@ namespace ImpostersOrdeal
             // 
             this.zoneIDListBox.FormattingEnabled = true;
             this.zoneIDListBox.ItemHeight = 20;
-            this.zoneIDListBox.Location = new System.Drawing.Point(12, 87);
+            this.zoneIDListBox.Location = new System.Drawing.Point(12, 79);
             this.zoneIDListBox.Name = "zoneIDListBox";
             this.zoneIDListBox.Size = new System.Drawing.Size(189, 584);
             this.zoneIDListBox.TabIndex = 6;
@@ -709,7 +717,6 @@ namespace ImpostersOrdeal
             // zoneIDLabel
             // 
             this.zoneIDLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.zoneIDLabel.Enabled = false;
             this.zoneIDLabel.Location = new System.Drawing.Point(12, 46);
             this.zoneIDLabel.Name = "zoneIDLabel";
             this.zoneIDLabel.ReadOnly = true;
@@ -718,17 +725,84 @@ namespace ImpostersOrdeal
             // 
             // versionComboBox
             // 
+            this.versionComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.versionComboBox.FormattingEnabled = true;
             this.versionComboBox.Location = new System.Drawing.Point(12, 12);
             this.versionComboBox.Name = "versionComboBox";
             this.versionComboBox.Size = new System.Drawing.Size(189, 28);
             this.versionComboBox.TabIndex = 8;
             // 
-            // WildEncEditorForm
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.unownTableNumericUpDown);
+            this.groupBox4.Controls.Add(this.label7);
+            this.groupBox4.Controls.Add(this.formProbNumericUpDown);
+            this.groupBox4.Controls.Add(this.label6);
+            this.groupBox4.Location = new System.Drawing.Point(402, 438);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(189, 225);
+            this.groupBox4.TabIndex = 9;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Forms";
+            // 
+            // unownTableNumericUpDown
+            // 
+            this.unownTableNumericUpDown.Location = new System.Drawing.Point(133, 59);
+            this.unownTableNumericUpDown.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
+            this.unownTableNumericUpDown.Minimum = new decimal(new int[] {
+            -2147483648,
+            0,
+            0,
+            -2147483648});
+            this.unownTableNumericUpDown.Name = "unownTableNumericUpDown";
+            this.unownTableNumericUpDown.Size = new System.Drawing.Size(50, 27);
+            this.unownTableNumericUpDown.TabIndex = 9;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(33, 61);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(94, 20);
+            this.label7.TabIndex = 8;
+            this.label7.Text = "Unown Table";
+            // 
+            // formProbNumericUpDown
+            // 
+            this.formProbNumericUpDown.Location = new System.Drawing.Point(133, 26);
+            this.formProbNumericUpDown.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
+            this.formProbNumericUpDown.Minimum = new decimal(new int[] {
+            -2147483648,
+            0,
+            0,
+            -2147483648});
+            this.formProbNumericUpDown.Name = "formProbNumericUpDown";
+            this.formProbNumericUpDown.Size = new System.Drawing.Size(50, 27);
+            this.formProbNumericUpDown.TabIndex = 7;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(55, 28);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(72, 20);
+            this.label6.TabIndex = 6;
+            this.label6.Text = "formProb";
+            // 
+            // EncounterTableEditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(993, 683);
+            this.ClientSize = new System.Drawing.Size(993, 675);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.versionComboBox);
             this.Controls.Add(this.zoneIDLabel);
             this.Controls.Add(this.zoneIDListBox);
@@ -741,7 +815,7 @@ namespace ImpostersOrdeal
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "WildEncEditorForm";
+            this.Name = "EncounterTableEditorForm";
             this.Text = "Wild Encounter Editor";
             this.Morning.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -768,6 +842,10 @@ namespace ImpostersOrdeal
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView7)).EndInit();
             this.tabPage6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView8)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.unownTableNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.formProbNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -832,5 +910,10 @@ namespace ImpostersOrdeal
         private System.Windows.Forms.DataGridViewComboBoxColumn monsNoSuperRod;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn20;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn21;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.NumericUpDown unownTableNumericUpDown;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.NumericUpDown formProbNumericUpDown;
+        private System.Windows.Forms.Label label6;
     }
 }
