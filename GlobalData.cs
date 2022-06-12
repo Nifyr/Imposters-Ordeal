@@ -33,6 +33,7 @@ namespace ImpostersOrdeal
             public List<GameDataTypes.Item> items; //Ordered, idx=itemID
             public List<GameDataTypes.TM> tms; //Ordered, idx=tmID
             public List<GameDataTypes.Move> moves; //Ordered, idx=moveID
+            public List<BattleMasterdatas.MotionTimingData> motionTimingData; //Ordered, idx=moveID
 
             private bool[] fieldStates = new bool[Enum.GetNames(typeof(DataField)).Length];
 

@@ -36,6 +36,8 @@ namespace ImpostersOrdeal
             ParseTypings();
             ParseDamagaCategories();
             ParseNatures();
+            ParseBattleMasterDatas();
+            ParseMasterDatas();
         }
 
         /// <summary>
@@ -647,6 +649,164 @@ namespace ImpostersOrdeal
                     tm.name = Encoding.UTF8.GetString(textFields[tm.itemID].children[6].children[0].children[0].children[4].value.value.asString);
 
                 gameData.tms.Add(tm);
+            }
+        }
+        private static void ParseMasterDatas()
+        {
+            AssetTypeValueField pokemonInfo = fileManager.GetMonoBehaviours(PathEnum.DprMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "PokemonInfo");
+            AssetTypeValueField[] catalogArray = pokemonInfo["Catalog"].children[0].children;
+
+            for (int i = 0; i < catalogArray.Length; i++)
+            {
+                Masterdatas.PokemonInfoCatalog catalog = new();
+                catalog.UniqueID = catalogArray[i]["UniqueID"].value.value.asInt32;
+                catalog.No = catalogArray[i]["No"].value.value.asInt32;
+                catalog.SinnohNo = catalogArray[i]["SinnohNo"].value.value.asInt32;
+                catalog.MonsNo = catalogArray[i]["MonsNo"].value.value.asInt32;
+                catalog.FormNo = catalogArray[i]["FormNo"].value.value.asInt32;
+                catalog.Sex = catalogArray[i]["Sex"].value.value.asUInt8;
+                catalog.Rare = catalogArray[i]["Rare"].value.value.asUInt8 == 0;
+                catalog.AssetBundleName = catalogArray[i]["AssetBundleName"].GetValue().AsString();
+                catalog.BattleScale = catalogArray[i]["BattleScale"].value.value.asFloat;
+                catalog.ContestScale = catalogArray[i]["ContestScale"].value.value.asFloat;
+                catalog.ContestSize = (Masterdatas.Size) catalogArray[i]["ContestSize"].value.value.asInt32;
+                catalog.FieldScale = catalogArray[i]["FieldScale"].value.value.asFloat;
+                catalog.FieldChikaScale = catalogArray[i]["FieldChikaScale"].value.value.asFloat;
+                catalog.StatueScale = catalogArray[i]["StatueScale"].value.value.asFloat;
+                catalog.FieldWalkingScale = catalogArray[i]["FieldWalkingScale"].value.value.asFloat;
+                catalog.FieldFureaiScale = catalogArray[i]["FieldFureaiScale"].value.value.asFloat;
+                catalog.MenuScale = catalogArray[i]["MenuScale"].value.value.asFloat;
+                catalog.ModelMotion = catalogArray[i]["ModelMotion"].GetValue().AsString();
+
+                catalog.ModelOffset = new();
+                catalog.ModelOffset.X = catalogArray[i]["ModelOffset"].children[0].value.value.asFloat;
+                catalog.ModelOffset.Y = catalogArray[i]["ModelOffset"].children[1].value.value.asFloat;
+                catalog.ModelOffset.Z = catalogArray[i]["ModelOffset"].children[2].value.value.asFloat;
+
+                catalog.ModelRotationAngle = new();
+                catalog.ModelRotationAngle.X = catalogArray[i]["ModelRotationAngle"].children[0].value.value.asFloat;
+                catalog.ModelRotationAngle.Y = catalogArray[i]["ModelRotationAngle"].children[1].value.value.asFloat;
+                catalog.ModelRotationAngle.Z = catalogArray[i]["ModelRotationAngle"].children[2].value.value.asFloat;
+
+                catalog.DistributionScale = catalogArray[i]["DistributionScale"].value.value.asFloat;
+                catalog.DistributionModelMotion = catalogArray[i]["DistributionModelMotion"].GetValue().AsString();
+
+                catalog.DistributionModelOffset = new();
+                catalog.DistributionModelOffset.X = catalogArray[i]["DistributionModelOffset"].children[0].value.value.asFloat;
+                catalog.DistributionModelOffset.Y = catalogArray[i]["DistributionModelOffset"].children[1].value.value.asFloat;
+                catalog.DistributionModelOffset.Z = catalogArray[i]["DistributionModelOffset"].children[2].value.value.asFloat;
+
+                catalog.DistributionModelRotationAngle = new();
+                catalog.DistributionModelRotationAngle.X = catalogArray[i]["DistributionModelRotationAngle"].children[0].value.value.asFloat;
+                catalog.DistributionModelRotationAngle.Y = catalogArray[i]["DistributionModelRotationAngle"].children[1].value.value.asFloat;
+                catalog.DistributionModelRotationAngle.Z = catalogArray[i]["DistributionModelRotationAngle"].children[2].value.value.asFloat;
+
+                catalog.VoiceScale = catalogArray[i]["VoiceScale"].value.value.asFloat;
+                catalog.VoiceModelMotion = catalogArray[i]["VoiceModelMotion"].GetValue().AsString();
+
+                catalog.VoiceModelOffset = new();
+                catalog.VoiceModelOffset.X = catalogArray[i]["VoiceModelOffset"].children[0].value.value.asFloat;
+                catalog.VoiceModelOffset.Y = catalogArray[i]["VoiceModelOffset"].children[1].value.value.asFloat;
+                catalog.VoiceModelOffset.Z = catalogArray[i]["VoiceModelOffset"].children[2].value.value.asFloat;
+
+                catalog.VoiceModelRotationAngle = new();
+                catalog.VoiceModelRotationAngle.X = catalogArray[i]["VoiceModelRotationAngle"].children[0].value.value.asFloat;
+                catalog.VoiceModelRotationAngle.Y = catalogArray[i]["VoiceModelRotationAngle"].children[1].value.value.asFloat;
+                catalog.VoiceModelRotationAngle.Z = catalogArray[i]["VoiceModelRotationAngle"].children[2].value.value.asFloat;
+
+                catalog.CenterPointOffset = new();
+                catalog.CenterPointOffset.X = catalogArray[i]["CenterPointOffset"].children[0].value.value.asFloat;
+                catalog.CenterPointOffset.Y = catalogArray[i]["CenterPointOffset"].children[1].value.value.asFloat;
+                catalog.CenterPointOffset.Z = catalogArray[i]["CenterPointOffset"].children[2].value.value.asFloat;
+
+                catalog.RotationLimitAngle = new();
+                catalog.RotationLimitAngle.X = catalogArray[i]["RotationLimitAngle"].children[0].value.value.asFloat;
+                catalog.RotationLimitAngle.Y = catalogArray[i]["RotationLimitAngle"].children[1].value.value.asFloat;
+
+                catalog.StatusScale = catalogArray[i]["StatusScale"].value.value.asFloat;
+                catalog.StatusModelMotion = catalogArray[i]["StatusModelMotion"].GetValue().AsString();
+
+                catalog.StatusModelOffset = new();
+                catalog.StatusModelOffset.X = catalogArray[i]["StatusModelOffset"].children[0].value.value.asFloat;
+                catalog.StatusModelOffset.Y = catalogArray[i]["StatusModelOffset"].children[1].value.value.asFloat;
+                catalog.StatusModelOffset.Z = catalogArray[i]["StatusModelOffset"].children[2].value.value.asFloat;
+
+                catalog.StatusModelRotationAngle = new();
+                catalog.StatusModelRotationAngle.X = catalogArray[i]["StatusModelRotationAngle"].children[0].value.value.asFloat;
+                catalog.StatusModelRotationAngle.Y = catalogArray[i]["StatusModelRotationAngle"].children[1].value.value.asFloat;
+                catalog.StatusModelRotationAngle.Z = catalogArray[i]["StatusModelRotationAngle"].children[2].value.value.asFloat;
+
+                catalog.BoxScale = catalogArray[i]["BoxScale"].value.value.asFloat;
+                catalog.BoxModelMotion = catalogArray[i]["BoxModelMotion"].GetValue().AsString();
+
+                catalog.BoxModelOffset = new();
+                catalog.BoxModelOffset.X = catalogArray[i]["BoxModelOffset"].children[0].value.value.asFloat;
+                catalog.BoxModelOffset.Y = catalogArray[i]["BoxModelOffset"].children[1].value.value.asFloat;
+                catalog.BoxModelOffset.Z = catalogArray[i]["BoxModelOffset"].children[2].value.value.asFloat;
+
+                catalog.BoxModelRotationAngle = new();
+                catalog.BoxModelRotationAngle.X = catalogArray[i]["BoxModelRotationAngle"].children[0].value.value.asFloat;
+                catalog.BoxModelRotationAngle.Y = catalogArray[i]["BoxModelRotationAngle"].children[1].value.value.asFloat;
+                catalog.BoxModelRotationAngle.Z = catalogArray[i]["BoxModelRotationAngle"].children[2].value.value.asFloat;
+
+                catalog.CompareScale = catalogArray[i]["CompareScale"].value.value.asFloat;
+                catalog.CompareModelMotion = catalogArray[i]["CompareModelMotion"].GetValue().AsString();
+
+                catalog.CompareModelOffset = new();
+                catalog.CompareModelOffset.X = catalogArray[i]["CompareModelOffset"].children[0].value.value.asFloat;
+                catalog.CompareModelOffset.Y = catalogArray[i]["CompareModelOffset"].children[1].value.value.asFloat;
+                catalog.CompareModelOffset.Z = catalogArray[i]["CompareModelOffset"].children[2].value.value.asFloat;
+
+                catalog.CompareModelRotationAngle = new();
+                catalog.CompareModelRotationAngle.X = catalogArray[i]["CompareModelRotationAngle"].children[0].value.value.asFloat;
+                catalog.CompareModelRotationAngle.Y = catalogArray[i]["CompareModelRotationAngle"].children[1].value.value.asFloat;
+                catalog.CompareModelRotationAngle.Z = catalogArray[i]["CompareModelRotationAngle"].children[2].value.value.asFloat;
+
+                catalog.BrakeStart = catalogArray[i]["BrakeStart"].value.value.asFloat;
+                catalog.BrakeEnd = catalogArray[i]["BrakeEnd"].value.value.asFloat;
+                catalog.WalkSpeed = catalogArray[i]["WalkSpeed"].value.value.asFloat;
+                catalog.RunSpeed = catalogArray[i]["RunSpeed"].value.value.asFloat;
+                catalog.WalkStart = catalogArray[i]["WalkStart"].value.value.asFloat;
+                catalog.RunStart = catalogArray[i]["RunStart"].value.value.asFloat;
+                catalog.BodySize = catalogArray[i]["BodySize"].value.value.asFloat;
+                catalog.AppearLimit = catalogArray[i]["AppearLimit"].value.value.asFloat;
+                catalog.MoveType = (Masterdatas.MoveType) catalogArray[i]["MoveType"].value.value.asInt32;
+
+                catalog.GroundEffect = catalogArray[i]["GroundEffect"].value.value.asUInt8 == 0;
+                catalog.Waitmoving = catalogArray[i]["Waitmoving"].value.value.asUInt8 == 0;
+                catalog.BattleAjustHeight = catalogArray[i]["BattleAjustHeight"].value.value.asInt32;
+            }
+        }
+        private static void ParseBattleMasterDatas()
+        {
+            AssetTypeValueField battleDataTable = fileManager.GetMonoBehaviours(PathEnum.BattleMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "BattleDataTable");
+            AssetTypeValueField[] motionTimingDataArray = battleDataTable["MotionTimingData"].children[0].children;
+
+            for (int i = 0; i < motionTimingDataArray.Length; i++)
+            {
+                BattleMasterdatas.MotionTimingData motionTimingData = new();
+                motionTimingData.MonsNo = motionTimingDataArray[i]["MonsNo"].value.value.asInt32;
+                motionTimingData.FormNo = motionTimingDataArray[i]["FormNo"].value.value.asInt32;
+                motionTimingData.Sex = motionTimingDataArray[i]["Sex"].value.value.asInt32;
+                motionTimingData.Buturi01 = motionTimingDataArray[i]["Buturi01"].value.value.asInt32;
+                motionTimingData.Buturi02 = motionTimingDataArray[i]["Buturi02"].value.value.asInt32;
+                motionTimingData.Buturi03 = motionTimingDataArray[i]["Buturi03"].value.value.asInt32;
+                motionTimingData.Tokusyu01 = motionTimingDataArray[i]["Tokusyu01"].value.value.asInt32;
+                motionTimingData.Tokusyu02 = motionTimingDataArray[i]["Tokusyu02"].value.value.asInt32;
+                motionTimingData.Tokusyu03 = motionTimingDataArray[i]["Tokusyu03"].value.value.asInt32;
+                motionTimingData.BodyBlow = motionTimingDataArray[i]["BodyBlow"].value.value.asInt32;
+                motionTimingData.Punch = motionTimingDataArray[i]["Punch"].value.value.asInt32;
+                motionTimingData.Kick = motionTimingDataArray[i]["Kick"].value.value.asInt32;
+                motionTimingData.Tail = motionTimingDataArray[i]["Tail"].value.value.asInt32;
+                motionTimingData.Bite = motionTimingDataArray[i]["Bite"].value.value.asInt32;
+                motionTimingData.Peck = motionTimingDataArray[i]["Peck"].value.value.asInt32;
+                motionTimingData.Radial = motionTimingDataArray[i]["Radial"].value.value.asInt32;
+                motionTimingData.Cry = motionTimingDataArray[i]["Cry"].value.value.asInt32;
+                motionTimingData.Dust = motionTimingDataArray[i]["Dust"].value.value.asInt32;
+                motionTimingData.Shot = motionTimingDataArray[i]["Shot"].value.value.asInt32;
+                motionTimingData.Guard = motionTimingDataArray[i]["Guard"].value.value.asInt32;
+                motionTimingData.LandingFall = motionTimingDataArray[i]["LandingFall"].value.value.asInt32;
+                motionTimingData.LandingFallEase = motionTimingDataArray[i]["LandingFallEase"].value.value.asInt32;
             }
         }
 
