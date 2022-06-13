@@ -499,6 +499,27 @@ namespace ImpostersOrdeal
             fd.tempLocation = true;
         }
 
+        public void MakeTempBundle(AssetsFileInstance afi, BundleFileInstance bfi, String newName, List<AssetsReplacer> ars, string fileLocation)
+        {
+            MemoryStream memoryStream = new MemoryStream();
+            AssetsFileWriter afw = new(memoryStream);
+            afi.file.dependencies.Write(afw);
+            afi.file.Write(afw, 0, ars, 0);
+
+            BundleReplacerFromMemory brfm = new BundleReplacerFromMemory(bfi.file.bundleInf6.dirInf[0].name, newName, true, memoryStream.ToArray(), -1);
+
+            afw = new(File.OpenWrite(fileLocation));
+            // afw = new(File.OpenWrite(fileLocation));
+            bfi.file.Write(afw, new List<BundleReplacer> { brfm });
+            afw.Close();
+            bfi.file.Close();
+            bfi.stream.Dispose();
+            // bfi = am.LoadBundleFile(fileLocation, false);
+            // DecompressBundle(bfi);
+
+            // return bfi;
+        }
+
         private static void DecompressBundle(BundleFileInstance bfi)
         {
             AssetBundleFile abf = bfi.file;

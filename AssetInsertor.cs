@@ -13,6 +13,7 @@ namespace ImpostersOrdeal
         enum AssetClassID
         {
             GameObject = 1,
+            Material = 21,
             Texture2D = 28,
             Mesh = 43,
             AnimationClip = 74,
@@ -62,13 +63,7 @@ namespace ImpostersOrdeal
             String battle01Path = string.Format("battle\\pm{0}_{1}_01", baseMonsNo.ToString("D4"), baseFormNo.ToString("D2"));
             String field00Path = string.Format("field\\pm{0}_{1}_00", baseMonsNo.ToString("D4"), baseFormNo.ToString("D2"));
             String field01Path = string.Format("field\\pm{0}_{1}_01", baseMonsNo.ToString("D4"), baseFormNo.ToString("D2"));
-            BundleFileInstance commonBfi = DuplicateAssetBundle(commonPath, baseMonsNo, monsNo, baseFormNo, formNo);
-            BundleFileInstance common00Bfi = DuplicateAssetBundle(common00Path, baseMonsNo, monsNo, baseFormNo, formNo);
-            BundleFileInstance common01Bfi = DuplicateAssetBundle(common01Path, baseMonsNo, monsNo, baseFormNo, formNo);
-            BundleFileInstance battle00Bfi = DuplicateAssetBundle(battle00Path, baseMonsNo, monsNo, baseFormNo, formNo);
-            BundleFileInstance battle01Bfi = DuplicateAssetBundle(battle01Path, baseMonsNo, monsNo, baseFormNo, formNo);
-            BundleFileInstance field00Bfi = DuplicateAssetBundle(field00Path, baseMonsNo, monsNo, baseFormNo, formNo);
-            BundleFileInstance field01Bfi = DuplicateAssetBundle(field01Path, baseMonsNo, monsNo, baseFormNo, formNo);
+            String fieldAnimationsPath = string.Format("field\\animations\\pm{0}_{1}", baseMonsNo.ToString("D4"), baseFormNo.ToString("D2"));
 
             String newCommonPath = string.Format("common_pm{0}_{1}", monsNo.ToString("D4"), formNo.ToString("D2"));
             String newCommon00Path = string.Format("common_pm{0}_{1}_00", monsNo.ToString("D4"), formNo.ToString("D2"));
@@ -77,13 +72,23 @@ namespace ImpostersOrdeal
             String newBattle01Path = string.Format("battle_pm{0}_{1}_01", monsNo.ToString("D4"), formNo.ToString("D2"));
             String newField00Path = string.Format("field_pm{0}_{1}_00", monsNo.ToString("D4"), formNo.ToString("D2"));
             String newField01Path = string.Format("field_pm{0}_{1}_01", monsNo.ToString("D4"), formNo.ToString("D2"));
-            writeBundle(commonBfi, newCommonPath);
-            writeBundle(common00Bfi, newCommon00Path);
-            writeBundle(common01Bfi, newCommon01Path);
-            writeBundle(battle00Bfi, newBattle00Path);
-            writeBundle(battle01Bfi, newBattle01Path);
-            writeBundle(field00Bfi, newField00Path);
-            writeBundle(field01Bfi, newField01Path);
+            String newFieldAnimationsPath = string.Format("field_animations_pm{0}_{1}", monsNo.ToString("D4"), formNo.ToString("D2"));
+            BundleFileInstance commonBfi = DuplicateAssetBundle(commonPath, newCommonPath, baseMonsNo, monsNo, baseFormNo, formNo);
+            BundleFileInstance common00Bfi = DuplicateAssetBundle(common00Path, newCommon00Path, baseMonsNo, monsNo, baseFormNo, formNo);
+            BundleFileInstance common01Bfi = DuplicateAssetBundle(common01Path, newCommon01Path, baseMonsNo, monsNo, baseFormNo, formNo);
+            BundleFileInstance battle00Bfi = DuplicateAssetBundle(battle00Path, newBattle00Path, baseMonsNo, monsNo, baseFormNo, formNo);
+            BundleFileInstance battle01Bfi = DuplicateAssetBundle(battle01Path, newBattle01Path, baseMonsNo, monsNo, baseFormNo, formNo);
+            BundleFileInstance field00Bfi = DuplicateAssetBundle(field00Path, newField00Path, baseMonsNo, monsNo, baseFormNo, formNo);
+            BundleFileInstance field01Bfi = DuplicateAssetBundle(field01Path, newField01Path, baseMonsNo, monsNo, baseFormNo, formNo);
+            BundleFileInstance fieldAnimationsBfi = DuplicateAssetBundle(fieldAnimationsPath, newFieldAnimationsPath, baseMonsNo, monsNo, baseFormNo, formNo);
+
+            // writeBundle(commonBfi, newCommonPath);
+            // writeBundle(common00Bfi, newCommon00Path);
+            // writeBundle(common01Bfi, newCommon01Path);
+            // writeBundle(battle00Bfi, newBattle00Path);
+            // writeBundle(battle01Bfi, newBattle01Path);
+            // writeBundle(field00Bfi, newField00Path);
+            // writeBundle(field01Bfi, newField01Path);
         }
 
         public void writeBundle(BundleFileInstance bfi, string ofpath)
@@ -96,13 +101,16 @@ namespace ImpostersOrdeal
             bfi.stream.Dispose();
         }
 
-        public BundleFileInstance DuplicateAssetBundle(String path, int baseMonsNo, int monsNo, int baseFormNo, int formNo)
+        public BundleFileInstance DuplicateAssetBundle(String ifpath, String ofpath, int baseMonsNo, int monsNo, int baseFormNo, int formNo)
         {
             String newCAB = genCABName();
             String oldPMName = string.Format("pm{0}_{1}", baseMonsNo.ToString("D4"), baseFormNo.ToString("D2"));
             String newPMName = string.Format("pm{0}_{1}", monsNo.ToString("D4"), formNo.ToString("D2"));
+
+            List<AssetsReplacer> ars = new();
             AssetsManager am = GlobalData.fileManager.getAssetsManager();
-            BundleFileInstance bfi = GlobalData.fileManager.GetBundleFileInstance(basePath + path);
+            am.updateAfterLoad = true;
+            BundleFileInstance bfi = GlobalData.fileManager.GetBundleFileInstance(basePath + ifpath);
             bfi.name = bfi.name.Replace(oldPMName, newPMName);
 
             AssetsFileInstance afi = am.LoadAssetsFileFromBundle(bfi, 0);
@@ -123,7 +131,7 @@ namespace ImpostersOrdeal
                 String dependencyName = dependency.name;
                 foreach (String cabName in CABNames.Keys)
                 {
-                    dependencyName.Replace(cabName, CABNames[cabName]);
+                    dependencyName = dependencyName.Replace(cabName, CABNames[cabName]);
                 }
                 afi.dependencies[i].name = dependencyName;
             }
@@ -136,8 +144,32 @@ namespace ImpostersOrdeal
                 gameObject = gameObjects[i];
 
                 string m_Name = gameObject["m_Name"].value.AsString();
+                AssetFileInfoEx afie = afi.table.GetAssetInfo(m_Name, (int)AssetClassID.GameObject);
+
                 m_Name = m_Name.Replace(oldPMName, newPMName);
                 gameObject["m_Name"].GetValue().Set(m_Name);
+
+                byte[] b = gameObject.WriteToByteArray();
+                AssetsReplacerFromMemory arfm = new AssetsReplacerFromMemory(0, afie.index, (int)afie.curFileType, AssetHelper.GetScriptIndex(afi.file, afie), b);
+                ars.Add(arfm);
+            }
+
+            List<AssetTypeValueField> materials = afi.table.GetAssetsOfType((int)AssetClassID.Material).Select(afie => am.GetTypeInstance(afi, afie).GetBaseField()).ToList();
+            AssetTypeValueField material;
+
+            for (int i = 0; i < materials.Count; i++)
+            {
+                material = materials[i];
+
+                string m_Name = material["m_Name"].value.AsString();
+                AssetFileInfoEx afie = afi.table.GetAssetInfo(m_Name, (int)AssetClassID.Material);
+
+                m_Name = m_Name.Replace(oldPMName, newPMName);
+                material["m_Name"].GetValue().Set(m_Name);
+
+                byte[] b = material.WriteToByteArray();
+                AssetsReplacerFromMemory arfm = new AssetsReplacerFromMemory(0, afie.index, (int)afie.curFileType, AssetHelper.GetScriptIndex(afi.file, afie), b);
+                ars.Add(arfm);
             }
 
             List<AssetTypeValueField> texture2Ds = afi.table.GetAssetsOfType((int)AssetClassID.Texture2D).Select(afie => am.GetTypeInstance(afi, afie).GetBaseField()).ToList();
@@ -148,14 +180,20 @@ namespace ImpostersOrdeal
                 texture2DField = texture2Ds[i];
 
                 string m_Name = texture2DField["m_Name"].value.AsString();
+                AssetFileInfoEx afie = afi.table.GetAssetInfo(m_Name, (int)AssetClassID.Texture2D);
+
                 String m_StreamDataPath = texture2DField["m_StreamData"].children[2].value.AsString();
                 m_Name = m_Name.Replace(oldPMName, newPMName);
                 m_StreamDataPath = m_StreamDataPath.Replace(oldCAB, newCAB);
                 texture2DField["m_Name"].GetValue().Set(m_Name);
                 texture2DField["m_StreamData"].children[2].GetValue().Set(m_StreamDataPath);
+
+                byte[] b = texture2DField.WriteToByteArray();
+                AssetsReplacerFromMemory arfm = new AssetsReplacerFromMemory(0, afie.index, (int)afie.curFileType, AssetHelper.GetScriptIndex(afi.file, afie), b);
+                ars.Add(arfm);
             }
 
-            List<AssetTypeValueField> meshes = afi.table.GetAssetsOfType((int)AssetClassID.GameObject).Select(afie => am.GetTypeInstance(afi, afie).GetBaseField()).ToList();
+            List<AssetTypeValueField> meshes = afi.table.GetAssetsOfType((int)AssetClassID.Mesh).Select(afie => am.GetTypeInstance(afi, afie).GetBaseField()).ToList();
             AssetTypeValueField mesh;
 
             for (int i = 0; i < meshes.Count; i++)
@@ -163,8 +201,14 @@ namespace ImpostersOrdeal
                 mesh = meshes[i];
 
                 string m_Name = mesh["m_Name"].value.AsString();
+                AssetFileInfoEx afie = afi.table.GetAssetInfo(m_Name, (int)AssetClassID.Mesh);
+
                 m_Name = m_Name.Replace(oldPMName, newPMName);
                 mesh["m_Name"].GetValue().Set(m_Name);
+
+                byte[] b = mesh.WriteToByteArray();
+                AssetsReplacerFromMemory arfm = new AssetsReplacerFromMemory(0, afie.index, (int)afie.curFileType, AssetHelper.GetScriptIndex(afi.file, afie), b);
+                ars.Add(arfm);
             }
 
 
@@ -176,8 +220,14 @@ namespace ImpostersOrdeal
                 animationClip = animationClips[i];
 
                 string m_Name = animationClip["m_Name"].value.AsString();
+                AssetFileInfoEx afie = afi.table.GetAssetInfo(m_Name, (int)AssetClassID.AnimationClip);
+
                 m_Name = m_Name.Replace(oldPMName, newPMName);
                 animationClip["m_Name"].GetValue().Set(m_Name);
+
+                byte[] b = animationClip.WriteToByteArray();
+                AssetsReplacerFromMemory arfm = new AssetsReplacerFromMemory(0, afie.index, (int)afie.curFileType, AssetHelper.GetScriptIndex(afi.file, afie), b);
+                ars.Add(arfm);
             }
 
             List<AssetTypeValueField> assetBundles = afi.table.GetAssetsOfType((int)AssetClassID.AssetBundle).Select(afie => am.GetTypeInstance(afi, afie).GetBaseField()).ToList();
@@ -187,6 +237,8 @@ namespace ImpostersOrdeal
                 assetBundle = assetBundles[i];
 
                 string m_Name = assetBundle["m_Name"].value.AsString();
+                AssetFileInfoEx afie = afi.table.GetAssetInfo(m_Name, (int)AssetClassID.AssetBundle);
+
                 m_Name = m_Name.Replace(oldPMName, newPMName);
                 assetBundle["m_Name"].GetValue().Set(m_Name);
 
@@ -208,7 +260,15 @@ namespace ImpostersOrdeal
                     key = key.Replace(oldPMName, newPMName);
                     entry.children[0].GetValue().Set(key);
                 }
+
+                byte[] b = assetBundle.WriteToByteArray();
+                AssetsReplacerFromMemory arfm = new AssetsReplacerFromMemory(0, afie.index, (int)afie.curFileType, AssetHelper.GetScriptIndex(afi.file, afie), b);
+                ars.Add(arfm);
             }
+
+            am.UpdateDependencies(afi);
+
+            GlobalData.fileManager.MakeTempBundle(afi, bfi, afi.name, ars, ofpath);
 
             return bfi;
         }
