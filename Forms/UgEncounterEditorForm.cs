@@ -13,6 +13,8 @@ namespace ImpostersOrdeal
         private List<UgEncounterFile> encounterFiles;
         private List<UgEncounterLevelSet> levelSets;
         private List<string> dexEntries;
+        private bool versionUnbounded;
+        private string[] versionNames;
         private UgEncounterFile ef;
 
         private readonly string[] progSteps = new string[]
@@ -52,13 +54,21 @@ namespace ImpostersOrdeal
             encounterFiles = gameData.ugEncounterFiles;
             levelSets = gameData.ugEncounterLevelSets;
             dexEntries = gameData.dexEntries.Select(d => d.GetName()).ToList();
+            versionNames = versions;
+            versionUnbounded = encounterFiles.SelectMany(o => o.ugEncounter).Any(e => e.version < 1 || e.version > 3);
+            if (versionUnbounded)
+            {
+                versionNames = new string[256];
+                for (int i = 0; i < versionNames.Length; i++)
+                    versionNames[i] = i.ToString();
+            }
 
             InitializeComponent();
 
             minColumn.ValueType = typeof(int);
             maxColumn.ValueType = typeof(int);
             pokemonColumn.DataSource = dexEntries.ToArray();
-            versionColumn.DataSource = versions.ToList();
+            versionColumn.DataSource = versionNames.ToList();
             requirementColumn.DataSource = requirements.ToList();
 
             for (int i = 0; i < levelSets.Count; i++)
@@ -86,7 +96,7 @@ namespace ImpostersOrdeal
         {
             pokemonDataGridView.Rows.Clear();
             for (int i = 0; i < ef.ugEncounter.Count; i++)
-                pokemonDataGridView.Rows.Add(new object[] { dexEntries[ef.ugEncounter[i].dexID], versions[ef.ugEncounter[i].version], requirements[ef.ugEncounter[i].zukanFlag] });
+                pokemonDataGridView.Rows.Add(new object[] { dexEntries[ef.ugEncounter[i].dexID], versionNames[ef.ugEncounter[i].version], requirements[ef.ugEncounter[i].zukanFlag] });
         }
 
         private void CommitEdit(object sender, EventArgs e)
@@ -101,7 +111,7 @@ namespace ImpostersOrdeal
             {
                 ef.ugEncounter[i].dexID = dexEntries.IndexOf((string)pokemonDataGridView.Rows[i].Cells[0].Value);
                 ef.ugEncounter[i].version = versions.ToList().IndexOf((string)pokemonDataGridView.Rows[i].Cells[1].Value);
-                if (ef.ugEncounter[i].version <= 0)
+                if (ef.ugEncounter[i].version <= 0 && !versionUnbounded)
                     ef.ugEncounter[i].version = 1;
                 ef.ugEncounter[i].zukanFlag = requirements.ToList().IndexOf((string)pokemonDataGridView.Rows[i].Cells[2].Value);
                 if (ef.ugEncounter[i].zukanFlag <= 0)
