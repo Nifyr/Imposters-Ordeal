@@ -112,8 +112,10 @@ namespace ImpostersOrdeal
             am.updateAfterLoad = true;
             BundleFileInstance bfi = GlobalData.fileManager.GetBundleFileInstance(basePath + ifpath);
             bfi.name = bfi.name.Replace(oldPMName, newPMName);
+           
 
             AssetsFileInstance afi = am.LoadAssetsFileFromBundle(bfi, 0);
+            
             String oldCAB = afi.name.Replace("CAB-", "");
             afi.name = afi.name.Replace(oldCAB, newCAB);
             CABNames.Add(oldCAB, newCAB);
@@ -134,6 +136,16 @@ namespace ImpostersOrdeal
                     dependencyName = dependencyName.Replace(cabName, CABNames[cabName]);
                 }
                 afi.dependencies[i].name = dependencyName;
+            }
+
+            for (int i = 0; i < afi.file.dependencies.dependencyCount; i++)
+            {
+                String assetPath = afi.file.dependencies.dependencies[i].assetPath;
+                foreach (String cabName in CABNames.Keys)
+                {
+                    assetPath = assetPath.Replace(cabName, CABNames[cabName]);
+                }
+                afi.file.dependencies.dependencies[i].assetPath = assetPath;
             }
 
             List<AssetTypeValueField> gameObjects = afi.table.GetAssetsOfType((int)AssetClassID.GameObject).Select(afie => am.GetTypeInstance(afi, afie).GetBaseField()).ToList();
