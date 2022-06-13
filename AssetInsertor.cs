@@ -120,24 +120,6 @@ namespace ImpostersOrdeal
             afi.name = afi.name.Replace(oldCAB, newCAB);
             CABNames.Add(oldCAB, newCAB);
 
-            // Just need to make sure I do things in the right order, handle dependencies before
-            // the bundles that depend on them.
-            for (int i = 0; i < afi.dependencies.Count; i++)
-            {
-                AssetsFileInstance dependency = afi.dependencies[i];
-                if (dependency == null)
-                {
-                    continue;
-                }
-
-                String dependencyName = dependency.name;
-                foreach (String cabName in CABNames.Keys)
-                {
-                    dependencyName = dependencyName.Replace(cabName, CABNames[cabName]);
-                }
-                afi.dependencies[i].name = dependencyName;
-            }
-
             for (int i = 0; i < afi.file.dependencies.dependencyCount; i++)
             {
                 String assetPath = afi.file.dependencies.dependencies[i].assetPath;
