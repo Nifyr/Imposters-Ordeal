@@ -66,6 +66,11 @@ namespace ImpostersOrdeal
             App
         }
 
+        public AssetsManager getAssetsManager()
+        {
+            return am;
+        }
+
         /// <summary>
         ///  Gets dump from user and opens all necessary files.
         /// </summary>
@@ -245,6 +250,29 @@ namespace ImpostersOrdeal
             for (int fileDataIdx = 0; fileDataIdx < fileArchive.Count; fileDataIdx++)
                 if (fileArchive.Values.ToList()[fileDataIdx].fileSource != FileSource.Dump)
                     ExportFile(fileArchive.Values.ToList()[fileDataIdx], outputDirectory);
+        }
+
+        public BundleFileInstance GetBundleFileInstance(string path)
+        {
+            fileArchive = new();
+            string absolutePath = assetAssistantPath + path;
+            string gamePath = "romfs\\Data\\StreamingAssets\\AssetAssistant" + path;
+            if (!File.Exists(absolutePath))
+            {
+                MessageBox.Show("File not found:\n" + gamePath + "\nIncomplete dump.",
+                "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return null;
+            }
+
+            FileData fd = new();
+            fd.fileLocation = absolutePath;
+            fd.gamePath = gamePath;
+            fd.fileSource = FileSource.Dump;
+            fd.bundle = am.LoadBundleFile(absolutePath, false);
+            DecompressBundle(fd.bundle);
+
+            BundleFileInstance bfi = fd.bundle;
+            return bfi;
         }
 
         /// <summary>

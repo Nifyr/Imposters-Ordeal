@@ -36,10 +36,16 @@ namespace ImpostersOrdeal
             ParseAbilities();
             ParseTypings();
             ParseDamagaCategories();
-            ParseBattleMasterDatas();
-            ParseMasterDatas();
             ParseTrainerTypes();
             ParseGlobalMetadata();
+            ParseBattleMasterDatas();
+            ParseMasterDatas();
+            ParsePersonalMasterDatas();
+            InsertAVulpix();
+        }
+        private static void InsertAVulpix()
+        {
+            AssetInsertor.getInstance().InsertPokemon(37, 37, 0, 1, "Alolan Vulpix");
         }
 
         /// <summary>
@@ -739,8 +745,15 @@ namespace ImpostersOrdeal
                 gameData.tms.Add(tm);
             }
         }
+        private static void ParsePersonalMasterDatas()
+        {
+            // AssetTypeValueField addPersonalTable = fileManager.GetMonoBehaviours(PathEnum.PersonalMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "AddPersonalTable");
+            // AssetTypeValueField[] addPersonalTableArray = addPersonalTable["AddPersonalTable"].children[0].children;
+        }
+
         private static void ParseMasterDatas()
         {
+            gameData.pokemonInfos = new();
             AssetTypeValueField pokemonInfo = fileManager.GetMonoBehaviours(PathEnum.DprMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "PokemonInfo");
             AssetTypeValueField[] catalogArray = pokemonInfo["Catalog"].children[0].children;
 
@@ -863,10 +876,13 @@ namespace ImpostersOrdeal
                 catalog.GroundEffect = catalogArray[i]["GroundEffect"].value.value.asUInt8 == 0;
                 catalog.Waitmoving = catalogArray[i]["Waitmoving"].value.value.asUInt8 == 0;
                 catalog.BattleAjustHeight = catalogArray[i]["BattleAjustHeight"].value.value.asInt32;
+
+                gameData.pokemonInfos.Add(catalog);
             }
         }
         private static void ParseBattleMasterDatas()
         {
+            gameData.motionTimingData = new();
             AssetTypeValueField battleDataTable = fileManager.GetMonoBehaviours(PathEnum.BattleMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "BattleDataTable");
             AssetTypeValueField[] motionTimingDataArray = battleDataTable["MotionTimingData"].children[0].children;
 
@@ -895,6 +911,8 @@ namespace ImpostersOrdeal
                 motionTimingData.Guard = motionTimingDataArray[i]["Guard"].value.value.asInt32;
                 motionTimingData.LandingFall = motionTimingDataArray[i]["LandingFall"].value.value.asInt32;
                 motionTimingData.LandingFallEase = motionTimingDataArray[i]["LandingFallEase"].value.value.asInt32;
+
+                gameData.motionTimingData.Add(motionTimingData);
             }
         }
 
@@ -1011,7 +1029,7 @@ namespace ImpostersOrdeal
                     MainForm.ShowParserError("Oh my, this dump might be a bit outdated...\n" +
                         "Please input at least the v1.1.3 version of BDSP.\n" +
                         "I don't feel so good...");
-                    throw e;
+                    throw;
                 }
 
                 gameData.shopTables.bpShopItems.Add(bpShopItem);

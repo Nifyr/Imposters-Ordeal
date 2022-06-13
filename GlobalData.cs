@@ -38,6 +38,7 @@ namespace ImpostersOrdeal
             public AudioCollection audioCollection;
             public GlobalMetadata globalMetadata;
             public List<BattleMasterdatas.MotionTimingData> motionTimingData;
+            public List<Masterdatas.PokemonInfoCatalog> pokemonInfos;
 
             public Dictionary<string, string> trainerNames;
 
