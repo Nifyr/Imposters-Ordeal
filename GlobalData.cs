@@ -39,6 +39,11 @@ namespace ImpostersOrdeal
             public GlobalMetadata globalMetadata;
             public List<BattleMasterdatas.MotionTimingData> motionTimingData;
             public List<Masterdatas.PokemonInfoCatalog> pokemonInfos;
+            public List<UIMasterdatas.PokemonIcon> uiPokemonIcon;
+            public List<UIMasterdatas.AshiatoIcon> uiAshiatoIcon;
+            public List<UIMasterdatas.PokemonVoice> uiPokemonVoice;
+            public List<UIMasterdatas.ZukanDisplay> uiZukanDisplay;
+            public List<UIMasterdatas.ZukanCompareHeight> uiZukanCompareHeights;
 
             public Dictionary<string, string> trainerNames;
 
@@ -807,7 +812,8 @@ namespace ImpostersOrdeal
             TradChinese,
             PersonalMasterdatas,
             Ugdata,
-            BattleMasterdatas
+            BattleMasterdatas,
+            UIMasterdatas
         }
 
         public enum LanguageNames
@@ -1544,6 +1550,7 @@ namespace ImpostersOrdeal
             randomizerPaths[PathEnum.PersonalMasterdatas] = "romfs\\Data\\StreamingAssets\\AssetAssistant\\Pml\\personal_masterdatas";
             randomizerPaths[PathEnum.Ugdata] = "romfs\\Data\\StreamingAssets\\AssetAssistant\\UnderGround\\data\\ugdata";
             randomizerPaths[PathEnum.BattleMasterdatas] = "romfs\\Data\\StreamingAssets\\AssetAssistant\\Battle\\battle_masterdatas";
+            randomizerPaths[PathEnum.UIMasterdatas] = "romfs\\Data\\StreamingAssets\\AssetAssistant\\UIs\\masterdatas\\uimasterdatas";
             DataColumn[] columns = { new DataColumn("Value", typeof(string)), new DataColumn("Minimum", typeof(int)), new DataColumn("Maximum", typeof(int)), new DataColumn("Increment", typeof(int)) };
             absoluteBoundaries.Columns.AddRange(columns);
             columns[0].ReadOnly = true;

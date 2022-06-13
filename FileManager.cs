@@ -32,7 +32,8 @@ namespace ImpostersOrdeal
             "\\Message\\trad_chinese",
             "\\Pml\\personal_masterdatas",
             "\\UnderGround\\data\\ugdata",
-            "\\Battle\\battle_masterdatas"
+            "\\Battle\\battle_masterdatas",
+            "\\UIs\\masterdatas\\uimasterdatas"
         };
         private static readonly string delphisMainPath = "romfs\\Data\\StreamingAssets\\Audio\\GeneratedSoundBanks\\Switch\\Delphis_Main.bnk";
         private static readonly string globalMetadataPath = "romfs\\Data\\Managed\\Metadata\\global-metadata.dat";

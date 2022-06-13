@@ -41,6 +41,7 @@ namespace ImpostersOrdeal
             ParseBattleMasterDatas();
             ParseMasterDatas();
             ParsePersonalMasterDatas();
+            ParseUIMasterDatas();
             InsertAVulpix();
         }
         private static void InsertAVulpix()
@@ -749,6 +750,106 @@ namespace ImpostersOrdeal
         {
             // AssetTypeValueField addPersonalTable = fileManager.GetMonoBehaviours(PathEnum.PersonalMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "AddPersonalTable");
             // AssetTypeValueField[] addPersonalTableArray = addPersonalTable["AddPersonalTable"].children[0].children;
+        }
+
+        private static void ParseUIMasterDatas()
+        {
+            gameData.uiPokemonIcon = new();
+            gameData.uiAshiatoIcon = new();
+            gameData.uiPokemonVoice = new();
+            gameData.uiZukanDisplay = new();
+            gameData.uiZukanCompareHeights = new();
+            AssetTypeValueField uiDatabase = fileManager.GetMonoBehaviours(PathEnum.UIMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "UIDatabase");
+
+            AssetTypeValueField[] pokemonIcons = uiDatabase["PokemonIcon"].children[0].children;
+            for (int i = 0; i < pokemonIcons.Length; i++)
+            {
+                UIMasterdatas.PokemonIcon pokemonIcon = new();
+                pokemonIcon.UniqueID = pokemonIcons[i]["UniqueID"].value.value.asInt32;
+                pokemonIcon.AssetBundleName = pokemonIcons[i]["AssetBundleName"].GetValue().AsString();
+                pokemonIcon.AssetName = pokemonIcons[i]["AssetName"].GetValue().AsString();
+                pokemonIcon.AssetBundleNameLarge = pokemonIcons[i]["AssetBundleNameLarge"].GetValue().AsString();
+                pokemonIcon.AssetNameLarge = pokemonIcons[i]["AssetNameLarge"].GetValue().AsString();
+                pokemonIcon.AssetBundleNameDP = pokemonIcons[i]["AssetBundleNameDP"].GetValue().AsString();
+                pokemonIcon.AssetNameDP = pokemonIcons[i]["AssetNameDP"].GetValue().AsString();
+                pokemonIcon.HallofFameOffset = new();
+                pokemonIcon.HallofFameOffset.X = pokemonIcons[i]["HallofFameOffset"].children[0].value.value.asFloat;
+                pokemonIcon.HallofFameOffset.Y = pokemonIcons[i]["HallofFameOffset"].children[1].value.value.asFloat;
+
+                gameData.uiPokemonIcon.Add(pokemonIcon);
+            }
+
+            AssetTypeValueField[] ashiatoIcons = uiDatabase["AshiatoIcon"].children[0].children;
+            for (int i = 0; i < ashiatoIcons.Length; i++)
+            {
+                UIMasterdatas.AshiatoIcon ashiatoIcon = new();
+                ashiatoIcon.UniqueID = ashiatoIcons[i]["UniqueID"].value.value.asInt32;
+                ashiatoIcon.SideIconAssetName = ashiatoIcons[i]["SideIconAssetName"].GetValue().AsString();
+                ashiatoIcon.BothIconAssetName = ashiatoIcons[i]["BothIconAssetName"].GetValue().AsString();
+
+                gameData.uiAshiatoIcon.Add(ashiatoIcon);
+            }
+
+            AssetTypeValueField[] pokemonVoices = uiDatabase["PokemonVoice"].children[0].children;
+            for (int i = 0; i < pokemonVoices.Length; i++)
+            {
+                UIMasterdatas.PokemonVoice pokemonVoice = new();
+                pokemonVoice.UniqueID = pokemonVoices[i]["UniqueID"].value.value.asInt32;
+                pokemonVoice.WwiseEvent = pokemonVoices[i]["WwiseEvent"].GetValue().AsString();
+                pokemonVoice.stopEventId = pokemonVoices[i]["stopEventId"].GetValue().AsString();
+                pokemonVoice.CenterPointOffset = new();
+                pokemonVoice.CenterPointOffset.X = pokemonVoices[i]["CenterPointOffset"].children[0].value.value.asFloat;
+                pokemonVoice.CenterPointOffset.Y = pokemonVoices[i]["CenterPointOffset"].children[1].value.value.asFloat;
+                pokemonVoice.CenterPointOffset.Z = pokemonVoices[i]["CenterPointOffset"].children[2].value.value.asFloat;
+                pokemonVoice.RotationLimits = pokemonVoices[i]["RotationLimits"].value.value.asUInt8 == 0;
+                pokemonVoice.RotationLimitAngle = new();
+                pokemonVoice.RotationLimitAngle.X = pokemonVoices[i]["RotationLimitAngle"].children[0].value.value.asFloat;
+                pokemonVoice.RotationLimitAngle.Y = pokemonVoices[i]["RotationLimitAngle"].children[1].value.value.asFloat;
+
+                gameData.uiPokemonVoice.Add(pokemonVoice);
+            }
+
+            AssetTypeValueField[] zukanDisplays = uiDatabase["ZukanDisplay"].children[0].children;
+            for (int i = 0; i < zukanDisplays.Length; i++)
+            {
+                UIMasterdatas.ZukanDisplay zukanDisplay = new();
+                zukanDisplay.UniqueID = zukanDisplays[i]["UniqueID"].value.value.asInt32;
+
+                zukanDisplay.MoveLimit = new();
+                zukanDisplay.MoveLimit.X = zukanDisplays[i]["MoveLimit"].children[0].value.value.asFloat;
+                zukanDisplay.MoveLimit.Y = zukanDisplays[i]["MoveLimit"].children[1].value.value.asFloat;
+                zukanDisplay.MoveLimit.Z = zukanDisplays[i]["MoveLimit"].children[2].value.value.asFloat;
+
+                zukanDisplay.ModelOffset = new();
+                zukanDisplay.ModelOffset.X = zukanDisplays[i]["ModelOffset"].children[0].value.value.asFloat;
+                zukanDisplay.ModelOffset.Y = zukanDisplays[i]["ModelOffset"].children[1].value.value.asFloat;
+                zukanDisplay.ModelOffset.Z = zukanDisplays[i]["ModelOffset"].children[2].value.value.asFloat;
+
+                zukanDisplay.ModelRotationAngle = new();
+                zukanDisplay.ModelRotationAngle.X = zukanDisplays[i]["ModelRotationAngle"].children[0].value.value.asFloat;
+                zukanDisplay.ModelRotationAngle.Y = zukanDisplays[i]["ModelRotationAngle"].children[1].value.value.asFloat;
+
+                gameData.uiZukanDisplay.Add(zukanDisplay);
+            }
+
+            AssetTypeValueField[] zukanCompareHeights = uiDatabase["ZukanCompareHeight"].children[0].children;
+            for (int i = 0; i < zukanCompareHeights.Length; i++)
+            {
+                UIMasterdatas.ZukanCompareHeight zukanCompareHeight = new();
+                zukanCompareHeight.UniqueID = zukanCompareHeights[i]["UniqueID"].value.value.asInt32;
+
+                zukanCompareHeight.PlayerScaleFactor = zukanCompareHeights[i]["PlayerScaleFactor"].value.value.asFloat;
+                zukanCompareHeight.PlayerOffset = new();
+                zukanCompareHeight.PlayerOffset.X = zukanCompareHeights[i]["PlayerOffset"].children[0].value.value.asFloat;
+                zukanCompareHeight.PlayerOffset.Y = zukanCompareHeights[i]["PlayerOffset"].children[1].value.value.asFloat;
+                zukanCompareHeight.PlayerOffset.Z = zukanCompareHeights[i]["PlayerOffset"].children[2].value.value.asFloat;
+
+                zukanCompareHeight.PlayerRotationAngle = new();
+                zukanCompareHeight.PlayerRotationAngle.X = zukanCompareHeights[i]["PlayerRotationAngle"].children[0].value.value.asFloat;
+                zukanCompareHeight.PlayerRotationAngle.Y = zukanCompareHeights[i]["PlayerRotationAngle"].children[1].value.value.asFloat;
+
+                gameData.uiZukanCompareHeights.Add(zukanCompareHeight);
+            }
         }
 
         private static void ParseMasterDatas()
