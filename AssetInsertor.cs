@@ -231,10 +231,13 @@ namespace ImpostersOrdeal
                 assetBundle = assetBundles[i];
 
                 string m_Name = assetBundle["m_Name"].value.AsString();
+                string m_AssetBundleName = assetBundle["m_AssetBundleName"].value.AsString();
                 AssetFileInfoEx afie = afi.table.GetAssetInfo(m_Name, (int)AssetClassID.AssetBundle);
 
                 m_Name = m_Name.Replace(oldPMName, newPMName);
+                m_AssetBundleName = m_Name.Replace(oldPMName, newPMName);
                 assetBundle["m_Name"].GetValue().Set(m_Name);
+                assetBundle["m_AssetBundleName"].GetValue().Set(m_AssetBundleName);
 
                 AssetTypeValueField m_Dependencies = assetBundle["m_Dependencies"][0];
                 for (int j = 0; j < m_Dependencies.childrenCount; j++)
