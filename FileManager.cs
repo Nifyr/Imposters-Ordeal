@@ -255,7 +255,6 @@ namespace ImpostersOrdeal
 
         public BundleFileInstance GetBundleFileInstance(string path)
         {
-            fileArchive = new();
             string absolutePath = assetAssistantPath + path;
             string gamePath = "romfs\\Data\\StreamingAssets\\AssetAssistant" + path;
             if (!File.Exists(absolutePath))
