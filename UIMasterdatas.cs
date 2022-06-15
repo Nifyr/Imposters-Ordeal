@@ -12,7 +12,7 @@ namespace ImpostersOrdeal
 {
 	public static class UIMasterdatas
 	{
-		public class PokemonIcon
+		public class PokemonIcon : ICloneable
 		{
 			public int UniqueID;
 			public string AssetBundleName;
@@ -22,16 +22,26 @@ namespace ImpostersOrdeal
 			public string AssetBundleNameDP;
 			public string AssetNameDP;
 			public Vector2 HallofFameOffset;
-		}
 
-		public class AshiatoIcon
+            public object Clone()
+            {
+				return this.MemberwiseClone();
+            }
+        }
+
+		public class AshiatoIcon : ICloneable
 		{
 			public int UniqueID;
 			public string SideIconAssetName;
 			public string BothIconAssetName;
-		}
 
-		public class PokemonVoice
+            public object Clone()
+            {
+				return this.MemberwiseClone();
+			}
+        }
+
+		public class PokemonVoice : ICloneable
 		{
 			public int UniqueID; 
 			public string WwiseEvent;
@@ -39,21 +49,36 @@ namespace ImpostersOrdeal
 			public Vector3 CenterPointOffset;
 			public bool RotationLimits;
 			public Vector2 RotationLimitAngle;
-		}
 
-		public class ZukanDisplay
-        {
+            public object Clone()
+            {
+				return this.MemberwiseClone();
+			}
+        }
+
+		public class ZukanDisplay : ICloneable
+		{
 			public int UniqueID;
 			public Vector3 MoveLimit;
 			public Vector3 ModelOffset;
 			public Vector2 ModelRotationAngle;
-		}
-		public class ZukanCompareHeight
-        {
+
+            public object Clone()
+            {
+				return this.MemberwiseClone();
+			}
+        }
+		public class ZukanCompareHeight : ICloneable
+		{
 			public int UniqueID;
 			public float PlayerScaleFactor;
 			public Vector3 PlayerOffset; 
 			public Vector2 PlayerRotationAngle;
-		}
+
+            public object Clone()
+            {
+				return this.MemberwiseClone();
+			}
+        }
 	}
 }
