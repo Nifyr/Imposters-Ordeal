@@ -115,10 +115,21 @@ namespace ImpostersOrdeal
            
 
             AssetsFileInstance afi = am.LoadAssetsFileFromBundle(bfi, 0);
-            
+
             String oldCAB = afi.name.Replace("CAB-", "");
             afi.name = afi.name.Replace(oldCAB, newCAB);
             CABNames.Add(oldCAB, newCAB);
+
+            AssetBundleDirectoryInfo06[] dirInf = bfi.file.bundleInf6.dirInf;
+            // afi.table.assetFileInfo
+            foreach (AssetBundleDirectoryInfo06 iDirInf in dirInf)
+            {
+                String dirInfName = iDirInf.name;
+                if (dirInfName.Contains(".resS"))
+                {
+                    iDirInf.name = dirInfName.Replace(oldCAB, newCAB);
+                }
+            }
 
             for (int i = 0; i < afi.file.dependencies.dependencyCount; i++)
             {
