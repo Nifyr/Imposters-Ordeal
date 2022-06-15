@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static ImpostersOrdeal.GlobalData;
 using static ImpostersOrdeal.GameDataTypes;
+using AssetsTools.NET.Extra;
 
 namespace ImpostersOrdeal
 {
@@ -46,7 +47,9 @@ namespace ImpostersOrdeal
         }
         private static void InsertAVulpix()
         {
-            AssetInsertor.getInstance().InsertPokemon(37, 37, 0, 1, "Alolan Vulpix");
+            // AssetInsertor.getInstance().InsertPokemon(37, 37, 0, 1, "Alolan Vulpix");
+            AssetInsertor.getInstance().InsertPokemon(100, 100, 0, 1, 2, "Alolan Vulpix");
+            AssetInsertor.getInstance().InsertPokemon(101, 101, 0, 1, 2, "Alolan Vulpix");
         }
 
         /// <summary>
@@ -759,6 +762,11 @@ namespace ImpostersOrdeal
             gameData.uiPokemonVoice = new();
             gameData.uiZukanDisplay = new();
             gameData.uiZukanCompareHeights = new();
+            gameData.newUIPokemonIcon = new();
+            gameData.newUIAshiatoIcon = new();
+            gameData.newUIPokemonVoice = new();
+            gameData.newUIZukanDisplay = new();
+            gameData.newUIZukanCompareHeights = new();
             AssetTypeValueField uiDatabase = fileManager.GetMonoBehaviours(PathEnum.UIMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "UIDatabase");
 
             AssetTypeValueField[] pokemonIcons = uiDatabase["PokemonIcon"].children[0].children;
@@ -776,7 +784,7 @@ namespace ImpostersOrdeal
                 pokemonIcon.HallofFameOffset.X = pokemonIcons[i]["HallofFameOffset"].children[0].value.value.asFloat;
                 pokemonIcon.HallofFameOffset.Y = pokemonIcons[i]["HallofFameOffset"].children[1].value.value.asFloat;
 
-                gameData.uiPokemonIcon.Add(pokemonIcon);
+                gameData.uiPokemonIcon.Add(pokemonIcon.UniqueID, pokemonIcon);
             }
 
             AssetTypeValueField[] ashiatoIcons = uiDatabase["AshiatoIcon"].children[0].children;
@@ -787,7 +795,7 @@ namespace ImpostersOrdeal
                 ashiatoIcon.SideIconAssetName = ashiatoIcons[i]["SideIconAssetName"].GetValue().AsString();
                 ashiatoIcon.BothIconAssetName = ashiatoIcons[i]["BothIconAssetName"].GetValue().AsString();
 
-                gameData.uiAshiatoIcon.Add(ashiatoIcon);
+                gameData.uiAshiatoIcon.Add(ashiatoIcon.UniqueID, ashiatoIcon);
             }
 
             AssetTypeValueField[] pokemonVoices = uiDatabase["PokemonVoice"].children[0].children;
@@ -806,7 +814,7 @@ namespace ImpostersOrdeal
                 pokemonVoice.RotationLimitAngle.X = pokemonVoices[i]["RotationLimitAngle"].children[0].value.value.asFloat;
                 pokemonVoice.RotationLimitAngle.Y = pokemonVoices[i]["RotationLimitAngle"].children[1].value.value.asFloat;
 
-                gameData.uiPokemonVoice.Add(pokemonVoice);
+                gameData.uiPokemonVoice.Add(pokemonVoice.UniqueID, pokemonVoice);
             }
 
             AssetTypeValueField[] zukanDisplays = uiDatabase["ZukanDisplay"].children[0].children;
@@ -829,7 +837,7 @@ namespace ImpostersOrdeal
                 zukanDisplay.ModelRotationAngle.X = zukanDisplays[i]["ModelRotationAngle"].children[0].value.value.asFloat;
                 zukanDisplay.ModelRotationAngle.Y = zukanDisplays[i]["ModelRotationAngle"].children[1].value.value.asFloat;
 
-                gameData.uiZukanDisplay.Add(zukanDisplay);
+                gameData.uiZukanDisplay.Add(zukanDisplay.UniqueID, zukanDisplay);
             }
 
             AssetTypeValueField[] zukanCompareHeights = uiDatabase["ZukanCompareHeight"].children[0].children;
@@ -848,7 +856,7 @@ namespace ImpostersOrdeal
                 zukanCompareHeight.PlayerRotationAngle.X = zukanCompareHeights[i]["PlayerRotationAngle"].children[0].value.value.asFloat;
                 zukanCompareHeight.PlayerRotationAngle.Y = zukanCompareHeights[i]["PlayerRotationAngle"].children[1].value.value.asFloat;
 
-                gameData.uiZukanCompareHeights.Add(zukanCompareHeight);
+                gameData.uiZukanCompareHeights.Add(zukanCompareHeight.UniqueID, zukanCompareHeight);
             }
         }
 
@@ -1917,6 +1925,8 @@ namespace ImpostersOrdeal
                 CommitAudio();
             if (gameData.IsModified(GameDataSet.DataField.GlobalMetadata))
                 CommitGlobalMetadata();
+            if (gameData.IsModified(GameDataSet.DataField.UIMasterdatas))
+                CommitUIMasterdatas();
         }
 
         private static void CommitGlobalMetadata()
@@ -2059,6 +2069,122 @@ namespace ImpostersOrdeal
             }
 
             fileManager.WriteMonoBehaviour(PathEnum.PersonalMasterdatas, monoBehaviour);
+        }
+
+        private static void CommitUIMasterdatas()
+        {
+            List<AssetTypeValueField> monoBehaviours = fileManager.GetMonoBehaviours(PathEnum.UIMasterdatas);
+
+            AssetTypeValueField uiDatabase = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "UIDatabase");
+            monoBehaviours = new();
+            monoBehaviours.Add(uiDatabase);
+
+            // Pokemon Icon
+            AssetTypeValueField[] pokemonIcons = uiDatabase["PokemonIcon"].children[0].children;
+            AssetTypeTemplateField templateField = new();
+
+            AssetTypeValueField pokemonIconRef = pokemonIcons[0];
+            List<AssetTypeValueField> newPokemonIcons = new();
+            foreach (UIMasterdatas.PokemonIcon pokemonIcon in gameData.newUIPokemonIcon.Values)
+            {
+                AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(pokemonIconRef.GetTemplateField());
+                baseField["UniqueID"].GetValue().Set(pokemonIcon.UniqueID);
+                baseField["AssetBundleName"].GetValue().Set(pokemonIcon.AssetBundleName);
+                baseField["AssetName"].GetValue().Set(pokemonIcon.AssetName);
+                baseField["AssetBundleNameLarge"].GetValue().Set(pokemonIcon.AssetBundleNameLarge);
+                baseField["AssetNameLarge"].GetValue().Set(pokemonIcon.AssetNameLarge);
+                baseField["AssetBundleNameDP"].GetValue().Set(pokemonIcon.AssetBundleNameDP);
+                baseField["AssetNameDP"].GetValue().Set(pokemonIcon.AssetNameDP);
+                baseField["HallofFameOffset"].children[0].GetValue().Set(pokemonIcon.HallofFameOffset.X);
+                baseField["HallofFameOffset"].children[1].GetValue().Set(pokemonIcon.HallofFameOffset.Y);
+                newPokemonIcons.Add(baseField);
+            }
+            uiDatabase["PokemonIcon"].children[0].SetChildrenList(pokemonIcons.Concat(newPokemonIcons).ToArray());
+
+            // Ashiato Icon
+            AssetTypeValueField[] ashiatoIcons = uiDatabase["AshiatoIcon"].children[0].children;
+            templateField = new();
+
+            AssetTypeValueField ashiatoIconRef = ashiatoIcons[0];
+            List<AssetTypeValueField> newAshiatoIcons = new();
+            foreach (UIMasterdatas.AshiatoIcon ashiatoIcon in gameData.newUIAshiatoIcon.Values)
+            {
+                AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(ashiatoIconRef.GetTemplateField());
+                baseField["UniqueID"].GetValue().Set(ashiatoIcon.UniqueID);
+                baseField["SideIconAssetName"].GetValue().Set(ashiatoIcon.SideIconAssetName);
+                baseField["BothIconAssetName"].GetValue().Set(ashiatoIcon.BothIconAssetName);
+                newAshiatoIcons.Add(baseField);
+            }
+            uiDatabase["AshiatoIcon"].children[0].SetChildrenList(ashiatoIcons.Concat(newAshiatoIcons).ToArray());
+
+
+            // Pokemon Voice
+            AssetTypeValueField[] pokemonVoices = uiDatabase["PokemonVoice"].children[0].children;
+            templateField = new();
+
+            AssetTypeValueField pokemonVoiceRef = pokemonVoices[0];
+            List<AssetTypeValueField> newPokemonVoices = new();
+            foreach (UIMasterdatas.PokemonVoice pokemonVoice in gameData.newUIPokemonVoice.Values)
+            {
+                AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(pokemonVoiceRef.GetTemplateField());
+                baseField["UniqueID"].GetValue().Set(pokemonVoice.UniqueID);
+                baseField["WwiseEvent"].GetValue().Set(pokemonVoice.WwiseEvent);
+                baseField["stopEventId"].GetValue().Set(pokemonVoice.stopEventId);
+                baseField["CenterPointOffset"].children[0].GetValue().Set(pokemonVoice.CenterPointOffset.X);
+                baseField["CenterPointOffset"].children[1].GetValue().Set(pokemonVoice.CenterPointOffset.Y);
+                baseField["CenterPointOffset"].children[2].GetValue().Set(pokemonVoice.CenterPointOffset.Z);
+                baseField["RotationLimits"].GetValue().Set(pokemonVoice.RotationLimits);
+                baseField["RotationLimitAngle"].children[0].GetValue().Set(pokemonVoice.RotationLimitAngle.X);
+                baseField["RotationLimitAngle"].children[1].GetValue().Set(pokemonVoice.RotationLimitAngle.Y);
+                newPokemonVoices.Add(baseField);
+            }
+            uiDatabase["PokemonVoice"].children[0].SetChildrenList(pokemonVoices.Concat(newPokemonVoices).ToArray());
+
+
+            // ZukanDisplay
+            AssetTypeValueField[] zukanDisplays = uiDatabase["ZukanDisplay"].children[0].children;
+            templateField = new();
+
+            AssetTypeValueField zukanDisplayRef = zukanDisplays[0];
+            List<AssetTypeValueField> newZukanDisplays = new();
+            foreach (UIMasterdatas.ZukanDisplay zukanDisplay in gameData.newUIZukanDisplay.Values)
+            {
+                AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(zukanDisplayRef.GetTemplateField());
+                baseField["UniqueID"].GetValue().Set(zukanDisplay.UniqueID);
+                baseField["MoveLimit"].children[0].GetValue().Set(zukanDisplay.MoveLimit.X);
+                baseField["MoveLimit"].children[1].GetValue().Set(zukanDisplay.MoveLimit.Y);
+                baseField["MoveLimit"].children[2].GetValue().Set(zukanDisplay.MoveLimit.Z);
+                baseField["ModelOffset"].children[0].GetValue().Set(zukanDisplay.ModelOffset.X);
+                baseField["ModelOffset"].children[1].GetValue().Set(zukanDisplay.ModelOffset.Y);
+                baseField["ModelOffset"].children[2].GetValue().Set(zukanDisplay.ModelOffset.Z);
+                baseField["ModelRotationAngle"].children[0].GetValue().Set(zukanDisplay.ModelRotationAngle.X);
+                baseField["ModelRotationAngle"].children[1].GetValue().Set(zukanDisplay.ModelRotationAngle.Y);
+                newZukanDisplays.Add(baseField);
+            }
+            uiDatabase["ZukanDisplay"].children[0].SetChildrenList(zukanDisplays.Concat(newZukanDisplays).ToArray());
+
+
+            // ZukanCompareHeight
+            AssetTypeValueField[] zukanCompareHeights = uiDatabase["ZukanCompareHeight"].children[0].children;
+            templateField = new();
+
+            AssetTypeValueField zukanCompareHeightRef = zukanCompareHeights[0];
+            List<AssetTypeValueField> newZukanCompareHeights = new();
+            foreach (UIMasterdatas.ZukanCompareHeight zukanCompareHeight in gameData.newUIZukanCompareHeights.Values)
+            {
+                AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(zukanCompareHeightRef.GetTemplateField());
+                baseField["UniqueID"].GetValue().Set(zukanCompareHeight.UniqueID);
+                baseField["PlayerScaleFactor"].GetValue().Set(zukanCompareHeight.PlayerScaleFactor);
+                baseField["PlayerOffset"].children[0].GetValue().Set(zukanCompareHeight.PlayerOffset.X);
+                baseField["PlayerOffset"].children[1].GetValue().Set(zukanCompareHeight.PlayerOffset.Y);
+                baseField["PlayerOffset"].children[2].GetValue().Set(zukanCompareHeight.PlayerOffset.Z);
+                baseField["PlayerRotationAngle"].children[0].GetValue().Set(zukanCompareHeight.PlayerRotationAngle.X);
+                baseField["PlayerRotationAngle"].children[1].GetValue().Set(zukanCompareHeight.PlayerRotationAngle.Y);
+                newZukanCompareHeights.Add(baseField);
+            }
+            uiDatabase["ZukanCompareHeight"].children[0].SetChildrenList(zukanCompareHeights.Concat(newZukanCompareHeights).ToArray());
+
+            fileManager.WriteMonoBehaviours(PathEnum.UIMasterdatas, monoBehaviours.ToArray());
         }
 
         /// <summary>
