@@ -39,6 +39,7 @@ namespace ImpostersOrdeal
             public GlobalMetadata globalMetadata;
             public List<BattleMasterdatas.MotionTimingData> motionTimingData;
             public List<Masterdatas.PokemonInfoCatalog> pokemonInfos;
+            public List<PersonalMasterdatas.AddPersonalTable> addPersonalTables;
             public Dictionary<int, UIMasterdatas.PokemonIcon> uiPokemonIcon;
             public Dictionary<int, UIMasterdatas.AshiatoIcon> uiAshiatoIcon;
             public Dictionary<int, UIMasterdatas.PokemonVoice> uiPokemonVoice;
@@ -77,7 +78,9 @@ namespace ImpostersOrdeal
                 Moves,
                 AudioCollection,
                 GlobalMetadata,
-                UIMasterdatas
+                UIMasterdatas,
+                AddPersonalTable,
+                MotionTimingData
             }
 
             public bool IsModified(DataField d)

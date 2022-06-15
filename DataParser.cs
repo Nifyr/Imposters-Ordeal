@@ -751,8 +751,20 @@ namespace ImpostersOrdeal
         }
         private static void ParsePersonalMasterDatas()
         {
-            // AssetTypeValueField addPersonalTable = fileManager.GetMonoBehaviours(PathEnum.PersonalMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "AddPersonalTable");
-            // AssetTypeValueField[] addPersonalTableArray = addPersonalTable["AddPersonalTable"].children[0].children;
+            gameData.addPersonalTables = new();
+            AssetTypeValueField addPersonalTable = fileManager.GetMonoBehaviours(PathEnum.PersonalMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "AddPersonalTable");
+            AssetTypeValueField[] addPersonalTableArray = addPersonalTable["AddPersonal"].children[0].children;
+            for (int i = 0; i < addPersonalTableArray.Length; i++)
+            {
+                PersonalMasterdatas.AddPersonalTable addPersonal = new();
+                addPersonal.valid_flag = addPersonalTableArray[i]["valid_flag"].value.value.asUInt8 == 0;
+                addPersonal.monsno = addPersonalTableArray[i]["monsno"].value.value.asUInt16;
+                addPersonal.formno = addPersonalTableArray[i]["formno"].value.value.asUInt16;
+                addPersonal.isEnableSynchronize = addPersonalTableArray[i]["isEnableSynchronize"].value.value.asUInt8 == 0;
+                addPersonal.escape = addPersonalTableArray[i]["escape"].value.value.asUInt8;
+                addPersonal.isDisableReverce = addPersonalTableArray[i]["isDisableReverce"].value.value.asUInt8 == 0;
+                gameData.addPersonalTables.Add(addPersonal);
+            }
         }
 
         private static void ParseUIMasterDatas()
@@ -1927,6 +1939,10 @@ namespace ImpostersOrdeal
                 CommitGlobalMetadata();
             if (gameData.IsModified(GameDataSet.DataField.UIMasterdatas))
                 CommitUIMasterdatas();
+            if (gameData.IsModified(GameDataSet.DataField.AddPersonalTable))
+                CommitAddPersonalTable();
+            if (gameData.IsModified(GameDataSet.DataField.MotionTimingData))
+                CommitMotionTimingData();
         }
 
         private static void CommitGlobalMetadata()
@@ -2071,9 +2087,81 @@ namespace ImpostersOrdeal
             fileManager.WriteMonoBehaviour(PathEnum.PersonalMasterdatas, monoBehaviour);
         }
 
+        private static void CommitMotionTimingData()
+        {
+
+            List<AssetTypeValueField> monoBehaviours = fileManager.GetMonoBehaviours(PathEnum.BattleMasterdatas);
+            AssetTypeValueField BattleDataTable = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "BattleDataTable");
+
+            AssetTypeValueField[] MotionTimingData = BattleDataTable["MotionTimingData"].children[0].children;
+            AssetTypeTemplateField templateField = new();
+
+            AssetTypeValueField motionTimingDataRef = MotionTimingData[0];
+            List<AssetTypeValueField> newMotionTimingData = new();
+            foreach (BattleMasterdatas.MotionTimingData motionTimingData in gameData.motionTimingData)
+            {
+                AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(motionTimingDataRef.GetTemplateField());
+                baseField["MonsNo"].GetValue().Set(motionTimingData.MonsNo);
+                baseField["FormNo"].GetValue().Set(motionTimingData.FormNo);
+                baseField["Sex"].GetValue().Set(motionTimingData.Sex);
+                baseField["Buturi01"].GetValue().Set(motionTimingData.Buturi01);
+                baseField["Buturi02"].GetValue().Set(motionTimingData.Buturi02);
+                baseField["Buturi03"].GetValue().Set(motionTimingData.Buturi03);
+                baseField["Tokusyu01"].GetValue().Set(motionTimingData.Tokusyu01);
+                baseField["Tokusyu02"].GetValue().Set(motionTimingData.Tokusyu02);
+                baseField["Tokusyu03"].GetValue().Set(motionTimingData.Tokusyu03);
+                baseField["BodyBlow"].GetValue().Set(motionTimingData.BodyBlow);
+                baseField["Punch"].GetValue().Set(motionTimingData.Punch);
+                baseField["Kick"].GetValue().Set(motionTimingData.Kick);
+                baseField["Tail"].GetValue().Set(motionTimingData.Tail);
+                baseField["Bite"].GetValue().Set(motionTimingData.Bite);
+                baseField["Peck"].GetValue().Set(motionTimingData.Peck);
+                baseField["Radial"].GetValue().Set(motionTimingData.Radial);
+                baseField["Cry"].GetValue().Set(motionTimingData.Cry);
+                baseField["Dust"].GetValue().Set(motionTimingData.Dust);
+                baseField["Shot"].GetValue().Set(motionTimingData.Shot);
+                baseField["Guard"].GetValue().Set(motionTimingData.Guard);
+                baseField["LandingFall"].GetValue().Set(motionTimingData.LandingFall);
+                baseField["LandingFallEase"].GetValue().Set(motionTimingData.LandingFallEase);
+                newMotionTimingData.Add(baseField);
+            }
+
+            BattleDataTable["MotionTimingData"].children[0].SetChildrenList(newMotionTimingData.ToArray());
+
+            fileManager.WriteMonoBehaviour(PathEnum.BattleMasterdatas, BattleDataTable);
+        }
+        private static void CommitAddPersonalTable()
+        {
+            List<AssetTypeValueField> monoBehaviours = fileManager.GetMonoBehaviours(PathEnum.PersonalMasterdatas);
+            AssetTypeValueField AddPersonalTable = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "AddPersonalTable");
+
+            AssetTypeValueField[] addPersonals = AddPersonalTable["AddPersonal"].children[0].children;
+            AssetTypeTemplateField templateField = new();
+
+            AssetTypeValueField addPersonalRef = addPersonals[0];
+
+            List<AssetTypeValueField> newAddPersonals = new();
+            foreach (PersonalMasterdatas.AddPersonalTable addPersonal in gameData.addPersonalTables)
+            {
+                AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(addPersonalRef.GetTemplateField());
+                baseField["valid_flag"].GetValue().Set(addPersonal.valid_flag);
+                baseField["monsno"].GetValue().Set(addPersonal.monsno);
+                baseField["formno"].GetValue().Set(addPersonal.formno);
+                baseField["isEnableSynchronize"].GetValue().Set(addPersonal.isEnableSynchronize);
+                baseField["escape"].GetValue().Set(addPersonal.escape);
+                baseField["isDisableReverce"].GetValue().Set(addPersonal.isDisableReverce);
+                newAddPersonals.Add(baseField);
+            }
+
+            AddPersonalTable["AddPersonal"].children[0].SetChildrenList(newAddPersonals.ToArray());
+
+            fileManager.WriteMonoBehaviour(PathEnum.PersonalMasterdatas, AddPersonalTable);
+        }
+
         private static void CommitUIMasterdatas()
         {
-            List<AssetTypeValueField> monoBehaviours = fileManager.GetMonoBehaviours(PathEnum.UIMasterdatas);
+            // TODO: Get rid of new data sets for UIMasterdatas and have it just build the entire array instead.
+            List <AssetTypeValueField> monoBehaviours = fileManager.GetMonoBehaviours(PathEnum.UIMasterdatas);
 
             AssetTypeValueField uiDatabase = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "UIDatabase");
             monoBehaviours = new();

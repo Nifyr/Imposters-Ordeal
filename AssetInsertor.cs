@@ -62,11 +62,49 @@ namespace ImpostersOrdeal
 
         public void InsertPokemon(int baseMonsNo, int monsNo, int baseFormNo, int formNo, int gender, string formName)
         {
-            // DuplicateAssetBundles(baseMonsNo, monsNo, baseFormNo, formNo);
+            DuplicateAssetBundles(baseMonsNo, monsNo, baseFormNo, formNo);
             UpdateUIMasterdatas(baseMonsNo, monsNo, baseFormNo, formNo, gender);
+            UpdateAddPersonalTable(baseMonsNo, monsNo, baseFormNo, formNo);
+            UpdateMotionTimingData(baseMonsNo, monsNo, baseFormNo, formNo);
             GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.UIMasterdatas);
+            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.AddPersonalTable);
+            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.MotionTimingData);
         }
 
+        public void UpdateMotionTimingData(int baseMonsNo, int monsNo, int baseFormNo, int formNo)
+        {
+            BattleMasterdatas.MotionTimingData baseMotionTimingData = null;
+            foreach (BattleMasterdatas.MotionTimingData motionTimingData in GlobalData.gameData.motionTimingData)
+            {
+                if (motionTimingData.MonsNo == baseMonsNo && motionTimingData.FormNo == baseFormNo)
+                {
+                    baseMotionTimingData = motionTimingData;
+                    break;
+                }
+            }
+
+            BattleMasterdatas.MotionTimingData newMotionTimingData = (BattleMasterdatas.MotionTimingData)baseMotionTimingData.Clone();
+            newMotionTimingData.MonsNo = monsNo;
+            newMotionTimingData.FormNo = formNo;
+            GlobalData.gameData.motionTimingData.Add(newMotionTimingData);
+        }
+        public void UpdateAddPersonalTable(int baseMonsNo, int monsNo, int baseFormNo, int formNo)
+        {
+            PersonalMasterdatas.AddPersonalTable baseAddPersonalTable = null;
+            foreach (PersonalMasterdatas.AddPersonalTable addPersonalTable in GlobalData.gameData.addPersonalTables)
+            {
+                if (addPersonalTable.monsno == baseMonsNo && addPersonalTable.formno == baseFormNo)
+                {
+                    baseAddPersonalTable = addPersonalTable;
+                    break;
+                }
+            }
+
+            PersonalMasterdatas.AddPersonalTable newAddPersonalTable = (PersonalMasterdatas.AddPersonalTable)baseAddPersonalTable.Clone();
+            newAddPersonalTable.monsno = (ushort) monsNo;
+            newAddPersonalTable.formno = (ushort) formNo;
+            GlobalData.gameData.addPersonalTables.Add(newAddPersonalTable);
+        }
         public void UpdateUIMasterdatas(int baseMonsNo, int monsNo, int baseFormNo, int formNo, int gender)
         {
             UpdateUIMasterdatasData(baseMonsNo, monsNo, baseFormNo, formNo, gender, false);

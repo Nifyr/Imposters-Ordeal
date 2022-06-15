@@ -11,7 +11,7 @@ namespace ImpostersOrdeal
 {
     public static class BattleMasterdatas
 	{
-		public class MotionTimingData
+		public class MotionTimingData : ICloneable
 		{
 			public int MonsNo;
 			public int FormNo;
@@ -35,6 +35,10 @@ namespace ImpostersOrdeal
 			public int Guard;
 			public int LandingFall;
 			public int LandingFallEase;
+			public object Clone()
+			{
+				return this.MemberwiseClone();
+			}
 		}
 	}
 }
