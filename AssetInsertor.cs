@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using static ImpostersOrdeal.GameDataTypes;
 
 namespace ImpostersOrdeal
 {
@@ -67,12 +68,82 @@ namespace ImpostersOrdeal
             UpdateAddPersonalTable(baseMonsNo, monsNo, baseFormNo, formNo);
             UpdateMotionTimingData(baseMonsNo, monsNo, baseFormNo, formNo);
             UpdatePokemonInfos(baseMonsNo, monsNo, baseFormNo, formNo, gender);
+            UpdateCommonMsbt(baseMonsNo, monsNo, baseFormNo, formNo, formName);
             GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.UIMasterdatas);
             GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.AddPersonalTable);
             GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.MotionTimingData);
             GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.PokemonInfo);
+            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.MessageFileSets);
         }
+        public void UpdateCommonMsbt(int baseMonsNo, int monsNo, int baseFormNo, int formNo, String formName)
+        {
+            foreach (MessageFileSet msgFileSet in GlobalData.gameData.messageFileSets)
+            {
+                if (msgFileSet.langID == 1)
+                {
+                    foreach (MessageFile msgFile in msgFileSet.messageFiles)
+                    {
+                        if (msgFile.mName.Equals("english_ss_zkn_form"))
+                        {
+                            LabelData baseLabelData = null;
+                            foreach (LabelData labelData in msgFile.labelDatas)
+                            {
+                                String baseLabelName = string.Format("ZKN_FORM_{0}_{1}", baseMonsNo.ToString("D3"), baseFormNo.ToString("D3"));
+                                if (labelData.labelName == baseLabelName)
+                                {
+                                    baseLabelData = labelData;
+                                }
+                            }
+                            LabelData newLabelData = (LabelData) baseLabelData.Clone();
+                            newLabelData.labelName = string.Format("ZKN_FORM_{0}_{1}", monsNo.ToString("D3"), formNo.ToString("D3"));
+                            newLabelData.labelIndex = msgFile.labelDatas.Count;
+                            newLabelData.arrayIndex = msgFile.labelDatas.Count;
+                            newLabelData.wordDatas[0].str = formName;
 
+                            msgFile.labelDatas.Add(newLabelData);
+                        }
+
+                        if (msgFile.mName.Equals("english_ss_zkn_height"))
+                        {
+                            LabelData baseLabelData = null;
+                            foreach (LabelData labelData in msgFile.labelDatas)
+                            {
+                                String baseLabelName = string.Format("ZKN_HEIGHT_{0}_{1}", baseMonsNo.ToString("D3"), baseFormNo.ToString("D3"));
+                                if (labelData.labelName == baseLabelName)
+                                {
+                                    baseLabelData = labelData;
+                                }
+                            }
+                            LabelData newLabelData = (LabelData)baseLabelData.Clone();
+                            newLabelData.labelName = string.Format("ZKN_HEIGHT_{0}_{1}", monsNo.ToString("D3"), formNo.ToString("D3"));
+                            newLabelData.labelIndex = msgFile.labelDatas.Count;
+                            newLabelData.arrayIndex = msgFile.labelDatas.Count;
+
+                            msgFile.labelDatas.Add(newLabelData);
+                        }
+
+                        if (msgFile.mName.Equals("english_ss_zkn_weight"))
+                        {
+                            LabelData baseLabelData = null;
+                            foreach (LabelData labelData in msgFile.labelDatas)
+                            {
+                                String baseLabelName = string.Format("ZKN_WEIGHT_{0}_{1}", baseMonsNo.ToString("D3"), baseFormNo.ToString("D3"));
+                                if (labelData.labelName == baseLabelName)
+                                {
+                                    baseLabelData = labelData;
+                                }
+                            }
+                            LabelData newLabelData = (LabelData)baseLabelData.Clone();
+                            newLabelData.labelName = string.Format("ZKN_WEIGHT_{0}_{1}", monsNo.ToString("D3"), formNo.ToString("D3"));
+                            newLabelData.labelIndex = msgFile.labelDatas.Count;
+                            newLabelData.arrayIndex = msgFile.labelDatas.Count;
+
+                            msgFile.labelDatas.Add(newLabelData);
+                        }
+                    }
+                }
+            }
+        }
         public void UpdatePokemonInfos(int baseMonsNo, int monsNo, int baseFormNo, int formNo, int gender)
         {
             UpdatePokemonInfo(baseMonsNo, monsNo, baseFormNo, formNo, gender, false);

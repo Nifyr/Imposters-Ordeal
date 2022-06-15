@@ -15,7 +15,11 @@ namespace ImpostersOrdeal
     /// </summary>
     static public class DataParser
     {
-        /// <summary>
+        static AssetTypeTemplateField tagDataTemplate = null;
+        static AssetTypeTemplateField attributeValueTemplate = null;
+        static AssetTypeTemplateField tagWordTemplate = null;
+        static AssetTypeTemplateField wordDataTemplate = null;
+        /// <summary>fParseAllMessageFiles
         ///  Parses all files necessary for analysis and configuration.
         /// </summary>
         public static void PrepareAnalysis()
@@ -23,7 +27,7 @@ namespace ImpostersOrdeal
             ParseNatures();
             ParseEvScripts();
             //ParseMapWarpAssets();
-            //ParseMessageFiles();
+            ParseAllMessageFiles();
             ParseGrowthRates();
             ParseItems();
             ParsePickupItems();
@@ -1316,6 +1320,37 @@ namespace ImpostersOrdeal
                     labelData.fontSize = labelDataFields[labelDataIdx].children[3].children[2].value.value.asInt32;
                     labelData.maxWidth = labelDataFields[labelDataIdx].children[3].children[3].value.value.asInt32;
                     labelData.controlID = labelDataFields[labelDataIdx].children[3].children[4].value.value.asInt32;
+
+                    // Parse Attribute Array
+                    AssetTypeValueField[] attrArray = labelDataFields[labelDataIdx].children[4].children[0].children;
+                    labelData.attributeValues = new();
+                    for (int attrIdx = 0; attrIdx < attrArray.Length; attrIdx++)
+                    {
+                        labelData.attributeValues.Add(attrArray[attrIdx].value.value.asInt32);
+                    }
+
+                    // Parse TagData
+                    AssetTypeValueField[] tagDataFields = labelDataFields[labelDataIdx].children[5].children[0].children;
+                    labelData.tagDatas = new();
+                    for (int tagDataIdx = 0; tagDataIdx < tagDataFields.Length; tagDataIdx++)
+                    {
+                        TagData tagData = new();
+                        tagData.tagIndex = tagDataFields[tagDataIdx].children[0].value.value.asInt32;
+                        tagData.groupID = tagDataFields[tagDataIdx].children[1].value.value.asInt32;
+                        tagData.tagID = tagDataFields[tagDataIdx].children[2].value.value.asInt32;
+                        tagData.tagPatternID = tagDataFields[tagDataIdx].children[3].value.value.asInt32;
+                        tagData.forceArticle = tagDataFields[tagDataIdx].children[4].value.value.asInt32;
+                        tagData.tagParameter = tagDataFields[tagDataIdx].children[5].value.value.asInt32;
+                        tagData.tagWordArray = new();
+                        foreach (AssetTypeValueField tagWordField in tagDataFields[tagDataIdx].children[6][0].children)
+                        {
+                            tagData.tagWordArray.Add(tagWordField.GetValue().AsString());
+                        }
+
+                        tagData.forceGrmID = tagDataFields[tagDataIdx].children[7].value.value.asInt32;
+
+                        labelData.tagDatas.Add(tagData);
+                    }
 
                     //Parse WordData
                     labelData.wordDatas = new();
@@ -2618,6 +2653,117 @@ namespace ImpostersOrdeal
         /// </summary>
         private static void CommitMessageFiles(List<AssetTypeValueField> monoBehaviours, List<MessageFile> messageFiles)
         {
+            // List<AssetTypeValueField> monoBehaviours = fileManager.GetMonoBehaviours(PathEnum.PersonalMasterdatas);
+            // AssetTypeValueField AddPersonalTable = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "AddPersonalTable");
+
+            foreach (AssetTypeValueField monoBehaviour in monoBehaviours)
+            {
+                MessageFile messageFile = messageFiles.Find(mf => mf.mName == monoBehaviour.children[3].GetValue().AsString());
+                AssetTypeValueField[] labelDataArray = monoBehaviour["labelDataArray"].children[0].children;
+                AssetTypeTemplateField templateField = new();
+
+                AssetTypeValueField labelDataRef = labelDataArray[0];
+
+                // tagDataFields[tagDataIdx].children[6][0].children
+                foreach (AssetTypeValueField field in labelDataArray)
+                {
+                    if (tagDataTemplate == null && field["tagDataArray"].children[0].childrenCount > 0)
+                    {
+                        tagDataTemplate = field["tagDataArray"].children[0][0].GetTemplateField();
+                    }
+
+
+                    if (tagWordTemplate == null && field["tagDataArray"].children[0].childrenCount > 0)
+                    {
+                        if (field["tagDataArray"].children[0][0]["tagWordArray"].children[0].childrenCount > 0)
+                        {
+                            tagWordTemplate = field["tagDataArray"].children[0][0]["tagWordArray"].children[0][0].GetTemplateField();
+                            if (tagWordTemplate != null)
+                            {
+
+                            }
+                        }
+                    }
+
+                    if (attributeValueTemplate == null && field["attributeValueArray"].children[0].childrenCount > 0)
+                    {
+                        attributeValueTemplate = field["attributeValueArray"].children[0][0].GetTemplateField();
+                    }
+
+                    if (wordDataTemplate == null && field["wordDataArray"].children[0].childrenCount > 0)
+                    {
+                        wordDataTemplate = field["wordDataArray"].children[0][0].GetTemplateField();
+                    }
+                }
+
+                List<AssetTypeValueField> newLabelDataArray = new();
+                foreach (LabelData labelData in messageFile.labelDatas)
+                {
+                    AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(labelDataRef.GetTemplateField());
+                    baseField["labelIndex"].GetValue().Set(labelData.labelIndex);
+                    baseField["arrayIndex"].GetValue().Set(labelData.arrayIndex);
+                    baseField["labelName"].GetValue().Set(labelData.labelName);
+                    baseField["styleInfo"]["styleIndex"].GetValue().Set(labelData.styleIndex);
+                    baseField["styleInfo"]["colorIndex"].GetValue().Set(labelData.colorIndex);
+                    baseField["styleInfo"]["fontSize"].GetValue().Set(labelData.fontSize);
+                    baseField["styleInfo"]["maxWidth"].GetValue().Set(labelData.maxWidth);
+                    baseField["styleInfo"]["controlID"].GetValue().Set(labelData.controlID);
+
+                    List<AssetTypeValueField> attributeValueArray = new();
+                    foreach (int attrVal in labelData.attributeValues)
+                    {
+                        AssetTypeValueField attributeValueField = ValueBuilder.DefaultValueFieldFromTemplate(attributeValueTemplate);
+                        attributeValueField.GetValue().Set(attrVal);
+                        attributeValueArray.Add(attributeValueField);
+                    }
+                    baseField["attributeValueArray"].SetChildrenList(attributeValueArray.ToArray());
+
+                    List<AssetTypeValueField> tagDataArray = new();
+                    foreach (TagData tagData in labelData.tagDatas)
+                    {
+                        AssetTypeValueField tagDataField = ValueBuilder.DefaultValueFieldFromTemplate(tagDataTemplate);
+                        tagDataField["tagIndex"].GetValue().Set(tagData.tagIndex);
+                        tagDataField["groupID"].GetValue().Set(tagData.groupID);
+                        tagDataField["tagID"].GetValue().Set(tagData.tagID);
+                        tagDataField["tagPatternID"].GetValue().Set(tagData.tagPatternID);
+                        tagDataField["forceArticle"].GetValue().Set(tagData.forceArticle);
+                        tagDataField["tagParameter"].GetValue().Set(tagData.tagParameter);
+                        List<AssetTypeValueField> tagWordArray = new();
+                        foreach (String tagWord in tagData.tagWordArray)
+                        {
+                            AssetTypeValueField tagWordField = ValueBuilder.DefaultValueFieldFromTemplate(tagWordTemplate);
+                            tagWordField.GetValue().Set(tagWord);
+                            tagWordArray.Add(tagWordField);
+                        }
+                        baseField["tagWordArray"].SetChildrenList(tagWordArray.ToArray());
+                        // tagWordArray
+                        tagDataField["forceGrmID"].GetValue().Set(tagData.forceGrmID);
+                        tagDataArray.Add(tagDataField);
+                    }
+                    baseField["tagDataArray"].SetChildrenList(tagDataArray.ToArray());
+
+                    List<AssetTypeValueField> wordDataArray = new();
+                    foreach (WordData wordData in labelData.wordDatas)
+                    {
+                        AssetTypeValueField wordDataField = ValueBuilder.DefaultValueFieldFromTemplate(wordDataTemplate);
+                        wordDataField["patternID"].GetValue().Set(wordData.patternID);
+                        wordDataField["eventID"].GetValue().Set(wordData.eventID);
+                        wordDataField["tagIndex"].GetValue().Set(wordData.tagIndex);
+                        wordDataField["tagValue"].GetValue().Set(wordData.tagValue);
+                        wordDataField["str"].GetValue().Set(wordData.str);
+                        wordDataField["strWidth"].GetValue().Set(wordData.strWidth);
+                        wordDataArray.Add(wordDataField);
+                    }
+                    baseField["wordDataArray"].SetChildrenList(wordDataArray.ToArray());
+
+                    newLabelDataArray.Add(baseField);
+                }
+
+                monoBehaviour["labelDataArray"].children[0].SetChildrenList(newLabelDataArray.ToArray());
+
+                // fileManager.WriteMonoBehaviour(PathEnum.PersonalMasterdatas, AddPersonalTable);
+            }
+            /*
             for (int mIdx = 0; mIdx < monoBehaviours.Count; mIdx++)
             {
                 MessageFile messageFile = messageFiles.Find(mf => mf.mName == monoBehaviours[mIdx].children[3].GetValue().AsString());
@@ -2656,6 +2802,7 @@ namespace ImpostersOrdeal
                     labelDataFields[labelDataIdx].children[6].children[0].SetChildrenList(GetATVFs(wordDataReference, wordDatas));
                 }
             }
+            */
         }
 
         /// <summary>
