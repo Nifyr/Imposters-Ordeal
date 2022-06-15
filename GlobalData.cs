@@ -80,7 +80,8 @@ namespace ImpostersOrdeal
                 GlobalMetadata,
                 UIMasterdatas,
                 AddPersonalTable,
-                MotionTimingData
+                MotionTimingData,
+                PokemonInfo
             }
 
             public bool IsModified(DataField d)

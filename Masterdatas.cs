@@ -27,7 +27,7 @@ namespace ImpostersOrdeal
             FLY = 1,
             RUN_FLY = 2,
         }
-        public class PokemonInfoCatalog
+        public class PokemonInfoCatalog : ICloneable
         {
             public int UniqueID;
             public int No;
@@ -83,6 +83,10 @@ namespace ImpostersOrdeal
             public bool GroundEffect;
             public bool Waitmoving;
             public int BattleAjustHeight;
+            public object Clone()
+            {
+                return this.MemberwiseClone();
+            }
         }
     }
 }

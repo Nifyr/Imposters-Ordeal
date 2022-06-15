@@ -66,9 +66,40 @@ namespace ImpostersOrdeal
             UpdateUIMasterdatas(baseMonsNo, monsNo, baseFormNo, formNo, gender);
             UpdateAddPersonalTable(baseMonsNo, monsNo, baseFormNo, formNo);
             UpdateMotionTimingData(baseMonsNo, monsNo, baseFormNo, formNo);
+            UpdatePokemonInfos(baseMonsNo, monsNo, baseFormNo, formNo, gender);
             GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.UIMasterdatas);
             GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.AddPersonalTable);
             GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.MotionTimingData);
+            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.PokemonInfo);
+        }
+
+        public void UpdatePokemonInfos(int baseMonsNo, int monsNo, int baseFormNo, int formNo, int gender)
+        {
+            UpdatePokemonInfo(baseMonsNo, monsNo, baseFormNo, formNo, gender, false);
+            UpdatePokemonInfo(baseMonsNo, monsNo, baseFormNo, formNo, gender, true);
+        }
+        public void UpdatePokemonInfo(int baseMonsNo, int monsNo, int baseFormNo, int formNo, int gender, bool isRare)
+        {
+            String oldPMName = string.Format("pm{0}_{1}", baseMonsNo.ToString("D4"), baseFormNo.ToString("D2"));
+            String newPMName = string.Format("pm{0}_{1}", monsNo.ToString("D4"), formNo.ToString("D2"));
+            int uniqueID = genUniqueID(monsNo, formNo, gender, isRare);
+            Masterdatas.PokemonInfoCatalog basePokemonInfoCatalog = null;
+            foreach (Masterdatas.PokemonInfoCatalog pokemonInfoCatalog in GlobalData.gameData.pokemonInfos)
+            {
+                if (pokemonInfoCatalog.MonsNo == baseMonsNo && pokemonInfoCatalog.FormNo == baseFormNo && pokemonInfoCatalog.Rare == isRare)
+                {
+                    basePokemonInfoCatalog = pokemonInfoCatalog;
+                    break;
+                }
+            }
+
+            Masterdatas.PokemonInfoCatalog newPokemonInfoCatalog = (Masterdatas.PokemonInfoCatalog)basePokemonInfoCatalog.Clone();
+            newPokemonInfoCatalog.No = monsNo;
+            newPokemonInfoCatalog.MonsNo = monsNo;
+            newPokemonInfoCatalog.FormNo = formNo;
+            newPokemonInfoCatalog.UniqueID = uniqueID;
+            newPokemonInfoCatalog.AssetBundleName = basePokemonInfoCatalog.AssetBundleName.Replace(oldPMName, newPMName);
+            GlobalData.gameData.pokemonInfos.Add(newPokemonInfoCatalog);
         }
 
         public void UpdateMotionTimingData(int baseMonsNo, int monsNo, int baseFormNo, int formNo)

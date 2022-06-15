@@ -1943,6 +1943,8 @@ namespace ImpostersOrdeal
                 CommitAddPersonalTable();
             if (gameData.IsModified(GameDataSet.DataField.MotionTimingData))
                 CommitMotionTimingData();
+            if (gameData.IsModified(GameDataSet.DataField.PokemonInfo))
+                CommitPokemonInfo();
         }
 
         private static void CommitGlobalMetadata()
@@ -2085,6 +2087,109 @@ namespace ImpostersOrdeal
             }
 
             fileManager.WriteMonoBehaviour(PathEnum.PersonalMasterdatas, monoBehaviour);
+        }
+        private static void CommitPokemonInfo()
+        {
+
+            List<AssetTypeValueField> monoBehaviours = fileManager.GetMonoBehaviours(PathEnum.DprMasterdatas);
+            AssetTypeValueField PokemonInfo = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "PokemonInfo");
+
+            AssetTypeValueField[] PokemonInfoCatalog = PokemonInfo["Catalog"].children[0].children;
+            AssetTypeTemplateField templateField = new();
+
+            AssetTypeValueField catalogRef = PokemonInfoCatalog[0];
+            List<AssetTypeValueField> newCatalogs = new();
+            foreach (Masterdatas.PokemonInfoCatalog pokemonInfoCatalog in gameData.pokemonInfos)
+            {
+                AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(catalogRef.GetTemplateField());
+
+                baseField["UniqueID"].GetValue().Set(pokemonInfoCatalog.UniqueID);
+                baseField["No"].GetValue().Set(pokemonInfoCatalog.No);
+                baseField["SinnohNo"].GetValue().Set(pokemonInfoCatalog.SinnohNo);
+                baseField["MonsNo"].GetValue().Set(pokemonInfoCatalog.MonsNo);
+                baseField["FormNo"].GetValue().Set(pokemonInfoCatalog.FormNo);
+                baseField["Sex"].GetValue().Set(pokemonInfoCatalog.Sex);
+                baseField["Rare"].GetValue().Set(pokemonInfoCatalog.Rare);
+                baseField["AssetBundleName"].GetValue().Set(pokemonInfoCatalog.AssetBundleName);
+                baseField["BattleScale"].GetValue().Set(pokemonInfoCatalog.BattleScale);
+                baseField["ContestScale"].GetValue().Set(pokemonInfoCatalog.ContestScale);
+                baseField["ContestSize"].GetValue().Set(pokemonInfoCatalog.ContestSize);
+                baseField["FieldScale"].GetValue().Set(pokemonInfoCatalog.FieldScale);
+                baseField["FieldChikaScale"].GetValue().Set(pokemonInfoCatalog.FieldChikaScale);
+                baseField["StatueScale"].GetValue().Set(pokemonInfoCatalog.StatueScale);
+                baseField["FieldWalkingScale"].GetValue().Set(pokemonInfoCatalog.FieldWalkingScale);
+                baseField["FieldFureaiScale"].GetValue().Set(pokemonInfoCatalog.FieldFureaiScale);
+                baseField["MenuScale"].GetValue().Set(pokemonInfoCatalog.MenuScale);
+                baseField["ModelMotion"].GetValue().Set(pokemonInfoCatalog.ModelMotion);
+                baseField["ModelOffset"].children[0].GetValue().Set(pokemonInfoCatalog.ModelOffset.X);
+                baseField["ModelOffset"].children[1].GetValue().Set(pokemonInfoCatalog.ModelOffset.Y);
+                baseField["ModelOffset"].children[2].GetValue().Set(pokemonInfoCatalog.ModelOffset.Z);
+                baseField["ModelRotationAngle"].children[0].GetValue().Set(pokemonInfoCatalog.ModelRotationAngle.X);
+                baseField["ModelRotationAngle"].children[1].GetValue().Set(pokemonInfoCatalog.ModelRotationAngle.Y);
+                baseField["ModelRotationAngle"].children[2].GetValue().Set(pokemonInfoCatalog.ModelRotationAngle.Z);
+                baseField["DistributionScale"].GetValue().Set(pokemonInfoCatalog.DistributionScale);
+                baseField["DistributionModelMotion"].GetValue().Set(pokemonInfoCatalog.DistributionModelMotion);
+                baseField["DistributionModelOffset"].children[0].GetValue().Set(pokemonInfoCatalog.DistributionModelOffset.X);
+                baseField["DistributionModelOffset"].children[1].GetValue().Set(pokemonInfoCatalog.DistributionModelOffset.Y);
+                baseField["DistributionModelOffset"].children[2].GetValue().Set(pokemonInfoCatalog.DistributionModelOffset.Z);
+                baseField["DistributionModelRotationAngle"].children[0].GetValue().Set(pokemonInfoCatalog.DistributionModelRotationAngle.X);
+                baseField["DistributionModelRotationAngle"].children[1].GetValue().Set(pokemonInfoCatalog.DistributionModelRotationAngle.Y);
+                baseField["DistributionModelRotationAngle"].children[2].GetValue().Set(pokemonInfoCatalog.DistributionModelRotationAngle.Z);
+                baseField["VoiceScale"].GetValue().Set(pokemonInfoCatalog.VoiceScale);
+                baseField["VoiceModelMotion"].GetValue().Set(pokemonInfoCatalog.VoiceModelMotion);
+                baseField["VoiceModelOffset"].children[0].GetValue().Set(pokemonInfoCatalog.VoiceModelOffset.X);
+                baseField["VoiceModelOffset"].children[1].GetValue().Set(pokemonInfoCatalog.VoiceModelOffset.Y);
+                baseField["VoiceModelOffset"].children[2].GetValue().Set(pokemonInfoCatalog.VoiceModelOffset.Z);
+                baseField["VoiceModelRotationAngle"].children[0].GetValue().Set(pokemonInfoCatalog.VoiceModelRotationAngle.X);
+                baseField["VoiceModelRotationAngle"].children[1].GetValue().Set(pokemonInfoCatalog.VoiceModelRotationAngle.Y);
+                baseField["VoiceModelRotationAngle"].children[2].GetValue().Set(pokemonInfoCatalog.VoiceModelRotationAngle.Z);
+                baseField["CenterPointOffset"].children[0].GetValue().Set(pokemonInfoCatalog.CenterPointOffset.X);
+                baseField["CenterPointOffset"].children[1].GetValue().Set(pokemonInfoCatalog.CenterPointOffset.Y);
+                baseField["CenterPointOffset"].children[2].GetValue().Set(pokemonInfoCatalog.CenterPointOffset.Z);
+                baseField["RotationLimitAngle"].children[0].GetValue().Set(pokemonInfoCatalog.RotationLimitAngle.X);
+                baseField["RotationLimitAngle"].children[1].GetValue().Set(pokemonInfoCatalog.RotationLimitAngle.Y);
+                baseField["StatusScale"].GetValue().Set(pokemonInfoCatalog.StatusScale);
+                baseField["StatusModelMotion"].GetValue().Set(pokemonInfoCatalog.StatusModelMotion);
+                baseField["StatusModelOffset"].children[0].GetValue().Set(pokemonInfoCatalog.StatusModelOffset.X);
+                baseField["StatusModelOffset"].children[1].GetValue().Set(pokemonInfoCatalog.StatusModelOffset.Y);
+                baseField["StatusModelOffset"].children[2].GetValue().Set(pokemonInfoCatalog.StatusModelOffset.Z);
+                baseField["StatusModelRotationAngle"].children[0].GetValue().Set(pokemonInfoCatalog.StatusModelRotationAngle.X);
+                baseField["StatusModelRotationAngle"].children[1].GetValue().Set(pokemonInfoCatalog.StatusModelRotationAngle.Y);
+                baseField["StatusModelRotationAngle"].children[2].GetValue().Set(pokemonInfoCatalog.StatusModelRotationAngle.Z);
+                baseField["BoxScale"].GetValue().Set(pokemonInfoCatalog.BoxScale);
+                baseField["BoxModelMotion"].GetValue().Set(pokemonInfoCatalog.BoxModelMotion);
+                baseField["BoxModelOffset"].children[0].GetValue().Set(pokemonInfoCatalog.BoxModelOffset.X);
+                baseField["BoxModelOffset"].children[1].GetValue().Set(pokemonInfoCatalog.BoxModelOffset.Y);
+                baseField["BoxModelOffset"].children[2].GetValue().Set(pokemonInfoCatalog.BoxModelOffset.Z);
+                baseField["BoxModelRotationAngle"].children[0].GetValue().Set(pokemonInfoCatalog.BoxModelRotationAngle.X);
+                baseField["BoxModelRotationAngle"].children[1].GetValue().Set(pokemonInfoCatalog.BoxModelRotationAngle.Y);
+                baseField["BoxModelRotationAngle"].children[2].GetValue().Set(pokemonInfoCatalog.BoxModelRotationAngle.Z);
+                baseField["CompareScale"].GetValue().Set(pokemonInfoCatalog.CompareScale);
+                baseField["CompareModelMotion"].GetValue().Set(pokemonInfoCatalog.CompareModelMotion);
+                baseField["CompareModelOffset"].children[0].GetValue().Set(pokemonInfoCatalog.CompareModelOffset.X);
+                baseField["CompareModelOffset"].children[1].GetValue().Set(pokemonInfoCatalog.CompareModelOffset.Y);
+                baseField["CompareModelOffset"].children[2].GetValue().Set(pokemonInfoCatalog.CompareModelOffset.Z);
+                baseField["CompareModelRotationAngle"].children[0].GetValue().Set(pokemonInfoCatalog.CompareModelRotationAngle.X);
+                baseField["CompareModelRotationAngle"].children[1].GetValue().Set(pokemonInfoCatalog.CompareModelRotationAngle.Y);
+                baseField["CompareModelRotationAngle"].children[2].GetValue().Set(pokemonInfoCatalog.CompareModelRotationAngle.Z);
+                baseField["BrakeStart"].GetValue().Set(pokemonInfoCatalog.BrakeStart);
+                baseField["BrakeEnd"].GetValue().Set(pokemonInfoCatalog.BrakeEnd);
+                baseField["WalkSpeed"].GetValue().Set(pokemonInfoCatalog.WalkSpeed);
+                baseField["RunSpeed"].GetValue().Set(pokemonInfoCatalog.RunSpeed);
+                baseField["WalkStart"].GetValue().Set(pokemonInfoCatalog.WalkStart);
+                baseField["RunStart"].GetValue().Set(pokemonInfoCatalog.RunStart);
+                baseField["BodySize"].GetValue().Set(pokemonInfoCatalog.BodySize);
+                baseField["AppearLimit"].GetValue().Set(pokemonInfoCatalog.AppearLimit);
+                baseField["MoveType"].GetValue().Set(pokemonInfoCatalog.MoveType);
+                baseField["GroundEffect"].GetValue().Set(pokemonInfoCatalog.GroundEffect);
+                baseField["Waitmoving"].GetValue().Set(pokemonInfoCatalog.Waitmoving);
+                baseField["BattleAjustHeight"].GetValue().Set(pokemonInfoCatalog.BattleAjustHeight);
+                newCatalogs.Add(baseField);
+            }
+
+            PokemonInfo["Catalog"].children[0].SetChildrenList(newCatalogs.ToArray());
+
+            fileManager.WriteMonoBehaviour(PathEnum.DprMasterdatas, PokemonInfo);
         }
 
         private static void CommitMotionTimingData()
