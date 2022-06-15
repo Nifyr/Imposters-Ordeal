@@ -49,9 +49,59 @@ namespace ImpostersOrdeal
             return String.Join("", values);
         }
 
-        public void InsertPokemon(int baseMonsNo, int monsNo, int baseFormNo, int formNo, string formName)
+        public int genUniqueID(int monsNo, int formNo, int gender, bool isRare)
         {
-            DuplicateAssetBundles(baseMonsNo, monsNo, baseFormNo, formNo);
+            int uniqueID = (monsNo * 10000) + (formNo * 100) + (gender * 10);
+            if (isRare)
+            {
+                uniqueID += 1;
+            }
+
+            return uniqueID;
+        }
+
+        public void InsertPokemon(int baseMonsNo, int monsNo, int baseFormNo, int formNo, int gender, string formName)
+        {
+            // DuplicateAssetBundles(baseMonsNo, monsNo, baseFormNo, formNo);
+            UpdateUIMasterdatas(baseMonsNo, monsNo, baseFormNo, formNo, gender);
+            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.UIMasterdatas);
+        }
+
+        public void UpdateUIMasterdatas(int baseMonsNo, int monsNo, int baseFormNo, int formNo, int gender)
+        {
+            UpdateUIMasterdatasData(baseMonsNo, monsNo, baseFormNo, formNo, gender, false);
+            UpdateUIMasterdatasData(baseMonsNo, monsNo, baseFormNo, formNo, gender, true);
+        }
+
+        public void UpdateUIMasterdatasData(int baseMonsNo, int monsNo, int baseFormNo, int formNo, int gender, bool isRare)
+        {
+            int baseUniqueID = genUniqueID(baseMonsNo, baseFormNo, gender, isRare);
+            int uniqueID = genUniqueID(monsNo, formNo, gender, isRare);
+
+            UIMasterdatas.PokemonIcon pokemonIcon = GlobalData.gameData.uiPokemonIcon[baseUniqueID];
+            UIMasterdatas.PokemonIcon newPokemonIcon = (UIMasterdatas.PokemonIcon) pokemonIcon.Clone();
+            newPokemonIcon.UniqueID = uniqueID;
+            GlobalData.gameData.newUIPokemonIcon[uniqueID] = newPokemonIcon;
+
+            UIMasterdatas.AshiatoIcon ashiatoIcon = GlobalData.gameData.uiAshiatoIcon[baseUniqueID];
+            UIMasterdatas.AshiatoIcon newAshiatoIcon = (UIMasterdatas.AshiatoIcon)ashiatoIcon.Clone();
+            newAshiatoIcon.UniqueID = uniqueID;
+            GlobalData.gameData.newUIAshiatoIcon[uniqueID] = newAshiatoIcon;
+
+            UIMasterdatas.PokemonVoice pokemonVoice = GlobalData.gameData.uiPokemonVoice[baseUniqueID];
+            UIMasterdatas.PokemonVoice newPokemonVoice = (UIMasterdatas.PokemonVoice)pokemonVoice.Clone();
+            newPokemonVoice.UniqueID = uniqueID;
+            GlobalData.gameData.newUIPokemonVoice[uniqueID] = newPokemonVoice;
+
+            UIMasterdatas.ZukanDisplay zukanDisplay = GlobalData.gameData.uiZukanDisplay[baseUniqueID];
+            UIMasterdatas.ZukanDisplay newZukanDisplay = (UIMasterdatas.ZukanDisplay)zukanDisplay.Clone();
+            newZukanDisplay.UniqueID = uniqueID;
+            GlobalData.gameData.newUIZukanDisplay[uniqueID] = newZukanDisplay;
+
+            UIMasterdatas.ZukanCompareHeight zukanCompareHeight = GlobalData.gameData.uiZukanCompareHeights[baseUniqueID];
+            UIMasterdatas.ZukanCompareHeight newZukanCompareHeight = (UIMasterdatas.ZukanCompareHeight)zukanCompareHeight.Clone();
+            newZukanCompareHeight.UniqueID = uniqueID;
+            GlobalData.gameData.newUIZukanCompareHeights[uniqueID] = newZukanCompareHeight;
         }
 
         public void DuplicateAssetBundles(int baseMonsNo, int monsNo, int baseFormNo, int formNo)
@@ -273,6 +323,9 @@ namespace ImpostersOrdeal
                 AssetsReplacerFromMemory arfm = new AssetsReplacerFromMemory(0, afie.index, (int)afie.curFileType, AssetHelper.GetScriptIndex(afi.file, afie), b);
                 ars.Add(arfm);
             }
+
+            // TODO: Update AABBData in PokemonPrefabInfo
+            // TODO: Update FieldPokemonEntity
 
             am.UpdateDependencies(afi);
 
