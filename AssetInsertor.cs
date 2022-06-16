@@ -159,7 +159,7 @@ namespace ImpostersOrdeal
                 pokemon.inferiorForms = new();
                 pokemon.superiorForms = new();
             }
-            basePokemon.formMax = 0;
+            basePokemon.formMax = (byte) formNo;
             basePokemon.formIndex = (ushort)GlobalData.gameData.personalEntries.Count;
 
             Pokemon newPokemon = (Pokemon) basePokemon.Clone();
