@@ -1,5 +1,6 @@
 ﻿using AssetsTools.NET;
 using AssetsTools.NET.Extra;
+using SmartPoint.AssetAssistant;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -32,7 +33,8 @@ namespace ImpostersOrdeal
             "\\Message\\trad_chinese",
             "\\Pml\\personal_masterdatas",
             "\\UnderGround\\data\\ugdata",
-            "\\Battle\\battle_masterdatas"
+            "\\Battle\\battle_masterdatas",
+            "\\UIs\\masterdatas\\uimasterdatas"
         };
         private static readonly string delphisMainPath = "romfs\\Data\\StreamingAssets\\Audio\\GeneratedSoundBanks\\Switch\\Delphis_Main.bnk";
         private static readonly string globalMetadataPath = "romfs\\Data\\Managed\\Metadata\\global-metadata.dat";
@@ -64,6 +66,11 @@ namespace ImpostersOrdeal
             Mod,
             UnrelatedMod,
             App
+        }
+
+        public AssetsManager getAssetsManager()
+        {
+            return am;
         }
 
         /// <summary>
@@ -245,6 +252,38 @@ namespace ImpostersOrdeal
             for (int fileDataIdx = 0; fileDataIdx < fileArchive.Count; fileDataIdx++)
                 if (fileArchive.Values.ToList()[fileDataIdx].fileSource != FileSource.Dump)
                     ExportFile(fileArchive.Values.ToList()[fileDataIdx], outputDirectory);
+        }
+
+        public BundleFileInstance GetBundleFileInstance(string path)
+        {
+            string absolutePath = assetAssistantPath + path;
+            string gamePath = "romfs\\Data\\StreamingAssets\\AssetAssistant" + path;
+            if (!File.Exists(absolutePath))
+            {
+                MessageBox.Show("File not found:\n" + gamePath + "\nIncomplete dump.",
+                "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return null;
+            }
+
+            FileData fd = new();
+            fd.fileLocation = absolutePath;
+            fd.gamePath = gamePath;
+            fd.fileSource = FileSource.Dump;
+            fd.bundle = am.LoadBundleFile(absolutePath, false);
+            DecompressBundle(fd.bundle);
+
+            BundleFileInstance bfi = fd.bundle;
+            return bfi;
+        }
+        public AssetBundleDownloadManifest GetAssetBundleDownloadManifest(string ifpath)
+        {
+            string absolutePath = assetAssistantPath + "\\" + ifpath;
+            return AssetBundleDownloadManifest.Load(absolutePath);
+        }
+        public void SaveAssetBundleDownloadManifest(AssetBundleDownloadManifest abdm, string ofpath)
+        {
+            string modPath = Environment.CurrentDirectory + "\\" + outputModName + "\\romfs\\Data\\StreamingAssets\\AssetAssistant\\" + ofpath;
+            abdm.Save(modPath);
         }
 
         /// <summary>
@@ -469,6 +508,27 @@ namespace ImpostersOrdeal
                 File.Delete(fd.fileLocation);
             fd.fileLocation = fileLocation;
             fd.tempLocation = true;
+        }
+
+        public void MakeTempBundle(AssetsFileInstance afi, BundleFileInstance bfi, String newName, List<AssetsReplacer> ars, string fileLocation)
+        {
+            MemoryStream memoryStream = new MemoryStream();
+            AssetsFileWriter afw = new(memoryStream);
+            afi.file.dependencies.Write(afw);
+            afi.file.Write(afw, 0, ars, 0);
+
+            BundleReplacerFromMemory brfm = new BundleReplacerFromMemory(bfi.file.bundleInf6.dirInf[0].name, newName, true, memoryStream.ToArray(), -1);
+
+            afw = new(File.OpenWrite(fileLocation));
+            // afw = new(File.OpenWrite(fileLocation));
+            bfi.file.Write(afw, new List<BundleReplacer> { brfm });
+            afw.Close();
+            bfi.file.Close();
+            bfi.stream.Dispose();
+            // bfi = am.LoadBundleFile(fileLocation, false);
+            // DecompressBundle(bfi);
+
+            // return bfi;
         }
 
         private static void DecompressBundle(BundleFileInstance bfi)

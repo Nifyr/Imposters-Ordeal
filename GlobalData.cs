@@ -37,6 +37,19 @@ namespace ImpostersOrdeal
             public List<Move> moves; //Ordered, idx=moveID
             public AudioCollection audioCollection;
             public GlobalMetadata globalMetadata;
+            public List<BattleMasterdatas.MotionTimingData> motionTimingData;
+            public List<Masterdatas.PokemonInfoCatalog> pokemonInfos;
+            public List<PersonalMasterdatas.AddPersonalTable> addPersonalTables;
+            public Dictionary<int, UIMasterdatas.PokemonIcon> uiPokemonIcon;
+            public Dictionary<int, UIMasterdatas.AshiatoIcon> uiAshiatoIcon;
+            public Dictionary<int, UIMasterdatas.PokemonVoice> uiPokemonVoice;
+            public Dictionary<int, UIMasterdatas.ZukanDisplay> uiZukanDisplay;
+            public Dictionary<int, UIMasterdatas.ZukanCompareHeight> uiZukanCompareHeights;
+            public Dictionary<int, UIMasterdatas.PokemonIcon> newUIPokemonIcon;
+            public Dictionary<int, UIMasterdatas.AshiatoIcon> newUIAshiatoIcon;
+            public Dictionary<int, UIMasterdatas.PokemonVoice> newUIPokemonVoice;
+            public Dictionary<int, UIMasterdatas.ZukanDisplay> newUIZukanDisplay;
+            public Dictionary<int, UIMasterdatas.ZukanCompareHeight> newUIZukanCompareHeights;
 
             public Dictionary<string, string> trainerNames;
 
@@ -64,7 +77,11 @@ namespace ImpostersOrdeal
                 TMs,
                 Moves,
                 AudioCollection,
-                GlobalMetadata
+                GlobalMetadata,
+                UIMasterdatas,
+                AddPersonalTable,
+                MotionTimingData,
+                PokemonInfo
             }
 
             public bool IsModified(DataField d)
@@ -805,7 +822,8 @@ namespace ImpostersOrdeal
             TradChinese,
             PersonalMasterdatas,
             Ugdata,
-            BattleMasterdatas
+            BattleMasterdatas,
+            UIMasterdatas
         }
 
         public enum LanguageNames
@@ -1542,6 +1560,7 @@ namespace ImpostersOrdeal
             randomizerPaths[PathEnum.PersonalMasterdatas] = "romfs\\Data\\StreamingAssets\\AssetAssistant\\Pml\\personal_masterdatas";
             randomizerPaths[PathEnum.Ugdata] = "romfs\\Data\\StreamingAssets\\AssetAssistant\\UnderGround\\data\\ugdata";
             randomizerPaths[PathEnum.BattleMasterdatas] = "romfs\\Data\\StreamingAssets\\AssetAssistant\\Battle\\battle_masterdatas";
+            randomizerPaths[PathEnum.UIMasterdatas] = "romfs\\Data\\StreamingAssets\\AssetAssistant\\UIs\\masterdatas\\uimasterdatas";
             DataColumn[] columns = { new DataColumn("Value", typeof(string)), new DataColumn("Minimum", typeof(int)), new DataColumn("Maximum", typeof(int)), new DataColumn("Increment", typeof(int)) };
             absoluteBoundaries.Columns.AddRange(columns);
             columns[0].ReadOnly = true;

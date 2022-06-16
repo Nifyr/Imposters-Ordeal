@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static ImpostersOrdeal.GlobalData;
 using static ImpostersOrdeal.GameDataTypes;
+using AssetsTools.NET.Extra;
 
 namespace ImpostersOrdeal
 {
@@ -14,7 +15,11 @@ namespace ImpostersOrdeal
     /// </summary>
     static public class DataParser
     {
-        /// <summary>
+        static AssetTypeTemplateField tagDataTemplate = null;
+        static AssetTypeTemplateField attributeValueTemplate = null;
+        static AssetTypeTemplateField tagWordTemplate = null;
+        static AssetTypeTemplateField wordDataTemplate = null;
+        /// <summary>fParseAllMessageFiles
         ///  Parses all files necessary for analysis and configuration.
         /// </summary>
         public static void PrepareAnalysis()
@@ -22,7 +27,7 @@ namespace ImpostersOrdeal
             ParseNatures();
             ParseEvScripts();
             //ParseMapWarpAssets();
-            //ParseMessageFiles();
+            ParseAllMessageFiles();
             ParseGrowthRates();
             ParseItems();
             ParsePickupItems();
@@ -38,6 +43,10 @@ namespace ImpostersOrdeal
             ParseDamagaCategories();
             ParseTrainerTypes();
             ParseGlobalMetadata();
+            ParseBattleMasterDatas();
+            ParseMasterDatas();
+            ParsePersonalMasterDatas();
+            ParseUIMasterDatas();
         }
 
         /// <summary>
@@ -737,6 +746,293 @@ namespace ImpostersOrdeal
                 gameData.tms.Add(tm);
             }
         }
+        private static void ParsePersonalMasterDatas()
+        {
+            gameData.addPersonalTables = new();
+            AssetTypeValueField addPersonalTable = fileManager.GetMonoBehaviours(PathEnum.PersonalMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "AddPersonalTable");
+            AssetTypeValueField[] addPersonalTableArray = addPersonalTable["AddPersonal"].children[0].children;
+            for (int i = 0; i < addPersonalTableArray.Length; i++)
+            {
+                PersonalMasterdatas.AddPersonalTable addPersonal = new();
+                addPersonal.valid_flag = addPersonalTableArray[i]["valid_flag"].value.value.asUInt8 == 0;
+                addPersonal.monsno = addPersonalTableArray[i]["monsno"].value.value.asUInt16;
+                addPersonal.formno = addPersonalTableArray[i]["formno"].value.value.asUInt16;
+                addPersonal.isEnableSynchronize = addPersonalTableArray[i]["isEnableSynchronize"].value.value.asUInt8 == 0;
+                addPersonal.escape = addPersonalTableArray[i]["escape"].value.value.asUInt8;
+                addPersonal.isDisableReverce = addPersonalTableArray[i]["isDisableReverce"].value.value.asUInt8 == 0;
+                gameData.addPersonalTables.Add(addPersonal);
+            }
+        }
+
+        private static void ParseUIMasterDatas()
+        {
+            gameData.uiPokemonIcon = new();
+            gameData.uiAshiatoIcon = new();
+            gameData.uiPokemonVoice = new();
+            gameData.uiZukanDisplay = new();
+            gameData.uiZukanCompareHeights = new();
+            gameData.newUIPokemonIcon = new();
+            gameData.newUIAshiatoIcon = new();
+            gameData.newUIPokemonVoice = new();
+            gameData.newUIZukanDisplay = new();
+            gameData.newUIZukanCompareHeights = new();
+            AssetTypeValueField uiDatabase = fileManager.GetMonoBehaviours(PathEnum.UIMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "UIDatabase");
+
+            AssetTypeValueField[] pokemonIcons = uiDatabase["PokemonIcon"].children[0].children;
+            for (int i = 0; i < pokemonIcons.Length; i++)
+            {
+                UIMasterdatas.PokemonIcon pokemonIcon = new();
+                pokemonIcon.UniqueID = pokemonIcons[i]["UniqueID"].value.value.asInt32;
+                pokemonIcon.AssetBundleName = pokemonIcons[i]["AssetBundleName"].GetValue().AsString();
+                pokemonIcon.AssetName = pokemonIcons[i]["AssetName"].GetValue().AsString();
+                pokemonIcon.AssetBundleNameLarge = pokemonIcons[i]["AssetBundleNameLarge"].GetValue().AsString();
+                pokemonIcon.AssetNameLarge = pokemonIcons[i]["AssetNameLarge"].GetValue().AsString();
+                pokemonIcon.AssetBundleNameDP = pokemonIcons[i]["AssetBundleNameDP"].GetValue().AsString();
+                pokemonIcon.AssetNameDP = pokemonIcons[i]["AssetNameDP"].GetValue().AsString();
+                pokemonIcon.HallofFameOffset = new();
+                pokemonIcon.HallofFameOffset.X = pokemonIcons[i]["HallofFameOffset"].children[0].value.value.asFloat;
+                pokemonIcon.HallofFameOffset.Y = pokemonIcons[i]["HallofFameOffset"].children[1].value.value.asFloat;
+
+                gameData.uiPokemonIcon.Add(pokemonIcon.UniqueID, pokemonIcon);
+            }
+
+            AssetTypeValueField[] ashiatoIcons = uiDatabase["AshiatoIcon"].children[0].children;
+            for (int i = 0; i < ashiatoIcons.Length; i++)
+            {
+                UIMasterdatas.AshiatoIcon ashiatoIcon = new();
+                ashiatoIcon.UniqueID = ashiatoIcons[i]["UniqueID"].value.value.asInt32;
+                ashiatoIcon.SideIconAssetName = ashiatoIcons[i]["SideIconAssetName"].GetValue().AsString();
+                ashiatoIcon.BothIconAssetName = ashiatoIcons[i]["BothIconAssetName"].GetValue().AsString();
+
+                gameData.uiAshiatoIcon.Add(ashiatoIcon.UniqueID, ashiatoIcon);
+            }
+
+            AssetTypeValueField[] pokemonVoices = uiDatabase["PokemonVoice"].children[0].children;
+            for (int i = 0; i < pokemonVoices.Length; i++)
+            {
+                UIMasterdatas.PokemonVoice pokemonVoice = new();
+                pokemonVoice.UniqueID = pokemonVoices[i]["UniqueID"].value.value.asInt32;
+                pokemonVoice.WwiseEvent = pokemonVoices[i]["WwiseEvent"].GetValue().AsString();
+                pokemonVoice.stopEventId = pokemonVoices[i]["stopEventId"].GetValue().AsString();
+                pokemonVoice.CenterPointOffset = new();
+                pokemonVoice.CenterPointOffset.X = pokemonVoices[i]["CenterPointOffset"].children[0].value.value.asFloat;
+                pokemonVoice.CenterPointOffset.Y = pokemonVoices[i]["CenterPointOffset"].children[1].value.value.asFloat;
+                pokemonVoice.CenterPointOffset.Z = pokemonVoices[i]["CenterPointOffset"].children[2].value.value.asFloat;
+                pokemonVoice.RotationLimits = pokemonVoices[i]["RotationLimits"].value.value.asUInt8 == 0;
+                pokemonVoice.RotationLimitAngle = new();
+                pokemonVoice.RotationLimitAngle.X = pokemonVoices[i]["RotationLimitAngle"].children[0].value.value.asFloat;
+                pokemonVoice.RotationLimitAngle.Y = pokemonVoices[i]["RotationLimitAngle"].children[1].value.value.asFloat;
+
+                gameData.uiPokemonVoice.Add(pokemonVoice.UniqueID, pokemonVoice);
+            }
+
+            AssetTypeValueField[] zukanDisplays = uiDatabase["ZukanDisplay"].children[0].children;
+            for (int i = 0; i < zukanDisplays.Length; i++)
+            {
+                UIMasterdatas.ZukanDisplay zukanDisplay = new();
+                zukanDisplay.UniqueID = zukanDisplays[i]["UniqueID"].value.value.asInt32;
+
+                zukanDisplay.MoveLimit = new();
+                zukanDisplay.MoveLimit.X = zukanDisplays[i]["MoveLimit"].children[0].value.value.asFloat;
+                zukanDisplay.MoveLimit.Y = zukanDisplays[i]["MoveLimit"].children[1].value.value.asFloat;
+                zukanDisplay.MoveLimit.Z = zukanDisplays[i]["MoveLimit"].children[2].value.value.asFloat;
+
+                zukanDisplay.ModelOffset = new();
+                zukanDisplay.ModelOffset.X = zukanDisplays[i]["ModelOffset"].children[0].value.value.asFloat;
+                zukanDisplay.ModelOffset.Y = zukanDisplays[i]["ModelOffset"].children[1].value.value.asFloat;
+                zukanDisplay.ModelOffset.Z = zukanDisplays[i]["ModelOffset"].children[2].value.value.asFloat;
+
+                zukanDisplay.ModelRotationAngle = new();
+                zukanDisplay.ModelRotationAngle.X = zukanDisplays[i]["ModelRotationAngle"].children[0].value.value.asFloat;
+                zukanDisplay.ModelRotationAngle.Y = zukanDisplays[i]["ModelRotationAngle"].children[1].value.value.asFloat;
+
+                gameData.uiZukanDisplay.Add(zukanDisplay.UniqueID, zukanDisplay);
+            }
+
+            AssetTypeValueField[] zukanCompareHeights = uiDatabase["ZukanCompareHeight"].children[0].children;
+            for (int i = 0; i < zukanCompareHeights.Length; i++)
+            {
+                UIMasterdatas.ZukanCompareHeight zukanCompareHeight = new();
+                zukanCompareHeight.UniqueID = zukanCompareHeights[i]["UniqueID"].value.value.asInt32;
+
+                zukanCompareHeight.PlayerScaleFactor = zukanCompareHeights[i]["PlayerScaleFactor"].value.value.asFloat;
+                zukanCompareHeight.PlayerOffset = new();
+                zukanCompareHeight.PlayerOffset.X = zukanCompareHeights[i]["PlayerOffset"].children[0].value.value.asFloat;
+                zukanCompareHeight.PlayerOffset.Y = zukanCompareHeights[i]["PlayerOffset"].children[1].value.value.asFloat;
+                zukanCompareHeight.PlayerOffset.Z = zukanCompareHeights[i]["PlayerOffset"].children[2].value.value.asFloat;
+
+                zukanCompareHeight.PlayerRotationAngle = new();
+                zukanCompareHeight.PlayerRotationAngle.X = zukanCompareHeights[i]["PlayerRotationAngle"].children[0].value.value.asFloat;
+                zukanCompareHeight.PlayerRotationAngle.Y = zukanCompareHeights[i]["PlayerRotationAngle"].children[1].value.value.asFloat;
+
+                gameData.uiZukanCompareHeights.Add(zukanCompareHeight.UniqueID, zukanCompareHeight);
+            }
+        }
+
+        private static void ParseMasterDatas()
+        {
+            gameData.pokemonInfos = new();
+            AssetTypeValueField pokemonInfo = fileManager.GetMonoBehaviours(PathEnum.DprMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "PokemonInfo");
+            AssetTypeValueField[] catalogArray = pokemonInfo["Catalog"].children[0].children;
+
+            for (int i = 0; i < catalogArray.Length; i++)
+            {
+                Masterdatas.PokemonInfoCatalog catalog = new();
+                catalog.UniqueID = catalogArray[i]["UniqueID"].value.value.asInt32;
+                catalog.No = catalogArray[i]["No"].value.value.asInt32;
+                catalog.SinnohNo = catalogArray[i]["SinnohNo"].value.value.asInt32;
+                catalog.MonsNo = catalogArray[i]["MonsNo"].value.value.asInt32;
+                catalog.FormNo = catalogArray[i]["FormNo"].value.value.asInt32;
+                catalog.Sex = catalogArray[i]["Sex"].value.value.asUInt8;
+                catalog.Rare = catalogArray[i]["Rare"].value.value.asUInt8 == 0;
+                catalog.AssetBundleName = catalogArray[i]["AssetBundleName"].GetValue().AsString();
+                catalog.BattleScale = catalogArray[i]["BattleScale"].value.value.asFloat;
+                catalog.ContestScale = catalogArray[i]["ContestScale"].value.value.asFloat;
+                catalog.ContestSize = (Masterdatas.Size) catalogArray[i]["ContestSize"].value.value.asInt32;
+                catalog.FieldScale = catalogArray[i]["FieldScale"].value.value.asFloat;
+                catalog.FieldChikaScale = catalogArray[i]["FieldChikaScale"].value.value.asFloat;
+                catalog.StatueScale = catalogArray[i]["StatueScale"].value.value.asFloat;
+                catalog.FieldWalkingScale = catalogArray[i]["FieldWalkingScale"].value.value.asFloat;
+                catalog.FieldFureaiScale = catalogArray[i]["FieldFureaiScale"].value.value.asFloat;
+                catalog.MenuScale = catalogArray[i]["MenuScale"].value.value.asFloat;
+                catalog.ModelMotion = catalogArray[i]["ModelMotion"].GetValue().AsString();
+
+                catalog.ModelOffset = new();
+                catalog.ModelOffset.X = catalogArray[i]["ModelOffset"].children[0].value.value.asFloat;
+                catalog.ModelOffset.Y = catalogArray[i]["ModelOffset"].children[1].value.value.asFloat;
+                catalog.ModelOffset.Z = catalogArray[i]["ModelOffset"].children[2].value.value.asFloat;
+
+                catalog.ModelRotationAngle = new();
+                catalog.ModelRotationAngle.X = catalogArray[i]["ModelRotationAngle"].children[0].value.value.asFloat;
+                catalog.ModelRotationAngle.Y = catalogArray[i]["ModelRotationAngle"].children[1].value.value.asFloat;
+                catalog.ModelRotationAngle.Z = catalogArray[i]["ModelRotationAngle"].children[2].value.value.asFloat;
+
+                catalog.DistributionScale = catalogArray[i]["DistributionScale"].value.value.asFloat;
+                catalog.DistributionModelMotion = catalogArray[i]["DistributionModelMotion"].GetValue().AsString();
+
+                catalog.DistributionModelOffset = new();
+                catalog.DistributionModelOffset.X = catalogArray[i]["DistributionModelOffset"].children[0].value.value.asFloat;
+                catalog.DistributionModelOffset.Y = catalogArray[i]["DistributionModelOffset"].children[1].value.value.asFloat;
+                catalog.DistributionModelOffset.Z = catalogArray[i]["DistributionModelOffset"].children[2].value.value.asFloat;
+
+                catalog.DistributionModelRotationAngle = new();
+                catalog.DistributionModelRotationAngle.X = catalogArray[i]["DistributionModelRotationAngle"].children[0].value.value.asFloat;
+                catalog.DistributionModelRotationAngle.Y = catalogArray[i]["DistributionModelRotationAngle"].children[1].value.value.asFloat;
+                catalog.DistributionModelRotationAngle.Z = catalogArray[i]["DistributionModelRotationAngle"].children[2].value.value.asFloat;
+
+                catalog.VoiceScale = catalogArray[i]["VoiceScale"].value.value.asFloat;
+                catalog.VoiceModelMotion = catalogArray[i]["VoiceModelMotion"].GetValue().AsString();
+
+                catalog.VoiceModelOffset = new();
+                catalog.VoiceModelOffset.X = catalogArray[i]["VoiceModelOffset"].children[0].value.value.asFloat;
+                catalog.VoiceModelOffset.Y = catalogArray[i]["VoiceModelOffset"].children[1].value.value.asFloat;
+                catalog.VoiceModelOffset.Z = catalogArray[i]["VoiceModelOffset"].children[2].value.value.asFloat;
+
+                catalog.VoiceModelRotationAngle = new();
+                catalog.VoiceModelRotationAngle.X = catalogArray[i]["VoiceModelRotationAngle"].children[0].value.value.asFloat;
+                catalog.VoiceModelRotationAngle.Y = catalogArray[i]["VoiceModelRotationAngle"].children[1].value.value.asFloat;
+                catalog.VoiceModelRotationAngle.Z = catalogArray[i]["VoiceModelRotationAngle"].children[2].value.value.asFloat;
+
+                catalog.CenterPointOffset = new();
+                catalog.CenterPointOffset.X = catalogArray[i]["CenterPointOffset"].children[0].value.value.asFloat;
+                catalog.CenterPointOffset.Y = catalogArray[i]["CenterPointOffset"].children[1].value.value.asFloat;
+                catalog.CenterPointOffset.Z = catalogArray[i]["CenterPointOffset"].children[2].value.value.asFloat;
+
+                catalog.RotationLimitAngle = new();
+                catalog.RotationLimitAngle.X = catalogArray[i]["RotationLimitAngle"].children[0].value.value.asFloat;
+                catalog.RotationLimitAngle.Y = catalogArray[i]["RotationLimitAngle"].children[1].value.value.asFloat;
+
+                catalog.StatusScale = catalogArray[i]["StatusScale"].value.value.asFloat;
+                catalog.StatusModelMotion = catalogArray[i]["StatusModelMotion"].GetValue().AsString();
+
+                catalog.StatusModelOffset = new();
+                catalog.StatusModelOffset.X = catalogArray[i]["StatusModelOffset"].children[0].value.value.asFloat;
+                catalog.StatusModelOffset.Y = catalogArray[i]["StatusModelOffset"].children[1].value.value.asFloat;
+                catalog.StatusModelOffset.Z = catalogArray[i]["StatusModelOffset"].children[2].value.value.asFloat;
+
+                catalog.StatusModelRotationAngle = new();
+                catalog.StatusModelRotationAngle.X = catalogArray[i]["StatusModelRotationAngle"].children[0].value.value.asFloat;
+                catalog.StatusModelRotationAngle.Y = catalogArray[i]["StatusModelRotationAngle"].children[1].value.value.asFloat;
+                catalog.StatusModelRotationAngle.Z = catalogArray[i]["StatusModelRotationAngle"].children[2].value.value.asFloat;
+
+                catalog.BoxScale = catalogArray[i]["BoxScale"].value.value.asFloat;
+                catalog.BoxModelMotion = catalogArray[i]["BoxModelMotion"].GetValue().AsString();
+
+                catalog.BoxModelOffset = new();
+                catalog.BoxModelOffset.X = catalogArray[i]["BoxModelOffset"].children[0].value.value.asFloat;
+                catalog.BoxModelOffset.Y = catalogArray[i]["BoxModelOffset"].children[1].value.value.asFloat;
+                catalog.BoxModelOffset.Z = catalogArray[i]["BoxModelOffset"].children[2].value.value.asFloat;
+
+                catalog.BoxModelRotationAngle = new();
+                catalog.BoxModelRotationAngle.X = catalogArray[i]["BoxModelRotationAngle"].children[0].value.value.asFloat;
+                catalog.BoxModelRotationAngle.Y = catalogArray[i]["BoxModelRotationAngle"].children[1].value.value.asFloat;
+                catalog.BoxModelRotationAngle.Z = catalogArray[i]["BoxModelRotationAngle"].children[2].value.value.asFloat;
+
+                catalog.CompareScale = catalogArray[i]["CompareScale"].value.value.asFloat;
+                catalog.CompareModelMotion = catalogArray[i]["CompareModelMotion"].GetValue().AsString();
+
+                catalog.CompareModelOffset = new();
+                catalog.CompareModelOffset.X = catalogArray[i]["CompareModelOffset"].children[0].value.value.asFloat;
+                catalog.CompareModelOffset.Y = catalogArray[i]["CompareModelOffset"].children[1].value.value.asFloat;
+                catalog.CompareModelOffset.Z = catalogArray[i]["CompareModelOffset"].children[2].value.value.asFloat;
+
+                catalog.CompareModelRotationAngle = new();
+                catalog.CompareModelRotationAngle.X = catalogArray[i]["CompareModelRotationAngle"].children[0].value.value.asFloat;
+                catalog.CompareModelRotationAngle.Y = catalogArray[i]["CompareModelRotationAngle"].children[1].value.value.asFloat;
+                catalog.CompareModelRotationAngle.Z = catalogArray[i]["CompareModelRotationAngle"].children[2].value.value.asFloat;
+
+                catalog.BrakeStart = catalogArray[i]["BrakeStart"].value.value.asFloat;
+                catalog.BrakeEnd = catalogArray[i]["BrakeEnd"].value.value.asFloat;
+                catalog.WalkSpeed = catalogArray[i]["WalkSpeed"].value.value.asFloat;
+                catalog.RunSpeed = catalogArray[i]["RunSpeed"].value.value.asFloat;
+                catalog.WalkStart = catalogArray[i]["WalkStart"].value.value.asFloat;
+                catalog.RunStart = catalogArray[i]["RunStart"].value.value.asFloat;
+                catalog.BodySize = catalogArray[i]["BodySize"].value.value.asFloat;
+                catalog.AppearLimit = catalogArray[i]["AppearLimit"].value.value.asFloat;
+                catalog.MoveType = (Masterdatas.MoveType) catalogArray[i]["MoveType"].value.value.asInt32;
+
+                catalog.GroundEffect = catalogArray[i]["GroundEffect"].value.value.asUInt8 == 0;
+                catalog.Waitmoving = catalogArray[i]["Waitmoving"].value.value.asUInt8 == 0;
+                catalog.BattleAjustHeight = catalogArray[i]["BattleAjustHeight"].value.value.asInt32;
+
+                gameData.pokemonInfos.Add(catalog);
+            }
+        }
+        private static void ParseBattleMasterDatas()
+        {
+            gameData.motionTimingData = new();
+            AssetTypeValueField battleDataTable = fileManager.GetMonoBehaviours(PathEnum.BattleMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "BattleDataTable");
+            AssetTypeValueField[] motionTimingDataArray = battleDataTable["MotionTimingData"].children[0].children;
+
+            for (int i = 0; i < motionTimingDataArray.Length; i++)
+            {
+                BattleMasterdatas.MotionTimingData motionTimingData = new();
+                motionTimingData.MonsNo = motionTimingDataArray[i]["MonsNo"].value.value.asInt32;
+                motionTimingData.FormNo = motionTimingDataArray[i]["FormNo"].value.value.asInt32;
+                motionTimingData.Sex = motionTimingDataArray[i]["Sex"].value.value.asInt32;
+                motionTimingData.Buturi01 = motionTimingDataArray[i]["Buturi01"].value.value.asInt32;
+                motionTimingData.Buturi02 = motionTimingDataArray[i]["Buturi02"].value.value.asInt32;
+                motionTimingData.Buturi03 = motionTimingDataArray[i]["Buturi03"].value.value.asInt32;
+                motionTimingData.Tokusyu01 = motionTimingDataArray[i]["Tokusyu01"].value.value.asInt32;
+                motionTimingData.Tokusyu02 = motionTimingDataArray[i]["Tokusyu02"].value.value.asInt32;
+                motionTimingData.Tokusyu03 = motionTimingDataArray[i]["Tokusyu03"].value.value.asInt32;
+                motionTimingData.BodyBlow = motionTimingDataArray[i]["BodyBlow"].value.value.asInt32;
+                motionTimingData.Punch = motionTimingDataArray[i]["Punch"].value.value.asInt32;
+                motionTimingData.Kick = motionTimingDataArray[i]["Kick"].value.value.asInt32;
+                motionTimingData.Tail = motionTimingDataArray[i]["Tail"].value.value.asInt32;
+                motionTimingData.Bite = motionTimingDataArray[i]["Bite"].value.value.asInt32;
+                motionTimingData.Peck = motionTimingDataArray[i]["Peck"].value.value.asInt32;
+                motionTimingData.Radial = motionTimingDataArray[i]["Radial"].value.value.asInt32;
+                motionTimingData.Cry = motionTimingDataArray[i]["Cry"].value.value.asInt32;
+                motionTimingData.Dust = motionTimingDataArray[i]["Dust"].value.value.asInt32;
+                motionTimingData.Shot = motionTimingDataArray[i]["Shot"].value.value.asInt32;
+                motionTimingData.Guard = motionTimingDataArray[i]["Guard"].value.value.asInt32;
+                motionTimingData.LandingFall = motionTimingDataArray[i]["LandingFall"].value.value.asInt32;
+                motionTimingData.LandingFallEase = motionTimingDataArray[i]["LandingFallEase"].value.value.asInt32;
+
+                gameData.motionTimingData.Add(motionTimingData);
+            }
+        }
 
         /// <summary>
         ///  Overwrites GlobalData with parsed Moves.
@@ -851,7 +1147,7 @@ namespace ImpostersOrdeal
                     MainForm.ShowParserError("Oh my, this dump might be a bit outdated...\n" +
                         "Please input at least the v1.1.3 version of BDSP.\n" +
                         "I don't feel so good...");
-                    throw e;
+                    throw;
                 }
 
                 gameData.shopTables.bpShopItems.Add(bpShopItem);
@@ -1017,6 +1313,37 @@ namespace ImpostersOrdeal
                     labelData.fontSize = labelDataFields[labelDataIdx].children[3].children[2].value.value.asInt32;
                     labelData.maxWidth = labelDataFields[labelDataIdx].children[3].children[3].value.value.asInt32;
                     labelData.controlID = labelDataFields[labelDataIdx].children[3].children[4].value.value.asInt32;
+
+                    // Parse Attribute Array
+                    AssetTypeValueField[] attrArray = labelDataFields[labelDataIdx].children[4].children[0].children;
+                    labelData.attributeValues = new();
+                    for (int attrIdx = 0; attrIdx < attrArray.Length; attrIdx++)
+                    {
+                        labelData.attributeValues.Add(attrArray[attrIdx].value.value.asInt32);
+                    }
+
+                    // Parse TagData
+                    AssetTypeValueField[] tagDataFields = labelDataFields[labelDataIdx].children[5].children[0].children;
+                    labelData.tagDatas = new();
+                    for (int tagDataIdx = 0; tagDataIdx < tagDataFields.Length; tagDataIdx++)
+                    {
+                        TagData tagData = new();
+                        tagData.tagIndex = tagDataFields[tagDataIdx].children[0].value.value.asInt32;
+                        tagData.groupID = tagDataFields[tagDataIdx].children[1].value.value.asInt32;
+                        tagData.tagID = tagDataFields[tagDataIdx].children[2].value.value.asInt32;
+                        tagData.tagPatternID = tagDataFields[tagDataIdx].children[3].value.value.asInt32;
+                        tagData.forceArticle = tagDataFields[tagDataIdx].children[4].value.value.asInt32;
+                        tagData.tagParameter = tagDataFields[tagDataIdx].children[5].value.value.asInt32;
+                        tagData.tagWordArray = new();
+                        foreach (AssetTypeValueField tagWordField in tagDataFields[tagDataIdx].children[6][0].children)
+                        {
+                            tagData.tagWordArray.Add(tagWordField.GetValue().AsString());
+                        }
+
+                        tagData.forceGrmID = tagDataFields[tagDataIdx].children[7].value.value.asInt32;
+
+                        labelData.tagDatas.Add(tagData);
+                    }
 
                     //Parse WordData
                     labelData.wordDatas = new();
@@ -1638,6 +1965,14 @@ namespace ImpostersOrdeal
                 CommitAudio();
             if (gameData.IsModified(GameDataSet.DataField.GlobalMetadata))
                 CommitGlobalMetadata();
+            if (gameData.IsModified(GameDataSet.DataField.UIMasterdatas))
+                CommitUIMasterdatas();
+            if (gameData.IsModified(GameDataSet.DataField.AddPersonalTable))
+                CommitAddPersonalTable();
+            if (gameData.IsModified(GameDataSet.DataField.MotionTimingData))
+                CommitMotionTimingData();
+            if (gameData.IsModified(GameDataSet.DataField.PokemonInfo))
+                CommitPokemonInfo();
         }
 
         private static void CommitGlobalMetadata()
@@ -1781,6 +2116,297 @@ namespace ImpostersOrdeal
 
             fileManager.WriteMonoBehaviour(PathEnum.PersonalMasterdatas, monoBehaviour);
         }
+        private static void CommitPokemonInfo()
+        {
+
+            List<AssetTypeValueField> monoBehaviours = fileManager.GetMonoBehaviours(PathEnum.DprMasterdatas);
+            AssetTypeValueField PokemonInfo = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "PokemonInfo");
+
+            AssetTypeValueField[] PokemonInfoCatalog = PokemonInfo["Catalog"].children[0].children;
+            AssetTypeTemplateField templateField = new();
+
+            AssetTypeValueField catalogRef = PokemonInfoCatalog[0];
+            List<AssetTypeValueField> newCatalogs = new();
+            foreach (Masterdatas.PokemonInfoCatalog pokemonInfoCatalog in gameData.pokemonInfos)
+            {
+                AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(catalogRef.GetTemplateField());
+
+                baseField["UniqueID"].GetValue().Set(pokemonInfoCatalog.UniqueID);
+                baseField["No"].GetValue().Set(pokemonInfoCatalog.No);
+                baseField["SinnohNo"].GetValue().Set(pokemonInfoCatalog.SinnohNo);
+                baseField["MonsNo"].GetValue().Set(pokemonInfoCatalog.MonsNo);
+                baseField["FormNo"].GetValue().Set(pokemonInfoCatalog.FormNo);
+                baseField["Sex"].GetValue().Set(pokemonInfoCatalog.Sex);
+                baseField["Rare"].GetValue().Set(pokemonInfoCatalog.Rare);
+                baseField["AssetBundleName"].GetValue().Set(pokemonInfoCatalog.AssetBundleName);
+                baseField["BattleScale"].GetValue().Set(pokemonInfoCatalog.BattleScale);
+                baseField["ContestScale"].GetValue().Set(pokemonInfoCatalog.ContestScale);
+                baseField["ContestSize"].GetValue().Set(pokemonInfoCatalog.ContestSize);
+                baseField["FieldScale"].GetValue().Set(pokemonInfoCatalog.FieldScale);
+                baseField["FieldChikaScale"].GetValue().Set(pokemonInfoCatalog.FieldChikaScale);
+                baseField["StatueScale"].GetValue().Set(pokemonInfoCatalog.StatueScale);
+                baseField["FieldWalkingScale"].GetValue().Set(pokemonInfoCatalog.FieldWalkingScale);
+                baseField["FieldFureaiScale"].GetValue().Set(pokemonInfoCatalog.FieldFureaiScale);
+                baseField["MenuScale"].GetValue().Set(pokemonInfoCatalog.MenuScale);
+                baseField["ModelMotion"].GetValue().Set(pokemonInfoCatalog.ModelMotion);
+                baseField["ModelOffset"].children[0].GetValue().Set(pokemonInfoCatalog.ModelOffset.X);
+                baseField["ModelOffset"].children[1].GetValue().Set(pokemonInfoCatalog.ModelOffset.Y);
+                baseField["ModelOffset"].children[2].GetValue().Set(pokemonInfoCatalog.ModelOffset.Z);
+                baseField["ModelRotationAngle"].children[0].GetValue().Set(pokemonInfoCatalog.ModelRotationAngle.X);
+                baseField["ModelRotationAngle"].children[1].GetValue().Set(pokemonInfoCatalog.ModelRotationAngle.Y);
+                baseField["ModelRotationAngle"].children[2].GetValue().Set(pokemonInfoCatalog.ModelRotationAngle.Z);
+                baseField["DistributionScale"].GetValue().Set(pokemonInfoCatalog.DistributionScale);
+                baseField["DistributionModelMotion"].GetValue().Set(pokemonInfoCatalog.DistributionModelMotion);
+                baseField["DistributionModelOffset"].children[0].GetValue().Set(pokemonInfoCatalog.DistributionModelOffset.X);
+                baseField["DistributionModelOffset"].children[1].GetValue().Set(pokemonInfoCatalog.DistributionModelOffset.Y);
+                baseField["DistributionModelOffset"].children[2].GetValue().Set(pokemonInfoCatalog.DistributionModelOffset.Z);
+                baseField["DistributionModelRotationAngle"].children[0].GetValue().Set(pokemonInfoCatalog.DistributionModelRotationAngle.X);
+                baseField["DistributionModelRotationAngle"].children[1].GetValue().Set(pokemonInfoCatalog.DistributionModelRotationAngle.Y);
+                baseField["DistributionModelRotationAngle"].children[2].GetValue().Set(pokemonInfoCatalog.DistributionModelRotationAngle.Z);
+                baseField["VoiceScale"].GetValue().Set(pokemonInfoCatalog.VoiceScale);
+                baseField["VoiceModelMotion"].GetValue().Set(pokemonInfoCatalog.VoiceModelMotion);
+                baseField["VoiceModelOffset"].children[0].GetValue().Set(pokemonInfoCatalog.VoiceModelOffset.X);
+                baseField["VoiceModelOffset"].children[1].GetValue().Set(pokemonInfoCatalog.VoiceModelOffset.Y);
+                baseField["VoiceModelOffset"].children[2].GetValue().Set(pokemonInfoCatalog.VoiceModelOffset.Z);
+                baseField["VoiceModelRotationAngle"].children[0].GetValue().Set(pokemonInfoCatalog.VoiceModelRotationAngle.X);
+                baseField["VoiceModelRotationAngle"].children[1].GetValue().Set(pokemonInfoCatalog.VoiceModelRotationAngle.Y);
+                baseField["VoiceModelRotationAngle"].children[2].GetValue().Set(pokemonInfoCatalog.VoiceModelRotationAngle.Z);
+                baseField["CenterPointOffset"].children[0].GetValue().Set(pokemonInfoCatalog.CenterPointOffset.X);
+                baseField["CenterPointOffset"].children[1].GetValue().Set(pokemonInfoCatalog.CenterPointOffset.Y);
+                baseField["CenterPointOffset"].children[2].GetValue().Set(pokemonInfoCatalog.CenterPointOffset.Z);
+                baseField["RotationLimitAngle"].children[0].GetValue().Set(pokemonInfoCatalog.RotationLimitAngle.X);
+                baseField["RotationLimitAngle"].children[1].GetValue().Set(pokemonInfoCatalog.RotationLimitAngle.Y);
+                baseField["StatusScale"].GetValue().Set(pokemonInfoCatalog.StatusScale);
+                baseField["StatusModelMotion"].GetValue().Set(pokemonInfoCatalog.StatusModelMotion);
+                baseField["StatusModelOffset"].children[0].GetValue().Set(pokemonInfoCatalog.StatusModelOffset.X);
+                baseField["StatusModelOffset"].children[1].GetValue().Set(pokemonInfoCatalog.StatusModelOffset.Y);
+                baseField["StatusModelOffset"].children[2].GetValue().Set(pokemonInfoCatalog.StatusModelOffset.Z);
+                baseField["StatusModelRotationAngle"].children[0].GetValue().Set(pokemonInfoCatalog.StatusModelRotationAngle.X);
+                baseField["StatusModelRotationAngle"].children[1].GetValue().Set(pokemonInfoCatalog.StatusModelRotationAngle.Y);
+                baseField["StatusModelRotationAngle"].children[2].GetValue().Set(pokemonInfoCatalog.StatusModelRotationAngle.Z);
+                baseField["BoxScale"].GetValue().Set(pokemonInfoCatalog.BoxScale);
+                baseField["BoxModelMotion"].GetValue().Set(pokemonInfoCatalog.BoxModelMotion);
+                baseField["BoxModelOffset"].children[0].GetValue().Set(pokemonInfoCatalog.BoxModelOffset.X);
+                baseField["BoxModelOffset"].children[1].GetValue().Set(pokemonInfoCatalog.BoxModelOffset.Y);
+                baseField["BoxModelOffset"].children[2].GetValue().Set(pokemonInfoCatalog.BoxModelOffset.Z);
+                baseField["BoxModelRotationAngle"].children[0].GetValue().Set(pokemonInfoCatalog.BoxModelRotationAngle.X);
+                baseField["BoxModelRotationAngle"].children[1].GetValue().Set(pokemonInfoCatalog.BoxModelRotationAngle.Y);
+                baseField["BoxModelRotationAngle"].children[2].GetValue().Set(pokemonInfoCatalog.BoxModelRotationAngle.Z);
+                baseField["CompareScale"].GetValue().Set(pokemonInfoCatalog.CompareScale);
+                baseField["CompareModelMotion"].GetValue().Set(pokemonInfoCatalog.CompareModelMotion);
+                baseField["CompareModelOffset"].children[0].GetValue().Set(pokemonInfoCatalog.CompareModelOffset.X);
+                baseField["CompareModelOffset"].children[1].GetValue().Set(pokemonInfoCatalog.CompareModelOffset.Y);
+                baseField["CompareModelOffset"].children[2].GetValue().Set(pokemonInfoCatalog.CompareModelOffset.Z);
+                baseField["CompareModelRotationAngle"].children[0].GetValue().Set(pokemonInfoCatalog.CompareModelRotationAngle.X);
+                baseField["CompareModelRotationAngle"].children[1].GetValue().Set(pokemonInfoCatalog.CompareModelRotationAngle.Y);
+                baseField["CompareModelRotationAngle"].children[2].GetValue().Set(pokemonInfoCatalog.CompareModelRotationAngle.Z);
+                baseField["BrakeStart"].GetValue().Set(pokemonInfoCatalog.BrakeStart);
+                baseField["BrakeEnd"].GetValue().Set(pokemonInfoCatalog.BrakeEnd);
+                baseField["WalkSpeed"].GetValue().Set(pokemonInfoCatalog.WalkSpeed);
+                baseField["RunSpeed"].GetValue().Set(pokemonInfoCatalog.RunSpeed);
+                baseField["WalkStart"].GetValue().Set(pokemonInfoCatalog.WalkStart);
+                baseField["RunStart"].GetValue().Set(pokemonInfoCatalog.RunStart);
+                baseField["BodySize"].GetValue().Set(pokemonInfoCatalog.BodySize);
+                baseField["AppearLimit"].GetValue().Set(pokemonInfoCatalog.AppearLimit);
+                baseField["MoveType"].GetValue().Set(pokemonInfoCatalog.MoveType);
+                baseField["GroundEffect"].GetValue().Set(pokemonInfoCatalog.GroundEffect);
+                baseField["Waitmoving"].GetValue().Set(pokemonInfoCatalog.Waitmoving);
+                baseField["BattleAjustHeight"].GetValue().Set(pokemonInfoCatalog.BattleAjustHeight);
+                newCatalogs.Add(baseField);
+            }
+
+            PokemonInfo["Catalog"].children[0].SetChildrenList(newCatalogs.ToArray());
+
+            fileManager.WriteMonoBehaviour(PathEnum.DprMasterdatas, PokemonInfo);
+        }
+
+        private static void CommitMotionTimingData()
+        {
+
+            List<AssetTypeValueField> monoBehaviours = fileManager.GetMonoBehaviours(PathEnum.BattleMasterdatas);
+            AssetTypeValueField BattleDataTable = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "BattleDataTable");
+
+            AssetTypeValueField[] MotionTimingData = BattleDataTable["MotionTimingData"].children[0].children;
+            AssetTypeTemplateField templateField = new();
+
+            AssetTypeValueField motionTimingDataRef = MotionTimingData[0];
+            List<AssetTypeValueField> newMotionTimingData = new();
+            foreach (BattleMasterdatas.MotionTimingData motionTimingData in gameData.motionTimingData)
+            {
+                AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(motionTimingDataRef.GetTemplateField());
+                baseField["MonsNo"].GetValue().Set(motionTimingData.MonsNo);
+                baseField["FormNo"].GetValue().Set(motionTimingData.FormNo);
+                baseField["Sex"].GetValue().Set(motionTimingData.Sex);
+                baseField["Buturi01"].GetValue().Set(motionTimingData.Buturi01);
+                baseField["Buturi02"].GetValue().Set(motionTimingData.Buturi02);
+                baseField["Buturi03"].GetValue().Set(motionTimingData.Buturi03);
+                baseField["Tokusyu01"].GetValue().Set(motionTimingData.Tokusyu01);
+                baseField["Tokusyu02"].GetValue().Set(motionTimingData.Tokusyu02);
+                baseField["Tokusyu03"].GetValue().Set(motionTimingData.Tokusyu03);
+                baseField["BodyBlow"].GetValue().Set(motionTimingData.BodyBlow);
+                baseField["Punch"].GetValue().Set(motionTimingData.Punch);
+                baseField["Kick"].GetValue().Set(motionTimingData.Kick);
+                baseField["Tail"].GetValue().Set(motionTimingData.Tail);
+                baseField["Bite"].GetValue().Set(motionTimingData.Bite);
+                baseField["Peck"].GetValue().Set(motionTimingData.Peck);
+                baseField["Radial"].GetValue().Set(motionTimingData.Radial);
+                baseField["Cry"].GetValue().Set(motionTimingData.Cry);
+                baseField["Dust"].GetValue().Set(motionTimingData.Dust);
+                baseField["Shot"].GetValue().Set(motionTimingData.Shot);
+                baseField["Guard"].GetValue().Set(motionTimingData.Guard);
+                baseField["LandingFall"].GetValue().Set(motionTimingData.LandingFall);
+                baseField["LandingFallEase"].GetValue().Set(motionTimingData.LandingFallEase);
+                newMotionTimingData.Add(baseField);
+            }
+
+            BattleDataTable["MotionTimingData"].children[0].SetChildrenList(newMotionTimingData.ToArray());
+
+            fileManager.WriteMonoBehaviour(PathEnum.BattleMasterdatas, BattleDataTable);
+        }
+        private static void CommitAddPersonalTable()
+        {
+            List<AssetTypeValueField> monoBehaviours = fileManager.GetMonoBehaviours(PathEnum.PersonalMasterdatas);
+            AssetTypeValueField AddPersonalTable = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "AddPersonalTable");
+
+            AssetTypeValueField[] addPersonals = AddPersonalTable["AddPersonal"].children[0].children;
+            AssetTypeTemplateField templateField = new();
+
+            AssetTypeValueField addPersonalRef = addPersonals[0];
+
+            List<AssetTypeValueField> newAddPersonals = new();
+            foreach (PersonalMasterdatas.AddPersonalTable addPersonal in gameData.addPersonalTables)
+            {
+                AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(addPersonalRef.GetTemplateField());
+                baseField["valid_flag"].GetValue().Set(addPersonal.valid_flag);
+                baseField["monsno"].GetValue().Set(addPersonal.monsno);
+                baseField["formno"].GetValue().Set(addPersonal.formno);
+                baseField["isEnableSynchronize"].GetValue().Set(addPersonal.isEnableSynchronize);
+                baseField["escape"].GetValue().Set(addPersonal.escape);
+                baseField["isDisableReverce"].GetValue().Set(addPersonal.isDisableReverce);
+                newAddPersonals.Add(baseField);
+            }
+
+            AddPersonalTable["AddPersonal"].children[0].SetChildrenList(newAddPersonals.ToArray());
+
+            fileManager.WriteMonoBehaviour(PathEnum.PersonalMasterdatas, AddPersonalTable);
+        }
+
+        private static void CommitUIMasterdatas()
+        {
+            // TODO: Get rid of new data sets for UIMasterdatas and have it just build the entire array instead.
+            List <AssetTypeValueField> monoBehaviours = fileManager.GetMonoBehaviours(PathEnum.UIMasterdatas);
+
+            AssetTypeValueField uiDatabase = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "UIDatabase");
+            monoBehaviours = new();
+            monoBehaviours.Add(uiDatabase);
+
+            // Pokemon Icon
+            AssetTypeValueField[] pokemonIcons = uiDatabase["PokemonIcon"].children[0].children;
+            AssetTypeTemplateField templateField = new();
+
+            AssetTypeValueField pokemonIconRef = pokemonIcons[0];
+            List<AssetTypeValueField> newPokemonIcons = new();
+            foreach (UIMasterdatas.PokemonIcon pokemonIcon in gameData.newUIPokemonIcon.Values)
+            {
+                AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(pokemonIconRef.GetTemplateField());
+                baseField["UniqueID"].GetValue().Set(pokemonIcon.UniqueID);
+                baseField["AssetBundleName"].GetValue().Set(pokemonIcon.AssetBundleName);
+                baseField["AssetName"].GetValue().Set(pokemonIcon.AssetName);
+                baseField["AssetBundleNameLarge"].GetValue().Set(pokemonIcon.AssetBundleNameLarge);
+                baseField["AssetNameLarge"].GetValue().Set(pokemonIcon.AssetNameLarge);
+                baseField["AssetBundleNameDP"].GetValue().Set(pokemonIcon.AssetBundleNameDP);
+                baseField["AssetNameDP"].GetValue().Set(pokemonIcon.AssetNameDP);
+                baseField["HallofFameOffset"].children[0].GetValue().Set(pokemonIcon.HallofFameOffset.X);
+                baseField["HallofFameOffset"].children[1].GetValue().Set(pokemonIcon.HallofFameOffset.Y);
+                newPokemonIcons.Add(baseField);
+            }
+            uiDatabase["PokemonIcon"].children[0].SetChildrenList(pokemonIcons.Concat(newPokemonIcons).ToArray());
+
+            // Ashiato Icon
+            AssetTypeValueField[] ashiatoIcons = uiDatabase["AshiatoIcon"].children[0].children;
+            templateField = new();
+
+            AssetTypeValueField ashiatoIconRef = ashiatoIcons[0];
+            List<AssetTypeValueField> newAshiatoIcons = new();
+            foreach (UIMasterdatas.AshiatoIcon ashiatoIcon in gameData.newUIAshiatoIcon.Values)
+            {
+                AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(ashiatoIconRef.GetTemplateField());
+                baseField["UniqueID"].GetValue().Set(ashiatoIcon.UniqueID);
+                baseField["SideIconAssetName"].GetValue().Set(ashiatoIcon.SideIconAssetName);
+                baseField["BothIconAssetName"].GetValue().Set(ashiatoIcon.BothIconAssetName);
+                newAshiatoIcons.Add(baseField);
+            }
+            uiDatabase["AshiatoIcon"].children[0].SetChildrenList(ashiatoIcons.Concat(newAshiatoIcons).ToArray());
+
+
+            // Pokemon Voice
+            AssetTypeValueField[] pokemonVoices = uiDatabase["PokemonVoice"].children[0].children;
+            templateField = new();
+
+            AssetTypeValueField pokemonVoiceRef = pokemonVoices[0];
+            List<AssetTypeValueField> newPokemonVoices = new();
+            foreach (UIMasterdatas.PokemonVoice pokemonVoice in gameData.newUIPokemonVoice.Values)
+            {
+                AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(pokemonVoiceRef.GetTemplateField());
+                baseField["UniqueID"].GetValue().Set(pokemonVoice.UniqueID);
+                baseField["WwiseEvent"].GetValue().Set(pokemonVoice.WwiseEvent);
+                baseField["stopEventId"].GetValue().Set(pokemonVoice.stopEventId);
+                baseField["CenterPointOffset"].children[0].GetValue().Set(pokemonVoice.CenterPointOffset.X);
+                baseField["CenterPointOffset"].children[1].GetValue().Set(pokemonVoice.CenterPointOffset.Y);
+                baseField["CenterPointOffset"].children[2].GetValue().Set(pokemonVoice.CenterPointOffset.Z);
+                baseField["RotationLimits"].GetValue().Set(pokemonVoice.RotationLimits);
+                baseField["RotationLimitAngle"].children[0].GetValue().Set(pokemonVoice.RotationLimitAngle.X);
+                baseField["RotationLimitAngle"].children[1].GetValue().Set(pokemonVoice.RotationLimitAngle.Y);
+                newPokemonVoices.Add(baseField);
+            }
+            uiDatabase["PokemonVoice"].children[0].SetChildrenList(pokemonVoices.Concat(newPokemonVoices).ToArray());
+
+
+            // ZukanDisplay
+            AssetTypeValueField[] zukanDisplays = uiDatabase["ZukanDisplay"].children[0].children;
+            templateField = new();
+
+            AssetTypeValueField zukanDisplayRef = zukanDisplays[0];
+            List<AssetTypeValueField> newZukanDisplays = new();
+            foreach (UIMasterdatas.ZukanDisplay zukanDisplay in gameData.newUIZukanDisplay.Values)
+            {
+                AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(zukanDisplayRef.GetTemplateField());
+                baseField["UniqueID"].GetValue().Set(zukanDisplay.UniqueID);
+                baseField["MoveLimit"].children[0].GetValue().Set(zukanDisplay.MoveLimit.X);
+                baseField["MoveLimit"].children[1].GetValue().Set(zukanDisplay.MoveLimit.Y);
+                baseField["MoveLimit"].children[2].GetValue().Set(zukanDisplay.MoveLimit.Z);
+                baseField["ModelOffset"].children[0].GetValue().Set(zukanDisplay.ModelOffset.X);
+                baseField["ModelOffset"].children[1].GetValue().Set(zukanDisplay.ModelOffset.Y);
+                baseField["ModelOffset"].children[2].GetValue().Set(zukanDisplay.ModelOffset.Z);
+                baseField["ModelRotationAngle"].children[0].GetValue().Set(zukanDisplay.ModelRotationAngle.X);
+                baseField["ModelRotationAngle"].children[1].GetValue().Set(zukanDisplay.ModelRotationAngle.Y);
+                newZukanDisplays.Add(baseField);
+            }
+            uiDatabase["ZukanDisplay"].children[0].SetChildrenList(zukanDisplays.Concat(newZukanDisplays).ToArray());
+
+
+            // ZukanCompareHeight
+            AssetTypeValueField[] zukanCompareHeights = uiDatabase["ZukanCompareHeight"].children[0].children;
+            templateField = new();
+
+            AssetTypeValueField zukanCompareHeightRef = zukanCompareHeights[0];
+            List<AssetTypeValueField> newZukanCompareHeights = new();
+            foreach (UIMasterdatas.ZukanCompareHeight zukanCompareHeight in gameData.newUIZukanCompareHeights.Values)
+            {
+                AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(zukanCompareHeightRef.GetTemplateField());
+                baseField["UniqueID"].GetValue().Set(zukanCompareHeight.UniqueID);
+                baseField["PlayerScaleFactor"].GetValue().Set(zukanCompareHeight.PlayerScaleFactor);
+                baseField["PlayerOffset"].children[0].GetValue().Set(zukanCompareHeight.PlayerOffset.X);
+                baseField["PlayerOffset"].children[1].GetValue().Set(zukanCompareHeight.PlayerOffset.Y);
+                baseField["PlayerOffset"].children[2].GetValue().Set(zukanCompareHeight.PlayerOffset.Z);
+                baseField["PlayerRotationAngle"].children[0].GetValue().Set(zukanCompareHeight.PlayerRotationAngle.X);
+                baseField["PlayerRotationAngle"].children[1].GetValue().Set(zukanCompareHeight.PlayerRotationAngle.Y);
+                newZukanCompareHeights.Add(baseField);
+            }
+            uiDatabase["ZukanCompareHeight"].children[0].SetChildrenList(zukanCompareHeights.Concat(newZukanCompareHeights).ToArray());
+
+            fileManager.WriteMonoBehaviours(PathEnum.UIMasterdatas, monoBehaviours.ToArray());
+        }
 
         /// <summary>
         ///  Updates loaded bundle with Pokemon.
@@ -1788,7 +2414,6 @@ namespace ImpostersOrdeal
         private static void CommitPokemon()
         {
             List<AssetTypeValueField> monoBehaviours = fileManager.GetMonoBehaviours(PathEnum.PersonalMasterdatas);
-            AssetTypeValueField textData = fileManager.GetMonoBehaviours(PathEnum.CommonMsbt).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_ss_monsname");
 
             AssetTypeValueField wazaOboeTable = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "WazaOboeTable");
             AssetTypeValueField tamagoWazaTable = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "TamagoWazaTable");
@@ -1804,121 +2429,131 @@ namespace ImpostersOrdeal
             AssetTypeValueField[] eggMoveFields = tamagoWazaTable.children[4].children[0].children;
             AssetTypeValueField[] evolveFields = evolveTable.children[4].children[0].children;
             AssetTypeValueField[] personalFields = personalTable.children[4].children[0].children;
-            AssetTypeValueField[] textFields = textData.children[8].children[0].children;
 
-            AssetTypeTemplateField levelUpMoveEntryTemplate = null;
-            AssetTypeTemplateField eggMoveEntryTemplate = null;
-            AssetTypeTemplateField evolveEntryTemplate = null;
+            List<AssetTypeValueField> newLevelUpMoveFields = new();
+            List<AssetTypeValueField> newEggMoveFields = new();
+            List<AssetTypeValueField> newEvolveFields = new();
+            List<AssetTypeValueField> newPersonalFields = new();
 
-            for (int personalID = 1; personalID < personalFields.Length; personalID++)
+            AssetTypeValueField personalFieldRef = personalFields[0];
+            for (int personalID = 1; personalID < gameData.personalEntries.Count; personalID++)
             {
+                AssetTypeValueField personalField = ValueBuilder.DefaultValueFieldFromTemplate(personalFieldRef.GetTemplateField());
                 Pokemon pokemon = gameData.personalEntries[personalID];
-                personalFields[personalID].children[0].GetValue().Set(pokemon.validFlag);
-                personalFields[personalID].children[1].GetValue().Set(pokemon.personalID);
-                personalFields[personalID].children[2].GetValue().Set(pokemon.dexID);
-                personalFields[personalID].children[3].GetValue().Set(pokemon.formIndex);
-                personalFields[personalID].children[4].GetValue().Set(pokemon.formMax);
-                personalFields[personalID].children[5].GetValue().Set(pokemon.color);
-                personalFields[personalID].children[6].GetValue().Set(pokemon.graNo);
-                personalFields[personalID].children[7].GetValue().Set(pokemon.basicHp);
-                personalFields[personalID].children[8].GetValue().Set(pokemon.basicAtk);
-                personalFields[personalID].children[9].GetValue().Set(pokemon.basicDef);
-                personalFields[personalID].children[10].GetValue().Set(pokemon.basicSpd);
-                personalFields[personalID].children[11].GetValue().Set(pokemon.basicSpAtk);
-                personalFields[personalID].children[12].GetValue().Set(pokemon.basicSpDef);
-                personalFields[personalID].children[13].GetValue().Set(pokemon.typingID1);
-                personalFields[personalID].children[14].GetValue().Set(pokemon.typingID2);
-                personalFields[personalID].children[15].GetValue().Set(pokemon.getRate);
-                personalFields[personalID].children[16].GetValue().Set(pokemon.rank);
-                personalFields[personalID].children[17].GetValue().Set(pokemon.expValue);
-                personalFields[personalID].children[18].GetValue().Set(pokemon.item1);
-                personalFields[personalID].children[19].GetValue().Set(pokemon.item2);
-                personalFields[personalID].children[20].GetValue().Set(pokemon.item3);
-                personalFields[personalID].children[21].GetValue().Set(pokemon.sex);
-                personalFields[personalID].children[22].GetValue().Set(pokemon.eggBirth);
-                personalFields[personalID].children[23].GetValue().Set(pokemon.initialFriendship);
-                personalFields[personalID].children[24].GetValue().Set(pokemon.eggGroup1);
-                personalFields[personalID].children[25].GetValue().Set(pokemon.eggGroup2);
-                personalFields[personalID].children[26].GetValue().Set(pokemon.grow);
-                personalFields[personalID].children[27].GetValue().Set(pokemon.abilityID1);
-                personalFields[personalID].children[28].GetValue().Set(pokemon.abilityID2);
-                personalFields[personalID].children[29].GetValue().Set(pokemon.abilityID3);
-                personalFields[personalID].children[30].GetValue().Set(pokemon.giveExp);
-                personalFields[personalID].children[31].GetValue().Set(pokemon.height);
-                personalFields[personalID].children[32].GetValue().Set(pokemon.weight);
-                personalFields[personalID].children[33].GetValue().Set(pokemon.chihouZukanNo);
-                personalFields[personalID].children[34].GetValue().Set(pokemon.machine1);
-                personalFields[personalID].children[35].GetValue().Set(pokemon.machine2);
-                personalFields[personalID].children[36].GetValue().Set(pokemon.machine3);
-                personalFields[personalID].children[37].GetValue().Set(pokemon.machine4);
-                personalFields[personalID].children[38].GetValue().Set(pokemon.hiddenMachine);
-                personalFields[personalID].children[39].GetValue().Set(pokemon.eggMonsno);
-                personalFields[personalID].children[40].GetValue().Set(pokemon.eggFormno);
-                personalFields[personalID].children[41].GetValue().Set(pokemon.eggFormnoKawarazunoishi);
-                personalFields[personalID].children[42].GetValue().Set(pokemon.eggFormInheritKawarazunoishi);
+                personalField.children[0].GetValue().Set(pokemon.validFlag);
+                personalField.children[1].GetValue().Set(pokemon.personalID);
+                personalField.children[2].GetValue().Set(pokemon.dexID);
+                personalField.children[3].GetValue().Set(pokemon.formIndex);
+                personalField.children[4].GetValue().Set(pokemon.formMax);
+                personalField.children[5].GetValue().Set(pokemon.color);
+                personalField.children[6].GetValue().Set(pokemon.graNo);
+                personalField.children[7].GetValue().Set(pokemon.basicHp);
+                personalField.children[8].GetValue().Set(pokemon.basicAtk);
+                personalField.children[9].GetValue().Set(pokemon.basicDef);
+                personalField.children[10].GetValue().Set(pokemon.basicSpd);
+                personalField.children[11].GetValue().Set(pokemon.basicSpAtk);
+                personalField.children[12].GetValue().Set(pokemon.basicSpDef);
+                personalField.children[13].GetValue().Set(pokemon.typingID1);
+                personalField.children[14].GetValue().Set(pokemon.typingID2);
+                personalField.children[15].GetValue().Set(pokemon.getRate);
+                personalField.children[16].GetValue().Set(pokemon.rank);
+                personalField.children[17].GetValue().Set(pokemon.expValue);
+                personalField.children[18].GetValue().Set(pokemon.item1);
+                personalField.children[19].GetValue().Set(pokemon.item2);
+                personalField.children[20].GetValue().Set(pokemon.item3);
+                personalField.children[21].GetValue().Set(pokemon.sex);
+                personalField.children[22].GetValue().Set(pokemon.eggBirth);
+                personalField.children[23].GetValue().Set(pokemon.initialFriendship);
+                personalField.children[24].GetValue().Set(pokemon.eggGroup1);
+                personalField.children[25].GetValue().Set(pokemon.eggGroup2);
+                personalField.children[26].GetValue().Set(pokemon.grow);
+                personalField.children[27].GetValue().Set(pokemon.abilityID1);
+                personalField.children[28].GetValue().Set(pokemon.abilityID2);
+                personalField.children[29].GetValue().Set(pokemon.abilityID3);
+                personalField.children[30].GetValue().Set(pokemon.giveExp);
+                personalField.children[31].GetValue().Set(pokemon.height);
+                personalField.children[32].GetValue().Set(pokemon.weight);
+                personalField.children[33].GetValue().Set(pokemon.chihouZukanNo);
+                personalField.children[34].GetValue().Set(pokemon.machine1);
+                personalField.children[35].GetValue().Set(pokemon.machine2);
+                personalField.children[36].GetValue().Set(pokemon.machine3);
+                personalField.children[37].GetValue().Set(pokemon.machine4);
+                personalField.children[38].GetValue().Set(pokemon.hiddenMachine);
+                personalField.children[39].GetValue().Set(pokemon.eggMonsno);
+                personalField.children[40].GetValue().Set(pokemon.eggFormno);
+                personalField.children[41].GetValue().Set(pokemon.eggFormnoKawarazunoishi);
+                personalField.children[42].GetValue().Set(pokemon.eggFormInheritKawarazunoishi);
+                newPersonalFields.Add(personalField);
 
-                //Write level up moves
-                if (levelUpMoveFields[personalID].children[1].children[0].GetChildrenCount() > 0)
-                    levelUpMoveEntryTemplate = levelUpMoveFields[personalID].children[1].children[0].children[0].GetTemplateField();
-                List<AssetTypeValue> levelUpMoveEntries = new();
-                for (int levelUpMoveIdx = 0; levelUpMoveIdx < pokemon.levelUpMoves.Count; levelUpMoveIdx++)
+                // Level Up Moves
+                AssetTypeValueField levelUpMoveField = ValueBuilder.DefaultValueFieldFromTemplate(levelUpMoveFields[0].GetTemplateField());
+                levelUpMoveField["id"].GetValue().Set(pokemon.personalID);
+
+                List<AssetTypeValueField> levelUpMoveAr = new();
+                AssetTypeTemplateField arTemplate = levelUpMoveFields[1]["ar"][0][0].GetTemplateField();
+                foreach (LevelUpMove levelUpMove in pokemon.levelUpMoves)
                 {
-                    LevelUpMove levelUpMove = pokemon.levelUpMoves[levelUpMoveIdx];
-                    levelUpMoveEntries.Add(new AssetTypeValue(EnumValueTypes.UInt16, levelUpMove.level));
-                    levelUpMoveEntries.Add(new AssetTypeValue(EnumValueTypes.UInt16, levelUpMove.moveID));
+                    AssetTypeValueField levelField = ValueBuilder.DefaultValueFieldFromTemplate(arTemplate);
+                    AssetTypeValueField moveIDField = ValueBuilder.DefaultValueFieldFromTemplate(arTemplate);
+                    levelField.GetValue().Set(levelUpMove.level);
+                    moveIDField.GetValue().Set(levelUpMove.moveID);
+                    levelUpMoveAr.Add(levelField);
+                    levelUpMoveAr.Add(moveIDField);
                 }
-                List<AssetTypeValueField> levelUpMoveAtvfs = new();
-                for (int itemIdx = 0; itemIdx < levelUpMoveEntries.Count; itemIdx++)
+                levelUpMoveField["ar"][0].SetChildrenList(levelUpMoveAr.ToArray());
+
+                newLevelUpMoveFields.Add(levelUpMoveField);
+
+                // Evolution Paths
+                AssetTypeValueField evolveField = ValueBuilder.DefaultValueFieldFromTemplate(evolveFields[0].GetTemplateField());
+                evolveField["id"].GetValue().Set(pokemon.personalID);
+
+                List<AssetTypeValueField> evolveAr = new();
+                arTemplate = evolveFields[1]["ar"][0][0].GetTemplateField();
+                foreach (EvolutionPath evolutionPath in pokemon.evolutionPaths)
                 {
-                    AssetTypeValue item = levelUpMoveEntries[itemIdx];
-                    AssetTypeValueField atvf = new();
-                    AssetTypeValueField[] children = new AssetTypeValueField[0];
-
-                    atvf.Read(item, levelUpMoveEntryTemplate, children);
-                    levelUpMoveAtvfs.Add(atvf);
+                    AssetTypeValueField methodField = ValueBuilder.DefaultValueFieldFromTemplate(arTemplate);
+                    AssetTypeValueField parameterField = ValueBuilder.DefaultValueFieldFromTemplate(arTemplate);
+                    AssetTypeValueField destDexIDField = ValueBuilder.DefaultValueFieldFromTemplate(arTemplate);
+                    AssetTypeValueField destFormIDField = ValueBuilder.DefaultValueFieldFromTemplate(arTemplate);
+                    AssetTypeValueField levelField = ValueBuilder.DefaultValueFieldFromTemplate(arTemplate);
+                    methodField.GetValue().Set(evolutionPath.method);
+                    parameterField.GetValue().Set(evolutionPath.parameter);
+                    destDexIDField.GetValue().Set(evolutionPath.destDexID);
+                    destFormIDField.GetValue().Set(evolutionPath.destFormID);
+                    levelField.GetValue().Set(evolutionPath.level);
+                    evolveAr.Add(methodField);
+                    evolveAr.Add(parameterField);
+                    evolveAr.Add(destDexIDField);
+                    evolveAr.Add(destFormIDField);
+                    evolveAr.Add(levelField);
                 }
-                levelUpMoveFields[personalID].children[1].children[0].SetChildrenList(levelUpMoveAtvfs.ToArray());
+                evolveField["ar"][0].SetChildrenList(evolveAr.ToArray());
 
-                //Write egg moves
-                if (eggMoveFields[personalID].children[2].children[0].GetChildrenCount() > 0)
-                    eggMoveEntryTemplate = eggMoveFields[personalID].children[2].children[0].children[0].GetTemplateField();
-                List<AssetTypeValueField> eggMoveAtvfs = new();
-                for (int itemIdx = 0; itemIdx < pokemon.eggMoves.Count; itemIdx++)
+                newEvolveFields.Add(evolveField);
+
+                // Egg Moves
+                AssetTypeValueField eggMoveField = ValueBuilder.DefaultValueFieldFromTemplate(eggMoveFields[0].GetTemplateField());
+                eggMoveField["no"].GetValue().Set(pokemon.dexID);
+                eggMoveField["formNo"].GetValue().Set(pokemon.formID);
+
+                List<AssetTypeValueField> wazaNos = new();
+                AssetTypeTemplateField wazaNoTemplate = eggMoveFields[1]["wazaNo"][0][0].GetTemplateField();
+                foreach (ushort wazaNo in pokemon.eggMoves)
                 {
-                    AssetTypeValue item = new AssetTypeValue(EnumValueTypes.UInt16, pokemon.eggMoves[itemIdx]);
-                    AssetTypeValueField atvf = new();
-                    AssetTypeValueField[] children = new AssetTypeValueField[0];
-
-                    atvf.Read(item, levelUpMoveEntryTemplate, children);
-                    eggMoveAtvfs.Add(atvf);
+                    AssetTypeValueField wazaNoField = ValueBuilder.DefaultValueFieldFromTemplate(wazaNoTemplate);
+                    wazaNoField.GetValue().Set(wazaNo);
+                    wazaNos.Add(wazaNoField);
                 }
-                eggMoveFields[personalID].children[2].children[0].SetChildrenList(eggMoveAtvfs.ToArray());
+                eggMoveField["wazaNo"][0].SetChildrenList(wazaNos.ToArray());
 
-                //Write evolutions
-                if (evolveFields[personalID].children[1].children[0].GetChildrenCount() > 0)
-                    evolveEntryTemplate = evolveFields[personalID].children[1].children[0].children[0].GetTemplateField();
-                List<AssetTypeValue> evolveEntries = new();
-                for (int evolveIdx = 0; evolveIdx < pokemon.evolutionPaths.Count; evolveIdx++)
-                {
-                    EvolutionPath evolutionPath = pokemon.evolutionPaths[evolveIdx];
-                    evolveEntries.Add(new AssetTypeValue(EnumValueTypes.UInt16, evolutionPath.method));
-                    evolveEntries.Add(new AssetTypeValue(EnumValueTypes.UInt16, evolutionPath.parameter));
-                    evolveEntries.Add(new AssetTypeValue(EnumValueTypes.UInt16, evolutionPath.destDexID));
-                    evolveEntries.Add(new AssetTypeValue(EnumValueTypes.UInt16, evolutionPath.destFormID));
-                    evolveEntries.Add(new AssetTypeValue(EnumValueTypes.UInt16, evolutionPath.level));
-                }
-                List<AssetTypeValueField> evolveAtvfs = new();
-                for (int itemIdx = 0; itemIdx < evolveEntries.Count; itemIdx++)
-                {
-                    AssetTypeValue item = evolveEntries[itemIdx];
-                    AssetTypeValueField atvf = new();
-                    AssetTypeValueField[] children = new AssetTypeValueField[0];
-
-                    atvf.Read(item, evolveEntryTemplate, children);
-                    evolveAtvfs.Add(atvf);
-                }
-                evolveFields[personalID].children[1].children[0].SetChildrenList(evolveAtvfs.ToArray());
+                newEggMoveFields.Add(eggMoveField);
             }
+
+            wazaOboeTable.children[4].children[0].SetChildrenList(newLevelUpMoveFields.ToArray());
+            tamagoWazaTable.children[4].children[0].SetChildrenList(newEggMoveFields.ToArray());
+            evolveTable.children[4].children[0].SetChildrenList(newEvolveFields.ToArray());
+            personalTable.children[4].children[0].SetChildrenList(newPersonalFields.ToArray());
 
             fileManager.WriteMonoBehaviours(PathEnum.PersonalMasterdatas, monoBehaviours.ToArray());
         }
@@ -2020,43 +2655,110 @@ namespace ImpostersOrdeal
         /// </summary>
         private static void CommitMessageFiles(List<AssetTypeValueField> monoBehaviours, List<MessageFile> messageFiles)
         {
-            for (int mIdx = 0; mIdx < monoBehaviours.Count; mIdx++)
+            foreach (AssetTypeValueField monoBehaviour in monoBehaviours)
             {
-                MessageFile messageFile = messageFiles.Find(mf => mf.mName == monoBehaviours[mIdx].children[3].GetValue().AsString());
-                monoBehaviours[mIdx].children[5].GetValue().Set(messageFile.langID);
-                monoBehaviours[mIdx].children[7].GetValue().Set(messageFile.isKanji);
+                MessageFile messageFile = messageFiles.Find(mf => mf.mName == monoBehaviour.children[3].GetValue().AsString());
+                AssetTypeValueField[] labelDataArray = monoBehaviour["labelDataArray"].children[0].children;
+                AssetTypeTemplateField templateField = new();
 
-                //Write LabelData
-                AssetTypeValueField[] labelDataFields = monoBehaviours[mIdx].children[8].children[0].children;
-                for (int labelDataIdx = 0; labelDataIdx < labelDataFields.Length; labelDataIdx++)
+                AssetTypeValueField labelDataRef = labelDataArray[0];
+
+                // tagDataFields[tagDataIdx].children[6][0].children
+                foreach (AssetTypeValueField field in labelDataArray)
                 {
-                    LabelData labelData = messageFile.labelDatas[labelDataIdx];
-                    labelDataFields[labelDataIdx].children[0].GetValue().Set(labelData.labelIndex);
-                    labelDataFields[labelDataIdx].children[1].GetValue().Set(labelData.arrayIndex);
-                    labelDataFields[labelDataIdx].children[2].GetValue().Set(labelData.labelName);
-                    labelDataFields[labelDataIdx].children[3].children[0].GetValue().Set(labelData.styleIndex);
-                    labelDataFields[labelDataIdx].children[3].children[1].GetValue().Set(labelData.colorIndex);
-                    labelDataFields[labelDataIdx].children[3].children[2].GetValue().Set(labelData.fontSize);
-                    labelDataFields[labelDataIdx].children[3].children[3].GetValue().Set(labelData.maxWidth);
-                    labelDataFields[labelDataIdx].children[3].children[4].GetValue().Set(labelData.controlID);
-
-                    //Write WordData
-                    List<List<AssetTypeValue>> wordDatas = new();
-                    for (int wordDataIdx = 0; wordDataIdx < labelData.wordDatas.Count; wordDataIdx++)
+                    if (tagDataTemplate == null && field["tagDataArray"].children[0].childrenCount > 0)
                     {
-                        WordData wordData = labelData.wordDatas[wordDataIdx];
-                        List<AssetTypeValue> atvs = new();
-                        atvs.Add(new AssetTypeValue(EnumValueTypes.Int32, wordData.patternID));
-                        atvs.Add(new AssetTypeValue(EnumValueTypes.Int32, wordData.eventID));
-                        atvs.Add(new AssetTypeValue(EnumValueTypes.Int32, wordData.tagIndex));
-                        atvs.Add(new AssetTypeValue(EnumValueTypes.Float, wordData.tagValue));
-                        atvs.Add(new AssetTypeValue(EnumValueTypes.String, wordData.str));
-                        atvs.Add(new AssetTypeValue(EnumValueTypes.Float, wordData.strWidth));
-                        wordDatas.Add(atvs);
+                        tagDataTemplate = field["tagDataArray"].children[0][0].GetTemplateField();
                     }
-                    AssetTypeValueField wordDataReference = monoBehaviours[0].children[8].children[0].children[0].children[6].children[0].children[0];
-                    labelDataFields[labelDataIdx].children[6].children[0].SetChildrenList(GetATVFs(wordDataReference, wordDatas));
+
+
+                    if (tagWordTemplate == null && field["tagDataArray"].children[0].childrenCount > 0)
+                    {
+                        if (field["tagDataArray"].children[0][0]["tagWordArray"].children[0].childrenCount > 0)
+                        {
+                            tagWordTemplate = field["tagDataArray"].children[0][0]["tagWordArray"].children[0][0].GetTemplateField();
+                            if (tagWordTemplate != null)
+                            {
+
+                            }
+                        }
+                    }
+
+                    if (attributeValueTemplate == null && field["attributeValueArray"].children[0].childrenCount > 0)
+                    {
+                        attributeValueTemplate = field["attributeValueArray"].children[0][0].GetTemplateField();
+                    }
+
+                    if (wordDataTemplate == null && field["wordDataArray"].children[0].childrenCount > 0)
+                    {
+                        wordDataTemplate = field["wordDataArray"].children[0][0].GetTemplateField();
+                    }
                 }
+
+                List<AssetTypeValueField> newLabelDataArray = new();
+                foreach (LabelData labelData in messageFile.labelDatas)
+                {
+                    AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(labelDataRef.GetTemplateField());
+                    baseField["labelIndex"].GetValue().Set(labelData.labelIndex);
+                    baseField["arrayIndex"].GetValue().Set(labelData.arrayIndex);
+                    baseField["labelName"].GetValue().Set(labelData.labelName);
+                    baseField["styleInfo"]["styleIndex"].GetValue().Set(labelData.styleIndex);
+                    baseField["styleInfo"]["colorIndex"].GetValue().Set(labelData.colorIndex);
+                    baseField["styleInfo"]["fontSize"].GetValue().Set(labelData.fontSize);
+                    baseField["styleInfo"]["maxWidth"].GetValue().Set(labelData.maxWidth);
+                    baseField["styleInfo"]["controlID"].GetValue().Set(labelData.controlID);
+
+                    List<AssetTypeValueField> attributeValueArray = new();
+                    foreach (int attrVal in labelData.attributeValues)
+                    {
+                        AssetTypeValueField attributeValueField = ValueBuilder.DefaultValueFieldFromTemplate(attributeValueTemplate);
+                        attributeValueField.GetValue().Set(attrVal);
+                        attributeValueArray.Add(attributeValueField);
+                    }
+                    baseField["attributeValueArray"][0].SetChildrenList(attributeValueArray.ToArray());
+
+                    List<AssetTypeValueField> tagDataArray = new();
+                    foreach (TagData tagData in labelData.tagDatas)
+                    {
+                        AssetTypeValueField tagDataField = ValueBuilder.DefaultValueFieldFromTemplate(tagDataTemplate);
+                        tagDataField["tagIndex"].GetValue().Set(tagData.tagIndex);
+                        tagDataField["groupID"].GetValue().Set(tagData.groupID);
+                        tagDataField["tagID"].GetValue().Set(tagData.tagID);
+                        tagDataField["tagPatternID"].GetValue().Set(tagData.tagPatternID);
+                        tagDataField["forceArticle"].GetValue().Set(tagData.forceArticle);
+                        tagDataField["tagParameter"].GetValue().Set(tagData.tagParameter);
+                        List<AssetTypeValueField> tagWordArray = new();
+                        foreach (string tagWord in tagData.tagWordArray)
+                        {
+                            AssetTypeValueField tagWordField = ValueBuilder.DefaultValueFieldFromTemplate(tagWordTemplate);
+                            tagWordField.GetValue().Set(tagWord);
+                            tagWordArray.Add(tagWordField);
+                        }
+                        tagDataField["tagWordArray"][0].SetChildrenList(tagWordArray.ToArray());
+                        // tagWordArray
+                        tagDataField["forceGrmID"].GetValue().Set(tagData.forceGrmID);
+                        tagDataArray.Add(tagDataField);
+                    }
+                    baseField["tagDataArray"][0].SetChildrenList(tagDataArray.ToArray());
+
+                    List<AssetTypeValueField> wordDataArray = new();
+                    foreach (WordData wordData in labelData.wordDatas)
+                    {
+                        AssetTypeValueField wordDataField = ValueBuilder.DefaultValueFieldFromTemplate(wordDataTemplate);
+                        wordDataField["patternID"].GetValue().Set(wordData.patternID);
+                        wordDataField["eventID"].GetValue().Set(wordData.eventID);
+                        wordDataField["tagIndex"].GetValue().Set(wordData.tagIndex);
+                        wordDataField["tagValue"].GetValue().Set(wordData.tagValue);
+                        wordDataField["str"].GetValue().Set(wordData.str);
+                        wordDataField["strWidth"].GetValue().Set(wordData.strWidth);
+                        wordDataArray.Add(wordDataField);
+                    }
+                    baseField["wordDataArray"][0].SetChildrenList(wordDataArray.ToArray());
+
+                    newLabelDataArray.Add(baseField);
+                }
+
+                monoBehaviour["labelDataArray"].children[0].SetChildrenList(newLabelDataArray.ToArray());
             }
         }
 

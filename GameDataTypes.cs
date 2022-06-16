@@ -466,8 +466,18 @@ namespace ImpostersOrdeal
                     }
             }
         }
-
-        public class LabelData
+        public class TagData
+        {
+            public int tagIndex;
+            public int groupID;
+            public int tagID;
+            public int tagPatternID;
+            public int forceArticle;
+            public int tagParameter;
+            public List<string> tagWordArray;
+            public int forceGrmID;
+        }
+        public class LabelData : ICloneable
         {
             public int labelIndex;
             public int arrayIndex;
@@ -477,7 +487,13 @@ namespace ImpostersOrdeal
             public int fontSize;
             public int maxWidth;
             public int controlID;
+            public List<int> attributeValues;
+            public List<TagData> tagDatas;
             public List<WordData> wordDatas;
+            public object Clone()
+            {
+                return this.MemberwiseClone();
+            }
 
             public string GetString()
             {
@@ -531,7 +547,7 @@ namespace ImpostersOrdeal
             }
         }
 
-        public class Pokemon : GameDataTypes.INamedEntity
+        public class Pokemon : GameDataTypes.INamedEntity, ICloneable
         {
             public byte validFlag;
             public ushort personalID;
@@ -591,6 +607,11 @@ namespace ImpostersOrdeal
             public List<Pokemon> inferiorForms;
             public List<Pokemon> superiorForms;
             public bool legendary;
+
+            public object Clone()
+            {
+                return this.MemberwiseClone();
+            }
 
             public int GetBST()
             {
