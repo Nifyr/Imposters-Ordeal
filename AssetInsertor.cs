@@ -11,7 +11,7 @@ using SmartPoint.AssetAssistant;
 
 namespace ImpostersOrdeal
 {
-    class AssetInsertor
+    class AssetInserter
     {
         enum AssetClassID
         {
@@ -25,26 +25,26 @@ namespace ImpostersOrdeal
 
         class InsertRequest
         {
-            public int baseMonsNo;
-            public int monsNo;
-            public int baseFormNo;
-            public int formNo;
+            public int srcMonsNo;
+            public int dstMonsNo;
+            public int srcFormNo;
+            public int dstFormNo;
             public int gender;
         };
 
         private const String basePath = "\\Pokemon Database\\pokemons\\";
 
-        private static AssetInsertor instance;
+        private static AssetInserter instance;
         private Random rnd;
         private Dictionary<String, String> CABNames;
         private List<InsertRequest> insertRequests;
-        private AssetInsertor()
+        private AssetInserter()
         {
             rnd = new();
             CABNames = new();
             insertRequests = new();
         }
-        public static AssetInsertor getInstance()
+        public static AssetInserter getInstance()
         {
             if (instance == null)
             {
@@ -74,14 +74,14 @@ namespace ImpostersOrdeal
             return uniqueID;
         }
 
-        public void InsertPokemon(int baseMonsNo, int monsNo, int baseFormNo, int formNo, int gender, string formName)
+        public void InsertPokemon(int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo, int gender, string formName)
         {
-            UpdateUIMasterdatas(baseMonsNo, monsNo, baseFormNo, formNo, gender);
-            UpdateAddPersonalTable(baseMonsNo, monsNo, baseFormNo, formNo);
-            UpdateMotionTimingData(baseMonsNo, monsNo, baseFormNo, formNo);
-            UpdatePokemonInfos(baseMonsNo, monsNo, baseFormNo, formNo, gender);
-            UpdateCommonMsbt(baseMonsNo, monsNo, baseFormNo, formNo, formName);
-            UpdatePersonalInfos(baseMonsNo, monsNo, baseFormNo, formNo);
+            UpdateUIMasterdatas(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo, gender);
+            UpdateAddPersonalTable(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
+            UpdateMotionTimingData(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
+            UpdatePokemonInfos(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo, gender);
+            UpdateCommonMsbt(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo, formName);
+            UpdatePersonalInfos(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
             GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.UIMasterdatas);
             GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.AddPersonalTable);
             GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.MotionTimingData);
@@ -90,10 +90,10 @@ namespace ImpostersOrdeal
             GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.PersonalEntries);
 
             InsertRequest insertRequest = new();
-            insertRequest.baseMonsNo = baseMonsNo;
-            insertRequest.monsNo = monsNo;
-            insertRequest.baseFormNo = baseFormNo;
-            insertRequest.formNo = formNo;
+            insertRequest.srcMonsNo = srcMonsNo;
+            insertRequest.dstMonsNo = dstMonsNo;
+            insertRequest.srcFormNo = srcFormNo;
+            insertRequest.dstFormNo = dstFormNo;
             insertRequest.gender = gender;
             insertRequests.Add(insertRequest);
         }
@@ -106,7 +106,7 @@ namespace ImpostersOrdeal
             Directory.CreateDirectory(baseDirectory + "Pokemon Database\\pokemons\\field\\animations");
             foreach (InsertRequest insertRequest in insertRequests)
             {
-                DuplicateAssetBundles(insertRequest.baseMonsNo, insertRequest.monsNo, insertRequest.baseFormNo, insertRequest.formNo);
+                DuplicateAssetBundles(insertRequest.srcMonsNo, insertRequest.dstMonsNo, insertRequest.srcFormNo, insertRequest.dstFormNo);
             }
 
             UpdateDprBin();
@@ -120,8 +120,8 @@ namespace ImpostersOrdeal
             {
                 foreach (InsertRequest insertRequest in insertRequests)
                 {
-                    String oldPMName = string.Format("pm{0}_{1}", insertRequest.baseMonsNo.ToString("D4"), insertRequest.baseFormNo.ToString("D2"));
-                    String newPMName = string.Format("pm{0}_{1}", insertRequest.monsNo.ToString("D4"), insertRequest.formNo.ToString("D2"));
+                    String oldPMName = string.Format("pm{0}_{1}", insertRequest.srcMonsNo.ToString("D4"), insertRequest.srcFormNo.ToString("D2"));
+                    String newPMName = string.Format("pm{0}_{1}", insertRequest.dstMonsNo.ToString("D4"), insertRequest.dstFormNo.ToString("D2"));
                     if (record.assetBundleName.Contains(oldPMName))
                     {
                         AssetBundleRecord newRecord = (AssetBundleRecord)record.Clone();
@@ -144,13 +144,13 @@ namespace ImpostersOrdeal
             GlobalData.fileManager.SaveAssetBundleDownloadManifest(abdm, "Dpr.bin");
         }
 
-        public void UpdatePersonalInfos(int baseMonsNo, int monsNo, int baseFormNo, int formNo)
+        public void UpdatePersonalInfos(int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo)
         {
             // Will only really work for adding a new form. Not a new pokemon based on another one
             Pokemon basePokemon = null;
             foreach (Pokemon pokemon in GlobalData.gameData.personalEntries)
             {
-                if (pokemon.dexID == baseMonsNo && pokemon.formIndex == baseFormNo)
+                if (pokemon.dexID == srcMonsNo && pokemon.formIndex == srcFormNo)
                 {
                     basePokemon = pokemon;
                 }
@@ -159,19 +159,19 @@ namespace ImpostersOrdeal
                 pokemon.inferiorForms = new();
                 pokemon.superiorForms = new();
             }
-            basePokemon.formMax = (byte) formNo;
+            basePokemon.formMax = (byte) dstFormNo;
             basePokemon.formIndex = (ushort)GlobalData.gameData.personalEntries.Count;
 
             Pokemon newPokemon = (Pokemon) basePokemon.Clone();
             newPokemon.personalID = (ushort) GlobalData.gameData.personalEntries.Count;
-            newPokemon.dexID = (ushort) monsNo;
-            newPokemon.formID = formNo;
+            newPokemon.dexID = (ushort) dstMonsNo;
+            newPokemon.formID = dstFormNo;
 
             GlobalData.gameData.dexEntries[basePokemon.dexID].forms.Add(newPokemon);
             GlobalData.gameData.personalEntries.Add(newPokemon);
             DataParser.SetFamilies();
         }
-        public void UpdateCommonMsbt(int baseMonsNo, int monsNo, int baseFormNo, int formNo, String formName)
+        public void UpdateCommonMsbt(int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo, String formName)
         {
             foreach (MessageFileSet msgFileSet in GlobalData.gameData.messageFileSets)
             {
@@ -184,14 +184,14 @@ namespace ImpostersOrdeal
                         LabelData baseLabelData = null;
                         foreach (LabelData labelData in msgFile.labelDatas)
                         {
-                            String baseLabelName = string.Format("ZKN_FORM_{0}_{1}", baseMonsNo.ToString("D3"), baseFormNo.ToString("D3"));
+                            String baseLabelName = string.Format("ZKN_FORM_{0}_{1}", srcMonsNo.ToString("D3"), srcFormNo.ToString("D3"));
                             if (labelData.labelName == baseLabelName)
                             {
                                 baseLabelData = labelData;
                             }
                         }
                         LabelData newLabelData = (LabelData) baseLabelData.Clone();
-                        newLabelData.labelName = string.Format("ZKN_FORM_{0}_{1}", monsNo.ToString("D3"), formNo.ToString("D3"));
+                        newLabelData.labelName = string.Format("ZKN_FORM_{0}_{1}", dstMonsNo.ToString("D3"), dstFormNo.ToString("D3"));
                         newLabelData.labelIndex = msgFile.labelDatas.Count;
                         newLabelData.arrayIndex = msgFile.labelDatas.Count;
                         newLabelData.wordDatas[0].str = formName;
@@ -204,14 +204,14 @@ namespace ImpostersOrdeal
                         LabelData baseLabelData = null;
                         foreach (LabelData labelData in msgFile.labelDatas)
                         {
-                            String baseLabelName = string.Format("ZKN_HEIGHT_{0}_{1}", baseMonsNo.ToString("D3"), baseFormNo.ToString("D3"));
+                            String baseLabelName = string.Format("ZKN_HEIGHT_{0}_{1}", srcMonsNo.ToString("D3"), srcFormNo.ToString("D3"));
                             if (labelData.labelName == baseLabelName)
                             {
                                 baseLabelData = labelData;
                             }
                         }
                         LabelData newLabelData = (LabelData)baseLabelData.Clone();
-                        newLabelData.labelName = string.Format("ZKN_HEIGHT_{0}_{1}", monsNo.ToString("D3"), formNo.ToString("D3"));
+                        newLabelData.labelName = string.Format("ZKN_HEIGHT_{0}_{1}", dstMonsNo.ToString("D3"), dstFormNo.ToString("D3"));
                         newLabelData.labelIndex = msgFile.labelDatas.Count;
                         newLabelData.arrayIndex = msgFile.labelDatas.Count;
 
@@ -223,14 +223,14 @@ namespace ImpostersOrdeal
                         LabelData baseLabelData = null;
                         foreach (LabelData labelData in msgFile.labelDatas)
                         {
-                            String baseLabelName = string.Format("ZKN_WEIGHT_{0}_{1}", baseMonsNo.ToString("D3"), baseFormNo.ToString("D3"));
+                            String baseLabelName = string.Format("ZKN_WEIGHT_{0}_{1}", srcMonsNo.ToString("D3"), srcFormNo.ToString("D3"));
                             if (labelData.labelName == baseLabelName)
                             {
                                 baseLabelData = labelData;
                             }
                         }
                         LabelData newLabelData = (LabelData)baseLabelData.Clone();
-                        newLabelData.labelName = string.Format("ZKN_WEIGHT_{0}_{1}", monsNo.ToString("D3"), formNo.ToString("D3"));
+                        newLabelData.labelName = string.Format("ZKN_WEIGHT_{0}_{1}", dstMonsNo.ToString("D3"), dstFormNo.ToString("D3"));
                         newLabelData.labelIndex = msgFile.labelDatas.Count;
                         newLabelData.arrayIndex = msgFile.labelDatas.Count;
 
@@ -239,20 +239,20 @@ namespace ImpostersOrdeal
                 }
             }
         }
-        public void UpdatePokemonInfos(int baseMonsNo, int monsNo, int baseFormNo, int formNo, int gender)
+        public void UpdatePokemonInfos(int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo, int gender)
         {
-            UpdatePokemonInfo(baseMonsNo, monsNo, baseFormNo, formNo, gender, false);
-            UpdatePokemonInfo(baseMonsNo, monsNo, baseFormNo, formNo, gender, true);
+            UpdatePokemonInfo(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo, gender, false);
+            UpdatePokemonInfo(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo, gender, true);
         }
-        public void UpdatePokemonInfo(int baseMonsNo, int monsNo, int baseFormNo, int formNo, int gender, bool isRare)
+        public void UpdatePokemonInfo(int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo, int gender, bool isRare)
         {
-            String oldPMName = string.Format("pm{0}_{1}", baseMonsNo.ToString("D4"), baseFormNo.ToString("D2"));
-            String newPMName = string.Format("pm{0}_{1}", monsNo.ToString("D4"), formNo.ToString("D2"));
-            int uniqueID = genUniqueID(monsNo, formNo, gender, isRare);
+            String oldPMName = string.Format("pm{0}_{1}", srcMonsNo.ToString("D4"), srcFormNo.ToString("D2"));
+            String newPMName = string.Format("pm{0}_{1}", dstMonsNo.ToString("D4"), dstFormNo.ToString("D2"));
+            int uniqueID = genUniqueID(dstMonsNo, dstFormNo, gender, isRare);
             Masterdatas.PokemonInfoCatalog basePokemonInfoCatalog = null;
             foreach (Masterdatas.PokemonInfoCatalog pokemonInfoCatalog in GlobalData.gameData.pokemonInfos)
             {
-                if (pokemonInfoCatalog.MonsNo == baseMonsNo && pokemonInfoCatalog.FormNo == baseFormNo && pokemonInfoCatalog.Rare == isRare)
+                if (pokemonInfoCatalog.MonsNo == srcMonsNo && pokemonInfoCatalog.FormNo == srcFormNo && pokemonInfoCatalog.Rare == isRare)
                 {
                     basePokemonInfoCatalog = pokemonInfoCatalog;
                     break;
@@ -260,20 +260,20 @@ namespace ImpostersOrdeal
             }
 
             Masterdatas.PokemonInfoCatalog newPokemonInfoCatalog = (Masterdatas.PokemonInfoCatalog)basePokemonInfoCatalog.Clone();
-            newPokemonInfoCatalog.No = monsNo;
-            newPokemonInfoCatalog.MonsNo = monsNo;
-            newPokemonInfoCatalog.FormNo = formNo;
+            newPokemonInfoCatalog.No = dstMonsNo;
+            newPokemonInfoCatalog.MonsNo = dstMonsNo;
+            newPokemonInfoCatalog.FormNo = dstFormNo;
             newPokemonInfoCatalog.UniqueID = uniqueID;
             newPokemonInfoCatalog.AssetBundleName = basePokemonInfoCatalog.AssetBundleName.Replace(oldPMName, newPMName);
             GlobalData.gameData.pokemonInfos.Add(newPokemonInfoCatalog);
         }
 
-        public void UpdateMotionTimingData(int baseMonsNo, int monsNo, int baseFormNo, int formNo)
+        public void UpdateMotionTimingData(int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo)
         {
             BattleMasterdatas.MotionTimingData baseMotionTimingData = null;
             foreach (BattleMasterdatas.MotionTimingData motionTimingData in GlobalData.gameData.motionTimingData)
             {
-                if (motionTimingData.MonsNo == baseMonsNo && motionTimingData.FormNo == baseFormNo)
+                if (motionTimingData.MonsNo == srcMonsNo && motionTimingData.FormNo == srcFormNo)
                 {
                     baseMotionTimingData = motionTimingData;
                     break;
@@ -281,16 +281,16 @@ namespace ImpostersOrdeal
             }
 
             BattleMasterdatas.MotionTimingData newMotionTimingData = (BattleMasterdatas.MotionTimingData)baseMotionTimingData.Clone();
-            newMotionTimingData.MonsNo = monsNo;
-            newMotionTimingData.FormNo = formNo;
+            newMotionTimingData.MonsNo = dstMonsNo;
+            newMotionTimingData.FormNo = dstFormNo;
             GlobalData.gameData.motionTimingData.Add(newMotionTimingData);
         }
-        public void UpdateAddPersonalTable(int baseMonsNo, int monsNo, int baseFormNo, int formNo)
+        public void UpdateAddPersonalTable(int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo)
         {
             PersonalMasterdatas.AddPersonalTable baseAddPersonalTable = null;
             foreach (PersonalMasterdatas.AddPersonalTable addPersonalTable in GlobalData.gameData.addPersonalTables)
             {
-                if (addPersonalTable.monsno == baseMonsNo && addPersonalTable.formno == baseFormNo)
+                if (addPersonalTable.monsno == srcMonsNo && addPersonalTable.formno == srcFormNo)
                 {
                     baseAddPersonalTable = addPersonalTable;
                     break;
@@ -298,20 +298,20 @@ namespace ImpostersOrdeal
             }
 
             PersonalMasterdatas.AddPersonalTable newAddPersonalTable = (PersonalMasterdatas.AddPersonalTable)baseAddPersonalTable.Clone();
-            newAddPersonalTable.monsno = (ushort) monsNo;
-            newAddPersonalTable.formno = (ushort) formNo;
+            newAddPersonalTable.monsno = (ushort) dstMonsNo;
+            newAddPersonalTable.formno = (ushort) dstFormNo;
             GlobalData.gameData.addPersonalTables.Add(newAddPersonalTable);
         }
-        public void UpdateUIMasterdatas(int baseMonsNo, int monsNo, int baseFormNo, int formNo, int gender)
+        public void UpdateUIMasterdatas(int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo, int gender)
         {
-            UpdateUIMasterdatasData(baseMonsNo, monsNo, baseFormNo, formNo, gender, false);
-            UpdateUIMasterdatasData(baseMonsNo, monsNo, baseFormNo, formNo, gender, true);
+            UpdateUIMasterdatasData(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo, gender, false);
+            UpdateUIMasterdatasData(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo, gender, true);
         }
 
-        public void UpdateUIMasterdatasData(int baseMonsNo, int monsNo, int baseFormNo, int formNo, int gender, bool isRare)
+        public void UpdateUIMasterdatasData(int srcMonsNo, int dstmonsNo, int srcFormNo, int dstFormNo, int gender, bool isRare)
         {
-            int baseUniqueID = genUniqueID(baseMonsNo, baseFormNo, gender, isRare);
-            int uniqueID = genUniqueID(monsNo, formNo, gender, isRare);
+            int baseUniqueID = genUniqueID(srcMonsNo, srcFormNo, gender, isRare);
+            int uniqueID = genUniqueID(dstmonsNo, dstFormNo, gender, isRare);
 
             UIMasterdatas.PokemonIcon pokemonIcon = GlobalData.gameData.uiPokemonIcon[baseUniqueID];
             UIMasterdatas.PokemonIcon newPokemonIcon = (UIMasterdatas.PokemonIcon) pokemonIcon.Clone();
@@ -339,34 +339,34 @@ namespace ImpostersOrdeal
             GlobalData.gameData.newUIZukanCompareHeights[uniqueID] = newZukanCompareHeight;
         }
 
-        public void DuplicateAssetBundles(int baseMonsNo, int monsNo, int baseFormNo, int formNo)
+        public void DuplicateAssetBundles(int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo)
         {
-            String commonPath = string.Format("common\\pm{0}_{1}", baseMonsNo.ToString("D4"), baseFormNo.ToString("D2"));
-            String common00Path = string.Format("common\\pm{0}_{1}_00", baseMonsNo.ToString("D4"), baseFormNo.ToString("D2"));
-            String common01Path = string.Format("common\\pm{0}_{1}_01", baseMonsNo.ToString("D4"), baseFormNo.ToString("D2"));
-            String battle00Path = string.Format("battle\\pm{0}_{1}_00", baseMonsNo.ToString("D4"), baseFormNo.ToString("D2"));
-            String battle01Path = string.Format("battle\\pm{0}_{1}_01", baseMonsNo.ToString("D4"), baseFormNo.ToString("D2"));
-            String field00Path = string.Format("field\\pm{0}_{1}_00", baseMonsNo.ToString("D4"), baseFormNo.ToString("D2"));
-            String field01Path = string.Format("field\\pm{0}_{1}_01", baseMonsNo.ToString("D4"), baseFormNo.ToString("D2"));
-            String fieldAnimationsPath = string.Format("field\\animations\\pm{0}_{1}", baseMonsNo.ToString("D4"), baseFormNo.ToString("D2"));
+            String commonPath = string.Format("common\\pm{0}_{1}", srcMonsNo.ToString("D4"), srcFormNo.ToString("D2"));
+            String common00Path = string.Format("common\\pm{0}_{1}_00", srcMonsNo.ToString("D4"), srcFormNo.ToString("D2"));
+            String common01Path = string.Format("common\\pm{0}_{1}_01", srcMonsNo.ToString("D4"), srcFormNo.ToString("D2"));
+            String battle00Path = string.Format("battle\\pm{0}_{1}_00", srcMonsNo.ToString("D4"), srcFormNo.ToString("D2"));
+            String battle01Path = string.Format("battle\\pm{0}_{1}_01", srcMonsNo.ToString("D4"), srcFormNo.ToString("D2"));
+            String field00Path = string.Format("field\\pm{0}_{1}_00", srcMonsNo.ToString("D4"), srcFormNo.ToString("D2"));
+            String field01Path = string.Format("field\\pm{0}_{1}_01", srcMonsNo.ToString("D4"), srcFormNo.ToString("D2"));
+            String fieldAnimationsPath = string.Format("field\\animations\\pm{0}_{1}", srcMonsNo.ToString("D4"), srcFormNo.ToString("D2"));
 
-            String newCommonPath = string.Format("common\\pm{0}_{1}", monsNo.ToString("D4"), formNo.ToString("D2"));
-            String newCommon00Path = string.Format("common\\pm{0}_{1}_00", monsNo.ToString("D4"), formNo.ToString("D2"));
-            String newCommon01Path = string.Format("common\\pm{0}_{1}_01", monsNo.ToString("D4"), formNo.ToString("D2"));
-            String newBattle00Path = string.Format("battle\\pm{0}_{1}_00", monsNo.ToString("D4"), formNo.ToString("D2"));
-            String newBattle01Path = string.Format("battle\\pm{0}_{1}_01", monsNo.ToString("D4"), formNo.ToString("D2"));
-            String newField00Path = string.Format("field\\pm{0}_{1}_00", monsNo.ToString("D4"), formNo.ToString("D2"));
-            String newField01Path = string.Format("field\\pm{0}_{1}_01", monsNo.ToString("D4"), formNo.ToString("D2"));
-            String newFieldAnimationsPath = string.Format("field\\animations\\pm{0}_{1}", monsNo.ToString("D4"), formNo.ToString("D2"));
+            String newCommonPath = string.Format("common\\pm{0}_{1}", dstMonsNo.ToString("D4"), dstFormNo.ToString("D2"));
+            String newCommon00Path = string.Format("common\\pm{0}_{1}_00", dstMonsNo.ToString("D4"), dstFormNo.ToString("D2"));
+            String newCommon01Path = string.Format("common\\pm{0}_{1}_01", dstMonsNo.ToString("D4"), dstFormNo.ToString("D2"));
+            String newBattle00Path = string.Format("battle\\pm{0}_{1}_00", dstMonsNo.ToString("D4"), dstFormNo.ToString("D2"));
+            String newBattle01Path = string.Format("battle\\pm{0}_{1}_01", dstMonsNo.ToString("D4"), dstFormNo.ToString("D2"));
+            String newField00Path = string.Format("field\\pm{0}_{1}_00", dstMonsNo.ToString("D4"), dstFormNo.ToString("D2"));
+            String newField01Path = string.Format("field\\pm{0}_{1}_01", dstMonsNo.ToString("D4"), dstFormNo.ToString("D2"));
+            String newFieldAnimationsPath = string.Format("field\\animations\\pm{0}_{1}", dstMonsNo.ToString("D4"), dstFormNo.ToString("D2"));
 
-            BundleFileInstance commonBfi = DuplicateAssetBundle(commonPath, newCommonPath, baseMonsNo, monsNo, baseFormNo, formNo);
-            BundleFileInstance common00Bfi = DuplicateAssetBundle(common00Path, newCommon00Path, baseMonsNo, monsNo, baseFormNo, formNo);
-            BundleFileInstance common01Bfi = DuplicateAssetBundle(common01Path, newCommon01Path, baseMonsNo, monsNo, baseFormNo, formNo);
-            BundleFileInstance battle00Bfi = DuplicateAssetBundle(battle00Path, newBattle00Path, baseMonsNo, monsNo, baseFormNo, formNo);
-            BundleFileInstance battle01Bfi = DuplicateAssetBundle(battle01Path, newBattle01Path, baseMonsNo, monsNo, baseFormNo, formNo);
-            BundleFileInstance field00Bfi = DuplicateAssetBundle(field00Path, newField00Path, baseMonsNo, monsNo, baseFormNo, formNo);
-            BundleFileInstance field01Bfi = DuplicateAssetBundle(field01Path, newField01Path, baseMonsNo, monsNo, baseFormNo, formNo);
-            BundleFileInstance fieldAnimationsBfi = DuplicateAssetBundle(fieldAnimationsPath, newFieldAnimationsPath, baseMonsNo, monsNo, baseFormNo, formNo);
+            BundleFileInstance commonBfi = DuplicateAssetBundle(commonPath, newCommonPath, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
+            BundleFileInstance common00Bfi = DuplicateAssetBundle(common00Path, newCommon00Path, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
+            BundleFileInstance common01Bfi = DuplicateAssetBundle(common01Path, newCommon01Path, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
+            BundleFileInstance battle00Bfi = DuplicateAssetBundle(battle00Path, newBattle00Path, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
+            BundleFileInstance battle01Bfi = DuplicateAssetBundle(battle01Path, newBattle01Path, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
+            BundleFileInstance field00Bfi = DuplicateAssetBundle(field00Path, newField00Path, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
+            BundleFileInstance field01Bfi = DuplicateAssetBundle(field01Path, newField01Path, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
+            BundleFileInstance fieldAnimationsBfi = DuplicateAssetBundle(fieldAnimationsPath, newFieldAnimationsPath, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
         }
 
         public void writeBundle(BundleFileInstance bfi, string ofpath)
@@ -379,13 +379,13 @@ namespace ImpostersOrdeal
             bfi.stream.Dispose();
         }
 
-        public BundleFileInstance DuplicateAssetBundle(String ifpath, String ofpath, int baseMonsNo, int monsNo, int baseFormNo, int formNo)
+        public BundleFileInstance DuplicateAssetBundle(String ifpath, String ofpath, int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo)
         {
             String baseDirectory = Environment.CurrentDirectory + "\\" + FileManager.outputModName + "\\romfs\\Data\\StreamingAssets\\AssetAssistant\\";
             ofpath = baseDirectory + "Pokemon Database\\pokemons\\" + ofpath;
             String newCAB = genCABName();
-            String oldPMName = string.Format("pm{0}_{1}", baseMonsNo.ToString("D4"), baseFormNo.ToString("D2"));
-            String newPMName = string.Format("pm{0}_{1}", monsNo.ToString("D4"), formNo.ToString("D2"));
+            String oldPMName = string.Format("pm{0}_{1}", srcMonsNo.ToString("D4"), srcFormNo.ToString("D2"));
+            String newPMName = string.Format("pm{0}_{1}", dstMonsNo.ToString("D4"), dstFormNo.ToString("D2"));
 
             List<AssetsReplacer> ars = new();
             AssetsManager am = GlobalData.fileManager.getAssetsManager();

@@ -352,7 +352,7 @@ namespace ImpostersOrdeal
         }
 
         /// <summary>
-        ///  Returns the Delphis_Main.bnk file as a byte array.
+        ///  Returns the global-metadata.dat file as a byte array.
         /// </summary>
         public byte[] GetGlobalMetadataBuffer()
         {
@@ -376,7 +376,7 @@ namespace ImpostersOrdeal
         }
 
         /// <summary>
-        ///  Makes it so the audioCollection data is included when exporting.
+        ///  Makes it so the global-metadata is included when exporting.
         /// </summary>
         public void CommitGlobalMetadata()
         {

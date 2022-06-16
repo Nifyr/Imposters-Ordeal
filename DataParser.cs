@@ -1142,7 +1142,7 @@ namespace ImpostersOrdeal
                 {
                     bpShopItem.npcID = bpShopItemFields[bpShopItemIdx].children[1].value.value.asInt32;
                 }
-                catch (IndexOutOfRangeException e)
+                catch (IndexOutOfRangeException)
                 {
                     MainForm.ShowParserError("Oh my, this dump might be a bit outdated...\n" +
                         "Please input at least the v1.1.3 version of BDSP.\n" +
