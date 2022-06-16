@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows.Forms;
 using static ImpostersOrdeal.GameDataTypes;
 using static ImpostersOrdeal.Distributions;
+using SmartPoint.AssetAssistant;
 
 namespace ImpostersOrdeal
 {
@@ -107,6 +108,40 @@ namespace ImpostersOrdeal
             {
                 DuplicateAssetBundles(insertRequest.baseMonsNo, insertRequest.monsNo, insertRequest.baseFormNo, insertRequest.formNo);
             }
+
+            UpdateDprBin();
+        }
+
+        public void UpdateDprBin()
+        {
+            AssetBundleDownloadManifest abdm = GlobalData.fileManager.GetAssetBundleDownloadManifest("Dpr.bin");
+
+            foreach (AssetBundleRecord record in abdm.records)
+            {
+                foreach (InsertRequest insertRequest in insertRequests)
+                {
+                    String oldPMName = string.Format("pm{0}_{1}", insertRequest.baseMonsNo.ToString("D4"), insertRequest.baseFormNo.ToString("D2"));
+                    String newPMName = string.Format("pm{0}_{1}", insertRequest.monsNo.ToString("D4"), insertRequest.formNo.ToString("D2"));
+                    if (record.assetBundleName.Contains(oldPMName))
+                    {
+                        AssetBundleRecord newRecord = (AssetBundleRecord)record.Clone();
+                        newRecord.assetBundleName = newRecord.assetBundleName.Replace(oldPMName, newPMName);
+
+                        for (int i = 0; i < newRecord.assetPaths.Length; i++)
+                        {
+                            newRecord.assetPaths[i] = newRecord.assetPaths[i].Replace(oldPMName, newPMName);
+                        }
+
+                        for (int i = 0; i < newRecord.allDependencies.Length; i++)
+                        {
+                            newRecord.allDependencies[i] = newRecord.allDependencies[i].Replace(oldPMName, newPMName);
+                        }
+                        abdm.Add(newRecord.assetBundleName, newRecord);
+                    }
+                }
+            }
+            
+            GlobalData.fileManager.SaveAssetBundleDownloadManifest(abdm, "Dpr.bin");
         }
 
         public void UpdatePersonalInfos(int baseMonsNo, int monsNo, int baseFormNo, int formNo)

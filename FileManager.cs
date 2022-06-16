@@ -1,5 +1,6 @@
 ﻿using AssetsTools.NET;
 using AssetsTools.NET.Extra;
+using SmartPoint.AssetAssistant;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -273,6 +274,16 @@ namespace ImpostersOrdeal
 
             BundleFileInstance bfi = fd.bundle;
             return bfi;
+        }
+        public AssetBundleDownloadManifest GetAssetBundleDownloadManifest(string ifpath)
+        {
+            string absolutePath = assetAssistantPath + "\\" + ifpath;
+            return AssetBundleDownloadManifest.Load(absolutePath);
+        }
+        public void SaveAssetBundleDownloadManifest(AssetBundleDownloadManifest abdm, string ofpath)
+        {
+            string modPath = Environment.CurrentDirectory + "\\" + outputModName + "\\romfs\\Data\\StreamingAssets\\AssetAssistant\\" + ofpath;
+            abdm.Save(modPath);
         }
 
         /// <summary>
