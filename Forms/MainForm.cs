@@ -383,6 +383,8 @@ namespace ImpostersOrdeal
 
             loadingForm.UpdateSubTask(flavor.GetThought());
             GlobalData.fileManager.ExportMod();
+            // Handle creation of asset bundles and Dpr.bin on export
+            AssetInsertor.getInstance().processRequests();
             loadingForm.Finish();
 
             MessageBox.Show(

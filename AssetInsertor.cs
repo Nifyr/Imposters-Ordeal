@@ -22,15 +22,26 @@ namespace ImpostersOrdeal
             AssetBundle = 142,
         }
 
+        class InsertRequest
+        {
+            public int baseMonsNo;
+            public int monsNo;
+            public int baseFormNo;
+            public int formNo;
+            public int gender;
+        };
+
         private const String basePath = "\\Pokemon Database\\pokemons\\";
 
         private static AssetInsertor instance;
         private Random rnd;
         private Dictionary<String, String> CABNames;
+        private List<InsertRequest> insertRequests;
         private AssetInsertor()
         {
             rnd = new();
             CABNames = new();
+            insertRequests = new();
         }
         public static AssetInsertor getInstance()
         {
@@ -64,7 +75,6 @@ namespace ImpostersOrdeal
 
         public void InsertPokemon(int baseMonsNo, int monsNo, int baseFormNo, int formNo, int gender, string formName)
         {
-            DuplicateAssetBundles(baseMonsNo, monsNo, baseFormNo, formNo);
             UpdateUIMasterdatas(baseMonsNo, monsNo, baseFormNo, formNo, gender);
             UpdateAddPersonalTable(baseMonsNo, monsNo, baseFormNo, formNo);
             UpdateMotionTimingData(baseMonsNo, monsNo, baseFormNo, formNo);
@@ -77,6 +87,26 @@ namespace ImpostersOrdeal
             GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.PokemonInfo);
             GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.MessageFileSets);
             GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.PersonalEntries);
+
+            InsertRequest insertRequest = new();
+            insertRequest.baseMonsNo = baseMonsNo;
+            insertRequest.monsNo = monsNo;
+            insertRequest.baseFormNo = baseFormNo;
+            insertRequest.formNo = formNo;
+            insertRequest.gender = gender;
+            insertRequests.Add(insertRequest);
+        }
+
+        public void processRequests()
+        {
+            String baseDirectory = Environment.CurrentDirectory + "\\" + FileManager.outputModName + "\\romfs\\Data\\StreamingAssets\\AssetAssistant\\";
+            Directory.CreateDirectory(baseDirectory + "Pokemon Database\\pokemons\\common");
+            Directory.CreateDirectory(baseDirectory + "Pokemon Database\\pokemons\\battle\\animations");
+            Directory.CreateDirectory(baseDirectory + "Pokemon Database\\pokemons\\field\\animations");
+            foreach (InsertRequest insertRequest in insertRequests)
+            {
+                DuplicateAssetBundles(insertRequest.baseMonsNo, insertRequest.monsNo, insertRequest.baseFormNo, insertRequest.formNo);
+            }
         }
 
         public void UpdatePersonalInfos(int baseMonsNo, int monsNo, int baseFormNo, int formNo)
@@ -110,67 +140,66 @@ namespace ImpostersOrdeal
         {
             foreach (MessageFileSet msgFileSet in GlobalData.gameData.messageFileSets)
             {
-                if (msgFileSet.langID == 1)
+                foreach (MessageFile msgFile in msgFileSet.messageFiles)
                 {
-                    foreach (MessageFile msgFile in msgFileSet.messageFiles)
+                    Console.WriteLine("msgFile");
+                    if (msgFile.mName.Equals("english_ss_zkn_form"))
                     {
-                        if (msgFile.mName.Equals("english_ss_zkn_form"))
+                        Console.WriteLine("english_ss_zkn_form");
+                        LabelData baseLabelData = null;
+                        foreach (LabelData labelData in msgFile.labelDatas)
                         {
-                            LabelData baseLabelData = null;
-                            foreach (LabelData labelData in msgFile.labelDatas)
+                            String baseLabelName = string.Format("ZKN_FORM_{0}_{1}", baseMonsNo.ToString("D3"), baseFormNo.ToString("D3"));
+                            if (labelData.labelName == baseLabelName)
                             {
-                                String baseLabelName = string.Format("ZKN_FORM_{0}_{1}", baseMonsNo.ToString("D3"), baseFormNo.ToString("D3"));
-                                if (labelData.labelName == baseLabelName)
-                                {
-                                    baseLabelData = labelData;
-                                }
+                                baseLabelData = labelData;
                             }
-                            LabelData newLabelData = (LabelData) baseLabelData.Clone();
-                            newLabelData.labelName = string.Format("ZKN_FORM_{0}_{1}", monsNo.ToString("D3"), formNo.ToString("D3"));
-                            newLabelData.labelIndex = msgFile.labelDatas.Count;
-                            newLabelData.arrayIndex = msgFile.labelDatas.Count;
-                            newLabelData.wordDatas[0].str = formName;
-
-                            msgFile.labelDatas.Add(newLabelData);
                         }
+                        LabelData newLabelData = (LabelData) baseLabelData.Clone();
+                        newLabelData.labelName = string.Format("ZKN_FORM_{0}_{1}", monsNo.ToString("D3"), formNo.ToString("D3"));
+                        newLabelData.labelIndex = msgFile.labelDatas.Count;
+                        newLabelData.arrayIndex = msgFile.labelDatas.Count;
+                        newLabelData.wordDatas[0].str = formName;
 
-                        if (msgFile.mName.Equals("english_ss_zkn_height"))
+                        msgFile.labelDatas.Add(newLabelData);
+                    }
+
+                    if (msgFile.mName.Equals("english_ss_zkn_height"))
+                    {
+                        LabelData baseLabelData = null;
+                        foreach (LabelData labelData in msgFile.labelDatas)
                         {
-                            LabelData baseLabelData = null;
-                            foreach (LabelData labelData in msgFile.labelDatas)
+                            String baseLabelName = string.Format("ZKN_HEIGHT_{0}_{1}", baseMonsNo.ToString("D3"), baseFormNo.ToString("D3"));
+                            if (labelData.labelName == baseLabelName)
                             {
-                                String baseLabelName = string.Format("ZKN_HEIGHT_{0}_{1}", baseMonsNo.ToString("D3"), baseFormNo.ToString("D3"));
-                                if (labelData.labelName == baseLabelName)
-                                {
-                                    baseLabelData = labelData;
-                                }
+                                baseLabelData = labelData;
                             }
-                            LabelData newLabelData = (LabelData)baseLabelData.Clone();
-                            newLabelData.labelName = string.Format("ZKN_HEIGHT_{0}_{1}", monsNo.ToString("D3"), formNo.ToString("D3"));
-                            newLabelData.labelIndex = msgFile.labelDatas.Count;
-                            newLabelData.arrayIndex = msgFile.labelDatas.Count;
-
-                            msgFile.labelDatas.Add(newLabelData);
                         }
+                        LabelData newLabelData = (LabelData)baseLabelData.Clone();
+                        newLabelData.labelName = string.Format("ZKN_HEIGHT_{0}_{1}", monsNo.ToString("D3"), formNo.ToString("D3"));
+                        newLabelData.labelIndex = msgFile.labelDatas.Count;
+                        newLabelData.arrayIndex = msgFile.labelDatas.Count;
 
-                        if (msgFile.mName.Equals("english_ss_zkn_weight"))
+                        msgFile.labelDatas.Add(newLabelData);
+                    }
+
+                    if (msgFile.mName.Equals("english_ss_zkn_weight"))
+                    {
+                        LabelData baseLabelData = null;
+                        foreach (LabelData labelData in msgFile.labelDatas)
                         {
-                            LabelData baseLabelData = null;
-                            foreach (LabelData labelData in msgFile.labelDatas)
+                            String baseLabelName = string.Format("ZKN_WEIGHT_{0}_{1}", baseMonsNo.ToString("D3"), baseFormNo.ToString("D3"));
+                            if (labelData.labelName == baseLabelName)
                             {
-                                String baseLabelName = string.Format("ZKN_WEIGHT_{0}_{1}", baseMonsNo.ToString("D3"), baseFormNo.ToString("D3"));
-                                if (labelData.labelName == baseLabelName)
-                                {
-                                    baseLabelData = labelData;
-                                }
+                                baseLabelData = labelData;
                             }
-                            LabelData newLabelData = (LabelData)baseLabelData.Clone();
-                            newLabelData.labelName = string.Format("ZKN_WEIGHT_{0}_{1}", monsNo.ToString("D3"), formNo.ToString("D3"));
-                            newLabelData.labelIndex = msgFile.labelDatas.Count;
-                            newLabelData.arrayIndex = msgFile.labelDatas.Count;
-
-                            msgFile.labelDatas.Add(newLabelData);
                         }
+                        LabelData newLabelData = (LabelData)baseLabelData.Clone();
+                        newLabelData.labelName = string.Format("ZKN_WEIGHT_{0}_{1}", monsNo.ToString("D3"), formNo.ToString("D3"));
+                        newLabelData.labelIndex = msgFile.labelDatas.Count;
+                        newLabelData.arrayIndex = msgFile.labelDatas.Count;
+
+                        msgFile.labelDatas.Add(newLabelData);
                     }
                 }
             }
@@ -286,14 +315,15 @@ namespace ImpostersOrdeal
             String field01Path = string.Format("field\\pm{0}_{1}_01", baseMonsNo.ToString("D4"), baseFormNo.ToString("D2"));
             String fieldAnimationsPath = string.Format("field\\animations\\pm{0}_{1}", baseMonsNo.ToString("D4"), baseFormNo.ToString("D2"));
 
-            String newCommonPath = string.Format("common_pm{0}_{1}", monsNo.ToString("D4"), formNo.ToString("D2"));
-            String newCommon00Path = string.Format("common_pm{0}_{1}_00", monsNo.ToString("D4"), formNo.ToString("D2"));
-            String newCommon01Path = string.Format("common_pm{0}_{1}_01", monsNo.ToString("D4"), formNo.ToString("D2"));
-            String newBattle00Path = string.Format("battle_pm{0}_{1}_00", monsNo.ToString("D4"), formNo.ToString("D2"));
-            String newBattle01Path = string.Format("battle_pm{0}_{1}_01", monsNo.ToString("D4"), formNo.ToString("D2"));
-            String newField00Path = string.Format("field_pm{0}_{1}_00", monsNo.ToString("D4"), formNo.ToString("D2"));
-            String newField01Path = string.Format("field_pm{0}_{1}_01", monsNo.ToString("D4"), formNo.ToString("D2"));
-            String newFieldAnimationsPath = string.Format("field_animations_pm{0}_{1}", monsNo.ToString("D4"), formNo.ToString("D2"));
+            String newCommonPath = string.Format("common\\pm{0}_{1}", monsNo.ToString("D4"), formNo.ToString("D2"));
+            String newCommon00Path = string.Format("common\\pm{0}_{1}_00", monsNo.ToString("D4"), formNo.ToString("D2"));
+            String newCommon01Path = string.Format("common\\pm{0}_{1}_01", monsNo.ToString("D4"), formNo.ToString("D2"));
+            String newBattle00Path = string.Format("battle\\pm{0}_{1}_00", monsNo.ToString("D4"), formNo.ToString("D2"));
+            String newBattle01Path = string.Format("battle\\pm{0}_{1}_01", monsNo.ToString("D4"), formNo.ToString("D2"));
+            String newField00Path = string.Format("field\\pm{0}_{1}_00", monsNo.ToString("D4"), formNo.ToString("D2"));
+            String newField01Path = string.Format("field\\pm{0}_{1}_01", monsNo.ToString("D4"), formNo.ToString("D2"));
+            String newFieldAnimationsPath = string.Format("field\\animations\\pm{0}_{1}", monsNo.ToString("D4"), formNo.ToString("D2"));
+
             BundleFileInstance commonBfi = DuplicateAssetBundle(commonPath, newCommonPath, baseMonsNo, monsNo, baseFormNo, formNo);
             BundleFileInstance common00Bfi = DuplicateAssetBundle(common00Path, newCommon00Path, baseMonsNo, monsNo, baseFormNo, formNo);
             BundleFileInstance common01Bfi = DuplicateAssetBundle(common01Path, newCommon01Path, baseMonsNo, monsNo, baseFormNo, formNo);
@@ -302,14 +332,6 @@ namespace ImpostersOrdeal
             BundleFileInstance field00Bfi = DuplicateAssetBundle(field00Path, newField00Path, baseMonsNo, monsNo, baseFormNo, formNo);
             BundleFileInstance field01Bfi = DuplicateAssetBundle(field01Path, newField01Path, baseMonsNo, monsNo, baseFormNo, formNo);
             BundleFileInstance fieldAnimationsBfi = DuplicateAssetBundle(fieldAnimationsPath, newFieldAnimationsPath, baseMonsNo, monsNo, baseFormNo, formNo);
-
-            // writeBundle(commonBfi, newCommonPath);
-            // writeBundle(common00Bfi, newCommon00Path);
-            // writeBundle(common01Bfi, newCommon01Path);
-            // writeBundle(battle00Bfi, newBattle00Path);
-            // writeBundle(battle01Bfi, newBattle01Path);
-            // writeBundle(field00Bfi, newField00Path);
-            // writeBundle(field01Bfi, newField01Path);
         }
 
         public void writeBundle(BundleFileInstance bfi, string ofpath)
@@ -324,6 +346,8 @@ namespace ImpostersOrdeal
 
         public BundleFileInstance DuplicateAssetBundle(String ifpath, String ofpath, int baseMonsNo, int monsNo, int baseFormNo, int formNo)
         {
+            String baseDirectory = Environment.CurrentDirectory + "\\" + FileManager.outputModName + "\\romfs\\Data\\StreamingAssets\\AssetAssistant\\";
+            ofpath = baseDirectory + "Pokemon Database\\pokemons\\" + ofpath;
             String newCAB = genCABName();
             String oldPMName = string.Format("pm{0}_{1}", baseMonsNo.ToString("D4"), baseFormNo.ToString("D2"));
             String newPMName = string.Format("pm{0}_{1}", monsNo.ToString("D4"), formNo.ToString("D2"));

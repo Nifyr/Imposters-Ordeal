@@ -2662,9 +2662,6 @@ namespace ImpostersOrdeal
         /// </summary>
         private static void CommitMessageFiles(List<AssetTypeValueField> monoBehaviours, List<MessageFile> messageFiles)
         {
-            // List<AssetTypeValueField> monoBehaviours = fileManager.GetMonoBehaviours(PathEnum.PersonalMasterdatas);
-            // AssetTypeValueField AddPersonalTable = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "AddPersonalTable");
-
             foreach (AssetTypeValueField monoBehaviour in monoBehaviours)
             {
                 MessageFile messageFile = messageFiles.Find(mf => mf.mName == monoBehaviour.children[3].GetValue().AsString());
@@ -2725,7 +2722,7 @@ namespace ImpostersOrdeal
                         attributeValueField.GetValue().Set(attrVal);
                         attributeValueArray.Add(attributeValueField);
                     }
-                    baseField["attributeValueArray"].SetChildrenList(attributeValueArray.ToArray());
+                    baseField["attributeValueArray"][0].SetChildrenList(attributeValueArray.ToArray());
 
                     List<AssetTypeValueField> tagDataArray = new();
                     foreach (TagData tagData in labelData.tagDatas)
@@ -2738,18 +2735,18 @@ namespace ImpostersOrdeal
                         tagDataField["forceArticle"].GetValue().Set(tagData.forceArticle);
                         tagDataField["tagParameter"].GetValue().Set(tagData.tagParameter);
                         List<AssetTypeValueField> tagWordArray = new();
-                        foreach (String tagWord in tagData.tagWordArray)
+                        foreach (string tagWord in tagData.tagWordArray)
                         {
                             AssetTypeValueField tagWordField = ValueBuilder.DefaultValueFieldFromTemplate(tagWordTemplate);
                             tagWordField.GetValue().Set(tagWord);
                             tagWordArray.Add(tagWordField);
                         }
-                        baseField["tagWordArray"].SetChildrenList(tagWordArray.ToArray());
+                        tagDataField["tagWordArray"][0].SetChildrenList(tagWordArray.ToArray());
                         // tagWordArray
                         tagDataField["forceGrmID"].GetValue().Set(tagData.forceGrmID);
                         tagDataArray.Add(tagDataField);
                     }
-                    baseField["tagDataArray"].SetChildrenList(tagDataArray.ToArray());
+                    baseField["tagDataArray"][0].SetChildrenList(tagDataArray.ToArray());
 
                     List<AssetTypeValueField> wordDataArray = new();
                     foreach (WordData wordData in labelData.wordDatas)
@@ -2763,55 +2760,13 @@ namespace ImpostersOrdeal
                         wordDataField["strWidth"].GetValue().Set(wordData.strWidth);
                         wordDataArray.Add(wordDataField);
                     }
-                    baseField["wordDataArray"].SetChildrenList(wordDataArray.ToArray());
+                    baseField["wordDataArray"][0].SetChildrenList(wordDataArray.ToArray());
 
                     newLabelDataArray.Add(baseField);
                 }
 
                 monoBehaviour["labelDataArray"].children[0].SetChildrenList(newLabelDataArray.ToArray());
-
-                // fileManager.WriteMonoBehaviour(PathEnum.PersonalMasterdatas, AddPersonalTable);
             }
-            /*
-            for (int mIdx = 0; mIdx < monoBehaviours.Count; mIdx++)
-            {
-                MessageFile messageFile = messageFiles.Find(mf => mf.mName == monoBehaviours[mIdx].children[3].GetValue().AsString());
-                monoBehaviours[mIdx].children[5].GetValue().Set(messageFile.langID);
-                monoBehaviours[mIdx].children[7].GetValue().Set(messageFile.isKanji);
-
-                //Write LabelData
-                AssetTypeValueField[] labelDataFields = monoBehaviours[mIdx].children[8].children[0].children;
-                for (int labelDataIdx = 0; labelDataIdx < labelDataFields.Length; labelDataIdx++)
-                {
-                    LabelData labelData = messageFile.labelDatas[labelDataIdx];
-                    labelDataFields[labelDataIdx].children[0].GetValue().Set(labelData.labelIndex);
-                    labelDataFields[labelDataIdx].children[1].GetValue().Set(labelData.arrayIndex);
-                    labelDataFields[labelDataIdx].children[2].GetValue().Set(labelData.labelName);
-                    labelDataFields[labelDataIdx].children[3].children[0].GetValue().Set(labelData.styleIndex);
-                    labelDataFields[labelDataIdx].children[3].children[1].GetValue().Set(labelData.colorIndex);
-                    labelDataFields[labelDataIdx].children[3].children[2].GetValue().Set(labelData.fontSize);
-                    labelDataFields[labelDataIdx].children[3].children[3].GetValue().Set(labelData.maxWidth);
-                    labelDataFields[labelDataIdx].children[3].children[4].GetValue().Set(labelData.controlID);
-
-                    //Write WordData
-                    List<List<AssetTypeValue>> wordDatas = new();
-                    for (int wordDataIdx = 0; wordDataIdx < labelData.wordDatas.Count; wordDataIdx++)
-                    {
-                        WordData wordData = labelData.wordDatas[wordDataIdx];
-                        List<AssetTypeValue> atvs = new();
-                        atvs.Add(new AssetTypeValue(EnumValueTypes.Int32, wordData.patternID));
-                        atvs.Add(new AssetTypeValue(EnumValueTypes.Int32, wordData.eventID));
-                        atvs.Add(new AssetTypeValue(EnumValueTypes.Int32, wordData.tagIndex));
-                        atvs.Add(new AssetTypeValue(EnumValueTypes.Float, wordData.tagValue));
-                        atvs.Add(new AssetTypeValue(EnumValueTypes.String, wordData.str));
-                        atvs.Add(new AssetTypeValue(EnumValueTypes.Float, wordData.strWidth));
-                        wordDatas.Add(atvs);
-                    }
-                    AssetTypeValueField wordDataReference = monoBehaviours[0].children[8].children[0].children[0].children[6].children[0].children[0];
-                    labelDataFields[labelDataIdx].children[6].children[0].SetChildrenList(GetATVFs(wordDataReference, wordDatas));
-                }
-            }
-            */
         }
 
         /// <summary>
