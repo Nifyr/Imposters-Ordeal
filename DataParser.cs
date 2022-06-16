@@ -47,13 +47,6 @@ namespace ImpostersOrdeal
             ParseMasterDatas();
             ParsePersonalMasterDatas();
             ParseUIMasterDatas();
-            InsertAVulpix();
-        }
-        private static void InsertAVulpix()
-        {
-            // AssetInsertor.getInstance().InsertPokemon(37, 37, 0, 1, "Alolan Vulpix");
-            AssetInsertor.getInstance().InsertPokemon(100, 100, 0, 1, 2, "Alolan Vulpix");
-            AssetInsertor.getInstance().InsertPokemon(101, 101, 0, 1, 2, "Alolan Vulpix");
         }
 
         /// <summary>
