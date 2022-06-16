@@ -2421,7 +2421,6 @@ namespace ImpostersOrdeal
         private static void CommitPokemon()
         {
             List<AssetTypeValueField> monoBehaviours = fileManager.GetMonoBehaviours(PathEnum.PersonalMasterdatas);
-            AssetTypeValueField textData = fileManager.GetMonoBehaviours(PathEnum.CommonMsbt).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_ss_monsname");
 
             AssetTypeValueField wazaOboeTable = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "WazaOboeTable");
             AssetTypeValueField tamagoWazaTable = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "TamagoWazaTable");
@@ -2437,121 +2436,131 @@ namespace ImpostersOrdeal
             AssetTypeValueField[] eggMoveFields = tamagoWazaTable.children[4].children[0].children;
             AssetTypeValueField[] evolveFields = evolveTable.children[4].children[0].children;
             AssetTypeValueField[] personalFields = personalTable.children[4].children[0].children;
-            AssetTypeValueField[] textFields = textData.children[8].children[0].children;
 
-            AssetTypeTemplateField levelUpMoveEntryTemplate = null;
-            AssetTypeTemplateField eggMoveEntryTemplate = null;
-            AssetTypeTemplateField evolveEntryTemplate = null;
+            List<AssetTypeValueField> newLevelUpMoveFields = new();
+            List<AssetTypeValueField> newEggMoveFields = new();
+            List<AssetTypeValueField> newEvolveFields = new();
+            List<AssetTypeValueField> newPersonalFields = new();
 
-            for (int personalID = 1; personalID < personalFields.Length; personalID++)
+            AssetTypeValueField personalFieldRef = personalFields[0];
+            for (int personalID = 1; personalID < gameData.personalEntries.Count; personalID++)
             {
+                AssetTypeValueField personalField = ValueBuilder.DefaultValueFieldFromTemplate(personalFieldRef.GetTemplateField());
                 Pokemon pokemon = gameData.personalEntries[personalID];
-                personalFields[personalID].children[0].GetValue().Set(pokemon.validFlag);
-                personalFields[personalID].children[1].GetValue().Set(pokemon.personalID);
-                personalFields[personalID].children[2].GetValue().Set(pokemon.dexID);
-                personalFields[personalID].children[3].GetValue().Set(pokemon.formIndex);
-                personalFields[personalID].children[4].GetValue().Set(pokemon.formMax);
-                personalFields[personalID].children[5].GetValue().Set(pokemon.color);
-                personalFields[personalID].children[6].GetValue().Set(pokemon.graNo);
-                personalFields[personalID].children[7].GetValue().Set(pokemon.basicHp);
-                personalFields[personalID].children[8].GetValue().Set(pokemon.basicAtk);
-                personalFields[personalID].children[9].GetValue().Set(pokemon.basicDef);
-                personalFields[personalID].children[10].GetValue().Set(pokemon.basicSpd);
-                personalFields[personalID].children[11].GetValue().Set(pokemon.basicSpAtk);
-                personalFields[personalID].children[12].GetValue().Set(pokemon.basicSpDef);
-                personalFields[personalID].children[13].GetValue().Set(pokemon.typingID1);
-                personalFields[personalID].children[14].GetValue().Set(pokemon.typingID2);
-                personalFields[personalID].children[15].GetValue().Set(pokemon.getRate);
-                personalFields[personalID].children[16].GetValue().Set(pokemon.rank);
-                personalFields[personalID].children[17].GetValue().Set(pokemon.expValue);
-                personalFields[personalID].children[18].GetValue().Set(pokemon.item1);
-                personalFields[personalID].children[19].GetValue().Set(pokemon.item2);
-                personalFields[personalID].children[20].GetValue().Set(pokemon.item3);
-                personalFields[personalID].children[21].GetValue().Set(pokemon.sex);
-                personalFields[personalID].children[22].GetValue().Set(pokemon.eggBirth);
-                personalFields[personalID].children[23].GetValue().Set(pokemon.initialFriendship);
-                personalFields[personalID].children[24].GetValue().Set(pokemon.eggGroup1);
-                personalFields[personalID].children[25].GetValue().Set(pokemon.eggGroup2);
-                personalFields[personalID].children[26].GetValue().Set(pokemon.grow);
-                personalFields[personalID].children[27].GetValue().Set(pokemon.abilityID1);
-                personalFields[personalID].children[28].GetValue().Set(pokemon.abilityID2);
-                personalFields[personalID].children[29].GetValue().Set(pokemon.abilityID3);
-                personalFields[personalID].children[30].GetValue().Set(pokemon.giveExp);
-                personalFields[personalID].children[31].GetValue().Set(pokemon.height);
-                personalFields[personalID].children[32].GetValue().Set(pokemon.weight);
-                personalFields[personalID].children[33].GetValue().Set(pokemon.chihouZukanNo);
-                personalFields[personalID].children[34].GetValue().Set(pokemon.machine1);
-                personalFields[personalID].children[35].GetValue().Set(pokemon.machine2);
-                personalFields[personalID].children[36].GetValue().Set(pokemon.machine3);
-                personalFields[personalID].children[37].GetValue().Set(pokemon.machine4);
-                personalFields[personalID].children[38].GetValue().Set(pokemon.hiddenMachine);
-                personalFields[personalID].children[39].GetValue().Set(pokemon.eggMonsno);
-                personalFields[personalID].children[40].GetValue().Set(pokemon.eggFormno);
-                personalFields[personalID].children[41].GetValue().Set(pokemon.eggFormnoKawarazunoishi);
-                personalFields[personalID].children[42].GetValue().Set(pokemon.eggFormInheritKawarazunoishi);
+                personalField.children[0].GetValue().Set(pokemon.validFlag);
+                personalField.children[1].GetValue().Set(pokemon.personalID);
+                personalField.children[2].GetValue().Set(pokemon.dexID);
+                personalField.children[3].GetValue().Set(pokemon.formIndex);
+                personalField.children[4].GetValue().Set(pokemon.formMax);
+                personalField.children[5].GetValue().Set(pokemon.color);
+                personalField.children[6].GetValue().Set(pokemon.graNo);
+                personalField.children[7].GetValue().Set(pokemon.basicHp);
+                personalField.children[8].GetValue().Set(pokemon.basicAtk);
+                personalField.children[9].GetValue().Set(pokemon.basicDef);
+                personalField.children[10].GetValue().Set(pokemon.basicSpd);
+                personalField.children[11].GetValue().Set(pokemon.basicSpAtk);
+                personalField.children[12].GetValue().Set(pokemon.basicSpDef);
+                personalField.children[13].GetValue().Set(pokemon.typingID1);
+                personalField.children[14].GetValue().Set(pokemon.typingID2);
+                personalField.children[15].GetValue().Set(pokemon.getRate);
+                personalField.children[16].GetValue().Set(pokemon.rank);
+                personalField.children[17].GetValue().Set(pokemon.expValue);
+                personalField.children[18].GetValue().Set(pokemon.item1);
+                personalField.children[19].GetValue().Set(pokemon.item2);
+                personalField.children[20].GetValue().Set(pokemon.item3);
+                personalField.children[21].GetValue().Set(pokemon.sex);
+                personalField.children[22].GetValue().Set(pokemon.eggBirth);
+                personalField.children[23].GetValue().Set(pokemon.initialFriendship);
+                personalField.children[24].GetValue().Set(pokemon.eggGroup1);
+                personalField.children[25].GetValue().Set(pokemon.eggGroup2);
+                personalField.children[26].GetValue().Set(pokemon.grow);
+                personalField.children[27].GetValue().Set(pokemon.abilityID1);
+                personalField.children[28].GetValue().Set(pokemon.abilityID2);
+                personalField.children[29].GetValue().Set(pokemon.abilityID3);
+                personalField.children[30].GetValue().Set(pokemon.giveExp);
+                personalField.children[31].GetValue().Set(pokemon.height);
+                personalField.children[32].GetValue().Set(pokemon.weight);
+                personalField.children[33].GetValue().Set(pokemon.chihouZukanNo);
+                personalField.children[34].GetValue().Set(pokemon.machine1);
+                personalField.children[35].GetValue().Set(pokemon.machine2);
+                personalField.children[36].GetValue().Set(pokemon.machine3);
+                personalField.children[37].GetValue().Set(pokemon.machine4);
+                personalField.children[38].GetValue().Set(pokemon.hiddenMachine);
+                personalField.children[39].GetValue().Set(pokemon.eggMonsno);
+                personalField.children[40].GetValue().Set(pokemon.eggFormno);
+                personalField.children[41].GetValue().Set(pokemon.eggFormnoKawarazunoishi);
+                personalField.children[42].GetValue().Set(pokemon.eggFormInheritKawarazunoishi);
+                newPersonalFields.Add(personalField);
 
-                //Write level up moves
-                if (levelUpMoveFields[personalID].children[1].children[0].GetChildrenCount() > 0)
-                    levelUpMoveEntryTemplate = levelUpMoveFields[personalID].children[1].children[0].children[0].GetTemplateField();
-                List<AssetTypeValue> levelUpMoveEntries = new();
-                for (int levelUpMoveIdx = 0; levelUpMoveIdx < pokemon.levelUpMoves.Count; levelUpMoveIdx++)
+                // Level Up Moves
+                AssetTypeValueField levelUpMoveField = ValueBuilder.DefaultValueFieldFromTemplate(levelUpMoveFields[0].GetTemplateField());
+                levelUpMoveField["id"].GetValue().Set(pokemon.personalID);
+
+                List<AssetTypeValueField> levelUpMoveAr = new();
+                AssetTypeTemplateField arTemplate = levelUpMoveFields[1]["ar"][0][0].GetTemplateField();
+                foreach (LevelUpMove levelUpMove in pokemon.levelUpMoves)
                 {
-                    LevelUpMove levelUpMove = pokemon.levelUpMoves[levelUpMoveIdx];
-                    levelUpMoveEntries.Add(new AssetTypeValue(EnumValueTypes.UInt16, levelUpMove.level));
-                    levelUpMoveEntries.Add(new AssetTypeValue(EnumValueTypes.UInt16, levelUpMove.moveID));
+                    AssetTypeValueField levelField = ValueBuilder.DefaultValueFieldFromTemplate(arTemplate);
+                    AssetTypeValueField moveIDField = ValueBuilder.DefaultValueFieldFromTemplate(arTemplate);
+                    levelField.GetValue().Set(levelUpMove.level);
+                    moveIDField.GetValue().Set(levelUpMove.moveID);
+                    levelUpMoveAr.Add(levelField);
+                    levelUpMoveAr.Add(moveIDField);
                 }
-                List<AssetTypeValueField> levelUpMoveAtvfs = new();
-                for (int itemIdx = 0; itemIdx < levelUpMoveEntries.Count; itemIdx++)
+                levelUpMoveField["ar"][0].SetChildrenList(levelUpMoveAr.ToArray());
+
+                newLevelUpMoveFields.Add(levelUpMoveField);
+
+                // Evolution Paths
+                AssetTypeValueField evolveField = ValueBuilder.DefaultValueFieldFromTemplate(evolveFields[0].GetTemplateField());
+                evolveField["id"].GetValue().Set(pokemon.personalID);
+
+                List<AssetTypeValueField> evolveAr = new();
+                arTemplate = evolveFields[1]["ar"][0][0].GetTemplateField();
+                foreach (EvolutionPath evolutionPath in pokemon.evolutionPaths)
                 {
-                    AssetTypeValue item = levelUpMoveEntries[itemIdx];
-                    AssetTypeValueField atvf = new();
-                    AssetTypeValueField[] children = new AssetTypeValueField[0];
-
-                    atvf.Read(item, levelUpMoveEntryTemplate, children);
-                    levelUpMoveAtvfs.Add(atvf);
+                    AssetTypeValueField methodField = ValueBuilder.DefaultValueFieldFromTemplate(arTemplate);
+                    AssetTypeValueField parameterField = ValueBuilder.DefaultValueFieldFromTemplate(arTemplate);
+                    AssetTypeValueField destDexIDField = ValueBuilder.DefaultValueFieldFromTemplate(arTemplate);
+                    AssetTypeValueField destFormIDField = ValueBuilder.DefaultValueFieldFromTemplate(arTemplate);
+                    AssetTypeValueField levelField = ValueBuilder.DefaultValueFieldFromTemplate(arTemplate);
+                    methodField.GetValue().Set(evolutionPath.method);
+                    parameterField.GetValue().Set(evolutionPath.parameter);
+                    destDexIDField.GetValue().Set(evolutionPath.destDexID);
+                    destFormIDField.GetValue().Set(evolutionPath.destFormID);
+                    levelField.GetValue().Set(evolutionPath.level);
+                    evolveAr.Add(methodField);
+                    evolveAr.Add(parameterField);
+                    evolveAr.Add(destDexIDField);
+                    evolveAr.Add(destFormIDField);
+                    evolveAr.Add(levelField);
                 }
-                levelUpMoveFields[personalID].children[1].children[0].SetChildrenList(levelUpMoveAtvfs.ToArray());
+                evolveField["ar"][0].SetChildrenList(evolveAr.ToArray());
 
-                //Write egg moves
-                if (eggMoveFields[personalID].children[2].children[0].GetChildrenCount() > 0)
-                    eggMoveEntryTemplate = eggMoveFields[personalID].children[2].children[0].children[0].GetTemplateField();
-                List<AssetTypeValueField> eggMoveAtvfs = new();
-                for (int itemIdx = 0; itemIdx < pokemon.eggMoves.Count; itemIdx++)
+                newEvolveFields.Add(evolveField);
+
+                // Egg Moves
+                AssetTypeValueField eggMoveField = ValueBuilder.DefaultValueFieldFromTemplate(eggMoveFields[0].GetTemplateField());
+                eggMoveField["no"].GetValue().Set(pokemon.dexID);
+                eggMoveField["formNo"].GetValue().Set(pokemon.formID);
+
+                List<AssetTypeValueField> wazaNos = new();
+                AssetTypeTemplateField wazaNoTemplate = eggMoveFields[1]["wazaNo"][0][0].GetTemplateField();
+                foreach (ushort wazaNo in pokemon.eggMoves)
                 {
-                    AssetTypeValue item = new AssetTypeValue(EnumValueTypes.UInt16, pokemon.eggMoves[itemIdx]);
-                    AssetTypeValueField atvf = new();
-                    AssetTypeValueField[] children = new AssetTypeValueField[0];
-
-                    atvf.Read(item, levelUpMoveEntryTemplate, children);
-                    eggMoveAtvfs.Add(atvf);
+                    AssetTypeValueField wazaNoField = ValueBuilder.DefaultValueFieldFromTemplate(wazaNoTemplate);
+                    wazaNoField.GetValue().Set(wazaNo);
+                    wazaNos.Add(wazaNoField);
                 }
-                eggMoveFields[personalID].children[2].children[0].SetChildrenList(eggMoveAtvfs.ToArray());
+                eggMoveField["wazaNo"][0].SetChildrenList(wazaNos.ToArray());
 
-                //Write evolutions
-                if (evolveFields[personalID].children[1].children[0].GetChildrenCount() > 0)
-                    evolveEntryTemplate = evolveFields[personalID].children[1].children[0].children[0].GetTemplateField();
-                List<AssetTypeValue> evolveEntries = new();
-                for (int evolveIdx = 0; evolveIdx < pokemon.evolutionPaths.Count; evolveIdx++)
-                {
-                    EvolutionPath evolutionPath = pokemon.evolutionPaths[evolveIdx];
-                    evolveEntries.Add(new AssetTypeValue(EnumValueTypes.UInt16, evolutionPath.method));
-                    evolveEntries.Add(new AssetTypeValue(EnumValueTypes.UInt16, evolutionPath.parameter));
-                    evolveEntries.Add(new AssetTypeValue(EnumValueTypes.UInt16, evolutionPath.destDexID));
-                    evolveEntries.Add(new AssetTypeValue(EnumValueTypes.UInt16, evolutionPath.destFormID));
-                    evolveEntries.Add(new AssetTypeValue(EnumValueTypes.UInt16, evolutionPath.level));
-                }
-                List<AssetTypeValueField> evolveAtvfs = new();
-                for (int itemIdx = 0; itemIdx < evolveEntries.Count; itemIdx++)
-                {
-                    AssetTypeValue item = evolveEntries[itemIdx];
-                    AssetTypeValueField atvf = new();
-                    AssetTypeValueField[] children = new AssetTypeValueField[0];
-
-                    atvf.Read(item, evolveEntryTemplate, children);
-                    evolveAtvfs.Add(atvf);
-                }
-                evolveFields[personalID].children[1].children[0].SetChildrenList(evolveAtvfs.ToArray());
+                newEggMoveFields.Add(eggMoveField);
             }
+
+            wazaOboeTable.children[4].children[0].SetChildrenList(newLevelUpMoveFields.ToArray());
+            tamagoWazaTable.children[4].children[0].SetChildrenList(newEggMoveFields.ToArray());
+            evolveTable.children[4].children[0].SetChildrenList(newEvolveFields.ToArray());
+            personalTable.children[4].children[0].SetChildrenList(newPersonalFields.ToArray());
 
             fileManager.WriteMonoBehaviours(PathEnum.PersonalMasterdatas, monoBehaviours.ToArray());
         }

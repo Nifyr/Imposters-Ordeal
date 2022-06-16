@@ -547,7 +547,7 @@ namespace ImpostersOrdeal
             }
         }
 
-        public class Pokemon : GameDataTypes.INamedEntity
+        public class Pokemon : GameDataTypes.INamedEntity, ICloneable
         {
             public byte validFlag;
             public ushort personalID;
@@ -607,6 +607,11 @@ namespace ImpostersOrdeal
             public List<Pokemon> inferiorForms;
             public List<Pokemon> superiorForms;
             public bool legendary;
+
+            public object Clone()
+            {
+                return this.MemberwiseClone();
+            }
 
             public int GetBST()
             {

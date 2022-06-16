@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using static ImpostersOrdeal.GameDataTypes;
+using static ImpostersOrdeal.Distributions;
 
 namespace ImpostersOrdeal
 {
@@ -69,11 +70,41 @@ namespace ImpostersOrdeal
             UpdateMotionTimingData(baseMonsNo, monsNo, baseFormNo, formNo);
             UpdatePokemonInfos(baseMonsNo, monsNo, baseFormNo, formNo, gender);
             UpdateCommonMsbt(baseMonsNo, monsNo, baseFormNo, formNo, formName);
+            UpdatePersonalInfos(baseMonsNo, monsNo, baseFormNo, formNo);
             GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.UIMasterdatas);
             GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.AddPersonalTable);
             GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.MotionTimingData);
             GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.PokemonInfo);
             GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.MessageFileSets);
+            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.PersonalEntries);
+        }
+
+        public void UpdatePersonalInfos(int baseMonsNo, int monsNo, int baseFormNo, int formNo)
+        {
+            // Will only really work for adding a new form. Not a new pokemon based on another one
+            Pokemon basePokemon = null;
+            foreach (Pokemon pokemon in GlobalData.gameData.personalEntries)
+            {
+                if (pokemon.dexID == baseMonsNo && pokemon.formIndex == baseFormNo)
+                {
+                    basePokemon = pokemon;
+                }
+                pokemon.pastPokemon = new();
+                pokemon.nextPokemon = new();
+                pokemon.inferiorForms = new();
+                pokemon.superiorForms = new();
+            }
+            basePokemon.formMax = 0;
+            basePokemon.formIndex = (ushort)GlobalData.gameData.personalEntries.Count;
+
+            Pokemon newPokemon = (Pokemon) basePokemon.Clone();
+            newPokemon.personalID = (ushort) GlobalData.gameData.personalEntries.Count;
+            newPokemon.dexID = (ushort) monsNo;
+            newPokemon.formID = formNo;
+
+            GlobalData.gameData.dexEntries[basePokemon.dexID].forms.Add(newPokemon);
+            GlobalData.gameData.personalEntries.Add(newPokemon);
+            DataParser.SetFamilies();
         }
         public void UpdateCommonMsbt(int baseMonsNo, int monsNo, int baseFormNo, int formNo, String formName)
         {
