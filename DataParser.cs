@@ -754,7 +754,7 @@ namespace ImpostersOrdeal
             for (int i = 0; i < addPersonalTableArray.Length; i++)
             {
                 PersonalMasterdatas.AddPersonalTable addPersonal = new();
-                addPersonal.valid_flag = addPersonalTableArray[i]["valid_flag"].value.value.asUInt8 == 0;
+                addPersonal.valid_flag = addPersonalTableArray[i]["valid_flag"].value.value.asUInt8 == 1;
                 addPersonal.monsno = addPersonalTableArray[i]["monsno"].value.value.asUInt16;
                 addPersonal.formno = addPersonalTableArray[i]["formno"].value.value.asUInt16;
                 addPersonal.isEnableSynchronize = addPersonalTableArray[i]["isEnableSynchronize"].value.value.asUInt8 == 0;
@@ -2277,7 +2277,7 @@ namespace ImpostersOrdeal
             foreach (PersonalMasterdatas.AddPersonalTable addPersonal in gameData.addPersonalTables)
             {
                 AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(addPersonalRef.GetTemplateField());
-                baseField["valid_flag"].GetValue().Set(addPersonal.valid_flag);
+                baseField["valid_flag"].GetValue().Set(addPersonal.valid_flag ? 1 : 0);
                 baseField["monsno"].GetValue().Set(addPersonal.monsno);
                 baseField["formno"].GetValue().Set(addPersonal.formno);
                 baseField["isEnableSynchronize"].GetValue().Set(addPersonal.isEnableSynchronize);
@@ -2419,11 +2419,13 @@ namespace ImpostersOrdeal
             AssetTypeValueField tamagoWazaTable = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "TamagoWazaTable");
             AssetTypeValueField evolveTable = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "EvolveTable");
             AssetTypeValueField personalTable = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "PersonalTable");
-            monoBehaviours = new();
-            monoBehaviours.Add(wazaOboeTable);
-            monoBehaviours.Add(tamagoWazaTable);
-            monoBehaviours.Add(evolveTable);
-            monoBehaviours.Add(personalTable);
+            monoBehaviours = new()
+            {
+                wazaOboeTable,
+                tamagoWazaTable,
+                evolveTable,
+                personalTable
+            };
 
             AssetTypeValueField[] levelUpMoveFields = wazaOboeTable.children[4].children[0].children;
             AssetTypeValueField[] eggMoveFields = tamagoWazaTable.children[4].children[0].children;
@@ -2436,7 +2438,7 @@ namespace ImpostersOrdeal
             List<AssetTypeValueField> newPersonalFields = new();
 
             AssetTypeValueField personalFieldRef = personalFields[0];
-            for (int personalID = 1; personalID < gameData.personalEntries.Count; personalID++)
+            for (int personalID = 0; personalID < gameData.personalEntries.Count; personalID++)
             {
                 AssetTypeValueField personalField = ValueBuilder.DefaultValueFieldFromTemplate(personalFieldRef.GetTemplateField());
                 Pokemon pokemon = gameData.personalEntries[personalID];
