@@ -384,7 +384,7 @@ namespace ImpostersOrdeal
             loadingForm.UpdateSubTask(flavor.GetThought());
             GlobalData.fileManager.ExportMod();
             // Handle creation of asset bundles and Dpr.bin on export
-            AssetInserter.getInstance().processRequests();
+            AssetInserter.GetInstance().ProcessRequests();
             loadingForm.Finish();
 
             MessageBox.Show(
@@ -464,6 +464,12 @@ namespace ImpostersOrdeal
             GlobalMetadataEditorForm gmef = new();
             gmef.ShowDialog();
             GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.GlobalMetadata);
+        }
+
+        private void OpenPokemonInserter(object sender, EventArgs e)
+        {
+            PokemonInserterForm pif = new();
+            pif.ShowDialog();
         }
     }
 }

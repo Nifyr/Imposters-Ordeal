@@ -44,7 +44,7 @@ namespace ImpostersOrdeal
             CABNames = new();
             insertRequests = new();
         }
-        public static AssetInserter getInstance()
+        public static AssetInserter GetInstance()
         {
             if (instance == null)
             {
@@ -52,7 +52,7 @@ namespace ImpostersOrdeal
             }
             return instance;
         }
-        public string genCABName()
+        public string GenCABName()
         {
             string[] values = new string[4];
             for (int i = 0; i < values.Length; i++)
@@ -63,7 +63,7 @@ namespace ImpostersOrdeal
             return String.Join("", values);
         }
 
-        public int genUniqueID(int monsNo, int formNo, int gender, bool isRare)
+        public int GenUniqueID(int monsNo, int formNo, int gender, bool isRare)
         {
             int uniqueID = (monsNo * 10000) + (formNo * 100) + (gender * 10);
             if (isRare)
@@ -89,16 +89,18 @@ namespace ImpostersOrdeal
             GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.MessageFileSets);
             GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.PersonalEntries);
 
-            InsertRequest insertRequest = new();
-            insertRequest.srcMonsNo = srcMonsNo;
-            insertRequest.dstMonsNo = dstMonsNo;
-            insertRequest.srcFormNo = srcFormNo;
-            insertRequest.dstFormNo = dstFormNo;
-            insertRequest.gender = gender;
+            InsertRequest insertRequest = new()
+            {
+                srcMonsNo = srcMonsNo,
+                dstMonsNo = dstMonsNo,
+                srcFormNo = srcFormNo,
+                dstFormNo = dstFormNo,
+                gender = gender
+            };
             insertRequests.Add(insertRequest);
         }
 
-        public void processRequests()
+        public void ProcessRequests()
         {
             String baseDirectory = Environment.CurrentDirectory + "\\" + FileManager.outputModName + "\\romfs\\Data\\StreamingAssets\\AssetAssistant\\";
             Directory.CreateDirectory(baseDirectory + "Pokemon Database\\pokemons\\common");
@@ -248,7 +250,7 @@ namespace ImpostersOrdeal
         {
             String oldPMName = string.Format("pm{0}_{1}", srcMonsNo.ToString("D4"), srcFormNo.ToString("D2"));
             String newPMName = string.Format("pm{0}_{1}", dstMonsNo.ToString("D4"), dstFormNo.ToString("D2"));
-            int uniqueID = genUniqueID(dstMonsNo, dstFormNo, gender, isRare);
+            int uniqueID = GenUniqueID(dstMonsNo, dstFormNo, gender, isRare);
             Masterdatas.PokemonInfoCatalog basePokemonInfoCatalog = null;
             foreach (Masterdatas.PokemonInfoCatalog pokemonInfoCatalog in GlobalData.gameData.pokemonInfos)
             {
@@ -310,8 +312,8 @@ namespace ImpostersOrdeal
 
         public void UpdateUIMasterdatasData(int srcMonsNo, int dstmonsNo, int srcFormNo, int dstFormNo, int gender, bool isRare)
         {
-            int baseUniqueID = genUniqueID(srcMonsNo, srcFormNo, gender, isRare);
-            int uniqueID = genUniqueID(dstmonsNo, dstFormNo, gender, isRare);
+            int baseUniqueID = GenUniqueID(srcMonsNo, srcFormNo, gender, isRare);
+            int uniqueID = GenUniqueID(dstmonsNo, dstFormNo, gender, isRare);
 
             UIMasterdatas.PokemonIcon pokemonIcon = GlobalData.gameData.uiPokemonIcon[baseUniqueID];
             UIMasterdatas.PokemonIcon newPokemonIcon = (UIMasterdatas.PokemonIcon) pokemonIcon.Clone();
@@ -359,20 +361,20 @@ namespace ImpostersOrdeal
             String newField01Path = string.Format("field\\pm{0}_{1}_01", dstMonsNo.ToString("D4"), dstFormNo.ToString("D2"));
             String newFieldAnimationsPath = string.Format("field\\animations\\pm{0}_{1}", dstMonsNo.ToString("D4"), dstFormNo.ToString("D2"));
 
-            BundleFileInstance commonBfi = DuplicateAssetBundle(commonPath, newCommonPath, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
-            BundleFileInstance common00Bfi = DuplicateAssetBundle(common00Path, newCommon00Path, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
-            BundleFileInstance common01Bfi = DuplicateAssetBundle(common01Path, newCommon01Path, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
-            BundleFileInstance battle00Bfi = DuplicateAssetBundle(battle00Path, newBattle00Path, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
-            BundleFileInstance battle01Bfi = DuplicateAssetBundle(battle01Path, newBattle01Path, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
-            BundleFileInstance field00Bfi = DuplicateAssetBundle(field00Path, newField00Path, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
-            BundleFileInstance field01Bfi = DuplicateAssetBundle(field01Path, newField01Path, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
-            BundleFileInstance fieldAnimationsBfi = DuplicateAssetBundle(fieldAnimationsPath, newFieldAnimationsPath, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
+            DuplicateAssetBundle(commonPath, newCommonPath, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
+            DuplicateAssetBundle(common00Path, newCommon00Path, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
+            DuplicateAssetBundle(common01Path, newCommon01Path, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
+            DuplicateAssetBundle(battle00Path, newBattle00Path, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
+            DuplicateAssetBundle(battle01Path, newBattle01Path, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
+            DuplicateAssetBundle(field00Path, newField00Path, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
+            DuplicateAssetBundle(field01Path, newField01Path, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
+            DuplicateAssetBundle(fieldAnimationsPath, newFieldAnimationsPath, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
         }
 
-        public void writeBundle(BundleFileInstance bfi, string ofpath)
+        public void WriteBundle(BundleFileInstance bfi, string ofpath)
         {
             FileStream stream = File.OpenWrite(ofpath);
-            AssetsFileWriter afw = new AssetsFileWriter(stream);
+            AssetsFileWriter afw = new(stream);
             bfi.file.Pack(bfi.file.reader, afw, AssetBundleCompressionType.LZ4);
             afw.Close();
             bfi.file.Close();
@@ -383,7 +385,7 @@ namespace ImpostersOrdeal
         {
             String baseDirectory = Environment.CurrentDirectory + "\\" + FileManager.outputModName + "\\romfs\\Data\\StreamingAssets\\AssetAssistant\\";
             ofpath = baseDirectory + "Pokemon Database\\pokemons\\" + ofpath;
-            String newCAB = genCABName();
+            String newCAB = GenCABName();
             String oldPMName = string.Format("pm{0}_{1}", srcMonsNo.ToString("D4"), srcFormNo.ToString("D2"));
             String newPMName = string.Format("pm{0}_{1}", dstMonsNo.ToString("D4"), dstFormNo.ToString("D2"));
 
@@ -435,7 +437,7 @@ namespace ImpostersOrdeal
                 gameObject["m_Name"].GetValue().Set(m_Name);
 
                 byte[] b = gameObject.WriteToByteArray();
-                AssetsReplacerFromMemory arfm = new AssetsReplacerFromMemory(0, afie.index, (int)afie.curFileType, AssetHelper.GetScriptIndex(afi.file, afie), b);
+                AssetsReplacerFromMemory arfm = new(0, afie.index, (int)afie.curFileType, AssetHelper.GetScriptIndex(afi.file, afie), b);
                 ars.Add(arfm);
             }
 
@@ -453,7 +455,7 @@ namespace ImpostersOrdeal
                 material["m_Name"].GetValue().Set(m_Name);
 
                 byte[] b = material.WriteToByteArray();
-                AssetsReplacerFromMemory arfm = new AssetsReplacerFromMemory(0, afie.index, (int)afie.curFileType, AssetHelper.GetScriptIndex(afi.file, afie), b);
+                AssetsReplacerFromMemory arfm = new(0, afie.index, (int)afie.curFileType, AssetHelper.GetScriptIndex(afi.file, afie), b);
                 ars.Add(arfm);
             }
 
@@ -474,7 +476,7 @@ namespace ImpostersOrdeal
                 texture2DField["m_StreamData"].children[2].GetValue().Set(m_StreamDataPath);
 
                 byte[] b = texture2DField.WriteToByteArray();
-                AssetsReplacerFromMemory arfm = new AssetsReplacerFromMemory(0, afie.index, (int)afie.curFileType, AssetHelper.GetScriptIndex(afi.file, afie), b);
+                AssetsReplacerFromMemory arfm = new(0, afie.index, (int)afie.curFileType, AssetHelper.GetScriptIndex(afi.file, afie), b);
                 ars.Add(arfm);
             }
 
@@ -492,7 +494,7 @@ namespace ImpostersOrdeal
                 mesh["m_Name"].GetValue().Set(m_Name);
 
                 byte[] b = mesh.WriteToByteArray();
-                AssetsReplacerFromMemory arfm = new AssetsReplacerFromMemory(0, afie.index, (int)afie.curFileType, AssetHelper.GetScriptIndex(afi.file, afie), b);
+                AssetsReplacerFromMemory arfm = new(0, afie.index, (int)afie.curFileType, AssetHelper.GetScriptIndex(afi.file, afie), b);
                 ars.Add(arfm);
             }
 
@@ -511,7 +513,7 @@ namespace ImpostersOrdeal
                 animationClip["m_Name"].GetValue().Set(m_Name);
 
                 byte[] b = animationClip.WriteToByteArray();
-                AssetsReplacerFromMemory arfm = new AssetsReplacerFromMemory(0, afie.index, (int)afie.curFileType, AssetHelper.GetScriptIndex(afi.file, afie), b);
+                AssetsReplacerFromMemory arfm = new(0, afie.index, (int)afie.curFileType, AssetHelper.GetScriptIndex(afi.file, afie), b);
                 ars.Add(arfm);
             }
 
@@ -550,7 +552,7 @@ namespace ImpostersOrdeal
                 }
 
                 byte[] b = assetBundle.WriteToByteArray();
-                AssetsReplacerFromMemory arfm = new AssetsReplacerFromMemory(0, afie.index, (int)afie.curFileType, AssetHelper.GetScriptIndex(afi.file, afie), b);
+                AssetsReplacerFromMemory arfm = new(0, afie.index, (int)afie.curFileType, AssetHelper.GetScriptIndex(afi.file, afie), b);
                 ars.Add(arfm);
             }
 

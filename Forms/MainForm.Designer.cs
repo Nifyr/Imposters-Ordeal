@@ -241,6 +241,8 @@ namespace ImpostersOrdeal
             this.groupBox32 = new System.Windows.Forms.GroupBox();
             this.button23 = new System.Windows.Forms.Button();
             this.button32 = new System.Windows.Forms.Button();
+            this.groupBox34 = new System.Windows.Forms.GroupBox();
+            this.button29 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -305,6 +307,7 @@ namespace ImpostersOrdeal
             this.groupBox29.SuspendLayout();
             this.groupBox27.SuspendLayout();
             this.groupBox32.SuspendLayout();
+            this.groupBox34.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -2510,11 +2513,32 @@ namespace ImpostersOrdeal
             this.button32.UseVisualStyleBackColor = true;
             this.button32.Click += new System.EventHandler(this.OpenTypeMatchupEditor);
             // 
+            // groupBox34
+            // 
+            this.groupBox34.Controls.Add(this.button29);
+            this.groupBox34.Location = new System.Drawing.Point(12, 544);
+            this.groupBox34.Name = "groupBox34";
+            this.groupBox34.Size = new System.Drawing.Size(185, 117);
+            this.groupBox34.TabIndex = 6;
+            this.groupBox34.TabStop = false;
+            this.groupBox34.Text = "Other Tools";
+            // 
+            // button29
+            // 
+            this.button29.Location = new System.Drawing.Point(6, 26);
+            this.button29.Name = "button29";
+            this.button29.Size = new System.Drawing.Size(173, 29);
+            this.button29.TabIndex = 13;
+            this.button29.Text = "Pokémon Inserter";
+            this.button29.UseVisualStyleBackColor = true;
+            this.button29.Click += new System.EventHandler(this.OpenPokemonInserter);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1262, 673);
+            this.Controls.Add(this.groupBox34);
             this.Controls.Add(this.groupBox32);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.groupBox2);
@@ -2633,6 +2657,7 @@ namespace ImpostersOrdeal
             this.groupBox27.ResumeLayout(false);
             this.groupBox27.PerformLayout();
             this.groupBox32.ResumeLayout(false);
+            this.groupBox34.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2850,5 +2875,7 @@ namespace ImpostersOrdeal
         public ItemDistributionControl itemDistributionControl5;
         public System.Windows.Forms.CheckBox checkBox63;
         public System.Windows.Forms.Button button23;
+        private System.Windows.Forms.GroupBox groupBox34;
+        public System.Windows.Forms.Button button29;
     }
 }
