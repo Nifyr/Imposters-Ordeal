@@ -466,7 +466,7 @@ namespace ImpostersOrdeal
                     }
             }
         }
-        public class TagData
+        public class TagData : ICloneable
         {
             public int tagIndex;
             public int groupID;
@@ -476,7 +476,16 @@ namespace ImpostersOrdeal
             public int tagParameter;
             public List<string> tagWordArray;
             public int forceGrmID;
+
+            public object Clone()
+            {
+                TagData td = (TagData)MemberwiseClone();
+                td.tagWordArray = new();
+                td.tagWordArray.AddRange(tagWordArray);
+                return td;
+            }
         }
+
         public class LabelData : ICloneable
         {
             public int labelIndex;
@@ -492,7 +501,17 @@ namespace ImpostersOrdeal
             public List<WordData> wordDatas;
             public object Clone()
             {
-                return this.MemberwiseClone();
+                LabelData ld = (LabelData)MemberwiseClone();
+                ld.attributeValues = new();
+                ld.attributeValues.AddRange(attributeValues);
+                ld.tagDatas = new();
+                foreach (TagData td in tagDatas)
+                    ld.tagDatas.Add((TagData)td.Clone());
+                ld.tagDatas = new();
+                foreach (WordData wd in wordDatas)
+                    ld.wordDatas.Add((WordData)wd.Clone());
+
+                return ld;
             }
 
             public string GetString()
@@ -522,7 +541,7 @@ namespace ImpostersOrdeal
             }
         }
 
-        public class WordData
+        public class WordData : ICloneable
         {
             public int patternID;
             public int eventID;
@@ -545,9 +564,14 @@ namespace ImpostersOrdeal
                     _ => "\0", //Unknown
                 };
             }
+
+            public object Clone()
+            {
+                return MemberwiseClone();
+            }
         }
 
-        public class Pokemon : GameDataTypes.INamedEntity, ICloneable
+        public class Pokemon : INamedEntity, ICloneable
         {
             public byte validFlag;
             public ushort personalID;
@@ -610,7 +634,17 @@ namespace ImpostersOrdeal
 
             public object Clone()
             {
-                return this.MemberwiseClone();
+                Pokemon p = (Pokemon)MemberwiseClone();
+                p.levelUpMoves = new();
+                foreach (LevelUpMove lum in levelUpMoves)
+                    p.levelUpMoves.Add((LevelUpMove)lum.Clone());
+                p.eggMoves = new();
+                p.eggMoves.AddRange(eggMoves);
+                p.evolutionPaths = new();
+                foreach (EvolutionPath ep in evolutionPaths)
+                    p.evolutionPaths.Add((EvolutionPath)ep.Clone());
+
+                return p;
             }
 
             public int GetBST()
@@ -789,19 +823,29 @@ namespace ImpostersOrdeal
             }
         }
 
-        public class EvolutionPath
+        public class EvolutionPath : ICloneable
         {
             public ushort method;
             public ushort parameter;
             public ushort destDexID;
             public ushort destFormID;
             public ushort level;
+
+            public object Clone()
+            {
+                return MemberwiseClone();
+            }
         }
 
-        public class LevelUpMove
+        public class LevelUpMove : ICloneable
         {
             public ushort level;
             public ushort moveID;
+
+            public object Clone()
+            {
+                return MemberwiseClone();
+            }
         }
 
         public class Item : GameDataTypes.INamedEntity
