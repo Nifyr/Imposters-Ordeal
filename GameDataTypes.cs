@@ -507,7 +507,7 @@ namespace ImpostersOrdeal
                 ld.tagDatas = new();
                 foreach (TagData td in tagDatas)
                     ld.tagDatas.Add((TagData)td.Clone());
-                ld.tagDatas = new();
+                ld.wordDatas = new();
                 foreach (WordData wd in wordDatas)
                     ld.wordDatas.Add((WordData)wd.Clone());
 
