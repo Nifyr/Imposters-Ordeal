@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static ImpostersOrdeal.GlobalData;
 
 namespace ImpostersOrdeal
 {
@@ -21,22 +22,22 @@ namespace ImpostersOrdeal
         {
             EncounterTableEditorForm etef = new();
             etef.ShowDialog();
-            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.EncounterTableFiles);
+            gameData.SetModified(GameDataSet.DataField.EncounterTableFiles);
         }
 
         private void OpenUndergroundEncounterEditor(object sender, EventArgs e)
         {
             UgEncounterEditorForm ueef = new();
             ueef.ShowDialog();
-            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.UgEncounterFiles);
-            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.UgEncounterLevelSets);
+            gameData.SetModified(GameDataSet.DataField.UgEncounterFiles);
+            gameData.SetModified(GameDataSet.DataField.UgEncounterLevelSets);
         }
 
         private void OpenMiscEncounterEditor(object sender, EventArgs e)
         {
             MiscEncounterEditorForm meef = new();
             meef.ShowDialog();
-            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.EncounterTableFiles);
+            gameData.SetModified(GameDataSet.DataField.EncounterTableFiles);
         }
     }
 }

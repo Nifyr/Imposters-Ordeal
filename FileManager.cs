@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using static ImpostersOrdeal.GlobalData;
 
 namespace ImpostersOrdeal
 {
@@ -289,9 +290,9 @@ namespace ImpostersOrdeal
         /// <summary>
         ///  Gets a list of MonoBehaviour value fields by PathEnum.
         /// </summary>
-        public List<AssetTypeValueField> GetMonoBehaviours(GlobalData.PathEnum pathEnum)
+        public List<AssetTypeValueField> GetMonoBehaviours(PathEnum pathEnum)
         {
-            BundleFileInstance bfi = fileArchive[GlobalData.randomizerPaths[pathEnum]].bundle;
+            BundleFileInstance bfi = fileArchive[randomizerPaths[pathEnum]].bundle;
             AssetsFileInstance afi = am.LoadAssetsFileFromBundle(bfi, 0);
 
             return afi.table.GetAssetsOfType(114).Select(afie => am.GetTypeInstance(afi, afie).GetBaseField()).ToList();
@@ -300,7 +301,7 @@ namespace ImpostersOrdeal
         /// <summary>
         ///  Overwrites a MonoBehaviour in a bundle.
         /// </summary>
-        public void WriteMonoBehaviour(GlobalData.PathEnum pathEnum, AssetTypeValueField monoBehaviour)
+        public void WriteMonoBehaviour(PathEnum pathEnum, AssetTypeValueField monoBehaviour)
         {
             WriteMonoBehaviours(pathEnum, new AssetTypeValueField[] { monoBehaviour });
         }
@@ -308,9 +309,9 @@ namespace ImpostersOrdeal
         /// <summary>
         ///  Overwrites an array of MonoBehaviours in a bundle.
         /// </summary>
-        public void WriteMonoBehaviours(GlobalData.PathEnum pathEnum, AssetTypeValueField[] atvfs)
+        public void WriteMonoBehaviours(PathEnum pathEnum, AssetTypeValueField[] atvfs)
         {
-            FileData fd = fileArchive[GlobalData.randomizerPaths[pathEnum]];
+            FileData fd = fileArchive[randomizerPaths[pathEnum]];
             List<AssetsReplacer> ars = new();
             for (int i = 0; i < atvfs.Length; i++)
             {
@@ -397,10 +398,10 @@ namespace ImpostersOrdeal
                 switch (Path.GetFileName(fd.gamePath))
                 {
                     case "Delphis_Main.bnk":
-                        buffer = GlobalData.gameData.audioCollection.delphisMainBuffer;
+                        buffer = gameData.audioCollection.delphisMainBuffer;
                         break;
                     case "global-metadata.dat":
-                        buffer = GlobalData.gameData.globalMetadata.buffer;
+                        buffer = gameData.globalMetadata.buffer;
                         break;
                 }
                 if (buffer != null)

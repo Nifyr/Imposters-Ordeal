@@ -27,7 +27,7 @@ namespace ImpostersOrdeal
             FLY = 1,
             RUN_FLY = 2,
         }
-        public class PokemonInfoCatalog : ICloneable
+        public class PokemonInfoCatalog : ICloneable, IComparable<PokemonInfoCatalog>
         {
             public int UniqueID;
             public int No;
@@ -86,6 +86,11 @@ namespace ImpostersOrdeal
             public object Clone()
             {
                 return this.MemberwiseClone();
+            }
+
+            public int CompareTo(PokemonInfoCatalog other)
+            {
+                return UniqueID.CompareTo(other.UniqueID);
             }
         }
     }

@@ -507,7 +507,7 @@ namespace ImpostersOrdeal
                 ld.tagDatas = new();
                 foreach (TagData td in tagDatas)
                     ld.tagDatas.Add((TagData)td.Clone());
-                ld.tagDatas = new();
+                ld.wordDatas = new();
                 foreach (WordData wd in wordDatas)
                     ld.wordDatas.Add((WordData)wd.Clone());
 
@@ -571,7 +571,7 @@ namespace ImpostersOrdeal
             }
         }
 
-        public class Pokemon : INamedEntity, ICloneable
+        public class Pokemon : INamedEntity, ICloneable, IComparable<Pokemon>
         {
             public byte validFlag;
             public ushort personalID;
@@ -780,6 +780,22 @@ namespace ImpostersOrdeal
             public bool IsValid()
             {
                 return validFlag != 0 && personalID > 0;
+            }
+
+            public int CompareTo(Pokemon other)
+            {
+                if (formID.CompareTo(other.formID) != 0)
+                {
+                    if (formID == 0)
+                        return -1;
+                    if (other.formID == 0)
+                        return 1;
+                }
+
+                int i = dexID.CompareTo(other.dexID);
+                if (i == 0)
+                    i = formID.CompareTo(other.formID);
+                return i;
             }
         }
 

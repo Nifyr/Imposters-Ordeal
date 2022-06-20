@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static ImpostersOrdeal.Distributions;
+using static ImpostersOrdeal.GlobalData;
 
 namespace ImpostersOrdeal
 {
@@ -235,9 +236,9 @@ namespace ImpostersOrdeal
         {
             flavor = new();
             randomizer = new Randomizer(this);
-            GlobalData.fileManager = new();
-            GlobalData.Initialize();
-            GlobalData.gameData = new();
+            fileManager = new();
+            Initialize();
+            gameData = new();
 
             //Confirm with user to get dump path. Abort if cancel.
             if (MessageBox.Show("Alright, to start out, could ya get me a dump of the game real quick?\n" +
@@ -249,7 +250,7 @@ namespace ImpostersOrdeal
             }
 
             //Load dump
-            while (!GlobalData.fileManager.InitializeFromDump())
+            while (!fileManager.InitializeFromDump())
                 if (RetryLoadDumpDialog() == DialogResult.No)
                 {
                     this.Close();
@@ -270,7 +271,7 @@ namespace ImpostersOrdeal
             SetupConfig(Analyzer.GetSetupConfig());
             loadingForm.Finish();
 
-            absoluteBoundaryDataGridView.DataSource = GlobalData.absoluteBoundaries;
+            absoluteBoundaryDataGridView.DataSource = absoluteBoundaries;
             foreach (DataGridViewColumn c in absoluteBoundaryDataGridView.Columns)
             {
                 if (c.Name == "Value")
@@ -330,7 +331,7 @@ namespace ImpostersOrdeal
                    "Add Mod", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.Cancel)
                 return;
 
-            if (GlobalData.fileManager.AddMod())
+            if (fileManager.AddMod())
             {
                 loadingForm = new("Some stuff changed...", flavor.GetSubTask());
                 loadingDisplay = new(StartLoadingDisplay);
@@ -382,7 +383,7 @@ namespace ImpostersOrdeal
             DataParser.CommitChanges();
 
             loadingForm.UpdateSubTask(flavor.GetThought());
-            GlobalData.fileManager.ExportMod();
+            fileManager.ExportMod();
             // Handle creation of asset bundles and Dpr.bin on export
             AssetInserter.GetInstance().ProcessRequests();
             loadingForm.Finish();
@@ -400,43 +401,43 @@ namespace ImpostersOrdeal
         {
             PokemonEditorForm pef = new();
             pef.ShowDialog();
-            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.PersonalEntries);
+            gameData.SetModified(GameDataSet.DataField.PersonalEntries);
         }
 
         private void OpenMoveEditor(object sender, EventArgs e)
         {
             MoveEditorForm mef = new();
             mef.ShowDialog();
-            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.Moves);
+            gameData.SetModified(GameDataSet.DataField.Moves);
         }
 
         private void OpenTMEditor(object sender, EventArgs e)
         {
             TMEditorForm tmef = new();
             tmef.ShowDialog();
-            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.TMs);
-            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.Items);
+            gameData.SetModified(GameDataSet.DataField.TMs);
+            gameData.SetModified(GameDataSet.DataField.Items);
         }
 
         private void OpenItemEditor(object sender, EventArgs e)
         {
             ItemEditorForm ief = new();
             ief.ShowDialog();
-            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.Items);
+            gameData.SetModified(GameDataSet.DataField.Items);
         }
 
         private void OpenPickupEditor(object sender, EventArgs e)
         {
             PickupEditorForm pef = new();
             pef.ShowDialog();
-            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.PickupItems);
+            gameData.SetModified(GameDataSet.DataField.PickupItems);
         }
 
         private void OpenShopEditor(object sender, EventArgs e)
         {
             ShopEditorForm sef = new();
             sef.ShowDialog();
-            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.ShopTables);
+            gameData.SetModified(GameDataSet.DataField.ShopTables);
         }
 
         private void OpenWildEncounterEditors(object sender, EventArgs e)
@@ -449,21 +450,21 @@ namespace ImpostersOrdeal
         {
             TrainerEditorForm tef = new();
             tef.ShowDialog();
-            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.Trainers);
+            gameData.SetModified(GameDataSet.DataField.Trainers);
         }
 
         private void OpenTypeMatchupEditor(object sender, EventArgs e)
         {
             TypeMatchupEditorForm tmef = new();
             tmef.ShowDialog();
-            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.GlobalMetadata);
+            gameData.SetModified(GameDataSet.DataField.GlobalMetadata);
         }
 
         private void OpenGlobalMetadataEditor(object sender, EventArgs e)
         {
             GlobalMetadataEditorForm gmef = new();
             gmef.ShowDialog();
-            GlobalData.gameData.SetModified(GlobalData.GameDataSet.DataField.GlobalMetadata);
+            gameData.SetModified(GameDataSet.DataField.GlobalMetadata);
         }
 
         private void OpenPokemonInserter(object sender, EventArgs e)

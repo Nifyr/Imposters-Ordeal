@@ -11,7 +11,7 @@ namespace ImpostersOrdeal
 {
     public static class BattleMasterdatas
 	{
-		public class MotionTimingData : ICloneable
+		public class MotionTimingData : ICloneable, IComparable<MotionTimingData>
 		{
 			public int MonsNo;
 			public int FormNo;
@@ -39,6 +39,16 @@ namespace ImpostersOrdeal
 			{
 				return this.MemberwiseClone();
 			}
-		}
+
+            public int CompareTo(MotionTimingData other)
+            {
+                int i = MonsNo.CompareTo(other.MonsNo);
+				if (i == 0)
+					i = FormNo.CompareTo(other.FormNo);
+				if (i == 0)
+					i = Sex.CompareTo(other.Sex);
+				return i;
+			}
+        }
 	}
 }

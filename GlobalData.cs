@@ -40,16 +40,11 @@ namespace ImpostersOrdeal
             public List<BattleMasterdatas.MotionTimingData> motionTimingData;
             public List<Masterdatas.PokemonInfoCatalog> pokemonInfos;
             public List<PersonalMasterdatas.AddPersonalTable> addPersonalTables;
-            public Dictionary<int, UIMasterdatas.PokemonIcon> uiPokemonIcon;
-            public Dictionary<int, UIMasterdatas.AshiatoIcon> uiAshiatoIcon;
-            public Dictionary<int, UIMasterdatas.PokemonVoice> uiPokemonVoice;
-            public Dictionary<int, UIMasterdatas.ZukanDisplay> uiZukanDisplay;
-            public Dictionary<int, UIMasterdatas.ZukanCompareHeight> uiZukanCompareHeights;
-            public Dictionary<int, UIMasterdatas.PokemonIcon> newUIPokemonIcon;
-            public Dictionary<int, UIMasterdatas.AshiatoIcon> newUIAshiatoIcon;
-            public Dictionary<int, UIMasterdatas.PokemonVoice> newUIPokemonVoice;
-            public Dictionary<int, UIMasterdatas.ZukanDisplay> newUIZukanDisplay;
-            public Dictionary<int, UIMasterdatas.ZukanCompareHeight> newUIZukanCompareHeights;
+            public List<UIMasterdatas.PokemonIcon> uiPokemonIcon;
+            public List<UIMasterdatas.AshiatoIcon> uiAshiatoIcon;
+            public List<UIMasterdatas.PokemonVoice> uiPokemonVoice;
+            public List<UIMasterdatas.ZukanDisplay> uiZukanDisplay;
+            public List<UIMasterdatas.ZukanCompareHeight> uiZukanCompareHeights;
 
             public Dictionary<string, string> trainerNames;
 

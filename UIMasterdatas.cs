@@ -12,7 +12,7 @@ namespace ImpostersOrdeal
 {
 	public static class UIMasterdatas
 	{
-		public class PokemonIcon : ICloneable
+		public class PokemonIcon : ICloneable, IComparable<PokemonIcon>
 		{
 			public int UniqueID;
 			public string AssetBundleName;
@@ -27,9 +27,14 @@ namespace ImpostersOrdeal
             {
 				return this.MemberwiseClone();
             }
+
+            public int CompareTo(PokemonIcon other)
+            {
+                return UniqueID.CompareTo(other.UniqueID);
+            }
         }
 
-		public class AshiatoIcon : ICloneable
+		public class AshiatoIcon : ICloneable, IComparable<AshiatoIcon>
 		{
 			public int UniqueID;
 			public string SideIconAssetName;
@@ -39,9 +44,14 @@ namespace ImpostersOrdeal
             {
 				return this.MemberwiseClone();
 			}
-        }
 
-		public class PokemonVoice : ICloneable
+			public int CompareTo(AshiatoIcon other)
+			{
+				return UniqueID.CompareTo(other.UniqueID);
+			}
+		}
+
+		public class PokemonVoice : ICloneable, IComparable<PokemonVoice>
 		{
 			public int UniqueID; 
 			public string WwiseEvent;
@@ -54,9 +64,14 @@ namespace ImpostersOrdeal
             {
 				return this.MemberwiseClone();
 			}
-        }
 
-		public class ZukanDisplay : ICloneable
+			public int CompareTo(PokemonVoice other)
+			{
+				return UniqueID.CompareTo(other.UniqueID);
+			}
+		}
+
+		public class ZukanDisplay : ICloneable, IComparable<ZukanDisplay>
 		{
 			public int UniqueID;
 			public Vector3 MoveLimit;
@@ -67,8 +82,13 @@ namespace ImpostersOrdeal
             {
 				return this.MemberwiseClone();
 			}
-        }
-		public class ZukanCompareHeight : ICloneable
+
+			public int CompareTo(ZukanDisplay other)
+			{
+				return UniqueID.CompareTo(other.UniqueID);
+			}
+		}
+		public class ZukanCompareHeight : ICloneable, IComparable<ZukanCompareHeight>
 		{
 			public int UniqueID;
 			public float PlayerScaleFactor;
@@ -79,6 +99,11 @@ namespace ImpostersOrdeal
             {
 				return this.MemberwiseClone();
 			}
-        }
+
+			public int CompareTo(ZukanCompareHeight other)
+			{
+				return UniqueID.CompareTo(other.UniqueID);
+			}
+		}
 	}
 }

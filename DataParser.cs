@@ -19,7 +19,8 @@ namespace ImpostersOrdeal
         static AssetTypeTemplateField attributeValueTemplate = null;
         static AssetTypeTemplateField tagWordTemplate = null;
         static AssetTypeTemplateField wordDataTemplate = null;
-        /// <summary>fParseAllMessageFiles
+
+        /// <summary>
         ///  Parses all files necessary for analysis and configuration.
         /// </summary>
         public static void PrepareAnalysis()
@@ -771,11 +772,6 @@ namespace ImpostersOrdeal
             gameData.uiPokemonVoice = new();
             gameData.uiZukanDisplay = new();
             gameData.uiZukanCompareHeights = new();
-            gameData.newUIPokemonIcon = new();
-            gameData.newUIAshiatoIcon = new();
-            gameData.newUIPokemonVoice = new();
-            gameData.newUIZukanDisplay = new();
-            gameData.newUIZukanCompareHeights = new();
             AssetTypeValueField uiDatabase = fileManager.GetMonoBehaviours(PathEnum.UIMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "UIDatabase");
 
             AssetTypeValueField[] pokemonIcons = uiDatabase["PokemonIcon"].children[0].children;
@@ -793,7 +789,7 @@ namespace ImpostersOrdeal
                 pokemonIcon.HallofFameOffset.X = pokemonIcons[i]["HallofFameOffset"].children[0].value.value.asFloat;
                 pokemonIcon.HallofFameOffset.Y = pokemonIcons[i]["HallofFameOffset"].children[1].value.value.asFloat;
 
-                gameData.uiPokemonIcon.Add(pokemonIcon.UniqueID, pokemonIcon);
+                gameData.uiPokemonIcon.Add(pokemonIcon);
             }
 
             AssetTypeValueField[] ashiatoIcons = uiDatabase["AshiatoIcon"].children[0].children;
@@ -804,7 +800,7 @@ namespace ImpostersOrdeal
                 ashiatoIcon.SideIconAssetName = ashiatoIcons[i]["SideIconAssetName"].GetValue().AsString();
                 ashiatoIcon.BothIconAssetName = ashiatoIcons[i]["BothIconAssetName"].GetValue().AsString();
 
-                gameData.uiAshiatoIcon.Add(ashiatoIcon.UniqueID, ashiatoIcon);
+                gameData.uiAshiatoIcon.Add(ashiatoIcon);
             }
 
             AssetTypeValueField[] pokemonVoices = uiDatabase["PokemonVoice"].children[0].children;
@@ -823,7 +819,7 @@ namespace ImpostersOrdeal
                 pokemonVoice.RotationLimitAngle.X = pokemonVoices[i]["RotationLimitAngle"].children[0].value.value.asFloat;
                 pokemonVoice.RotationLimitAngle.Y = pokemonVoices[i]["RotationLimitAngle"].children[1].value.value.asFloat;
 
-                gameData.uiPokemonVoice.Add(pokemonVoice.UniqueID, pokemonVoice);
+                gameData.uiPokemonVoice.Add(pokemonVoice);
             }
 
             AssetTypeValueField[] zukanDisplays = uiDatabase["ZukanDisplay"].children[0].children;
@@ -846,7 +842,7 @@ namespace ImpostersOrdeal
                 zukanDisplay.ModelRotationAngle.X = zukanDisplays[i]["ModelRotationAngle"].children[0].value.value.asFloat;
                 zukanDisplay.ModelRotationAngle.Y = zukanDisplays[i]["ModelRotationAngle"].children[1].value.value.asFloat;
 
-                gameData.uiZukanDisplay.Add(zukanDisplay.UniqueID, zukanDisplay);
+                gameData.uiZukanDisplay.Add(zukanDisplay);
             }
 
             AssetTypeValueField[] zukanCompareHeights = uiDatabase["ZukanCompareHeight"].children[0].children;
@@ -865,7 +861,7 @@ namespace ImpostersOrdeal
                 zukanCompareHeight.PlayerRotationAngle.X = zukanCompareHeights[i]["PlayerRotationAngle"].children[0].value.value.asFloat;
                 zukanCompareHeight.PlayerRotationAngle.Y = zukanCompareHeights[i]["PlayerRotationAngle"].children[1].value.value.asFloat;
 
-                gameData.uiZukanCompareHeights.Add(zukanCompareHeight.UniqueID, zukanCompareHeight);
+                gameData.uiZukanCompareHeights.Add(zukanCompareHeight);
             }
         }
 
@@ -884,7 +880,7 @@ namespace ImpostersOrdeal
                 catalog.MonsNo = catalogArray[i]["MonsNo"].value.value.asInt32;
                 catalog.FormNo = catalogArray[i]["FormNo"].value.value.asInt32;
                 catalog.Sex = catalogArray[i]["Sex"].value.value.asUInt8;
-                catalog.Rare = catalogArray[i]["Rare"].value.value.asUInt8 == 0;
+                catalog.Rare = catalogArray[i]["Rare"].value.value.asUInt8 == 1;
                 catalog.AssetBundleName = catalogArray[i]["AssetBundleName"].GetValue().AsString();
                 catalog.BattleScale = catalogArray[i]["BattleScale"].value.value.asFloat;
                 catalog.ContestScale = catalogArray[i]["ContestScale"].value.value.asFloat;
@@ -2118,6 +2114,7 @@ namespace ImpostersOrdeal
         }
         private static void CommitPokemonInfo()
         {
+            gameData.pokemonInfos.Sort();
 
             List<AssetTypeValueField> monoBehaviours = fileManager.GetMonoBehaviours(PathEnum.DprMasterdatas);
             AssetTypeValueField PokemonInfo = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "PokemonInfo");
@@ -2222,6 +2219,7 @@ namespace ImpostersOrdeal
 
         private static void CommitMotionTimingData()
         {
+            gameData.motionTimingData.Sort();
 
             List<AssetTypeValueField> monoBehaviours = fileManager.GetMonoBehaviours(PathEnum.BattleMasterdatas);
             AssetTypeValueField BattleDataTable = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "BattleDataTable");
@@ -2265,6 +2263,8 @@ namespace ImpostersOrdeal
         }
         private static void CommitAddPersonalTable()
         {
+            gameData.addPersonalTables.Sort();
+
             List<AssetTypeValueField> monoBehaviours = fileManager.GetMonoBehaviours(PathEnum.PersonalMasterdatas);
             AssetTypeValueField AddPersonalTable = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "AddPersonalTable");
 
@@ -2293,7 +2293,12 @@ namespace ImpostersOrdeal
 
         private static void CommitUIMasterdatas()
         {
-            // TODO: Get rid of new data sets for UIMasterdatas and have it just build the entire array instead.
+            gameData.uiPokemonIcon.Sort();
+            gameData.uiAshiatoIcon.Sort();
+            gameData.uiPokemonVoice.Sort();
+            gameData.uiZukanDisplay.Sort();
+            gameData.uiZukanCompareHeights.Sort();
+
             List <AssetTypeValueField> monoBehaviours = fileManager.GetMonoBehaviours(PathEnum.UIMasterdatas);
 
             AssetTypeValueField uiDatabase = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "UIDatabase");
@@ -2306,7 +2311,7 @@ namespace ImpostersOrdeal
 
             AssetTypeValueField pokemonIconRef = pokemonIcons[0];
             List<AssetTypeValueField> newPokemonIcons = new();
-            foreach (UIMasterdatas.PokemonIcon pokemonIcon in gameData.newUIPokemonIcon.Values)
+            foreach (UIMasterdatas.PokemonIcon pokemonIcon in gameData.uiPokemonIcon)
             {
                 AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(pokemonIconRef.GetTemplateField());
                 baseField["UniqueID"].GetValue().Set(pokemonIcon.UniqueID);
@@ -2320,7 +2325,7 @@ namespace ImpostersOrdeal
                 baseField["HallofFameOffset"].children[1].GetValue().Set(pokemonIcon.HallofFameOffset.Y);
                 newPokemonIcons.Add(baseField);
             }
-            uiDatabase["PokemonIcon"].children[0].SetChildrenList(pokemonIcons.Concat(newPokemonIcons).ToArray());
+            uiDatabase["PokemonIcon"].children[0].SetChildrenList(newPokemonIcons.ToArray());
 
             // Ashiato Icon
             AssetTypeValueField[] ashiatoIcons = uiDatabase["AshiatoIcon"].children[0].children;
@@ -2328,7 +2333,7 @@ namespace ImpostersOrdeal
 
             AssetTypeValueField ashiatoIconRef = ashiatoIcons[0];
             List<AssetTypeValueField> newAshiatoIcons = new();
-            foreach (UIMasterdatas.AshiatoIcon ashiatoIcon in gameData.newUIAshiatoIcon.Values)
+            foreach (UIMasterdatas.AshiatoIcon ashiatoIcon in gameData.uiAshiatoIcon)
             {
                 AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(ashiatoIconRef.GetTemplateField());
                 baseField["UniqueID"].GetValue().Set(ashiatoIcon.UniqueID);
@@ -2336,7 +2341,7 @@ namespace ImpostersOrdeal
                 baseField["BothIconAssetName"].GetValue().Set(ashiatoIcon.BothIconAssetName);
                 newAshiatoIcons.Add(baseField);
             }
-            uiDatabase["AshiatoIcon"].children[0].SetChildrenList(ashiatoIcons.Concat(newAshiatoIcons).ToArray());
+            uiDatabase["AshiatoIcon"].children[0].SetChildrenList(newAshiatoIcons.ToArray());
 
 
             // Pokemon Voice
@@ -2345,7 +2350,7 @@ namespace ImpostersOrdeal
 
             AssetTypeValueField pokemonVoiceRef = pokemonVoices[0];
             List<AssetTypeValueField> newPokemonVoices = new();
-            foreach (UIMasterdatas.PokemonVoice pokemonVoice in gameData.newUIPokemonVoice.Values)
+            foreach (UIMasterdatas.PokemonVoice pokemonVoice in gameData.uiPokemonVoice)
             {
                 AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(pokemonVoiceRef.GetTemplateField());
                 baseField["UniqueID"].GetValue().Set(pokemonVoice.UniqueID);
@@ -2359,7 +2364,7 @@ namespace ImpostersOrdeal
                 baseField["RotationLimitAngle"].children[1].GetValue().Set(pokemonVoice.RotationLimitAngle.Y);
                 newPokemonVoices.Add(baseField);
             }
-            uiDatabase["PokemonVoice"].children[0].SetChildrenList(pokemonVoices.Concat(newPokemonVoices).ToArray());
+            uiDatabase["PokemonVoice"].children[0].SetChildrenList(newPokemonVoices.ToArray());
 
 
             // ZukanDisplay
@@ -2368,7 +2373,7 @@ namespace ImpostersOrdeal
 
             AssetTypeValueField zukanDisplayRef = zukanDisplays[0];
             List<AssetTypeValueField> newZukanDisplays = new();
-            foreach (UIMasterdatas.ZukanDisplay zukanDisplay in gameData.newUIZukanDisplay.Values)
+            foreach (UIMasterdatas.ZukanDisplay zukanDisplay in gameData.uiZukanDisplay)
             {
                 AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(zukanDisplayRef.GetTemplateField());
                 baseField["UniqueID"].GetValue().Set(zukanDisplay.UniqueID);
@@ -2382,7 +2387,7 @@ namespace ImpostersOrdeal
                 baseField["ModelRotationAngle"].children[1].GetValue().Set(zukanDisplay.ModelRotationAngle.Y);
                 newZukanDisplays.Add(baseField);
             }
-            uiDatabase["ZukanDisplay"].children[0].SetChildrenList(zukanDisplays.Concat(newZukanDisplays).ToArray());
+            uiDatabase["ZukanDisplay"].children[0].SetChildrenList(newZukanDisplays.ToArray());
 
 
             // ZukanCompareHeight
@@ -2391,7 +2396,7 @@ namespace ImpostersOrdeal
 
             AssetTypeValueField zukanCompareHeightRef = zukanCompareHeights[0];
             List<AssetTypeValueField> newZukanCompareHeights = new();
-            foreach (UIMasterdatas.ZukanCompareHeight zukanCompareHeight in gameData.newUIZukanCompareHeights.Values)
+            foreach (UIMasterdatas.ZukanCompareHeight zukanCompareHeight in gameData.uiZukanCompareHeights)
             {
                 AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(zukanCompareHeightRef.GetTemplateField());
                 baseField["UniqueID"].GetValue().Set(zukanCompareHeight.UniqueID);
@@ -2403,7 +2408,7 @@ namespace ImpostersOrdeal
                 baseField["PlayerRotationAngle"].children[1].GetValue().Set(zukanCompareHeight.PlayerRotationAngle.Y);
                 newZukanCompareHeights.Add(baseField);
             }
-            uiDatabase["ZukanCompareHeight"].children[0].SetChildrenList(zukanCompareHeights.Concat(newZukanCompareHeights).ToArray());
+            uiDatabase["ZukanCompareHeight"].children[0].SetChildrenList(newZukanCompareHeights.ToArray());
 
             fileManager.WriteMonoBehaviours(PathEnum.UIMasterdatas, monoBehaviours.ToArray());
         }
@@ -2551,6 +2556,25 @@ namespace ImpostersOrdeal
 
                 newEggMoveFields.Add(eggMoveField);
             }
+
+            newPersonalFields.Sort((atvf1, atvf2) => atvf1[1].GetValue().AsUInt().CompareTo(atvf2[1].GetValue().AsUInt()));
+            newLevelUpMoveFields.Sort((atvf1, atvf2) => atvf1["id"].GetValue().AsInt().CompareTo(atvf2["id"].GetValue().AsInt()));
+            newEvolveFields.Sort((atvf1, atvf2) => atvf1["id"].GetValue().AsInt().CompareTo(atvf2["id"].GetValue().AsInt()));
+            newEggMoveFields.Sort((atvf1, atvf2) =>
+            {
+                if (atvf1["formNo"].GetValue().AsUInt().CompareTo(atvf2["formNo"].GetValue().AsUInt()) != 0)
+                {
+                    if (atvf1["formNo"].GetValue().AsUInt() == 0)
+                        return -1;
+                    if (atvf2["formNo"].GetValue().AsUInt() == 0)
+                        return 1;
+                }
+
+                int i = atvf1["no"].GetValue().AsUInt().CompareTo(atvf2["no"].GetValue().AsUInt());
+                if (i == 0)
+                    i = atvf1["formNo"].GetValue().AsUInt().CompareTo(atvf2["formNo"].GetValue().AsUInt());
+                return i;
+            });
 
             wazaOboeTable.children[4].children[0].SetChildrenList(newLevelUpMoveFields.ToArray());
             tamagoWazaTable.children[4].children[0].SetChildrenList(newEggMoveFields.ToArray());
@@ -3071,7 +3095,7 @@ namespace ImpostersOrdeal
                 for (int i = 0; i < children.Length; i++)
                 {
                     children[i] = new AssetTypeValueField();
-                    children[i].Read(item[i], reference.children[i].templateField, new AssetTypeValueField[0]);
+                    children[i].Read(item[i], reference.children[i].templateField, Array.Empty<AssetTypeValueField>());
                 }
 
                 atvf.Read(null, reference.templateField, children);
