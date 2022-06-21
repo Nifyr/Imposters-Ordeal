@@ -1,12 +1,12 @@
 ﻿using AssetsTools.NET;
 using AssetsTools.NET.Extra;
-using SmartPoint.AssetAssistant;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using static ImpostersOrdeal.GlobalData;
+using SmartPoint.AssetAssistant;
 
 namespace ImpostersOrdeal
 {
@@ -39,6 +39,7 @@ namespace ImpostersOrdeal
         };
         private static readonly string delphisMainPath = "romfs\\Data\\StreamingAssets\\Audio\\GeneratedSoundBanks\\Switch\\Delphis_Main.bnk";
         private static readonly string globalMetadataPath = "romfs\\Data\\Managed\\Metadata\\global-metadata.dat";
+        private static readonly string dprBinPath = "romfs\\Data\\StreamingAssets\\AssetAssistant\\Dpr.bin";
 
         private string assetAssistantPath;
         private string audioPath;
@@ -259,32 +260,26 @@ namespace ImpostersOrdeal
         {
             string absolutePath = assetAssistantPath + path;
             string gamePath = "romfs\\Data\\StreamingAssets\\AssetAssistant" + path;
-            if (!File.Exists(absolutePath))
+
+            if (!fileArchive.ContainsKey(gamePath))
             {
-                MessageBox.Show("File not found:\n" + gamePath + "\nIncomplete dump.",
-                "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return null;
+                if (!File.Exists(absolutePath))
+                {
+                    MessageBox.Show("File not found:\n" + gamePath + "\nIncomplete dump.",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return null;
+                }
+
+                FileData fd = new();
+                fd.fileLocation = absolutePath;
+                fd.gamePath = gamePath;
+                fd.fileSource = FileSource.Dump;
+                fd.bundle = am.LoadBundleFile(absolutePath, false);
+                DecompressBundle(fd.bundle);
+                fileArchive[gamePath] = fd;
             }
 
-            FileData fd = new();
-            fd.fileLocation = absolutePath;
-            fd.gamePath = gamePath;
-            fd.fileSource = FileSource.Dump;
-            fd.bundle = am.LoadBundleFile(absolutePath, false);
-            DecompressBundle(fd.bundle);
-
-            BundleFileInstance bfi = fd.bundle;
-            return bfi;
-        }
-        public AssetBundleDownloadManifest GetAssetBundleDownloadManifest(string ifpath)
-        {
-            string absolutePath = assetAssistantPath + "\\" + ifpath;
-            return AssetBundleDownloadManifest.Load(absolutePath);
-        }
-        public void SaveAssetBundleDownloadManifest(AssetBundleDownloadManifest abdm, string ofpath)
-        {
-            string modPath = Environment.CurrentDirectory + "\\" + outputModName + "\\romfs\\Data\\StreamingAssets\\AssetAssistant\\" + ofpath;
-            abdm.Save(modPath);
+            return fileArchive[gamePath].bundle;
         }
 
         /// <summary>
@@ -368,6 +363,19 @@ namespace ImpostersOrdeal
             return File.ReadAllBytes(fileArchive[globalMetadataPath].fileLocation);
         }
 
+        public AssetBundleDownloadManifest GetDprBin()
+        {
+            if (!fileArchive.ContainsKey(dprBinPath))
+            {
+                FileData fd = new();
+                fd.fileLocation = assetAssistantPath + "\\Dpr.bin";
+                fd.fileSource = FileSource.Dump;
+                fd.gamePath = dprBinPath;
+                fileArchive[dprBinPath] = fd;
+            }
+            return AssetBundleDownloadManifest.Load(fileArchive[dprBinPath].fileLocation);
+        }
+
         /// <summary>
         ///  Makes it so the audioCollection data is included when exporting.
         /// </summary>
@@ -382,6 +390,14 @@ namespace ImpostersOrdeal
         public void CommitGlobalMetadata()
         {
             fileArchive[globalMetadataPath].fileSource = FileSource.App;
+        }
+
+        /// <summary>
+        ///  Makes it so dprBin is included when exporting.
+        /// </summary>
+        public void CommitDprBin()
+        {
+            fileArchive[dprBinPath].fileSource = FileSource.App;
         }
 
         /// <summary>
@@ -403,6 +419,10 @@ namespace ImpostersOrdeal
                     case "global-metadata.dat":
                         buffer = gameData.globalMetadata.buffer;
                         break;
+                    case "Dpr.bin":
+                        gameData.dprBin.Save(newLocation);
+                        return;
+
                 }
                 if (buffer != null)
                 {
@@ -427,6 +447,13 @@ namespace ImpostersOrdeal
             fd.bundle.stream.Dispose();
             if (fd.tempLocation)
                 File.Delete(fd.fileLocation);
+        }
+
+        public void DeleteTemporaryFiles()
+        {
+            foreach (FileData fd in fileArchive.Values)
+                if (fd.tempLocation && File.Exists(fd.fileLocation))
+                    File.Delete(fd.fileLocation);
         }
 
         /// <summary>
@@ -489,14 +516,15 @@ namespace ImpostersOrdeal
         /// <summary>
         ///  Swaps out the loaded bundle with a modified bundle
         /// </summary>
-        private void MakeTempBundle(FileData fd, List<AssetsReplacer> ars, string fileLocation)
+        private void MakeTempBundle(FileData fd, List<AssetsReplacer> ars, string fileLocation, string cab = null)
         {
-            BundleFileInstance bfi1 = fd.bundle;
-            AssetsFileInstance afi1 = am.LoadAssetsFileFromBundle(bfi1, bfi1.file.bundleInf6.dirInf[0].name);
+            BundleFileInstance bfi = fd.bundle;
+            AssetsFileInstance afi = am.LoadAssetsFileFromBundle(bfi, bfi.file.bundleInf6.dirInf[0].name);
             MemoryStream memoryStream = new MemoryStream();
             AssetsFileWriter afw = new(memoryStream);
-            afi1.file.Write(afw, 0, ars, 0);
-            BundleReplacerFromMemory brfm = new BundleReplacerFromMemory(bfi1.file.bundleInf6.dirInf[0].name, null, true, memoryStream.ToArray(), -1);
+            afi.file.dependencies.Write(afw);
+            afi.file.Write(afw, 0, ars, 0);
+            BundleReplacerFromMemory brfm = new(bfi.file.bundleInf6.dirInf[0].name, cab, true, memoryStream.ToArray(), -1);
 
             afw = new(File.OpenWrite(fileLocation));
             fd.bundle.file.Write(afw, new List<BundleReplacer> { brfm });
@@ -511,25 +539,37 @@ namespace ImpostersOrdeal
             fd.tempLocation = true;
         }
 
-        public void MakeTempBundle(AssetsFileInstance afi, BundleFileInstance bfi, String newName, List<AssetsReplacer> ars, string fileLocation)
+        public void MakeTempBundle(string srcGamePath, string dstGamePath, List<AssetsReplacer> ars, string cab = null)
         {
+            string fileLocation = Environment.CurrentDirectory + "\\" + Path.GetFileName(dstGamePath) + GetFileIndex();
+            if (!fileArchive.ContainsKey(dstGamePath))
+            {
+                FileData newFD = new();
+                newFD.gamePath = dstGamePath;
+                newFD.fileSource = FileSource.App;
+                fileArchive[dstGamePath] = newFD;
+            }
+            FileData srcFD = fileArchive[srcGamePath];
+            FileData dstFD = fileArchive[dstGamePath];
+            BundleFileInstance bfi = srcFD.bundle;
+            AssetsFileInstance afi = am.LoadAssetsFileFromBundle(bfi, bfi.file.bundleInf6.dirInf[0].name);
             MemoryStream memoryStream = new MemoryStream();
             AssetsFileWriter afw = new(memoryStream);
             afi.file.dependencies.Write(afw);
             afi.file.Write(afw, 0, ars, 0);
-
-            BundleReplacerFromMemory brfm = new BundleReplacerFromMemory(bfi.file.bundleInf6.dirInf[0].name, newName, true, memoryStream.ToArray(), -1);
+            BundleReplacerFromMemory brfm = new(bfi.file.bundleInf6.dirInf[0].name, cab, true, memoryStream.ToArray(), -1);
 
             afw = new(File.OpenWrite(fileLocation));
-            // afw = new(File.OpenWrite(fileLocation));
             bfi.file.Write(afw, new List<BundleReplacer> { brfm });
             afw.Close();
-            bfi.file.Close();
-            bfi.stream.Dispose();
-            // bfi = am.LoadBundleFile(fileLocation, false);
-            // DecompressBundle(bfi);
-
-            // return bfi;
+            //srcFD.bundle.file.Close();
+            //srcFD.bundle.stream.Dispose();
+            dstFD.bundle = am.LoadBundleFile(fileLocation, false);
+            DecompressBundle(dstFD.bundle);
+            if (dstFD.tempLocation)
+                File.Delete(dstFD.fileLocation);
+            dstFD.fileLocation = fileLocation;
+            dstFD.tempLocation = true;
         }
 
         private static void DecompressBundle(BundleFileInstance bfi)

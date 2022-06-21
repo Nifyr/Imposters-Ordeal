@@ -79,9 +79,12 @@ namespace ImpostersOrdeal
                     "Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            for (int i = 1; i <= 100; i++)
+
+            /*
+            for (int i = 1; i < 100; i++)
                 AssetInserter.GetInstance().InsertPokemon(d.dexID, d.dexID, (int)formIDComboBox.SelectedItem, d.forms.Count, (byte)genderIDComboBox.SelectedItem, "Ditto " + i);
-            //AssetInserter.GetInstance().InsertPokemon(d.dexID, d.dexID, (int)formIDComboBox.SelectedItem, d.forms.Count, (byte)genderIDComboBox.SelectedItem, formNameTextBox.Text);
+            */
+            AssetInserter.GetInstance().InsertPokemon(d.dexID, d.dexID, (int)formIDComboBox.SelectedItem, d.forms.Count, (byte)genderIDComboBox.SelectedItem, formNameTextBox.Text);
             DexEntryChanged(null, null);
             MessageBox.Show("Data for " + d.GetName() + " " + formNameTextBox.Text + " has been inserted!",
                 "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);

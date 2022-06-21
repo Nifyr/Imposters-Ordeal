@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static ImpostersOrdeal.GameDataTypes;
+using SmartPoint.AssetAssistant;
 
 namespace ImpostersOrdeal
 {
@@ -45,6 +46,7 @@ namespace ImpostersOrdeal
             public List<UIMasterdatas.PokemonVoice> uiPokemonVoice;
             public List<UIMasterdatas.ZukanDisplay> uiZukanDisplay;
             public List<UIMasterdatas.ZukanCompareHeight> uiZukanCompareHeights;
+            public AssetBundleDownloadManifest dprBin;
 
             public Dictionary<string, string> trainerNames;
 
@@ -76,7 +78,8 @@ namespace ImpostersOrdeal
                 UIMasterdatas,
                 AddPersonalTable,
                 MotionTimingData,
-                PokemonInfo
+                PokemonInfo,
+                DprBin
             }
 
             public bool IsModified(DataField d)
@@ -1538,6 +1541,7 @@ namespace ImpostersOrdeal
 
         public static void Initialize()
         {
+            randomizerPaths[PathEnum.BattleMasterdatas] = "romfs\\Data\\StreamingAssets\\AssetAssistant\\Battle\\battle_masterdatas";
             randomizerPaths[PathEnum.EvScript] = "romfs\\Data\\StreamingAssets\\AssetAssistant\\Dpr\\ev_script";
             randomizerPaths[PathEnum.DprMasterdatas] = "romfs\\Data\\StreamingAssets\\AssetAssistant\\Dpr\\masterdatas";
             randomizerPaths[PathEnum.Gamesettings] = "romfs\\Data\\StreamingAssets\\AssetAssistant\\Dpr\\scriptableobjects\\gamesettings";
@@ -1553,9 +1557,8 @@ namespace ImpostersOrdeal
             randomizerPaths[PathEnum.Spanish] = "romfs\\Data\\StreamingAssets\\AssetAssistant\\Message\\spanish";
             randomizerPaths[PathEnum.TradChinese] = "romfs\\Data\\StreamingAssets\\AssetAssistant\\Message\\trad_chinese";
             randomizerPaths[PathEnum.PersonalMasterdatas] = "romfs\\Data\\StreamingAssets\\AssetAssistant\\Pml\\personal_masterdatas";
-            randomizerPaths[PathEnum.Ugdata] = "romfs\\Data\\StreamingAssets\\AssetAssistant\\UnderGround\\data\\ugdata";
-            randomizerPaths[PathEnum.BattleMasterdatas] = "romfs\\Data\\StreamingAssets\\AssetAssistant\\Battle\\battle_masterdatas";
             randomizerPaths[PathEnum.UIMasterdatas] = "romfs\\Data\\StreamingAssets\\AssetAssistant\\UIs\\masterdatas\\uimasterdatas";
+            randomizerPaths[PathEnum.Ugdata] = "romfs\\Data\\StreamingAssets\\AssetAssistant\\UnderGround\\data\\ugdata";
             DataColumn[] columns = { new DataColumn("Value", typeof(string)), new DataColumn("Minimum", typeof(int)), new DataColumn("Maximum", typeof(int)), new DataColumn("Increment", typeof(int)) };
             absoluteBoundaries.Columns.AddRange(columns);
             columns[0].ReadOnly = true;

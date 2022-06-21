@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using static ImpostersOrdeal.GlobalData;
 using static ImpostersOrdeal.GameDataTypes;
 using AssetsTools.NET.Extra;
+using SmartPoint.AssetAssistant;
 
 namespace ImpostersOrdeal
 {
@@ -48,6 +49,7 @@ namespace ImpostersOrdeal
             ParseMasterDatas();
             ParsePersonalMasterDatas();
             ParseUIMasterDatas();
+            ParseDprBin();
         }
 
         /// <summary>
@@ -1927,6 +1929,14 @@ namespace ImpostersOrdeal
         }
 
         /// <summary>
+        ///  Overwrites GlobalData with a parsed AssetBundleDownloadManifest.
+        /// </summary>
+        private static void ParseDprBin()
+        {
+            gameData.dprBin = fileManager.GetDprBin();
+        }
+
+        /// <summary>
         ///  Commits all modified files and prepares them for exporting.
         /// </summary>
         public static void CommitChanges()
@@ -1969,6 +1979,13 @@ namespace ImpostersOrdeal
                 CommitMotionTimingData();
             if (gameData.IsModified(GameDataSet.DataField.PokemonInfo))
                 CommitPokemonInfo();
+            if (gameData.IsModified(GameDataSet.DataField.DprBin))
+                CommitDprBin();
+        }
+
+        private static void CommitDprBin()
+        {
+            fileManager.CommitDprBin();
         }
 
         private static void CommitGlobalMetadata()

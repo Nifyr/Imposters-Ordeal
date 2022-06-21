@@ -384,8 +384,7 @@ namespace ImpostersOrdeal
 
             loadingForm.UpdateSubTask(flavor.GetThought());
             fileManager.ExportMod();
-            // Handle creation of asset bundles and Dpr.bin on export
-            AssetInserter.GetInstance().ProcessRequests();
+            fileManager.DeleteTemporaryFiles();
             loadingForm.Finish();
 
             MessageBox.Show(
