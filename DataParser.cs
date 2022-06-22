@@ -1933,7 +1933,9 @@ namespace ImpostersOrdeal
         /// </summary>
         private static void ParseDprBin()
         {
-            gameData.dprBin = fileManager.GetDprBin();
+            AssetBundleDownloadManifest abdm = fileManager.GetDprBin();
+            if (abdm != null)
+                gameData.dprBin = abdm;
         }
 
         /// <summary>

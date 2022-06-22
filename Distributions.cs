@@ -225,8 +225,9 @@ namespace ImpostersOrdeal
         public static double StandardDeviation(this IList<double> observations)
         {
             double sum = 0;
-            for (int i = 0; i < observations.Count; i++)
-                sum += Math.Pow(observations.Average() - observations[i], 2) / (observations.Count - 1);
+            if (observations.Count > 1)
+                for (int i = 0; i < observations.Count; i++)
+                    sum += Math.Pow(observations.Average() - observations[i], 2) / (observations.Count - 1);
             return Math.Sqrt(sum);
         }
 

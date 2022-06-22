@@ -373,7 +373,14 @@ namespace ImpostersOrdeal
                 fd.gamePath = dprBinPath;
                 fileArchive[dprBinPath] = fd;
             }
-            return AssetBundleDownloadManifest.Load(fileArchive[dprBinPath].fileLocation);
+            try
+            {
+                return AssetBundleDownloadManifest.Load(fileArchive[dprBinPath].fileLocation);
+            }
+            catch (IOException)
+            {
+                return null;
+            }
         }
 
         /// <summary>

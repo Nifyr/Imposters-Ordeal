@@ -521,20 +521,20 @@ namespace ImpostersOrdeal
         /// </summary>
         private static (IDistribution[], int) ToNumericDistributionConfig(List<int> observations)
         {
-            double min = observations.Min();
-            double max = observations.Max();
+            double min = observations.Count > 0 ? observations.Min() : 0;
+            double max = observations.Count > 0 ? observations.Max() : 0;
             double uniAvg = (min + max) / 2.0;
-            double avg = observations.Average();
+            double avg = observations.Count > 0 ? observations.Average() : 0;
             double std = observations.StandardDeviation();
 
             IDistribution[] distributions = new IDistribution[]
             {
                 new UniformConstant(100, min, max),
                 new UniformRelative(100, (min-uniAvg)/2, (max-uniAvg)/2),
-                new UniformProportional(100, (min+uniAvg)/(2*uniAvg), (max+uniAvg)/(2*uniAvg)),
+                new UniformProportional(100, (min+uniAvg)/(2*uniAvg == 0 ? 1 : 2*uniAvg), (max+uniAvg)/(2*uniAvg == 0 ? 1 : 2*uniAvg)),
                 new NormalConstant(100, avg, std),
                 new NormalRelative(100, std/2),
-                new NormalProportional(100, std/(2*avg))
+                new NormalProportional(100, std/(2*avg == 0 ? 1 : 2*avg))
             };
             return (distributions, 4);
         }
