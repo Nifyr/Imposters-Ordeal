@@ -226,6 +226,7 @@ namespace ImpostersOrdeal
                 l.moveID = (ushort)moves.IndexOf((string)levelUpMoveDataGridView.Rows[i].Cells[1].Value);
                 levelUpMoves.Add(l);
             }
+            levelUpMoves.Sort((l1, l2) => l1.level.CompareTo(l2.level));
             p.levelUpMoves = levelUpMoves;
 
             List<ushort> eggMoves = new();
