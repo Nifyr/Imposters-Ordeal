@@ -107,6 +107,8 @@ namespace ImpostersOrdeal
             double sameTypePercent = GetOccurrencePercent(movePairing, pm => pm.Item1.GetTyping().Contains(pm.Item2.typingID));
             double unbiasedSameTypePercent = (100 + randomizerSetupConfig.doubleTypingP) / gameData.typings.Count;
             randomizerSetupConfig.tmCompatibilityTypeBiasP = 100 * (sameTypePercent - unbiasedSameTypePercent) / (100 - unbiasedSameTypePercent);
+            if (randomizerSetupConfig.tmCompatibilityTypeBiasP < 0)
+                randomizerSetupConfig.tmCompatibilityTypeBiasP = 0;
 
             //Wild Held Items
             instances = new int[gameData.items.Count];
@@ -158,6 +160,8 @@ namespace ImpostersOrdeal
             sameTypePercent = GetOccurrencePercent(movePairing, pm => pm.Item1.GetTyping().Contains(pm.Item2.typingID));
             unbiasedSameTypePercent = (100 + randomizerSetupConfig.doubleTypingP) / gameData.typings.Count;
             randomizerSetupConfig.eggMoveTypeBiasP = 100 * (sameTypePercent - unbiasedSameTypePercent) / (100 - unbiasedSameTypePercent);
+            if (randomizerSetupConfig.eggMoveTypeBiasP < 0)
+                randomizerSetupConfig.eggMoveTypeBiasP = 0;
 
             //Egg Move Count
             randomizerSetupConfig.eggMoveCount = GetNumericDistributionConfig(gameData.personalEntries, p => p.eggMoves.Count, AbsoluteBoundary.EggMoveCount);
@@ -175,6 +179,8 @@ namespace ImpostersOrdeal
             sameTypePercent = GetOccurrencePercent(movePairing, pm => pm.Item1.GetTyping().Contains(pm.Item2.typingID));
             unbiasedSameTypePercent = (100 + randomizerSetupConfig.doubleTypingP) / gameData.typings.Count;
             randomizerSetupConfig.levelUpMoveTypeBiasP = 100 * (sameTypePercent - unbiasedSameTypePercent) / (100 - unbiasedSameTypePercent);
+            if (randomizerSetupConfig.levelUpMoveTypeBiasP < 0)
+                randomizerSetupConfig.levelUpMoveTypeBiasP = 0;
 
             //Level Up Move Levels
             observations = new();
@@ -388,6 +394,8 @@ namespace ImpostersOrdeal
             sameTypePercent = GetOccurrencePercent(movePairing, pm => pm.Item1.GetTyping().Contains(pm.Item2.typingID));
             unbiasedSameTypePercent = (100 + randomizerSetupConfig.doubleTypingP) / gameData.typings.Count;
             randomizerSetupConfig.trainerPokemonMoveTypeBiasP = 100 * (sameTypePercent - unbiasedSameTypePercent) / (100 - unbiasedSameTypePercent);
+            if (randomizerSetupConfig.trainerPokemonMoveTypeBiasP < 0)
+                randomizerSetupConfig.trainerPokemonMoveTypeBiasP = 0;
 
             //Trainer Pokémon Count
             randomizerSetupConfig.trainerPokemonCount = GetNumericDistributionConfig(gameData.trainers, t => t.trainerPokemon.Count, AbsoluteBoundary.TrainerPokemonCount);
