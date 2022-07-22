@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows.Forms;
 using static ImpostersOrdeal.GlobalData;
 using SmartPoint.AssetAssistant;
+using System.Configuration;
 
 namespace ImpostersOrdeal
 {
@@ -78,7 +79,7 @@ namespace ImpostersOrdeal
         /// <summary>
         ///  Gets dump from user and opens all necessary files.
         /// </summary>
-        internal bool InitializeFromDump()
+        public bool InitializeFromInput()
         {
             //Get the dump path from user.
             FolderBrowserDialog fbd = new();
@@ -119,6 +120,52 @@ namespace ImpostersOrdeal
                     fileArchive = null;
                     return false;
                 }
+
+                FileData fd = new();
+                fd.fileLocation = absolutePath;
+                fd.gamePath = gamePath;
+                fd.fileSource = FileSource.Dump;
+                fd.bundle = am.LoadBundleFile(absolutePath, false);
+                DecompressBundle(fd.bundle);
+                fileArchive[gamePath] = fd;
+            }
+
+            Configuration c = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            c.AppSettings.Settings["dumpPath"].Value = fbd.SelectedPath;
+            c.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection(c.AppSettings.SectionInformation.Name);
+
+            return true;
+        }
+
+        /// <summary>
+        ///  Reads dump path from config and attemts to open all necessary files.
+        /// </summary>
+        public bool InitializeFromConfig()
+        {
+            //Get the dump path from config.
+            string dumpPath = System.Configuration.ConfigurationManager.AppSettings["dumpPath"];
+
+            //Check that it's a game directory
+            if (!IsGameDirectory(dumpPath, true))
+                return false;
+
+            //Get the AssetAssistant path
+            assetAssistantPath = GetAssetAssistantPath(dumpPath);
+            if (assetAssistantPath == "")
+                return false;
+            audioPath = Directory.GetParent(assetAssistantPath).FullName + "\\Audio\\GeneratedSoundBanks\\Switch";
+            metadataPath = GetDataPath(dumpPath) + "\\Managed\\Metadata";
+
+
+            //Setup fileArchive
+            fileArchive = new();
+            for (int i = 0; i < assetAssistantRelevantFiles.Length; i++)
+            {
+                string absolutePath = assetAssistantPath + assetAssistantRelevantFiles[i];
+                string gamePath = "romfs\\Data\\StreamingAssets\\AssetAssistant" + assetAssistantRelevantFiles[i];
+                if (!File.Exists(absolutePath))
+                    return false;
 
                 FileData fd = new();
                 fd.fileLocation = absolutePath;

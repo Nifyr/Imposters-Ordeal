@@ -240,22 +240,26 @@ namespace ImpostersOrdeal
             Initialize();
             gameData = new();
 
-            //Confirm with user to get dump path. Abort if cancel.
-            if (MessageBox.Show("Alright, to start out, could ya get me a dump of the game real quick?\n" +
-                "Gimme the folder that's got the \"romfs\" in it.",
-                "Load Dump", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.Cancel && RetryLoadDumpDialog() == DialogResult.No)
+            //Check if valid dump path already is in config
+            if (!fileManager.InitializeFromConfig())
             {
-                this.Close();
-                return;
-            }
-
-            //Load dump
-            while (!fileManager.InitializeFromDump())
-                if (RetryLoadDumpDialog() == DialogResult.No)
+                //Confirm with user to get dump path. Abort if cancel.
+                if (MessageBox.Show("Alright, to start out, could ya get me a dump of the game real quick?\n" +
+                    "Gimme the folder that's got the \"romfs\" in it.",
+                    "Load Dump", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.Cancel && RetryLoadDumpDialog() == DialogResult.No)
                 {
                     this.Close();
                     return;
                 }
+
+                //Load dump
+                while (!fileManager.InitializeFromInput())
+                    if (RetryLoadDumpDialog() == DialogResult.No)
+                    {
+                        this.Close();
+                        return;
+                    }
+            }
 
             loadingForm = new("Ferociously investigating your dump...", flavor.GetSubTask());
             loadingDisplay = new(StartLoadingDisplay);
