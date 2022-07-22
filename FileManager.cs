@@ -274,9 +274,14 @@ namespace ImpostersOrdeal
                 fd.fileLocation = absolutePath;
                 fd.gamePath = gamePath;
                 fd.fileSource = FileSource.Dump;
-                fd.bundle = am.LoadBundleFile(absolutePath, false);
-                DecompressBundle(fd.bundle);
                 fileArchive[gamePath] = fd;
+            }
+
+            if (!fileArchive[gamePath].IsBundle())
+            {
+                FileData fd = fileArchive[gamePath];
+                fd.bundle = am.LoadBundleFile(fd.fileLocation, false);
+                DecompressBundle(fd.bundle);
             }
 
             return fileArchive[gamePath].bundle;

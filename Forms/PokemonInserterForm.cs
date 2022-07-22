@@ -41,34 +41,20 @@ namespace ImpostersOrdeal
             ActivateControls();
         }
 
-        private void FormChanged(object sender, EventArgs e)
-        {
-            DeactivateControls();
-
-            genderIDComboBox.DataSource = gameData.pokemonInfos.Where(pi => pi.MonsNo == d.dexID && pi.FormNo == formIDComboBox.SelectedIndex).Select(pi => pi.Sex).Distinct().ToArray();
-            genderIDComboBox.SelectedIndex = 0;
-
-            ActivateControls();
-        }
-
         private void RefreshDexEntryDisplay()
         {
             formIDComboBox.DataSource = d.forms.Select((o, i) => i).ToArray();
             formIDComboBox.SelectedIndex = 0;
-            genderIDComboBox.DataSource = gameData.pokemonInfos.Where(pi => pi.MonsNo == d.dexID && pi.FormNo == 0).Select(pi => pi.Sex).Distinct().ToArray();
-            //genderIDComboBox.SelectedIndex = 0;
         }
 
         private void ActivateControls()
         {
             dexIDComboBox.SelectedIndexChanged += DexEntryChanged;
-            formIDComboBox.SelectedIndexChanged += FormChanged;
         }
 
         private void DeactivateControls()
         {
             dexIDComboBox.SelectedIndexChanged -= DexEntryChanged;
-            formIDComboBox.SelectedIndexChanged -= FormChanged;
         }
 
         private void AddFormClick(object sender, EventArgs e)
@@ -80,11 +66,11 @@ namespace ImpostersOrdeal
                 return;
             }
 
-            /*
-            for (int i = 1; i < 100; i++)
-                AssetInserter.GetInstance().InsertPokemon(d.dexID, d.dexID, (int)formIDComboBox.SelectedItem, d.forms.Count, (byte)genderIDComboBox.SelectedItem, "Ditto " + i);
+            /* for testing mass insertion
+            for (int i = 1; i <= 151; i++)
+                AssetInserter.GetInstance().InsertPokemon(i, i, 0, dexEntries[i].forms.Count, "Ditto");
             */
-            AssetInserter.GetInstance().InsertPokemon(d.dexID, d.dexID, (int)formIDComboBox.SelectedItem, d.forms.Count, (byte)genderIDComboBox.SelectedItem, formNameTextBox.Text);
+            AssetInserter.GetInstance().InsertPokemon(d.dexID, d.dexID, (int)formIDComboBox.SelectedItem, d.forms.Count, formNameTextBox.Text);
             DexEntryChanged(null, null);
             MessageBox.Show("Data for " + d.GetName() + " " + formNameTextBox.Text + " has been inserted!",
                 "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);

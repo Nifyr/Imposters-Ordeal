@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using static ImpostersOrdeal.GameDataTypes;
 using static ImpostersOrdeal.GlobalData;
 using SmartPoint.AssetAssistant;
+using System.Text.RegularExpressions;
 
 namespace ImpostersOrdeal
 {
@@ -23,7 +24,7 @@ namespace ImpostersOrdeal
             AssetBundle = 142,
         }
 
-        private const string basePath = "\\Pokemon Database\\pokemons\\";
+        private const string basePath = "\\Pokemon Database\\";
 
         private static AssetInserter instance;
         private Random rnd;
@@ -57,16 +58,17 @@ namespace ImpostersOrdeal
             return monsNo * 10000 + formNo * 100 + gender * 10 + (isRare ? 1 : 0);
         }
 
-        public void InsertPokemon(int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo, int gender, string formName)
+        public void InsertPokemon(int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo, string formName)
         {
-            UpdateUIMasterdatas(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo, gender);
+            List<(int, int)> uniqueIDs = GetUniqueIDs(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
+            UpdatePokemonInfo(uniqueIDs, out List<(string, string)> assetBundleNames);
+            UpdateDprBin(assetBundleNames, out Dictionary<string, string> assetBundlePaths);
+            UpdateUIMasterdatas(uniqueIDs);
             UpdateAddPersonalTable(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
             UpdateMotionTimingData(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
-            UpdatePokemonInfos(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo, gender);
             UpdatePersonalInfos(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
             UpdateCommonMsbt(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo, formName);
-            DuplicateAssetBundles(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
-            UpdateDprBin(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
+            DuplicateAssetBundles(assetBundlePaths, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
             gameData.SetModified(GameDataSet.DataField.UIMasterdatas);
             gameData.SetModified(GameDataSet.DataField.AddPersonalTable);
             gameData.SetModified(GameDataSet.DataField.MotionTimingData);
@@ -76,36 +78,80 @@ namespace ImpostersOrdeal
             gameData.SetModified(GameDataSet.DataField.DprBin);
         }
 
-        public void UpdateDprBin(int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo)
+        private List<(int, int)> GetUniqueIDs(int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo)
+        {
+            (int, int) uniqueIDRange = (GenUniqueID(srcMonsNo, srcFormNo, 0, false), GenUniqueID(srcMonsNo, srcFormNo, 9, true));
+            List<Masterdatas.PokemonInfoCatalog> pics = gameData.pokemonInfos.Where(pic => pic.UniqueID >= uniqueIDRange.Item1 && pic.UniqueID <= uniqueIDRange.Item2).ToList();
+            List<(int, int)> uniqueIDPairs = new();
+            foreach (Masterdatas.PokemonInfoCatalog pic in pics)
+                uniqueIDPairs.Add((pic.UniqueID, GenUniqueID(dstMonsNo, dstFormNo, pic.Sex, pic.Rare)));
+            return uniqueIDPairs;
+        }
+
+        public void UpdateDprBin(List<(string, string)> assetBundleNames, out Dictionary<string, string> assetBundlePaths)
         {
             AssetBundleDownloadManifest abdm = gameData.dprBin;
 
-            foreach (AssetBundleRecord record in abdm.records)
+            assetBundlePaths = new();
+            Dictionary<string, string> assetBundlePathsWithDependencies = new();
+
+            List<AssetBundleRecord> recordsToCopy = new();
+            foreach ((string, string) assetBundleNamePair in assetBundleNames)
             {
-                string oldPMName = string.Format("pm{0}_{1}", srcMonsNo.ToString("D4"), srcFormNo.ToString("D2"));
-                string newPMName = string.Format("pm{0}_{1}", dstMonsNo.ToString("D4"), dstFormNo.ToString("D2"));
-                if (record.assetBundleName.Contains(oldPMName))
-                {
-                    AssetBundleRecord newRecord = (AssetBundleRecord)record.Clone();
-                    newRecord.assetBundleName = newRecord.assetBundleName.Replace(oldPMName, newPMName);
-
-                    for (int i = 0; i < newRecord.assetPaths.Length; i++)
+                List<AssetBundleRecord> recordsToAdd = abdm.GetAssetBundleRecordsWithDependencies("pokemons/battle/" + assetBundleNamePair.Item1, true).ToList();
+                recordsToAdd.AddRange(abdm.GetAssetBundleRecordsWithDependencies("pokemons/field/" + assetBundleNamePair.Item1, true));
+                foreach (AssetBundleRecord record in recordsToAdd)
+                    if (record.projectName == "Pokemon Database" && !assetBundlePaths.ContainsKey(record.assetBundleName) && !assetBundlePathsWithDependencies.ContainsKey(record.assetBundleName))
                     {
-                        newRecord.assetPaths[i] = newRecord.assetPaths[i].Replace(oldPMName, newPMName);
+                        recordsToCopy.Add(record);
+                        string newAssetBundlePath = Path.Combine(Path.GetDirectoryName(record.assetBundleName), assetBundleNamePair.Item2).Replace('\\', '/');
+                        while (assetBundlePaths.Values.Contains(newAssetBundlePath) || assetBundlePathsWithDependencies.Values.Contains(newAssetBundlePath))
+                            newAssetBundlePath = IncrementName(newAssetBundlePath);
+                        if (record.allDependencies.Length == 0)
+                            assetBundlePaths[record.assetBundleName] = newAssetBundlePath;
+                        else
+                            assetBundlePathsWithDependencies[record.assetBundleName] = newAssetBundlePath;
                     }
-
-                    for (int i = 0; i < newRecord.allDependencies.Length; i++)
-                    {
-                        newRecord.allDependencies[i] = newRecord.allDependencies[i].Replace(oldPMName, newPMName);
-                    }
-                    abdm.Add(newRecord.assetBundleName, newRecord);
-                }
             }
+            recordsToCopy.Sort((r1, r2) => r1.allDependencies.Length - r2.allDependencies.Length);
+            foreach (KeyValuePair<string, string> pair in assetBundlePathsWithDependencies)
+                assetBundlePaths.Add(pair.Key, pair.Value);
+
+            foreach (AssetBundleRecord record in recordsToCopy)
+            {
+                AssetBundleRecord newRecord = (AssetBundleRecord)record.Clone();
+                newRecord.assetBundleName = assetBundlePaths[newRecord.assetBundleName];
+
+                for (int i = 0; i < newRecord.assetPaths.Length; i++)
+                    newRecord.assetPaths[i] = UpdateAssetPath(newRecord.assetPaths[i], Path.GetFileName(newRecord.assetBundleName));
+
+                for (int i = 0; i < newRecord.allDependencies.Length; i++)
+                    if (assetBundlePaths.ContainsKey(newRecord.allDependencies[i]))
+                        newRecord.allDependencies[i] = assetBundlePaths[newRecord.allDependencies[i]];
+                abdm.Add(newRecord);
+            }
+        }
+
+        private string IncrementName(string assetBundlePath)
+        {
+            if (Regex.Matches(assetBundlePath, @"_\d+$").Count == 0)
+                return assetBundlePath + "_0";
+            return Regex.Replace(assetBundlePath, @"_\d+$", m => "_" + (int.Parse(m.Value[1..]) + 1));
+        }
+
+        private string UpdateAssetPath(string assetPath, string assetBundleName)
+        {
+            string name = Path.Combine(Path.GetDirectoryName(assetPath), Path.GetFileNameWithoutExtension(assetPath)).Replace('\\', '/');
+            string ext = Path.GetExtension(assetPath);
+            if (ext == null)
+                ext = "";
+            if (Regex.Matches(name, @"pm\d+$").Count == 0)
+                return name + assetBundleName + ext;
+            return Regex.Replace(name, @"pm\d+$", m => assetBundleName) + ext;
         }
 
         public void UpdatePersonalInfos(int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo)
         {
-            // Will only really work for adding a new form. Not a new pokemon based on another one
             Pokemon srcPokemon = null;
             foreach (Pokemon pokemon in gameData.personalEntries)
             {
@@ -118,7 +164,6 @@ namespace ImpostersOrdeal
                 pokemon.inferiorForms = new();
                 pokemon.superiorForms = new();
             }
-            srcPokemon.formMax = (byte)(dstFormNo + 1);
 
             Pokemon newPokemon = (Pokemon)srcPokemon.Clone();
             newPokemon.dexID = (ushort) dstMonsNo;
@@ -126,9 +171,20 @@ namespace ImpostersOrdeal
             newPokemon.personalID = (ushort)GetPersonalInsertPos(newPokemon);
 
             PersonalInsert(newPokemon);
+            if (gameData.dexEntries.Count == newPokemon.dexID)
+            {
+                gameData.dexEntries.Add(new());
+                gameData.dexEntries[newPokemon.dexID].dexID = newPokemon.dexID;
+                gameData.dexEntries[newPokemon.dexID].forms = new();
+                gameData.dexEntries[newPokemon.dexID].name = newPokemon.name;
+            }
             gameData.dexEntries[newPokemon.dexID].forms.Add(newPokemon);
             foreach (Pokemon p in gameData.dexEntries[newPokemon.dexID].forms)
-                p.formIndex = gameData.dexEntries[newPokemon.dexID].forms[1].personalID;
+            {
+                p.formMax = (byte)(dstFormNo + 1);
+                if (gameData.dexEntries[newPokemon.dexID].forms.Count > 1)
+                    p.formIndex = gameData.dexEntries[newPokemon.dexID].forms[1].personalID;
+            }
             DataParser.SetFamilies();
         }
 
@@ -234,34 +290,34 @@ namespace ImpostersOrdeal
             }
         }
 
-        public void UpdatePokemonInfos(int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo, int gender)
+        public void UpdatePokemonInfo(List<(int, int)> uniqueIDs, out List<(string, string)> assetBundleNames)
         {
-            UpdatePokemonInfo(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo, gender, false);
-            UpdatePokemonInfo(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo, gender, true);
-        }
+            assetBundleNames = new();
 
-        public void UpdatePokemonInfo(int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo, int gender, bool isRare)
-        {
-            string oldPMName = string.Format("pm{0}_{1}", srcMonsNo.ToString("D4"), srcFormNo.ToString("D2"));
-            string newPMName = string.Format("pm{0}_{1}", dstMonsNo.ToString("D4"), dstFormNo.ToString("D2"));
-            int uniqueID = GenUniqueID(dstMonsNo, dstFormNo, gender, isRare);
-            Masterdatas.PokemonInfoCatalog basePokemonInfoCatalog = null;
-            foreach (Masterdatas.PokemonInfoCatalog pokemonInfoCatalog in gameData.pokemonInfos)
+            foreach ((int, int) uniqueIDPair in uniqueIDs)
             {
-                if (pokemonInfoCatalog.MonsNo == srcMonsNo && pokemonInfoCatalog.FormNo == srcFormNo && pokemonInfoCatalog.Rare == isRare)
+                Masterdatas.PokemonInfoCatalog srcPIC = GetPIC(uniqueIDPair.Item1);
+                
+                Masterdatas.PokemonInfoCatalog dstPIC = (Masterdatas.PokemonInfoCatalog)srcPIC.Clone();
+                gameData.pokemonInfos.Add(dstPIC);
+                dstPIC.No = uniqueIDPair.Item2 / 10000;
+                dstPIC.MonsNo = dstPIC.No;
+                dstPIC.FormNo = uniqueIDPair.Item2 % 10000 / 100;
+                dstPIC.UniqueID = uniqueIDPair.Item2;
+
+                if (assetBundleNames.Any(p => p.Item1 == srcPIC.AssetBundleName))
+                    dstPIC.AssetBundleName = assetBundleNames.Find(p => p.Item1 == srcPIC.AssetBundleName).Item2;
+                else
                 {
-                    basePokemonInfoCatalog = pokemonInfoCatalog;
-                    break;
+                    dstPIC.AssetBundleName = "pm" + uniqueIDPair.Item2.ToString();
+                    assetBundleNames.Add((srcPIC.AssetBundleName, dstPIC.AssetBundleName));
                 }
             }
+        }
 
-            Masterdatas.PokemonInfoCatalog newPokemonInfoCatalog = (Masterdatas.PokemonInfoCatalog)basePokemonInfoCatalog.Clone();
-            newPokemonInfoCatalog.No = dstMonsNo;
-            newPokemonInfoCatalog.MonsNo = dstMonsNo;
-            newPokemonInfoCatalog.FormNo = dstFormNo;
-            newPokemonInfoCatalog.UniqueID = uniqueID;
-            newPokemonInfoCatalog.AssetBundleName = basePokemonInfoCatalog.AssetBundleName.Replace(oldPMName, newPMName);
-            gameData.pokemonInfos.Add(newPokemonInfoCatalog);
+        private Masterdatas.PokemonInfoCatalog GetPIC(int uniqueID)
+        {
+            return gameData.pokemonInfos.Find(pic => pic.UniqueID == uniqueID);
         }
 
         public void UpdateMotionTimingData(int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo)
@@ -298,90 +354,51 @@ namespace ImpostersOrdeal
             newAddPersonalTable.formno = (ushort) dstFormNo;
             gameData.addPersonalTables.Add(newAddPersonalTable);
         }
-        public void UpdateUIMasterdatas(int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo, int gender)
+
+        public void UpdateUIMasterdatas(List<(int, int)> uniqueIDs)
         {
-            UpdateUIMasterdatasData(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo, gender, false);
-            UpdateUIMasterdatasData(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo, gender, true);
+            foreach ((int, int) uniqueIDPair in uniqueIDs)
+            {
+                int srcUniqueID = uniqueIDPair.Item1;
+                int dstUniqueID = uniqueIDPair.Item2;
+
+                UIMasterdatas.PokemonIcon pokemonIcon = gameData.uiPokemonIcon.Find(o => o.UniqueID == srcUniqueID);
+                UIMasterdatas.PokemonIcon newPokemonIcon = (UIMasterdatas.PokemonIcon)pokemonIcon.Clone();
+                newPokemonIcon.UniqueID = dstUniqueID;
+                gameData.uiPokemonIcon.Add(newPokemonIcon);
+
+                UIMasterdatas.AshiatoIcon ashiatoIcon = gameData.uiAshiatoIcon.Find(o => o.UniqueID == srcUniqueID);
+                UIMasterdatas.AshiatoIcon newAshiatoIcon = (UIMasterdatas.AshiatoIcon)ashiatoIcon.Clone();
+                newAshiatoIcon.UniqueID = dstUniqueID;
+                gameData.uiAshiatoIcon.Add(newAshiatoIcon);
+
+                UIMasterdatas.PokemonVoice pokemonVoice = gameData.uiPokemonVoice.Find(o => o.UniqueID == srcUniqueID);
+                UIMasterdatas.PokemonVoice newPokemonVoice = (UIMasterdatas.PokemonVoice)pokemonVoice.Clone();
+                newPokemonVoice.UniqueID = dstUniqueID;
+                gameData.uiPokemonVoice.Add(newPokemonVoice);
+
+                UIMasterdatas.ZukanDisplay zukanDisplay = gameData.uiZukanDisplay.Find(o => o.UniqueID == srcUniqueID);
+                UIMasterdatas.ZukanDisplay newZukanDisplay = (UIMasterdatas.ZukanDisplay)zukanDisplay.Clone();
+                newZukanDisplay.UniqueID = dstUniqueID;
+                gameData.uiZukanDisplay.Add(newZukanDisplay);
+
+                UIMasterdatas.ZukanCompareHeight zukanCompareHeight = gameData.uiZukanCompareHeights.Find(o => o.UniqueID == srcUniqueID);
+                UIMasterdatas.ZukanCompareHeight newZukanCompareHeight = (UIMasterdatas.ZukanCompareHeight)zukanCompareHeight.Clone();
+                newZukanCompareHeight.UniqueID = dstUniqueID;
+                gameData.uiZukanCompareHeights.Add(newZukanCompareHeight);
+            }
         }
 
-        public void UpdateUIMasterdatasData(int srcMonsNo, int dstmonsNo, int srcFormNo, int dstFormNo, int gender, bool isRare)
+        public void DuplicateAssetBundles(Dictionary<string, string> assetBundlePaths, int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo)
         {
-            int srcUniqueID = GenUniqueID(srcMonsNo, srcFormNo, gender, isRare);
-            int dstUniqueID = GenUniqueID(dstmonsNo, dstFormNo, gender, isRare);
-
-            UIMasterdatas.PokemonIcon pokemonIcon = gameData.uiPokemonIcon.Find(o => o.UniqueID == srcUniqueID);
-            UIMasterdatas.PokemonIcon newPokemonIcon = (UIMasterdatas.PokemonIcon) pokemonIcon.Clone();
-            newPokemonIcon.UniqueID = dstUniqueID;
-            gameData.uiPokemonIcon.Add(newPokemonIcon);
-
-            UIMasterdatas.AshiatoIcon ashiatoIcon = gameData.uiAshiatoIcon.Find(o => o.UniqueID == srcUniqueID);
-            UIMasterdatas.AshiatoIcon newAshiatoIcon = (UIMasterdatas.AshiatoIcon)ashiatoIcon.Clone();
-            newAshiatoIcon.UniqueID = dstUniqueID;
-            gameData.uiAshiatoIcon.Add(newAshiatoIcon);
-
-            UIMasterdatas.PokemonVoice pokemonVoice = gameData.uiPokemonVoice.Find(o => o.UniqueID == srcUniqueID);
-            UIMasterdatas.PokemonVoice newPokemonVoice = (UIMasterdatas.PokemonVoice)pokemonVoice.Clone();
-            newPokemonVoice.UniqueID = dstUniqueID;
-            gameData.uiPokemonVoice.Add(newPokemonVoice);
-
-            UIMasterdatas.ZukanDisplay zukanDisplay = gameData.uiZukanDisplay.Find(o => o.UniqueID == srcUniqueID);
-            UIMasterdatas.ZukanDisplay newZukanDisplay = (UIMasterdatas.ZukanDisplay)zukanDisplay.Clone();
-            newZukanDisplay.UniqueID = dstUniqueID;
-            gameData.uiZukanDisplay.Add(newZukanDisplay);
-
-            UIMasterdatas.ZukanCompareHeight zukanCompareHeight = gameData.uiZukanCompareHeights.Find(o => o.UniqueID == srcUniqueID);
-            UIMasterdatas.ZukanCompareHeight newZukanCompareHeight = (UIMasterdatas.ZukanCompareHeight)zukanCompareHeight.Clone();
-            newZukanCompareHeight.UniqueID = dstUniqueID;
-            gameData.uiZukanCompareHeights.Add(newZukanCompareHeight);
-        }
-
-        public void DuplicateAssetBundles(int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo)
-        {
-            string commonPath = string.Format("common\\pm{0}_{1}", srcMonsNo.ToString("D4"), srcFormNo.ToString("D2"));
-            string common00Path = string.Format("common\\pm{0}_{1}_00", srcMonsNo.ToString("D4"), srcFormNo.ToString("D2"));
-            string common01Path = string.Format("common\\pm{0}_{1}_01", srcMonsNo.ToString("D4"), srcFormNo.ToString("D2"));
-            string battle00Path = string.Format("battle\\pm{0}_{1}_00", srcMonsNo.ToString("D4"), srcFormNo.ToString("D2"));
-            string battle01Path = string.Format("battle\\pm{0}_{1}_01", srcMonsNo.ToString("D4"), srcFormNo.ToString("D2"));
-            string field00Path = string.Format("field\\pm{0}_{1}_00", srcMonsNo.ToString("D4"), srcFormNo.ToString("D2"));
-            string field01Path = string.Format("field\\pm{0}_{1}_01", srcMonsNo.ToString("D4"), srcFormNo.ToString("D2"));
-            string fieldAnimationsPath = string.Format("field\\animations\\pm{0}_{1}", srcMonsNo.ToString("D4"), srcFormNo.ToString("D2"));
-            string battleAnimationsPath = string.Format("battle\\animations\\pm{0}_{1}", srcMonsNo.ToString("D4"), srcFormNo.ToString("D2"));
-
-            string newCommonPath = string.Format("common\\pm{0}_{1}", dstMonsNo.ToString("D4"), dstFormNo.ToString("D2"));
-            string newCommon00Path = string.Format("common\\pm{0}_{1}_00", dstMonsNo.ToString("D4"), dstFormNo.ToString("D2"));
-            string newCommon01Path = string.Format("common\\pm{0}_{1}_01", dstMonsNo.ToString("D4"), dstFormNo.ToString("D2"));
-            string newBattle00Path = string.Format("battle\\pm{0}_{1}_00", dstMonsNo.ToString("D4"), dstFormNo.ToString("D2"));
-            string newBattle01Path = string.Format("battle\\pm{0}_{1}_01", dstMonsNo.ToString("D4"), dstFormNo.ToString("D2"));
-            string newField00Path = string.Format("field\\pm{0}_{1}_00", dstMonsNo.ToString("D4"), dstFormNo.ToString("D2"));
-            string newField01Path = string.Format("field\\pm{0}_{1}_01", dstMonsNo.ToString("D4"), dstFormNo.ToString("D2"));
-            string newFieldAnimationsPath = string.Format("field\\animations\\pm{0}_{1}", dstMonsNo.ToString("D4"), dstFormNo.ToString("D2"));
-            string newBattleAnimationsPath = string.Format("battle\\animations\\pm{0}_{1}", dstMonsNo.ToString("D4"), dstFormNo.ToString("D2"));
-
-            DuplicateAssetBundle(commonPath, newCommonPath, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
-            DuplicateAssetBundle(common00Path, newCommon00Path, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
-            DuplicateAssetBundle(common01Path, newCommon01Path, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
-            DuplicateAssetBundle(fieldAnimationsPath, newFieldAnimationsPath, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
-            DuplicateAssetBundle(battleAnimationsPath, newBattleAnimationsPath, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
-            DuplicateAssetBundle(battle00Path, newBattle00Path, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
-            DuplicateAssetBundle(battle01Path, newBattle01Path, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
-            DuplicateAssetBundle(field00Path, newField00Path, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
-            DuplicateAssetBundle(field01Path, newField01Path, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
-        }
-
-        public void WriteBundle(BundleFileInstance bfi, string ofpath)
-        {
-            FileStream stream = File.OpenWrite(ofpath);
-            AssetsFileWriter afw = new(stream);
-            bfi.file.Pack(bfi.file.reader, afw, AssetBundleCompressionType.LZ4);
-            afw.Close();
-            bfi.file.Close();
-            bfi.stream.Dispose();
+            foreach (KeyValuePair<string, string> item in assetBundlePaths)
+                DuplicateAssetBundle(item.Key, item.Value, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
         }
 
         public BundleFileInstance DuplicateAssetBundle(string ifpath, string ofpath, int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo)
         {
             string baseDirectory = Environment.CurrentDirectory + "\\" + FileManager.outputModName + "\\romfs\\Data\\StreamingAssets\\AssetAssistant\\";
-            ofpath = "romfs\\Data\\StreamingAssets\\AssetAssistant\\Pokemon Database\\pokemons\\" + ofpath;
+            ofpath = "romfs\\Data\\StreamingAssets\\AssetAssistant\\Pokemon Database\\" + ofpath;
             string newCAB = GenCABName();
             string oldPMName = string.Format("pm{0}_{1}", srcMonsNo.ToString("D4"), srcFormNo.ToString("D2"));
             string newPMName = string.Format("pm{0}_{1}", dstMonsNo.ToString("D4"), dstFormNo.ToString("D2"));
@@ -389,7 +406,7 @@ namespace ImpostersOrdeal
             List<AssetsReplacer> ars = new();
             AssetsManager am = fileManager.getAssetsManager();
             am.updateAfterLoad = true;
-            BundleFileInstance bfi = fileManager.GetBundleFileInstance(basePath + ifpath);
+            BundleFileInstance bfi = fileManager.GetBundleFileInstance(basePath + ifpath.Replace('/', '\\'));
             bfi.name = bfi.name.Replace(oldPMName, newPMName);
 
             AssetsFileInstance afi = am.LoadAssetsFileFromBundle(bfi, 0);
@@ -557,7 +574,7 @@ namespace ImpostersOrdeal
 
             am.UpdateDependencies(afi);
 
-            fileManager.MakeTempBundle("romfs\\Data\\StreamingAssets\\AssetAssistant\\Pokemon Database\\pokemons\\" + ifpath, ofpath, ars, "CAB-" + newCAB);
+            fileManager.MakeTempBundle("romfs\\Data\\StreamingAssets\\AssetAssistant\\Pokemon Database\\" + ifpath.Replace('/', '\\'), ofpath.Replace('/', '\\'), ars, "CAB-" + newCAB);
 
             return bfi;
         }
