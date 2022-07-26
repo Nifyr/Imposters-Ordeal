@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static ImpostersOrdeal.GlobalData;
 using static ImpostersOrdeal.GameDataTypes;
+using static ImpostersOrdeal.Wwise;
 using AssetsTools.NET.Extra;
 using SmartPoint.AssetAssistant;
 
@@ -26,6 +27,8 @@ namespace ImpostersOrdeal
         /// </summary>
         public static void PrepareAnalysis()
         {
+            ParseAudioCollection();
+
             ParseNatures();
             ParseEvScripts();
             //ParseMapWarpAssets();
@@ -1581,176 +1584,7 @@ namespace ImpostersOrdeal
         /// </summary>
         public static void ParseAudioCollection()
         {
-            gameData.audioCollection = new();
-            gameData.audioCollection.itemsByIDs = new();
-            gameData.audioCollection.mrsBySourceIDs = new();
-            byte[] buffer = fileManager.GetDelphisMainBuffer();
-            gameData.audioCollection.delphisMainBuffer = buffer;
-
-            long offset = 4;
-            offset += BitConverter.ToUInt32(buffer, (int)offset);
-            offset += 8;
-            offset += BitConverter.ToUInt32(buffer, (int)offset);
-            offset += 8;
-            offset += BitConverter.ToUInt32(buffer, (int)offset);
-            offset += 12;
-            uint hircItemCount = BitConverter.ToUInt32(buffer, (int)offset);
-            offset += 4;
-
-            //Parse itemsByIDs
-            for (int i = 0; i < hircItemCount; i++)
-            {
-                HircItem h = new();
-                h.hircType = buffer[offset];
-                offset++;
-                long nextItemOffset = offset + 4 + BitConverter.ToUInt32(buffer, (int)offset);
-                offset += 4;
-                h.id = BitConverter.ToUInt32(buffer, (int)offset);
-                h.idOffset = offset;
-                offset += 4;
-
-                switch (h.hircType)
-                {
-                    case 11: //Music Track
-                        offset++;
-                        offset += 4 + BitConverter.ToUInt32(buffer, (int)offset) * 14;
-
-                        uint playlistItemCount = BitConverter.ToUInt32(buffer, (int)offset);
-                        offset += 4;
-                        for (int j = 0; j < playlistItemCount; j++)
-                        {
-                            if (BitConverter.ToUInt32(buffer, (int)offset + 8) == 0)
-                            {
-                                h.sourceID = BitConverter.ToUInt32(buffer, (int)offset + 4);
-                                h.sourceDuration = BitConverter.ToDouble(buffer, (int)offset + 36);
-                            }
-                            offset += 44;
-                        }
-                        offset += 4;
-
-                        uint clipAutomationCount = BitConverter.ToUInt32(buffer, (int)offset);
-                        offset += 4;
-                        for (int j = 0; j < clipAutomationCount; j++)
-                        {
-                            offset += 8;
-                            offset += 4 + BitConverter.ToUInt32(buffer, (int)offset) * 12;
-                        }
-                        h.parentID = BitConverter.ToUInt32(buffer, (int)offset + 7);
-                        break;
-                    case 10: //Music Segment
-                        h.parentID = BitConverter.ToUInt32(buffer, (int)offset + 8);
-                        h.parentIDOffset = offset + 8;
-                        break;
-                    case 13: //Music Random Sequence
-                        h.parentID = BitConverter.ToUInt32(buffer, (int)offset + 8);
-                        h.parentIDOffset = offset + 8;
-                        h.idReferenceOffsets = new();
-                        break;
-                    case 12:
-                        h.childReferences = new();
-                        offset += 13;
-                        offset += 1 + buffer[offset] * 5;
-                        offset += 1 + buffer[offset] * 5;
-                        if (buffer[offset] > 0)
-                            offset++;
-                        offset += 14;
-
-                        ushort rtpcCount = BitConverter.ToUInt16(buffer, (int)offset);
-                        offset += 2;
-                        for (int j = 0; j < rtpcCount; j++)
-                        {
-                            offset += 12;
-                            offset += 2 + BitConverter.ToUInt16(buffer, (int)offset) * 12;
-                        }
-
-                        uint childCount1 = BitConverter.ToUInt32(buffer, (int)offset);
-                        offset += 4;
-                        for (int j = 0; j < childCount1; j++)
-                        {
-                            h.childReferences.Add((BitConverter.ToUInt32(buffer, (int)offset), offset));
-                            offset += 4;
-                        }
-                        offset += 27;
-
-                        uint ruleCount = BitConverter.ToUInt32(buffer, (int)offset);
-                        offset += 4;
-                        for (int j = 0; j < ruleCount; j++)
-                        {
-                            uint srcCount = BitConverter.ToUInt32(buffer, (int)offset);
-                            offset += 4;
-                            for (int k = 0; k < srcCount; k++)
-                            {
-                                uint id = BitConverter.ToUInt32(buffer, (int)offset);
-                                if (id != 0 && id != 4294967295)
-                                    h.childReferences.Add((id, offset));
-                                offset += 4;
-                            }
-
-                            uint dstCount = BitConverter.ToUInt32(buffer, (int)offset);
-                            offset += 4;
-                            for (int k = 0; k < dstCount; k++)
-                            {
-                                uint id = BitConverter.ToUInt32(buffer, (int)offset);
-                                if (id != 0 && id != 4294967295)
-                                    h.childReferences.Add((id, offset));
-                                offset += 4;
-                            }
-                            offset += 47;
-                            offset += 1 + buffer[offset] * 30;
-                        }
-                        offset++;
-
-                        //THERE WAS A DECISION TREE HERE. ARE YOU KIDDING ME.
-                        //OH LORD THE TREE STRUCTURE HAS NO POINTERS. I SWEAR THE THINGS I GOTTA PUT UP WITH.
-                        uint treeDepth = BitConverter.ToUInt32(buffer, (int)offset);
-                        offset += 9 + treeDepth * 5;
-                        AddChildReferencesTree(buffer, h.childReferences, ref offset, treeDepth);
-                        break;
-                }
-
-                gameData.audioCollection.itemsByIDs[h.id] = h;
-                offset = nextItemOffset;
-            }
-
-            Dictionary<uint, HircItem> itemsByIDs = gameData.audioCollection.itemsByIDs;
-            foreach (HircItem item in gameData.audioCollection.itemsByIDs.Values)
-            {
-                if (item.hircType == 11)
-                {
-                    HircItem ms = itemsByIDs[item.parentID];
-                    if (ms.hircType != 10 || ms.parentID == 0)
-                        continue;
-                    HircItem mrs = itemsByIDs[ms.parentID];
-                    if (mrs.hircType != 13)
-                        continue;
-
-                    mrs.sourceID = item.sourceID;
-                    mrs.sourceDuration = item.sourceDuration;
-                    if (!gameData.audioCollection.mrsBySourceIDs.ContainsKey(item.sourceID))
-                        gameData.audioCollection.mrsBySourceIDs[item.sourceID] = new();
-                    gameData.audioCollection.mrsBySourceIDs[item.sourceID].Add(mrs);
-                }
-
-                if (item.hircType == 10 && item.parentID != 0)
-                {
-                    HircItem mrs = itemsByIDs[item.parentID];
-                    if (mrs.hircType == 13)
-                        mrs.idReferenceOffsets.Add(item.parentIDOffset);
-                }
-                /*
-                if (item.hircType == 12)
-                {
-                    for (int i = 0; i < item.childReferences.Count; i++)
-                    {
-                        if (!itemsByIDs.ContainsKey(item.childReferences[i].Item1))
-                            continue;
-                        HircItem mrs = itemsByIDs[item.childReferences[i].Item1];
-                        if (mrs.hircType == 13)
-                            mrs.idReferenceOffsets.Add(item.childReferences[i].Item2);
-                    }
-                }
-                */
-            }
+            WwiseData wd = new(fileManager.GetDelphisMainBuffer());
         }
 
         /// <summary>
