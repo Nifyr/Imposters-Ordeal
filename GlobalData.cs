@@ -36,7 +36,7 @@ namespace ImpostersOrdeal
             public List<Item> items; //Ordered, idx=itemID
             public List<TM> tms; //Ordered, idx=tmID
             public List<Move> moves; //Ordered, idx=moveID
-            public AudioCollection audioCollection;
+            public Wwise.WwiseData audioData;
             public GlobalMetadata globalMetadata;
             public List<BattleMasterdatas.MotionTimingData> motionTimingData;
             public List<Masterdatas.PokemonInfoCatalog> pokemonInfos;

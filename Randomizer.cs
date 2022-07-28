@@ -159,7 +159,7 @@ namespace ImpostersOrdeal
 
         private void RandomizeMusic()
         {
-            if (gameData.audioCollection == null)
+            if (gameData.audioData == null)
                 DataParser.ParseAudioCollection();
 
             double minDuration = 20000;
@@ -176,10 +176,10 @@ namespace ImpostersOrdeal
                 175587878,
                 717132912
             };
-
+            /*
             foreach (uint musicSwitchID in musicSwitchIDs)
             {
-                List<HircItem> mrsCollection = gameData.audioCollection.mrsBySourceIDs.Values.SelectMany(l => l).Where(h => h.sourceDuration > minDuration && musicSwitchID == h.parentID).ToList();
+                List<HircItem> mrsCollection = gameData.audioData.mrsBySourceIDs.Values.SelectMany(l => l).Where(h => h.sourceDuration > minDuration && musicSwitchID == h.parentID).ToList();
                 List<int> mrsMapping = new();
                 for (int i = 0; i < mrsCollection.Count; i++)
                     mrsMapping.Add(i);
@@ -187,9 +187,9 @@ namespace ImpostersOrdeal
                 Shuffle(mrsMapping);
 
                 for (int i = 0; i < mrsMapping.Count; i++)
-                    gameData.audioCollection.SetID(mrsCollection[i].id, mrsCollection[mrsMapping[i]].id);
+                    gameData.audioData.SetID(mrsCollection[i].id, mrsCollection[mrsMapping[i]].id);
             }
-            
+            */
             gameData.SetModified(GameDataSet.DataField.AudioCollection);
         }
 

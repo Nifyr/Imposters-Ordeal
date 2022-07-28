@@ -13,23 +13,45 @@ namespace ImpostersOrdeal
     {
         public class WwiseData
         {
-            public byte[] buffer;
-            public int offset;
+            internal byte[] buffer;
+            internal int offset;
             public readonly Dictionary<uint, WwiseObject> objectsByID;
-            public Bank bank;
+            public List<Bank> banks;
+
+            public WwiseData()
+            {
+                objectsByID = new Dictionary<uint, WwiseObject>();
+                banks = new();
+            }
 
             public WwiseData(byte[] buffer)
             {
                 this.buffer = buffer;
                 offset = 0;
                 objectsByID = new Dictionary<uint, WwiseObject>();
-                bank = new Bank();
-                bank.Deserialize(this);
+                banks = new();
+                Bank b = new();
+                b.Deserialize(this);
+                banks.Add(b);
+            }
+
+            public void Parse(byte[] buffer)
+            {
+                this.buffer = buffer;
+                offset = 0;
+                Bank b = new();
+                b.Deserialize(this);
+                banks.Add(b);
             }
 
             public byte[] GetBytes()
             {
-                return bank.Serialize().ToArray();
+                return banks.First().Serialize().ToArray();
+            }
+
+            public byte[] GetBytes(uint bankID)
+            {
+                return ((Bank)objectsByID[bankID]).Serialize().ToArray();
             }
         }
 
@@ -43,6 +65,45 @@ namespace ImpostersOrdeal
         {
             public abstract void Deserialize(WwiseData wd);
             public abstract IEnumerable<byte> Serialize();
+        }
+
+        public abstract class Chunk : ISerializable
+        {
+            public string tag;
+            public uint chunkSize;
+
+            public virtual void Deserialize(WwiseData wd)
+            {
+                tag = ReadString(wd, 4);
+                chunkSize = ReadUInt32(wd);
+            }
+
+            public static Chunk Create(WwiseData wd)
+            {
+                string chunkType = Encoding.ASCII.GetString(wd.buffer, wd.offset, 4);
+                Chunk bc = chunkType switch
+                {
+                    "BKHD" => new BankHeader(),
+                    "DATA" => new DataChunk(),
+                    "DIDX" => new MediaIndex(),
+                    "ENVS" => new EnvSettingsChunk(),
+                    "HIRC" => new HircChunk(),
+                    "INIT" => new PluginChunk(),
+                    "PLAT" => new CustomPlatformChunk(),
+                    "STMG" => new GlobalSettingsChunk(),
+                    _ => throw new NotImplementedException("ChunkType " + chunkType + " at " + wd.offset),
+                };
+                bc.Deserialize(wd);
+                return bc;
+            }
+
+            public virtual IEnumerable<byte> Serialize()
+            {
+                List<byte> b = new();
+                b.AddRange(GetBytes(tag));
+                b.AddRange(GetBytes(chunkSize));
+                return b;
+            }
         }
 
         public abstract class HircItem : WwiseObject
@@ -64,18 +125,24 @@ namespace ImpostersOrdeal
                 byte hircType = wd.buffer[wd.offset];
                 HircItem hi = hircType switch
                 {
+                    1 => new State(),
                     2 => new Sound(),
                     3 => Action.GetInstance(wd),
                     4 => new Event(),
                     5 => new RanSeqCntr(),
                     6 => new SwitchCntr(),
                     7 => new ActorMixer(),
+                    8 => new Bus(),
                     9 => new LayerCntr(),
                     10 => new MusicSegment(),
                     11 => new MusicTrack(),
                     12 => new MusicSwitchCntr(),
                     13 => new MusicRanSeqCntr(),
                     14 => new Attenuation(),
+                    16 => new FxCustom(),
+                    17 => new FxCustom(),
+                    18 => new Bus(),
+                    21 => new AudioDevice(),
                     _ => throw new NotImplementedException("HircType " + hircType + " at " + wd.offset),
                 };
                 hi.Deserialize(wd);
@@ -94,55 +161,51 @@ namespace ImpostersOrdeal
 
         public class Bank : WwiseObject
         {
-            public BankHeader bankHeader;
-            public MediaIndex mediaIndex;
-            public DataChunk dataChunk;
-            public HircChunk hircChunk;
+            public List<Chunk> chunks;
 
             public override void Deserialize(WwiseData wd)
             {
-                bankHeader = new();
-                mediaIndex = new();
-                dataChunk = new();
-                hircChunk = new();
-                bankHeader.Deserialize(wd);
-                wd.objectsByID[bankHeader.akBankHeader.soundBankID] = this;
-                mediaIndex.Deserialize(wd);
-                dataChunk.Deserialize(wd);
-                hircChunk.Deserialize(wd);
+                chunks = new();
+                while (wd.offset < wd.buffer.Length)
+                {
+                    Chunk c = Chunk.Create(wd);
+                    chunks.Add(c);
+                    if (c is BankHeader bh)
+                        wd.objectsByID[bh.akBankHeader.soundBankID] = this;
+                }
             }
 
             public override IEnumerable<byte> Serialize()
             {
                 List<byte> b = new();
-                b.AddRange(bankHeader.Serialize());
-                b.AddRange(mediaIndex.Serialize());
-                b.AddRange(dataChunk.Serialize());
-                b.AddRange(hircChunk.Serialize());
+                foreach (Chunk c in chunks)
+                    b.AddRange(c.Serialize());
                 return b;
             }
         }
 
-        public class BankHeader : ISerializable
+        public class BankHeader : Chunk
         {
-            public string tag;
-            public uint chunkSize;
             public AkBankHeader akBankHeader;
+            private int padding;
 
-            public void Deserialize(WwiseData wd)
+            public override void Deserialize(WwiseData wd)
             {
+                base.Deserialize(wd);
+
                 akBankHeader = new();
-                tag = Read4Char(wd);
-                chunkSize = ReadUInt32(wd);
+                int offset = wd.offset;
                 akBankHeader.Deserialize(wd);
+                padding = (int)(offset + chunkSize - wd.offset);
+                wd.offset += padding;
             }
 
-            public IEnumerable<byte> Serialize()
+            public override IEnumerable<byte> Serialize()
             {
                 List<byte> b = new();
-                b.AddRange(GetBytes(tag));
-                b.AddRange(GetBytes(chunkSize));
+                b.AddRange(base.Serialize());
                 b.AddRange(akBankHeader.Serialize());
+                b.AddRange(new byte[padding]);
                 return b;
             }
         }
@@ -164,7 +227,6 @@ namespace ImpostersOrdeal
                 unused = ReadUInt16(wd);
                 deviceAllocated = ReadUInt16(wd);
                 projectID = ReadUInt32(wd);
-                wd.offset += 12;
             }
 
             public IEnumerable<byte> Serialize()
@@ -176,22 +238,19 @@ namespace ImpostersOrdeal
                 b.AddRange(GetBytes(unused));
                 b.AddRange(GetBytes(deviceAllocated));
                 b.AddRange(GetBytes(projectID));
-                b.AddRange(new byte[12]);
                 return b;
             }
         }
 
-        public class MediaIndex : ISerializable
+        public class MediaIndex : Chunk
         {
-            public string tag;
-            public uint chunkSize;
             public List<MediaHeader> loadedMedia;
 
-            public void Deserialize(WwiseData wd)
+            public override void Deserialize(WwiseData wd)
             {
+                base.Deserialize(wd);
+
                 loadedMedia = new();
-                tag = Read4Char(wd);
-                chunkSize = ReadUInt32(wd);
                 long endOffset = wd.offset + chunkSize;
                 while (endOffset > wd.offset)
                 {
@@ -201,7 +260,7 @@ namespace ImpostersOrdeal
                 }
             }
 
-            public IEnumerable<byte> Serialize()
+            public override IEnumerable<byte> Serialize()
             {
                 List<byte> b = new();
                 b.AddRange(GetBytes(tag));
@@ -239,56 +298,195 @@ namespace ImpostersOrdeal
             }
         }
 
-        public class DataChunk : ISerializable
+        public class DataChunk : Chunk
         {
-            public string tag;
-            public uint chunkSize;
             public byte[] data;
 
-            public void Deserialize(WwiseData wd)
+            public override void Deserialize(WwiseData wd)
             {
-                tag = Read4Char(wd);
-                chunkSize = ReadUInt32(wd);
+                base.Deserialize(wd);
+
                 data = ReadUInt8Array(wd, (int)chunkSize);
             }
 
-            public IEnumerable<byte> Serialize()
+            public override IEnumerable<byte> Serialize()
             {
                 List<byte> b = new();
-                b.AddRange(GetBytes(tag));
-                b.AddRange(GetBytes(chunkSize));
+                b.AddRange(base.Serialize());
                 b.AddRange(data);
                 return b;
             }
         }
 
-        public class HircChunk : ISerializable
+        public class EnvSettingsChunk : Chunk
         {
-            public string tag;
-            public uint chunkSize;
-            public uint releasableHircItemCount;
-            public List<HircItem> loadedItem;
+            public ObsOccCurve[][] obsOccCurves;
+
+            public override void Deserialize(WwiseData wd)
+            {
+                base.Deserialize(wd);
+
+                obsOccCurves = new ObsOccCurve[2][];
+                for (int i = 0; i < obsOccCurves.Length; i++)
+                {
+                    obsOccCurves[i] = new ObsOccCurve[3];
+                    for (int j = 0; j < obsOccCurves[i].Length; j++)
+                    {
+                        ObsOccCurve ooc = new();
+                        ooc.Deserialize(wd);
+                        obsOccCurves[i][j] = ooc;
+                    }
+                }
+            }
+
+            public override IEnumerable<byte> Serialize()
+            {
+                List<byte> b = new();
+                b.AddRange(base.Serialize());
+                foreach (ObsOccCurve[] ooca in obsOccCurves)
+                    foreach (ObsOccCurve ooc in ooca)
+                        b.AddRange(ooc.Serialize());
+                return b;
+            }
+        }
+
+        public class ObsOccCurve : ISerializable
+        {
+            public byte curveEnabled;
+            public byte curveScaling;
+            public ushort curveSize;
+            public List<RTPCGraphPoint> points;
 
             public void Deserialize(WwiseData wd)
             {
-                loadedItem = new();
-                tag = Read4Char(wd);
-                chunkSize = ReadUInt32(wd);
-                releasableHircItemCount = ReadUInt32(wd);
-                for (int i = 0; i < releasableHircItemCount; i++)
-                    loadedItem.Add(HircItem.Create(wd));
+                points = new();
+                curveEnabled = ReadUInt8(wd);
+                curveScaling = ReadUInt8(wd);
+                curveSize = ReadUInt16(wd);
+                for (int i = 0; i < curveSize; i++)
+                {
+                    RTPCGraphPoint rtpcgp = new();
+                    rtpcgp.Deserialize(wd);
+                    points.Add(rtpcgp);
+                }
             }
 
             public IEnumerable<byte> Serialize()
             {
                 List<byte> b = new();
-                b.AddRange(GetBytes(tag));
-                b.AddRange(GetBytes(chunkSize));
+                b.Add(curveEnabled);
+                b.Add(curveScaling);
+                curveSize = (ushort)points.Count;
+                b.AddRange(GetBytes(curveSize));
+                foreach (RTPCGraphPoint rtpcgp in points)
+                    b.AddRange(rtpcgp.Serialize());
+                return b;
+            }
+        }
+
+        public class HircChunk : Chunk
+        {
+            public uint releasableHircItemCount;
+            public List<HircItem> loadedItem;
+
+            public override void Deserialize(WwiseData wd)
+            {
+                base.Deserialize(wd);
+
+                loadedItem = new();
+                releasableHircItemCount = ReadUInt32(wd);
+                for (int i = 0; i < releasableHircItemCount; i++)
+                    loadedItem.Add(HircItem.Create(wd));
+            }
+
+            public override IEnumerable<byte> Serialize()
+            {
+                List<byte> b = new();
+                b.AddRange(base.Serialize());
                 releasableHircItemCount = (uint)loadedItem.Count;
                 b.AddRange(GetBytes(releasableHircItemCount));
                 foreach (HircItem hircItem in loadedItem)
                     b.AddRange(hircItem.Serialize());
                 return b;
+            }
+        }
+
+        public class State : HircItem
+        {
+            public PropBundle4 propBundle4;
+
+            public override void Deserialize(WwiseData wd)
+            {
+                base.Deserialize(wd);
+
+                propBundle4 = new();
+                propBundle4.Deserialize(wd);
+            }
+
+            public override IEnumerable<byte> Serialize()
+            {
+                List<byte> b = new();
+                b.AddRange(base.Serialize());
+                b.AddRange(propBundle4.Serialize());
+                return b;
+            }
+        }
+
+        public class PropBundle4 : ISerializable
+        {
+            public ushort propsCount;
+            public List<PropBundle5> props;
+
+            public void Deserialize(WwiseData wd)
+            {
+                props = new();
+                propsCount = ReadUInt16(wd);
+                for (int i = 0; i < propsCount; i++)
+                {
+                    PropBundle5 pb1 = new();
+                    pb1.Deserialize(wd);
+                    props.Add(pb1);
+                }
+                foreach (PropBundle5 pb1 in props)
+                    pb1.DeserializeValue(wd);
+            }
+
+            public IEnumerable<byte> Serialize()
+            {
+                List<byte> b = new();
+                propsCount = (byte)props.Count;
+                b.AddRange(GetBytes(propsCount));
+                foreach (PropBundle5 pb1 in props)
+                    b.AddRange(pb1.Serialize());
+                foreach (PropBundle5 pb1 in props)
+                    b.AddRange(pb1.SerializeValue());
+                return b;
+            }
+        }
+
+        public class PropBundle5 : ISerializable
+        {
+            public ushort id;
+            public float value;
+
+            public void Deserialize(WwiseData wd)
+            {
+                id = ReadUInt16(wd);
+            }
+
+            public void DeserializeValue(WwiseData wd)
+            {
+                value = ReadSingle(wd);
+            }
+
+            public IEnumerable<byte> Serialize()
+            {
+                return GetBytes(id);
+            }
+
+            public IEnumerable<byte> SerializeValue()
+            {
+                return GetBytes(value);
             }
         }
 
@@ -475,21 +673,21 @@ namespace ImpostersOrdeal
         public class NodeInitialParams : ISerializable
         {
             public PropBundle0 propBundle0;
-            public PropBundle2 propBundle1;
+            public PropBundle2 propBundle2;
 
             public void Deserialize(WwiseData wd)
             {
                 propBundle0 = new();
-                propBundle1 = new();
+                propBundle2 = new();
                 propBundle0.Deserialize(wd);
-                propBundle1.Deserialize(wd);
+                propBundle2.Deserialize(wd);
             }
 
             public IEnumerable<byte> Serialize()
             {
                 List<byte> b = new();
                 b.AddRange(propBundle0.Serialize());
-                b.AddRange(propBundle1.Serialize());
+                b.AddRange(propBundle2.Serialize());
                 return b;
             }
         }
@@ -509,6 +707,8 @@ namespace ImpostersOrdeal
                     pb1.Deserialize(wd);
                     props.Add(pb1);
                 }
+                foreach (PropBundle1 pb1 in props)
+                    pb1.DeserializeValue(wd);
             }
 
             public IEnumerable<byte> Serialize()
@@ -518,6 +718,8 @@ namespace ImpostersOrdeal
                 b.Add(propsCount);
                 foreach (PropBundle1 pb1 in props)
                     b.AddRange(pb1.Serialize());
+                foreach (PropBundle1 pb1 in props)
+                    b.AddRange(pb1.SerializeValue());
                 return b;
             }
         }
@@ -530,15 +732,21 @@ namespace ImpostersOrdeal
             public void Deserialize(WwiseData wd)
             {
                 id = ReadUInt8(wd);
+            }
+
+            public void DeserializeValue(WwiseData wd)
+            {
                 value = ReadSingle(wd);
             }
 
             public IEnumerable<byte> Serialize()
             {
-                List<byte> b = new();
-                b.Add(id);
-                b.AddRange(GetBytes(value));
-                return b;
+                return new byte[] { id };
+            }
+
+            public IEnumerable<byte> SerializeValue()
+            {
+                return GetBytes(value);
             }
         }
 
@@ -775,9 +983,9 @@ namespace ImpostersOrdeal
         public class StateChunk : ISerializable
         {
             public byte statePropsCount;
-            public List<Unk> stateProps;
+            public List<StatePropertyInfo> stateProps;
             public byte stateGroupsCount;
-            public List<Unk> stateChunks;
+            public List<StateGroupChunk> stateChunks;
 
             public void Deserialize(WwiseData wd)
             {
@@ -786,16 +994,16 @@ namespace ImpostersOrdeal
                 statePropsCount = ReadUInt8(wd);
                 for (int i = 0; i < statePropsCount; i++)
                 {
-                    Unk u = new();
-                    u.Deserialize(wd);
-                    stateProps.Add(u);
+                    StatePropertyInfo spi = new();
+                    spi.Deserialize(wd);
+                    stateProps.Add(spi);
                 }
                 stateGroupsCount = ReadUInt8(wd);
                 for (int i = 0; i < stateGroupsCount; i++)
                 {
-                    Unk u = new();
-                    u.Deserialize(wd);
-                    stateChunks.Add(u);
+                    StateGroupChunk sgc = new();
+                    sgc.Deserialize(wd);
+                    stateChunks.Add(sgc);
                 }
             }
 
@@ -804,12 +1012,89 @@ namespace ImpostersOrdeal
                 List<byte> b = new();
                 statePropsCount = (byte)stateProps.Count;
                 b.Add(statePropsCount);
-                foreach (Unk u in stateProps)
-                    b.AddRange(u.Serialize());
+                foreach (StatePropertyInfo spi in stateProps)
+                    b.AddRange(spi.Serialize());
                 stateGroupsCount = (byte)stateChunks.Count;
                 b.Add(stateGroupsCount);
-                foreach (Unk u in stateChunks)
-                    b.AddRange(u.Serialize());
+                foreach (StateGroupChunk sgc in stateChunks)
+                    b.AddRange(sgc.Serialize());
+                return b;
+            }
+        }
+
+        public class StatePropertyInfo : ISerializable
+        {
+            public byte propertyID;
+            public byte accumType;
+            public byte inDb;
+
+            public void Deserialize(WwiseData wd)
+            {
+                propertyID = ReadUInt8(wd);
+                accumType = ReadUInt8(wd);
+                inDb = ReadUInt8(wd);
+            }
+
+            public IEnumerable<byte> Serialize()
+            {
+                List<byte> b = new();
+                b.Add(propertyID);
+                b.Add(accumType);
+                b.Add(inDb);
+                return b;
+            }
+        }
+
+        public class StateGroupChunk : ISerializable
+        {
+            public uint stateGroupID;
+            public byte stateSyncType;
+            public ulong statesCount;
+            public List<AkState> states;
+
+            public void Deserialize(WwiseData wd)
+            {
+                states = new();
+                stateGroupID = ReadUInt32(wd);
+                stateSyncType = ReadUInt8(wd);
+                statesCount = ReadVariableInt(wd);
+                for (ulong i = 0; i < statesCount; i++)
+                {
+                    AkState s = new();
+                    s.Deserialize(wd);
+                    states.Add(s);
+                }
+            }
+
+            public IEnumerable<byte> Serialize()
+            {
+                List<byte> b = new();
+                b.AddRange(GetBytes(stateGroupID));
+                b.Add(stateSyncType);
+                statesCount = (ulong)states.Count;
+                b.AddRange(GetVariableIntBytes(statesCount));
+                foreach (AkState s in states)
+                    b.AddRange(s.Serialize());
+                return b;
+            }
+        }
+
+        public class AkState : ISerializable
+        {
+            public uint stateID;
+            public uint stateInstanceID;
+
+            public void Deserialize(WwiseData wd)
+            {
+                stateID = ReadUInt32(wd);
+                stateInstanceID = ReadUInt32(wd);
+            }
+
+            public IEnumerable<byte> Serialize()
+            {
+                List<byte> b = new();
+                b.AddRange(GetBytes(stateID));
+                b.AddRange(GetBytes(stateInstanceID));
                 return b;
             }
         }
@@ -1736,6 +2021,713 @@ namespace ImpostersOrdeal
                 b.AddRange(GetBytes(childsCount));
                 foreach (uint i in childIDs)
                     b.AddRange(GetBytes(i));
+                return b;
+            }
+        }
+
+        public class FxCustom : HircItem
+        {
+            public uint fxID;
+            public uint size;
+            public FXParams fxParams;
+            public byte bankDataCount;
+            public List<Unk> media;
+            public InitialRTPC initialRTPC;
+            public StateChunk stateChunk;
+            public ushort valuesCount;
+            public List<PluginPropertyValue> propertyValues;
+
+            public override void Deserialize(WwiseData wd)
+            {
+                base.Deserialize(wd);
+
+                media = new();
+                initialRTPC = new();
+                stateChunk = new();
+                propertyValues = new();
+                fxID = ReadUInt32(wd);
+                size = ReadUInt32(wd);
+                fxParams = FXParams.Create(wd, fxID);
+                bankDataCount = ReadUInt8(wd);
+                for (int i = 0; i < bankDataCount; i++)
+                {
+                    Unk u = new();
+                    u.Deserialize(wd);
+                    media.Add(u);
+                }
+                initialRTPC.Deserialize(wd);
+                stateChunk.Deserialize(wd);
+                valuesCount = ReadUInt16(wd);
+                for (int i = 0; i < valuesCount; i++)
+                {
+                    PluginPropertyValue ppv = new();
+                    ppv.Deserialize(wd);
+                    propertyValues.Add(ppv);
+                }
+            }
+
+            public override IEnumerable<byte> Serialize()
+            {
+                List<byte> b = new();
+                b.AddRange(base.Serialize());
+                b.AddRange(GetBytes(fxID));
+                b.AddRange(GetBytes(size));
+                b.AddRange(fxParams.Serialize());
+                bankDataCount = (byte)media.Count;
+                b.Add(bankDataCount);
+                foreach (Unk u in media)
+                    b.AddRange(u.Serialize());
+                b.AddRange(initialRTPC.Serialize());
+                b.AddRange(stateChunk.Serialize());
+                valuesCount = (ushort)propertyValues.Count;
+                b.AddRange(GetBytes(valuesCount));
+                foreach (PluginPropertyValue ppv in propertyValues)
+                    b.AddRange(ppv.Serialize());
+                return b;
+            }
+        }
+
+        public abstract class FXParams : ISerializable
+        {
+            public abstract void Deserialize(WwiseData wd);
+
+            public static FXParams Create(WwiseData wd, uint fxID)
+            {
+                FXParams fxp = fxID switch
+                {
+                    6881283 => new ParameterEQFXParams(),
+                    7733251 => new StereoDelayFXParams(),
+                    8192003 => new FlangerFXParams(),
+                    8454147 => new MeterFXParams(),
+                    _ => throw new NotImplementedException("fxID " + fxID + " at " + wd.offset),
+                };
+                fxp.Deserialize(wd);
+                return fxp;
+            }
+
+            public abstract IEnumerable<byte> Serialize();
+        }
+
+        public class ParameterEQFXParams : FXParams
+        {
+            public List<EQModuleParams> band;
+            public float outputLevel;
+            public byte processLFE;
+
+            public override void Deserialize(WwiseData wd)
+            {
+                band = new();
+                for (int i = 0; i < 3; i++)
+                {
+                    EQModuleParams eqmp = new();
+                    eqmp.Deserialize(wd);
+                    band.Add(eqmp);
+                }
+                outputLevel = ReadSingle(wd);
+                processLFE = ReadUInt8(wd);
+            }
+
+            public override IEnumerable<byte> Serialize()
+            {
+                List<byte> b = new();
+                foreach (EQModuleParams eqmp in band)
+                    b.AddRange(eqmp.Serialize());
+                b.AddRange(GetBytes(outputLevel));
+                b.Add(processLFE);
+                return b;
+            }
+        }
+
+        public class EQModuleParams : ISerializable
+        {
+            public uint filterType;
+            public float gain;
+            public float frequency;
+            public float qFactor;
+            public byte onOff;
+
+            public void Deserialize(WwiseData wd)
+            {
+                filterType = ReadUInt32(wd);
+                gain = ReadSingle(wd);
+                frequency = ReadSingle(wd);
+                qFactor = ReadSingle(wd);
+                onOff = ReadUInt8(wd);
+            }
+
+            public IEnumerable<byte> Serialize()
+            {
+                List<byte> b = new();
+                b.AddRange(GetBytes(filterType));
+                b.AddRange(GetBytes(gain));
+                b.AddRange(GetBytes(frequency));
+                b.AddRange(GetBytes(qFactor));
+                b.Add(onOff);
+                return b;
+            }
+        }
+
+        public class StereoDelayFXParams : FXParams
+        {
+            public RTPCParams rtpcParams;
+            public InvariantParams invariantParams;
+            public AlgorithmTunings algorithmTunings;
+
+            public override void Deserialize(WwiseData wd)
+            {
+                rtpcParams = new();
+                invariantParams = new();
+                algorithmTunings = new();
+                rtpcParams.Deserialize(wd);
+                invariantParams.Deserialize(wd);
+                algorithmTunings.Deserialize(wd);
+            }
+
+            public override IEnumerable<byte> Serialize()
+            {
+                List<byte> b = new();
+                b.AddRange(rtpcParams.Serialize());
+                b.AddRange(invariantParams.Serialize());
+                b.AddRange(algorithmTunings.Serialize());
+                return b;
+            }
+        }
+
+        public class RTPCParams : ISerializable
+        {
+            public float decayTime;
+            public float hfDamping;
+            public float diffusion;
+            public float stereoWidth;
+            public float filter1Gain;
+            public float filter1Freq;
+            public float filter1Q;
+            public float filter2Gain;
+            public float filter2Freq;
+            public float filter2Q;
+            public float filter3Gain;
+            public float filter3Freq;
+            public float filter3Q;
+            public float frontLevel;
+            public float rearLevel;
+            public float centerLevel;
+            public float lfeLevel;
+            public float dryLevel;
+            public float erLevel;
+            public float reverbLevel;
+
+            public void Deserialize(WwiseData wd)
+            {
+                decayTime = ReadSingle(wd);
+                hfDamping = ReadSingle(wd);
+                diffusion = ReadSingle(wd);
+                stereoWidth = ReadSingle(wd);
+                filter1Gain = ReadSingle(wd);
+                filter1Freq = ReadSingle(wd);
+                filter1Q = ReadSingle(wd);
+                filter2Gain = ReadSingle(wd);
+                filter2Freq = ReadSingle(wd);
+                filter2Q = ReadSingle(wd);
+                filter3Gain = ReadSingle(wd);
+                filter3Freq = ReadSingle(wd);
+                filter3Q = ReadSingle(wd);
+                frontLevel = ReadSingle(wd);
+                rearLevel = ReadSingle(wd);
+                centerLevel = ReadSingle(wd);
+                lfeLevel = ReadSingle(wd);
+                dryLevel = ReadSingle(wd);
+                erLevel = ReadSingle(wd);
+                reverbLevel = ReadSingle(wd);
+            }
+
+            public IEnumerable<byte> Serialize()
+            {
+                List<byte> b = new();
+                b.AddRange(GetBytes(decayTime));
+                b.AddRange(GetBytes(hfDamping));
+                b.AddRange(GetBytes(diffusion));
+                b.AddRange(GetBytes(stereoWidth));
+                b.AddRange(GetBytes(filter1Gain));
+                b.AddRange(GetBytes(filter1Freq));
+                b.AddRange(GetBytes(filter1Q));
+                b.AddRange(GetBytes(filter2Gain));
+                b.AddRange(GetBytes(filter2Freq));
+                b.AddRange(GetBytes(filter2Q));
+                b.AddRange(GetBytes(filter3Gain));
+                b.AddRange(GetBytes(filter3Freq));
+                b.AddRange(GetBytes(filter3Q));
+                b.AddRange(GetBytes(frontLevel));
+                b.AddRange(GetBytes(rearLevel));
+                b.AddRange(GetBytes(centerLevel));
+                b.AddRange(GetBytes(lfeLevel));
+                b.AddRange(GetBytes(dryLevel));
+                b.AddRange(GetBytes(erLevel));
+                b.AddRange(GetBytes(reverbLevel));
+                return b;
+            }
+        }
+
+        public class InvariantParams : ISerializable
+        {
+            public byte enableEarlyReflections;
+            public uint erPattern;
+            public float reverbDelay;
+            public float roomSize;
+            public float erFrontBackDelay;
+            public float density;
+            public float roomShape;
+            public uint numReverbUnits;
+            public byte enableToneControls;
+            public uint filter1Pos;
+            public uint filter1Curve;
+            public uint filter2Pos;
+            public uint filter2Curve;
+            public uint filter3Pos;
+            public uint filter3Curve;
+            public float inputCenterLevel;
+            public float inputLFELevel;
+
+            public void Deserialize(WwiseData wd)
+            {
+                enableEarlyReflections = ReadUInt8(wd);
+                erPattern = ReadUInt32(wd);
+                reverbDelay = ReadSingle(wd);
+                roomSize = ReadSingle(wd);
+                erFrontBackDelay = ReadSingle(wd);
+                density = ReadSingle(wd);
+                roomShape = ReadSingle(wd);
+                numReverbUnits = ReadUInt32(wd);
+                enableToneControls = ReadUInt8(wd);
+                filter1Pos = ReadUInt32(wd);
+                filter1Curve = ReadUInt32(wd);
+                filter2Pos = ReadUInt32(wd);
+                filter2Curve = ReadUInt32(wd);
+                filter3Pos = ReadUInt32(wd);
+                filter3Curve = ReadUInt32(wd);
+                inputCenterLevel = ReadSingle(wd);
+                inputLFELevel = ReadSingle(wd);
+            }
+
+            public IEnumerable<byte> Serialize()
+            {
+                List<byte> b = new();
+                b.Add(enableEarlyReflections);
+                b.AddRange(GetBytes(erPattern));
+                b.AddRange(GetBytes(reverbDelay));
+                b.AddRange(GetBytes(roomSize));
+                b.AddRange(GetBytes(erFrontBackDelay));
+                b.AddRange(GetBytes(density));
+                b.AddRange(GetBytes(roomShape));
+                b.AddRange(GetBytes(numReverbUnits));
+                b.Add(enableToneControls);
+                b.AddRange(GetBytes(filter1Pos));
+                b.AddRange(GetBytes(filter1Curve));
+                b.AddRange(GetBytes(filter2Pos));
+                b.AddRange(GetBytes(filter2Curve));
+                b.AddRange(GetBytes(filter3Pos));
+                b.AddRange(GetBytes(filter3Curve));
+                b.AddRange(GetBytes(inputCenterLevel));
+                b.AddRange(GetBytes(inputLFELevel));
+                return b;
+            }
+        }
+
+        public class AlgorithmTunings : ISerializable
+        {
+            public float densityDelayMin;
+            public float densityDelayMax;
+            public float densityDelayRdmPerc;
+            public float roomShapeMin;
+            public float roomShapeMax;
+            public float diffusionDelayScalePerc;
+            public float diffusionDelayMax;
+            public float diffusionDelayRdmPerc;
+            public float dcFilterCutFreq;
+            public float reverbUnitInputDelay;
+            public float reverbUnitInputDelayRmdPerc;
+
+            public void Deserialize(WwiseData wd)
+            {
+                densityDelayMin = ReadSingle(wd);
+                densityDelayMax = ReadSingle(wd);
+                densityDelayRdmPerc = ReadSingle(wd);
+                roomShapeMin = ReadSingle(wd);
+                roomShapeMax = ReadSingle(wd);
+                diffusionDelayScalePerc = ReadSingle(wd);
+                diffusionDelayMax = ReadSingle(wd);
+                diffusionDelayRdmPerc = ReadSingle(wd);
+                dcFilterCutFreq = ReadSingle(wd);
+                reverbUnitInputDelay = ReadSingle(wd);
+                reverbUnitInputDelayRmdPerc = ReadSingle(wd);
+            }
+
+            public IEnumerable<byte> Serialize()
+            {
+                List<byte> b = new();
+                b.AddRange(GetBytes(densityDelayMin));
+                b.AddRange(GetBytes(densityDelayMax));
+                b.AddRange(GetBytes(densityDelayRdmPerc));
+                b.AddRange(GetBytes(roomShapeMin));
+                b.AddRange(GetBytes(roomShapeMax));
+                b.AddRange(GetBytes(diffusionDelayScalePerc));
+                b.AddRange(GetBytes(diffusionDelayMax));
+                b.AddRange(GetBytes(diffusionDelayRdmPerc));
+                b.AddRange(GetBytes(dcFilterCutFreq));
+                b.AddRange(GetBytes(reverbUnitInputDelay));
+                b.AddRange(GetBytes(reverbUnitInputDelayRmdPerc));
+                return b;
+            }
+        }
+
+        public class FlangerFXParams : FXParams
+        {
+            public float nonRTPCDelayTime;
+            public float RTPCDryLevel;
+            public float RTPCFfwdLevel;
+            public float RTPCFbackLevel;
+            public float RTPCModDepth;
+            public float RTPCModParamsLFOParamsFrequency;
+            public uint RTPCModParamsLFOParamsWaveform;
+            public float RTPCModParamsLFOParamsSmooth;
+            public float RTPCModParamsLFOParamsPWM;
+            public float RTPCModParamsPhaseParamsPhaseOffset;
+            public uint RTPCModParamsPhaseParamsPhaseMode;
+            public float RTPCModParamsPhaseParamsPhaseSpread;
+            public float RTPCOutputLevel;
+            public float RTPCWetDryMix;
+            public byte nonRTPCEnableLFO;
+            public byte nonRTPCProcessCenter;
+            public byte nonRTPCProcessLFE;
+
+            public override void Deserialize(WwiseData wd)
+            {
+                nonRTPCDelayTime = ReadSingle(wd);
+                RTPCDryLevel = ReadSingle(wd);
+                RTPCFfwdLevel = ReadSingle(wd);
+                RTPCFbackLevel = ReadSingle(wd);
+                RTPCModDepth = ReadSingle(wd);
+                RTPCModParamsLFOParamsFrequency = ReadSingle(wd);
+                RTPCModParamsLFOParamsWaveform = ReadUInt32(wd);
+                RTPCModParamsLFOParamsSmooth = ReadSingle(wd);
+                RTPCModParamsLFOParamsPWM = ReadSingle(wd);
+                RTPCModParamsPhaseParamsPhaseOffset = ReadSingle(wd);
+                RTPCModParamsPhaseParamsPhaseMode = ReadUInt32(wd);
+                RTPCModParamsPhaseParamsPhaseSpread = ReadSingle(wd);
+                RTPCOutputLevel = ReadSingle(wd);
+                RTPCWetDryMix = ReadSingle(wd);
+                nonRTPCEnableLFO = ReadUInt8(wd);
+                nonRTPCProcessCenter = ReadUInt8(wd);
+                nonRTPCProcessLFE = ReadUInt8(wd);
+            }
+
+            public override IEnumerable<byte> Serialize()
+            {
+                List<byte> b = new();
+                b.AddRange(GetBytes(nonRTPCDelayTime));
+                b.AddRange(GetBytes(RTPCDryLevel));
+                b.AddRange(GetBytes(RTPCFfwdLevel));
+                b.AddRange(GetBytes(RTPCFbackLevel));
+                b.AddRange(GetBytes(RTPCModDepth));
+                b.AddRange(GetBytes(RTPCModParamsLFOParamsFrequency));
+                b.AddRange(GetBytes(RTPCModParamsLFOParamsWaveform));
+                b.AddRange(GetBytes(RTPCModParamsLFOParamsSmooth));
+                b.AddRange(GetBytes(RTPCModParamsLFOParamsPWM));
+                b.AddRange(GetBytes(RTPCModParamsPhaseParamsPhaseOffset));
+                b.AddRange(GetBytes(RTPCModParamsPhaseParamsPhaseMode));
+                b.AddRange(GetBytes(RTPCModParamsPhaseParamsPhaseSpread));
+                b.AddRange(GetBytes(RTPCOutputLevel));
+                b.AddRange(GetBytes(RTPCWetDryMix));
+                b.Add(nonRTPCEnableLFO);
+                b.Add(nonRTPCProcessCenter);
+                b.Add(nonRTPCProcessLFE);
+                return b;
+            }
+        }
+
+        public class MeterFXParams : FXParams
+        {
+            public float rtpcAttack;
+            public float rtpcRelease;
+            public float rtpcMin;
+            public float rtpcMax;
+            public float rtpcHold;
+            public byte nonRTPCMode;
+            public byte nonRTPCScope;
+            public byte nonRTPCApplyDownstreamVolume;
+            public uint nonRTPCGameParamID;
+
+            public override void Deserialize(WwiseData wd)
+            {
+                rtpcAttack = ReadSingle(wd);
+                rtpcRelease = ReadSingle(wd);
+                rtpcMin = ReadSingle(wd);
+                rtpcMax = ReadSingle(wd);
+                rtpcHold = ReadSingle(wd);
+                nonRTPCMode = ReadUInt8(wd);
+                nonRTPCScope = ReadUInt8(wd);
+                nonRTPCApplyDownstreamVolume = ReadUInt8(wd);
+                nonRTPCGameParamID = ReadUInt32(wd);
+            }
+
+            public override IEnumerable<byte> Serialize()
+            {
+                List<byte> b = new();
+                b.AddRange(GetBytes(rtpcAttack));
+                b.AddRange(GetBytes(rtpcRelease));
+                b.AddRange(GetBytes(rtpcMin));
+                b.AddRange(GetBytes(rtpcMax));
+                b.AddRange(GetBytes(rtpcHold));
+                b.Add(nonRTPCMode);
+                b.Add(nonRTPCScope);
+                b.Add(nonRTPCApplyDownstreamVolume);
+                b.AddRange(GetBytes(nonRTPCGameParamID));
+                return b;
+            }
+        }
+
+        public class PluginPropertyValue : ISerializable
+        {
+            public ulong propertyID;
+            public byte rtpcAccum;
+            public float value;
+
+            public void Deserialize(WwiseData wd)
+            {
+                propertyID = ReadVariableInt(wd);
+                rtpcAccum = ReadUInt8(wd);
+                value = ReadSingle(wd);
+            }
+
+            public IEnumerable<byte> Serialize()
+            {
+                List<byte> b = new();
+                b.AddRange(GetVariableIntBytes(propertyID));
+                b.Add(rtpcAccum);
+                b.AddRange(GetBytes(value));
+                return b;
+            }
+        }
+
+        public class Bus : HircItem
+        {
+            public uint overrideBusId;
+            public uint idDeviceShareset;
+            public BusInitialParams busInitialParams;
+            public int recoveryTime;
+            public float maxDuckVolume;
+            public uint ducksCount;
+            public List<DuckInfo> toDuckList;
+            public BusInitialFxParams busInitialFxParams;
+            public byte overrideAttachmentParams;
+            public InitialRTPC initialRTPC;
+            public StateChunk stateChunk;
+
+            public override void Deserialize(WwiseData wd)
+            {
+                base.Deserialize(wd);
+
+                busInitialParams = new();
+                toDuckList = new();
+                busInitialFxParams = new();
+                initialRTPC = new();
+                stateChunk = new();
+                overrideBusId = ReadUInt32(wd);
+                if (overrideBusId == 0)
+                    idDeviceShareset = ReadUInt32(wd);
+                busInitialParams.Deserialize(wd);
+                recoveryTime = ReadInt32(wd);
+                maxDuckVolume = ReadSingle(wd);
+                ducksCount = ReadUInt32(wd);
+                for (int i = 0; i < ducksCount; i++)
+                {
+                    DuckInfo di = new();
+                    di.Deserialize(wd);
+                    toDuckList.Add(di);
+                }
+                busInitialFxParams.Deserialize(wd);
+                overrideAttachmentParams = ReadUInt8(wd);
+                initialRTPC.Deserialize(wd);
+                stateChunk.Deserialize(wd);
+            }
+
+            public override IEnumerable<byte> Serialize()
+            {
+                List<byte> b = new();
+                b.AddRange(base.Serialize());
+                b.AddRange(GetBytes(overrideBusId));
+                if (overrideBusId == 0)
+                    b.AddRange(GetBytes(idDeviceShareset));
+                b.AddRange(busInitialParams.Serialize());
+                b.AddRange(GetBytes(recoveryTime));
+                b.AddRange(GetBytes(maxDuckVolume));
+                ducksCount = (uint)toDuckList.Count;
+                b.AddRange(GetBytes(ducksCount));
+                foreach (DuckInfo di in toDuckList)
+                    b.AddRange(di.Serialize());
+                b.AddRange(busInitialFxParams.Serialize());
+                b.Add(overrideAttachmentParams);
+                b.AddRange(initialRTPC.Serialize());
+                b.AddRange(stateChunk.Serialize());
+                return b;
+            }
+        }
+
+        public class BusInitialParams : ISerializable
+        {
+            public PropBundle0 propBundle0;
+            public PositioningParams positioningParams;
+            public AuxParams auxParams;
+            public bool killNewest;
+            public bool useVirtualBehavior;
+            public bool isMaxNumInstIgnoreParent;
+            public bool isBackgroundMusic;
+            public ushort maxNumInstance;
+            public uint channelConfig;
+            public bool isHdrBus;
+            public bool hdrReleaseModeExponential;
+
+            public void Deserialize(WwiseData wd)
+            {
+                propBundle0 = new();
+                positioningParams = new();
+                auxParams = new();
+                propBundle0.Deserialize(wd);
+                positioningParams.Deserialize(wd);
+                auxParams.Deserialize(wd);
+                bool[] flags0 = ReadFlags(wd);
+                killNewest = flags0[0];
+                useVirtualBehavior = flags0[1];
+                isMaxNumInstIgnoreParent = flags0[2];
+                isBackgroundMusic = flags0[3];
+                maxNumInstance = ReadUInt16(wd);
+                channelConfig = ReadUInt32(wd);
+                bool[] flags1 = ReadFlags(wd);
+                isHdrBus = flags1[0];
+                hdrReleaseModeExponential = flags1[1];
+            }
+
+            public IEnumerable<byte> Serialize()
+            {
+                List<byte> b = new();
+                b.AddRange(propBundle0.Serialize());
+                b.AddRange(positioningParams.Serialize());
+                b.AddRange(auxParams.Serialize());
+                bool[] flags0 = {
+                    killNewest,
+                    useVirtualBehavior,
+                    isMaxNumInstIgnoreParent,
+                    isBackgroundMusic
+                };
+                b.Add(GetByte(flags0));
+                b.AddRange(GetBytes(maxNumInstance));
+                b.AddRange(GetBytes(channelConfig));
+                bool[] flags1 = {
+                    isHdrBus,
+                    hdrReleaseModeExponential
+                };
+                b.Add(GetByte(flags1));
+                return b;
+            }
+        }
+
+        public class DuckInfo : ISerializable
+        {
+            public uint busID;
+            public float duckVolume;
+            public int fadeOutTime;
+            public int fadeInTime;
+            public byte fadeCurve;
+            public byte targetProp;
+
+            public void Deserialize(WwiseData wd)
+            {
+                busID = ReadUInt32(wd);
+                duckVolume = ReadSingle(wd);
+                fadeOutTime = ReadInt32(wd);
+                fadeInTime = ReadInt32(wd);
+                fadeCurve = ReadUInt8(wd);
+                targetProp = ReadUInt8(wd);
+            }
+
+            public IEnumerable<byte> Serialize()
+            {
+                List<byte> b = new();
+                b.AddRange(GetBytes(busID));
+                b.AddRange(GetBytes(duckVolume));
+                b.AddRange(GetBytes(fadeOutTime));
+                b.AddRange(GetBytes(fadeInTime));
+                b.Add(fadeCurve);
+                b.Add(targetProp);
+                return b;
+            }
+        }
+
+        public class BusInitialFxParams : ISerializable
+        {
+            public byte fxCount;
+            public byte bitsFXBypass;
+            public List<FXChunk> fxChunk;
+            public uint fxID0;
+            public byte IsShareSet0;
+
+            public void Deserialize(WwiseData wd)
+            {
+                fxCount = ReadUInt8(wd);
+                if (fxCount > 0)
+                {
+                    fxChunk = new();
+                    bitsFXBypass = ReadUInt8(wd);
+                    for (int i = 0; i < fxCount; i++)
+                    {
+                        FXChunk fxc = new();
+                        fxc.Deserialize(wd);
+                        fxChunk.Add(fxc);
+                    }
+                }
+                fxID0 = ReadUInt32(wd);
+                IsShareSet0 = ReadUInt8(wd);
+            }
+
+            public IEnumerable<byte> Serialize()
+            {
+                List<byte> b = new();
+                if (fxChunk != null)
+                    fxCount = (byte)fxChunk.Count;
+                b.Add(fxCount);
+                if (fxCount > 0)
+                {
+                    b.Add(bitsFXBypass);
+                    foreach (FXChunk fxc in fxChunk)
+                        b.AddRange(fxc.Serialize());
+                }
+                b.AddRange(GetBytes(fxID0));
+                b.Add(IsShareSet0);
+                return b;
+            }
+        }
+
+        public class FXChunk : ISerializable
+        {
+            public byte fxIndex;
+            public uint fxID;
+            public byte isShareSet;
+            public byte isRendered;
+
+            public void Deserialize(WwiseData wd)
+            {
+                fxIndex = ReadUInt8(wd);
+                fxID = ReadUInt32(wd);
+                isShareSet = ReadUInt8(wd);
+                isRendered = ReadUInt8(wd);
+            }
+
+            public IEnumerable<byte> Serialize()
+            {
+                List<byte> b = new();
+                b.Add(fxIndex);
+                b.AddRange(GetBytes(fxID));
+                b.Add(isShareSet);
+                b.Add(isRendered);
                 return b;
             }
         }
@@ -2870,6 +3862,352 @@ namespace ImpostersOrdeal
             }
         }
 
+        public class AudioDevice : HircItem
+        {
+            public uint fxID;
+            public uint size;
+            public byte bankDataCount;
+            public List<Unk> media;
+            public InitialRTPC initialRTPC;
+            public StateChunk stateChunk;
+            public ushort valuesCount;
+            public List<Unk> propertyValues;
+
+            public override void Deserialize(WwiseData wd)
+            {
+                base.Deserialize(wd);
+
+                media = new();
+                initialRTPC = new();
+                stateChunk = new();
+                propertyValues = new();
+                fxID = ReadUInt32(wd);
+                size = ReadUInt32(wd);
+                bankDataCount = ReadUInt8(wd);
+                for (int i = 0; i < bankDataCount; i++)
+                {
+                    Unk u = new();
+                    u.Deserialize(wd);
+                    media.Add(u);
+                }
+                initialRTPC.Deserialize(wd);
+                stateChunk.Deserialize(wd);
+                valuesCount = ReadUInt16(wd);
+                for (int i = 0; i < valuesCount; i++)
+                {
+                    Unk u = new();
+                    u.Deserialize(wd);
+                    propertyValues.Add(u);
+                }
+            }
+
+            public override IEnumerable<byte> Serialize()
+            {
+                List<byte> b = new();
+                b.AddRange(base.Serialize());
+                b.AddRange(GetBytes(fxID));
+                b.AddRange(GetBytes(size));
+                bankDataCount = (byte)media.Count;
+                b.Add(bankDataCount);
+                foreach (Unk u in media)
+                    b.AddRange(u.Serialize());
+                b.AddRange(initialRTPC.Serialize());
+                b.AddRange(stateChunk.Serialize());
+                valuesCount = (ushort)propertyValues.Count;
+                b.AddRange(GetBytes(valuesCount));
+                foreach (Unk u in propertyValues)
+                    b.AddRange(u.Serialize());
+                return b;
+            }
+        }
+
+        public class PluginChunk : Chunk
+        {
+            public uint count;
+            public List<Plugin> pluginList;
+
+            public override void Deserialize(WwiseData wd)
+            {
+                base.Deserialize(wd);
+
+                pluginList = new();
+                count = ReadUInt32(wd);
+                for (int i = 0; i < count; i++)
+                {
+                    Plugin p = new();
+                    p.Deserialize(wd);
+                    pluginList.Add(p);
+                }
+            }
+
+            public override IEnumerable<byte> Serialize()
+            {
+                List<byte> b = new();
+                b.AddRange(base.Serialize());
+                count = (uint)pluginList.Count;
+                b.AddRange(GetBytes(count));
+                foreach (Plugin p in pluginList)
+                    b.AddRange(p.Serialize());
+                return b;
+            }
+        }
+
+        public class Plugin : ISerializable
+        {
+            public uint pluginID;
+            public uint stringSize;
+            public string dllName;
+
+            public void Deserialize(WwiseData wd)
+            {
+                pluginID = ReadUInt32(wd);
+                stringSize = ReadUInt32(wd);
+                dllName = ReadString(wd, (int)stringSize);
+            }
+
+            public IEnumerable<byte> Serialize()
+            {
+                List<byte> b = new();
+                b.AddRange(GetBytes(pluginID));
+                b.AddRange(GetBytes(stringSize));
+                b.AddRange(GetBytes(dllName));
+                return b;
+            }
+        }
+
+        public class CustomPlatformChunk : Chunk
+        {
+            public uint stringSize;
+            public string customPlatformName;
+
+            public override void Deserialize(WwiseData wd)
+            {
+                base.Deserialize(wd);
+
+                stringSize = ReadUInt32(wd);
+                customPlatformName = ReadString(wd, (int)stringSize);
+            }
+
+            public override IEnumerable<byte> Serialize()
+            {
+                List<byte> b = new();
+                b.AddRange(base.Serialize());
+                b.AddRange(GetBytes(stringSize));
+                b.AddRange(GetBytes(customPlatformName));
+                return b;
+            }
+        }
+
+        public class GlobalSettingsChunk : Chunk
+        {
+            public float volumeThreshold;
+            public ushort maxNumVoicesLimitInternal;
+            public ushort maxNumDangerousVirtVoicesLimitInternal;
+            public uint stateGroupsCount;
+            public List<StateGroup> stateGroups;
+            public uint switchGroupsCount;
+            public List<SwitchGroups> items;
+            public uint paramsCount;
+            public List<RTPCRamping> pRTPCMgr;
+            public uint texturesCount;
+            public List<Unk> acousticTextures;
+
+            public override void Deserialize(WwiseData wd)
+            {
+                base.Deserialize(wd);
+
+                stateGroups = new();
+                items = new();
+                pRTPCMgr = new();
+                acousticTextures = new();
+                volumeThreshold = ReadSingle(wd);
+                maxNumVoicesLimitInternal = ReadUInt16(wd);
+                maxNumDangerousVirtVoicesLimitInternal = ReadUInt16(wd);
+                stateGroupsCount = ReadUInt32(wd);
+                for (int i = 0; i < stateGroupsCount; i++)
+                {
+                    StateGroup sg = new();
+                    sg.Deserialize(wd);
+                    stateGroups.Add(sg);
+                }
+                switchGroupsCount = ReadUInt32(wd);
+                for (int i = 0; i < switchGroupsCount; i++)
+                {
+                    SwitchGroups sg = new();
+                    sg.Deserialize(wd);
+                    items.Add(sg);
+                }
+                paramsCount = ReadUInt32(wd);
+                for (int i = 0; i < paramsCount; i++)
+                {
+                    RTPCRamping rtpcr = new();
+                    rtpcr.Deserialize(wd);
+                    pRTPCMgr.Add(rtpcr);
+                }
+                texturesCount = ReadUInt32(wd);
+                for (int i = 0; i < texturesCount; i++)
+                {
+                    Unk u = new();
+                    u.Deserialize(wd);
+                    acousticTextures.Add(u);
+                }
+            }
+
+            public override IEnumerable<byte> Serialize()
+            {
+                List<byte> b = new();
+                b.AddRange(base.Serialize());
+                b.AddRange(GetBytes(volumeThreshold));
+                b.AddRange(GetBytes(maxNumVoicesLimitInternal));
+                b.AddRange(GetBytes(maxNumDangerousVirtVoicesLimitInternal));
+                stateGroupsCount = (uint)stateGroups.Count;
+                b.AddRange(GetBytes(stateGroupsCount));
+                foreach (StateGroup sg in stateGroups)
+                    b.AddRange(sg.Serialize());
+                switchGroupsCount = (uint)items.Count;
+                b.AddRange(GetBytes(switchGroupsCount));
+                foreach (SwitchGroups sg in items)
+                    b.AddRange(sg.Serialize());
+                paramsCount = (uint)pRTPCMgr.Count;
+                b.AddRange(GetBytes(paramsCount));
+                foreach (RTPCRamping rtpcr in pRTPCMgr)
+                    b.AddRange(rtpcr.Serialize());
+                texturesCount = (uint)acousticTextures.Count;
+                b.AddRange(GetBytes(texturesCount));
+                foreach (Unk u in acousticTextures)
+                    b.AddRange(u.Serialize());
+                return b;
+            }
+        }
+
+        public class StateGroup : WwiseObject
+        {
+            public uint stateGroupID;
+            public uint defaultTransitionTime;
+            public uint transitionsCount;
+            public List<StateTransition> mapTransitions;
+
+            public override void Deserialize(WwiseData wd)
+            {
+                mapTransitions = new();
+                stateGroupID = ReadUInt32(wd);
+                wd.objectsByID[stateGroupID] = this;
+                defaultTransitionTime = ReadUInt32(wd);
+                transitionsCount = ReadUInt32(wd);
+                for (int i = 0; i < transitionsCount; i++)
+                {
+                    StateTransition st = new();
+                    st.Deserialize(wd);
+                    mapTransitions.Add(st);
+                }
+            }
+
+            public override IEnumerable<byte> Serialize()
+            {
+                List<byte> b = new();
+                b.AddRange(GetBytes(stateGroupID));
+                b.AddRange(GetBytes(defaultTransitionTime));
+                transitionsCount = (uint)mapTransitions.Count;
+                b.AddRange(GetBytes(transitionsCount));
+                foreach (StateTransition st in mapTransitions)
+                    b.AddRange(st.Serialize());
+                return b;
+            }
+        }
+
+        public class StateTransition : ISerializable
+        {
+            public uint stateFrom;
+            public uint stateTo;
+            public uint transitionTime;
+
+            public void Deserialize(WwiseData wd)
+            {
+                stateFrom = ReadUInt32(wd);
+                stateTo = ReadUInt32(wd);
+                transitionTime = ReadUInt32(wd);
+            }
+
+            public IEnumerable<byte> Serialize()
+            {
+                List<byte> b = new();
+                b.AddRange(GetBytes(stateFrom));
+                b.AddRange(GetBytes(stateTo));
+                b.AddRange(GetBytes(transitionTime));
+                return b;
+            }
+        }
+
+        public class SwitchGroups : ISerializable
+        {
+            public uint switchGroupID;
+            public uint rtpcID;
+            public byte rtpcType;
+            public uint size;
+            public List<RTPCGraphPoint> switchMgr;
+
+            public void Deserialize(WwiseData wd)
+            {
+                switchMgr = new();
+                switchGroupID = ReadUInt32(wd);
+                rtpcID = ReadUInt32(wd);
+                rtpcType = ReadUInt8(wd);
+                size = ReadUInt32(wd);
+                for (int i = 0; i < size; i++)
+                {
+                    RTPCGraphPoint rtcpgp = new();
+                    rtcpgp.Deserialize(wd);
+                    switchMgr.Add(rtcpgp);
+                }
+            }
+
+            public IEnumerable<byte> Serialize()
+            {
+                List<byte> b = new();
+                b.AddRange(GetBytes(switchGroupID));
+                b.AddRange(GetBytes(rtpcID));
+                b.Add(rtpcType);
+                size = (uint)switchMgr.Count;
+                b.AddRange(GetBytes(size));
+                foreach (RTPCGraphPoint rtcpgp in switchMgr)
+                    b.AddRange(rtcpgp.Serialize());
+                return b;
+            }
+        }
+
+        public class RTPCRamping : WwiseObject
+        {
+            public uint rtpcID;
+            public float value;
+            public uint rampType;
+            public float rampUp;
+            public float rampDown;
+            public byte bindToBuiltInParam;
+
+            public override void Deserialize(WwiseData wd)
+            {
+                rtpcID = ReadUInt32(wd);
+                wd.objectsByID[rtpcID] = this;
+                value = ReadSingle(wd);
+                rampType = ReadUInt32(wd);
+                rampUp = ReadSingle(wd);
+                rampDown = ReadSingle(wd);
+                bindToBuiltInParam = ReadUInt8(wd);
+            }
+
+            public override IEnumerable<byte> Serialize()
+            {
+                List<byte> b = new();
+                b.AddRange(GetBytes(rtpcID));
+                b.AddRange(GetBytes(value));
+                b.AddRange(GetBytes(rampType));
+                b.AddRange(GetBytes(rampUp));
+                b.AddRange(GetBytes(rampDown));
+                b.Add(bindToBuiltInParam);
+                return b;
+            }
+        }
+
         public class Unk : ISerializable
         {
             public void Deserialize(WwiseData wd)
@@ -2931,10 +4269,10 @@ namespace ImpostersOrdeal
             return BitConverter.GetBytes(data);
         }
 
-        private static string Read4Char(WwiseData wd)
+        private static string ReadString(WwiseData wd, int length)
         {
-            string result = Encoding.ASCII.GetString(wd.buffer, wd.offset, 4);
-            wd.offset += 4;
+            string result = Encoding.ASCII.GetString(wd.buffer, wd.offset, length);
+            wd.offset += length;
             return result;
         }
 
@@ -2983,6 +4321,35 @@ namespace ImpostersOrdeal
         {
             double result = BitConverter.ToDouble(wd.buffer, wd.offset);
             wd.offset += 8;
+            return result;
+        }
+
+        private static IEnumerable<byte> GetVariableIntBytes(ulong data)
+        {
+            List<byte> result = new();
+            while (data > 0)
+            {
+                result.Add((byte)(data & 0x7F));
+                data >>= 7;
+            }
+            if (result.Count == 0)
+                result.Add(0);
+            result.Reverse();
+            for (int i = 0; i < result.Count - 1; i++)
+                result[i] += 0x80;
+            return result;
+        }
+
+        private static ulong ReadVariableInt(WwiseData wd)
+        {
+            ulong b = ReadUInt8(wd);
+            ulong result = b & 0x7F;
+            while ((b & 0x80) > 0)
+            {
+                b = ReadUInt8(wd);
+                result = (result << 7) | (b & 0x7F);
+            }
+
             return result;
         }
 
