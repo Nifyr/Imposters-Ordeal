@@ -95,29 +95,35 @@ namespace ImpostersOrdeal
             assetBundlePaths = new();
             Dictionary<string, string> assetBundlePathsWithDependencies = new();
 
-            List<AssetBundleRecord> recordsToCopy = new();
+            List<AssetBundleRecord> recordsToClone = new();
             foreach ((string, string) assetBundleNamePair in assetBundleNames)
             {
                 List<AssetBundleRecord> recordsToAdd = abdm.GetAssetBundleRecordsWithDependencies("pokemons/battle/" + assetBundleNamePair.Item1, true).ToList();
                 recordsToAdd.AddRange(abdm.GetAssetBundleRecordsWithDependencies("pokemons/field/" + assetBundleNamePair.Item1, true));
                 foreach (AssetBundleRecord record in recordsToAdd)
-                    if (record.projectName == "Pokemon Database" && !assetBundlePaths.ContainsKey(record.assetBundleName) && !assetBundlePathsWithDependencies.ContainsKey(record.assetBundleName))
+                    if (record.projectName == "Pokemon Database" &&
+                        !assetBundlePaths.ContainsKey(record.assetBundleName) &&
+                        !assetBundlePathsWithDependencies.ContainsKey(record.assetBundleName))
                     {
-                        recordsToCopy.Add(record);
-                        string newAssetBundlePath = Path.Combine(Path.GetDirectoryName(record.assetBundleName), assetBundleNamePair.Item2).Replace('\\', '/');
-                        while (assetBundlePaths.Values.Contains(newAssetBundlePath) || assetBundlePathsWithDependencies.Values.Contains(newAssetBundlePath))
+                        recordsToClone.Add(record);
+                        string newAssetBundlePath = Path.Combine(Path.GetDirectoryName(record.assetBundleName),
+                            GenAssetBundleName(assetBundleNamePair.Item2, Path.GetFileName(record.assetBundleName).Length)).Replace('\\', '/');
+                        /*
+                        while (assetBundlePaths.Values.Contains(newAssetBundlePath) || assetBundlePathsWithDependencies.Values.Contains(newAssetBundlePath) ||
+                            assetBundlePaths.Keys.Contains(newAssetBundlePath) || assetBundlePathsWithDependencies.Keys.Contains(newAssetBundlePath))
                             newAssetBundlePath = IncrementName(newAssetBundlePath);
+                        */
                         if (record.allDependencies.Length == 0)
                             assetBundlePaths[record.assetBundleName] = newAssetBundlePath;
                         else
                             assetBundlePathsWithDependencies[record.assetBundleName] = newAssetBundlePath;
                     }
             }
-            recordsToCopy.Sort((r1, r2) => r1.allDependencies.Length - r2.allDependencies.Length);
+            recordsToClone.Sort((r1, r2) => r1.allDependencies.Length - r2.allDependencies.Length);
             foreach (KeyValuePair<string, string> pair in assetBundlePathsWithDependencies)
                 assetBundlePaths.Add(pair.Key, pair.Value);
 
-            foreach (AssetBundleRecord record in recordsToCopy)
+            foreach (AssetBundleRecord record in recordsToClone)
             {
                 AssetBundleRecord newRecord = (AssetBundleRecord)record.Clone();
                 newRecord.assetBundleName = assetBundlePaths[newRecord.assetBundleName];
@@ -296,7 +302,7 @@ namespace ImpostersOrdeal
 
             foreach ((int, int) uniqueIDPair in uniqueIDs)
             {
-                Masterdatas.PokemonInfoCatalog srcPIC = GetPIC(uniqueIDPair.Item1);
+                Masterdatas.PokemonInfoCatalog srcPIC = gameData.pokemonInfos.Find(pic => pic.UniqueID == uniqueIDPair.Item1);
                 
                 Masterdatas.PokemonInfoCatalog dstPIC = (Masterdatas.PokemonInfoCatalog)srcPIC.Clone();
                 gameData.pokemonInfos.Add(dstPIC);
@@ -309,15 +315,29 @@ namespace ImpostersOrdeal
                     dstPIC.AssetBundleName = assetBundleNames.Find(p => p.Item1 == srcPIC.AssetBundleName).Item2;
                 else
                 {
-                    dstPIC.AssetBundleName = "pm" + uniqueIDPair.Item2.ToString();
+                    dstPIC.AssetBundleName = GenAssetBundleName(uniqueIDPair.Item2, srcPIC.AssetBundleName.Length);
                     assetBundleNames.Add((srcPIC.AssetBundleName, dstPIC.AssetBundleName));
                 }
             }
         }
 
-        private Masterdatas.PokemonInfoCatalog GetPIC(int uniqueID)
+        private static string GenAssetBundleName(string oldFileName, int newLength) =>
+            GenAssetBundleName(int.Parse(oldFileName.Replace("pm", "").Replace("_", "")), newLength);
+
+        private static string GenAssetBundleName(int uniqueID, int length)
         {
-            return gameData.pokemonInfos.Find(pic => pic.UniqueID == uniqueID);
+            //I've developed a strong distaste for this naming scheme lately. 
+            if (uniqueID / 100 % 100 == 1)
+                uniqueID += 1100;
+            return length switch
+            {
+                9 => "pm" + (uniqueID / 10000).ToString("D4") +
+                "_" + (uniqueID / 100 % 100).ToString("D2"),
+                12 => "pm" + (uniqueID / 10000).ToString("D4") +
+                "_" + (uniqueID / 100 % 100).ToString("D2") +
+                "_" + (uniqueID % 100).ToString("D2"),
+                _ => throw new NotImplementedException("Assetbundle file name of length " + length + " unsupported."),
+            };
         }
 
         public void UpdateMotionTimingData(int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo)
