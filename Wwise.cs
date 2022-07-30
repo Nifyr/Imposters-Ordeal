@@ -49,9 +49,9 @@ namespace ImpostersOrdeal
                 return banks.First().Serialize().ToArray();
             }
 
-            public byte[] GetBytes(uint bankID)
+            public byte[] GetBytes(uint id)
             {
-                return ((Bank)objectsByID[bankID]).Serialize().ToArray();
+                return objectsByID[id].Serialize().ToArray();
             }
         }
 
@@ -982,24 +982,24 @@ namespace ImpostersOrdeal
 
         public class StateChunk : ISerializable
         {
-            public byte statePropsCount;
+            public ulong statePropsCount;
             public List<StatePropertyInfo> stateProps;
-            public byte stateGroupsCount;
+            public ulong stateGroupsCount;
             public List<StateGroupChunk> stateChunks;
 
             public void Deserialize(WwiseData wd)
             {
                 stateProps = new();
                 stateChunks = new();
-                statePropsCount = ReadUInt8(wd);
-                for (int i = 0; i < statePropsCount; i++)
+                statePropsCount = ReadVariableInt(wd);
+                for (ulong i = 0; i < statePropsCount; i++)
                 {
                     StatePropertyInfo spi = new();
                     spi.Deserialize(wd);
                     stateProps.Add(spi);
                 }
-                stateGroupsCount = ReadUInt8(wd);
-                for (int i = 0; i < stateGroupsCount; i++)
+                stateGroupsCount = ReadVariableInt(wd);
+                for (ulong i = 0; i < stateGroupsCount; i++)
                 {
                     StateGroupChunk sgc = new();
                     sgc.Deserialize(wd);
@@ -1010,12 +1010,12 @@ namespace ImpostersOrdeal
             public IEnumerable<byte> Serialize()
             {
                 List<byte> b = new();
-                statePropsCount = (byte)stateProps.Count;
-                b.Add(statePropsCount);
+                statePropsCount = (ulong)stateProps.Count;
+                b.AddRange(GetVariableIntBytes(statePropsCount));
                 foreach (StatePropertyInfo spi in stateProps)
                     b.AddRange(spi.Serialize());
-                stateGroupsCount = (byte)stateChunks.Count;
-                b.Add(stateGroupsCount);
+                stateGroupsCount = (ulong)stateChunks.Count;
+                b.AddRange(GetVariableIntBytes(stateGroupsCount));
                 foreach (StateGroupChunk sgc in stateChunks)
                     b.AddRange(sgc.Serialize());
                 return b;
@@ -1024,13 +1024,13 @@ namespace ImpostersOrdeal
 
         public class StatePropertyInfo : ISerializable
         {
-            public byte propertyID;
+            public ulong propertyID;
             public byte accumType;
             public byte inDb;
 
             public void Deserialize(WwiseData wd)
             {
-                propertyID = ReadUInt8(wd);
+                propertyID = ReadVariableInt(wd);
                 accumType = ReadUInt8(wd);
                 inDb = ReadUInt8(wd);
             }
@@ -1038,7 +1038,7 @@ namespace ImpostersOrdeal
             public IEnumerable<byte> Serialize()
             {
                 List<byte> b = new();
-                b.Add(propertyID);
+                b.AddRange(GetVariableIntBytes(propertyID));
                 b.Add(accumType);
                 b.Add(inDb);
                 return b;
@@ -1132,7 +1132,7 @@ namespace ImpostersOrdeal
             public uint rtpcID;
             public byte rtpcType;
             public byte rtpcAccum;
-            public byte paramID;
+            public ulong paramID;
             public uint rtpcCurveID;
             public byte scaling;
             public ushort size;
@@ -1144,7 +1144,7 @@ namespace ImpostersOrdeal
                 rtpcID = ReadUInt32(wd);
                 rtpcType = ReadUInt8(wd);
                 rtpcAccum = ReadUInt8(wd);
-                paramID = ReadUInt8(wd);
+                paramID = ReadVariableInt(wd);
                 rtpcCurveID = ReadUInt32(wd);
                 wd.objectsByID[rtpcCurveID] = this;
                 scaling = ReadUInt8(wd);
@@ -1163,7 +1163,7 @@ namespace ImpostersOrdeal
                 b.AddRange(GetBytes(rtpcID));
                 b.Add(rtpcType);
                 b.Add(rtpcAccum);
-                b.Add(paramID);
+                b.AddRange(GetVariableIntBytes(paramID));
                 b.AddRange(GetBytes(rtpcCurveID));
                 b.Add(scaling);
                 size = (ushort)pRTPCMgr.Count;
@@ -1548,14 +1548,14 @@ namespace ImpostersOrdeal
 
         public class ExceptParams : ISerializable
         {
-            public byte exceptionListSize;
+            public ulong exceptionListSize;
             public List<WwiseObjectIDext> listElementException;
 
             public void Deserialize(WwiseData wd)
             {
                 listElementException = new();
-                exceptionListSize = ReadUInt8(wd);
-                for (int i = 0; i < exceptionListSize; i++)
+                exceptionListSize = ReadVariableInt(wd);
+                for (ulong i = 0; i < exceptionListSize; i++)
                 {
                     WwiseObjectIDext woid = new();
                     woid.Deserialize(wd);
@@ -1566,8 +1566,8 @@ namespace ImpostersOrdeal
             public IEnumerable<byte> Serialize()
             {
                 List<byte> b = new();
-                exceptionListSize = (byte)listElementException.Count;
-                b.Add(exceptionListSize);
+                exceptionListSize = (ulong)listElementException.Count;
+                b.AddRange(GetVariableIntBytes(exceptionListSize));
                 foreach (WwiseObjectIDext woid in listElementException)
                     b.AddRange(woid.Serialize());
                 return b;
@@ -1696,7 +1696,7 @@ namespace ImpostersOrdeal
 
         public class Event : HircItem
         {
-            public byte actionListSize;
+            public ulong actionListSize;
             public List<uint> actionIDs;
 
             public override void Deserialize(WwiseData wd)
@@ -1704,8 +1704,8 @@ namespace ImpostersOrdeal
                 base.Deserialize(wd);
 
                 actionIDs = new();
-                actionListSize = ReadUInt8(wd);
-                for (int i = 0; i < actionListSize; i++)
+                actionListSize = ReadVariableInt(wd);
+                for (ulong i = 0; i < actionListSize; i++)
                     actionIDs.Add(ReadUInt32(wd));
             }
 
@@ -1713,8 +1713,8 @@ namespace ImpostersOrdeal
             {
                 List<byte> b = new();
                 b.AddRange(base.Serialize());
-                actionListSize = (byte)actionIDs.Count;
-                b.Add(actionListSize);
+                actionListSize = (ulong)actionIDs.Count;
+                b.AddRange(GetVariableIntBytes(actionListSize));
                 foreach (uint i in actionIDs)
                     b.AddRange(GetBytes(i));
                 return b;
