@@ -73,7 +73,7 @@ namespace ImpostersOrdeal
                 Items,
                 TMs,
                 Moves,
-                AudioCollection,
+                AudioData,
                 GlobalMetadata,
                 UIMasterdatas,
                 AddPersonalTable,

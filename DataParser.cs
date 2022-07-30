@@ -28,7 +28,7 @@ namespace ImpostersOrdeal
         /// </summary>
         public static void PrepareAnalysis()
         {
-            ParseAudioCollection();
+            ParseAudioData();
 
             ParseNatures();
             ParseEvScripts();
@@ -1581,30 +1581,12 @@ namespace ImpostersOrdeal
         }
 
         /// <summary>
-        ///  Overwrites GlobalData with a parsed AudioCollection.
+        ///  Overwrites GlobalData with a parsed WwiseData.
         /// </summary>
-        public static void ParseAudioCollection()
+        public static void ParseAudioData()
         {
-            string bankDir = "C:\\Users\\ninte\\AppData\\Roaming\\yuzu\\dump\\0100000011D90000\\romfs\\Data\\StreamingAssets\\Audio\\GeneratedSoundBanks\\Switch";
-            List<string> bankPaths = Directory.GetFiles(bankDir).Where(s => Path.GetExtension(s) == ".bnk").ToList();
-            List<byte[]> banks = new();
             gameData.audioData = new();
-            foreach (string path in bankPaths)
-            {
-                byte[] b0 = File.ReadAllBytes(path);
-                banks.Add(b0);
-                gameData.audioData.Parse(b0);
-                byte[] b1 = gameData.audioData.banks.Last().Serialize().ToArray();
-                for (int i = 0; i < b0.Length; i++)
-                {
-                    byte a = b0[i];
-                    byte b = b1[i];
-                    if (a != b)
-                        b = a;
-                }
-                if (b0.Length != b1.Length)
-                    b1 = b0;
-            }
+            gameData.audioData.Parse(fileManager.GetDelphisMainBuffer());
         }
 
         /// <summary>
@@ -1823,7 +1805,7 @@ namespace ImpostersOrdeal
                 CommitTMs();
             if (gameData.IsModified(GameDataSet.DataField.Moves))
                 CommitMoves();
-            if (gameData.IsModified(GameDataSet.DataField.AudioCollection))
+            if (gameData.IsModified(GameDataSet.DataField.AudioData))
                 CommitAudio();
             if (gameData.IsModified(GameDataSet.DataField.GlobalMetadata))
                 CommitGlobalMetadata();
