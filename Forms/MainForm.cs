@@ -380,7 +380,7 @@ namespace ImpostersOrdeal
                    "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.No)
                 return;
 
-            loadingForm = new("Finishing up...", flavor.GetSubTask());
+            loadingForm = new("Finishing up...", flavor.GetThought());
             loadingDisplay = new(StartLoadingDisplay);
             loadingDisplay.Start();
             Thread.Sleep(100);

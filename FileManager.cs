@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using static ImpostersOrdeal.GlobalData;
 using SmartPoint.AssetAssistant;
 using System.Configuration;
+using System.Threading.Tasks;
 
 namespace ImpostersOrdeal
 {
@@ -341,7 +342,6 @@ namespace ImpostersOrdeal
         {
             BundleFileInstance bfi = fileArchive[randomizerPaths[pathEnum]].bundle;
             AssetsFileInstance afi = am.LoadAssetsFileFromBundle(bfi, 0);
-
             return afi.table.GetAssetsOfType(114).Select(afie => am.GetTypeInstance(afi, afie).GetBaseField()).ToList();
         }
 

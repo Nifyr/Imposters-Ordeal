@@ -269,7 +269,7 @@ namespace ImpostersOrdeal
         private void RandomizeText(bool preserveStringLength)
         {
             if (gameData.messageFileSets == null)
-                DataParser.ParseAllMessageFiles();
+                Task.WaitAll(DataParser.ParseAllMessageFiles());
 
             foreach (MessageFileSet messageFileSet in gameData.messageFileSets)
             {

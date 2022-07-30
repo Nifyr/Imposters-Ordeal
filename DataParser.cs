@@ -8,6 +8,7 @@ using static ImpostersOrdeal.GlobalData;
 using static ImpostersOrdeal.GameDataTypes;
 using AssetsTools.NET.Extra;
 using SmartPoint.AssetAssistant;
+using System.Threading;
 
 namespace ImpostersOrdeal
 {
@@ -16,6 +17,8 @@ namespace ImpostersOrdeal
     /// </summary>
     static public class DataParser
     {
+        static Dictionary<PathEnum, Task<List<AssetTypeValueField>>> monoBehaviourCollection;
+
         static AssetTypeTemplateField tagDataTemplate = null;
         static AssetTypeTemplateField attributeValueTemplate = null;
         static AssetTypeTemplateField tagWordTemplate = null;
@@ -26,40 +29,57 @@ namespace ImpostersOrdeal
         /// </summary>
         public static void PrepareAnalysis()
         {
-            ParseNatures();
-            ParseEvScripts();
-            //ParseMapWarpAssets();
-            ParseAllMessageFiles();
-            ParseGrowthRates();
-            ParseItems();
-            ParsePickupItems();
-            ParseShopTables();
-            ParseMoves();
-            ParseTMs();
-            ParsePokemon();
-            ParseEncounterTables();
-            ParseTrainers();
-            ParseUgEncounterTables();
-            ParseAbilities();
-            ParseTypings();
+            LoadMonoBehaviours();
+            List<Task> tasks = new()
+            {
+                Task.Run(() => ParseNatures()),
+                Task.Run(() => ParseEvScripts()),
+                Task.Run(() => ParseAllMessageFiles()),
+                Task.Run(() => ParseGrowthRates()),
+                Task.Run(() => ParseItems()),
+                Task.Run(() => ParsePickupItems()),
+                Task.Run(() => ParseShopTables()),
+                Task.Run(() => ParseMoves()),
+                Task.Run(() => ParseTMs()),
+                Task.Run(() => ParsePokemon()),
+                Task.Run(() => ParseEncounterTables()),
+                Task.Run(() => ParseTrainers()),
+                Task.Run(() => ParseUgEncounterTables()),
+                Task.Run(() => ParseAbilities()),
+                Task.Run(() => ParseTypings()),
+                Task.Run(() => ParseTrainerTypes()),
+                Task.Run(() => ParseBattleMasterDatas()),
+                Task.Run(() => ParseMasterDatas()),
+                Task.Run(() => ParsePersonalMasterDatas()),
+                Task.Run(() => ParseUIMasterDatas()),
+            };
             ParseDamagaCategories();
-            ParseTrainerTypes();
             ParseGlobalMetadata();
-            ParseBattleMasterDatas();
-            ParseMasterDatas();
-            ParsePersonalMasterDatas();
-            ParseUIMasterDatas();
             ParseDprBin();
+            Task.WaitAll(tasks.ToArray());
+            //Hot damn! 4GB?? This has got to go.
+            monoBehaviourCollection = null;
+            GC.Collect();
+        }
+
+        /// <summary>
+        ///  Loads all monobehaviours asyncronously into monoBehaviourCollection.
+        /// </summary>
+        private static void LoadMonoBehaviours()
+        {
+            monoBehaviourCollection = new();
+            foreach (PathEnum pe in Enum.GetValues(typeof(PathEnum)))
+                monoBehaviourCollection[pe] = Task.Run(() => fileManager.GetMonoBehaviours(pe));
         }
 
         /// <summary>
         ///  Overwrites GlobalData with parsed TrainerTypes.
         /// </summary>
-        private static void ParseTrainerTypes()
+        private static async Task ParseTrainerTypes()
         {
             gameData.trainerTypes = new();
-            AssetTypeValueField monoBehaviour = fileManager.GetMonoBehaviours(PathEnum.DprMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "TrainerTable");
-            AssetTypeValueField nameData = fileManager.GetMonoBehaviours(PathEnum.English).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_dp_trainers_type");
+            AssetTypeValueField monoBehaviour = (await monoBehaviourCollection[PathEnum.DprMasterdatas]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "TrainerTable");
+            AssetTypeValueField nameData = (await monoBehaviourCollection[PathEnum.English]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_dp_trainers_type");
 
             AssetTypeValueField[] nameFields = nameData.children[8].children[0].children;
             Dictionary<string, string> trainerTypeNames = new();
@@ -86,10 +106,10 @@ namespace ImpostersOrdeal
         /// <summary>
         ///  Overwrites GlobalData with parsed Natures.
         /// </summary>
-        private static void ParseNatures()
+        private static async Task ParseNatures()
         {
             gameData.natures = new();
-            AssetTypeValueField[] natureFields = fileManager.GetMonoBehaviours(PathEnum.English).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_ss_seikaku").children[8].children[0].children;
+            AssetTypeValueField[] natureFields = (await monoBehaviourCollection[PathEnum.English]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_ss_seikaku").children[8].children[0].children;
 
             for (int natureID = 0; natureID < natureFields.Length; natureID++)
             {
@@ -118,10 +138,10 @@ namespace ImpostersOrdeal
         /// <summary>
         ///  Overwrites GlobalData with parsed Typings.
         /// </summary>
-        private static void ParseTypings()
+        private static async Task ParseTypings()
         {
             gameData.typings = new();
-            AssetTypeValueField[] typingFields = fileManager.GetMonoBehaviours(PathEnum.English).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_ss_typename").children[8].children[0].children;
+            AssetTypeValueField[] typingFields = (await monoBehaviourCollection[PathEnum.English]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_ss_typename").children[8].children[0].children;
 
             for (int typingID = 0; typingID < typingFields.Length; typingID++)
             {
@@ -136,10 +156,10 @@ namespace ImpostersOrdeal
         /// <summary>
         ///  Overwrites GlobalData with parsed Abilities.
         /// </summary>
-        private static void ParseAbilities()
+        private static async Task ParseAbilities()
         {
             gameData.abilities = new();
-            AssetTypeValueField[] abilityFields = fileManager.GetMonoBehaviours(PathEnum.English).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_ss_tokusei").children[8].children[0].children;
+            AssetTypeValueField[] abilityFields = (await monoBehaviourCollection[PathEnum.English]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_ss_tokusei").children[8].children[0].children;
 
             for (int abilityID = 0; abilityID < abilityFields.Length; abilityID++)
             {
@@ -154,11 +174,11 @@ namespace ImpostersOrdeal
         /// <summary>
         ///  Overwrites GlobalData with parsed UgEncounterTables.
         /// </summary>
-        private static void ParseUgEncounterTables()
+        private static async Task ParseUgEncounterTables()
         {
             gameData.ugEncounterFiles = new();
             gameData.ugEncounterLevelSets = new();
-            List<AssetTypeValueField> monoBehaviours = fileManager.GetMonoBehaviours(PathEnum.Ugdata);
+            List<AssetTypeValueField> monoBehaviours = await monoBehaviourCollection[PathEnum.Ugdata];
 
             List<AssetTypeValueField> ugEncounterMonobehaviours = monoBehaviours.Where(m => Encoding.Default.GetString(m.children[3].value.value.asString).StartsWith("UgEncount_")).ToList();
             for (int ugEncounterFileIdx = 0; ugEncounterFileIdx < ugEncounterMonobehaviours.Count; ugEncounterFileIdx++)
@@ -195,11 +215,11 @@ namespace ImpostersOrdeal
         /// <summary>
         ///  Overwrites GlobalData with a parsed Trainer table.
         /// </summary>
-        private static void ParseTrainers()
+        private static async Task ParseTrainers()
         {
             gameData.trainers = new();
-            AssetTypeValueField monoBehaviour = fileManager.GetMonoBehaviours(PathEnum.DprMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "TrainerTable");
-            AssetTypeValueField nameData = fileManager.GetMonoBehaviours(PathEnum.English).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_dp_trainers_name");
+            AssetTypeValueField monoBehaviour = (await monoBehaviourCollection[PathEnum.DprMasterdatas]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "TrainerTable");
+            AssetTypeValueField nameData = (await monoBehaviourCollection[PathEnum.English]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_dp_trainers_name");
 
             AssetTypeValueField[] nameFields = nameData.children[8].children[0].children;
             Dictionary<string, string> trainerNames = new();
@@ -264,26 +284,6 @@ namespace ImpostersOrdeal
                     pokemon.spAtkEV = pokemonFields[pokemonIdx + 24].value.value.asUInt8;
                     pokemon.spDefEV = pokemonFields[pokemonIdx + 25].value.value.asUInt8;
 
-                    if (pokemon.dexID >= gameData.dexEntries.Count)
-                        MainForm.ShowParserError("Oh my, this monsNo's way outta bounds...\n" +
-                            "I don't feel so good...\n" +
-                            "trainerID: " + trainerIdx + "\n" +
-                            "monsNo: " + pokemon.dexID + "??");
-
-                    if (pokemon.formID >= gameData.dexEntries[pokemon.dexID].forms.Count)
-                        MainForm.ShowParserError("Oh my, this formNo's way outta bounds...\n" +
-                            "I don't feel so good...\n" +
-                            "trainerID: " + trainerIdx + "\n" +
-                            "monsNo: " + pokemon.dexID + "\n" +
-                            "formNo: " + pokemon.formID + "??");
-
-                    if (pokemon.natureID >= gameData.natures.Count)
-                        MainForm.ShowParserError("Oh my, this nature's way outta bounds...\n" +
-                            "I don't feel so good...\n" +
-                            "trainerID: " + trainerIdx + "\n" +
-                            "monsNo: " + pokemon.dexID + "\n" +
-                            "natureID: " + pokemon.natureID + "??");
-
                     trainer.trainerPokemon.Add(pokemon);
                 }
 
@@ -294,11 +294,11 @@ namespace ImpostersOrdeal
         /// <summary>
         ///  Overwrites GlobalData with parsed EncounterTables.
         /// </summary>
-        private static void ParseEncounterTables()
+        private static async Task ParseEncounterTables()
         {
             gameData.encounterTableFiles = new EncounterTableFile[2];
 
-            List<AssetTypeValueField> monoBehaviours = fileManager.GetMonoBehaviours(PathEnum.Gamesettings);
+            List<AssetTypeValueField> monoBehaviours = await monoBehaviourCollection[PathEnum.Gamesettings];
             AssetTypeValueField[] encounterTableMonoBehaviours = new AssetTypeValueField[2];
             encounterTableMonoBehaviours[0] = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "FieldEncountTable_d");
             encounterTableMonoBehaviours[1] = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "FieldEncountTable_p");
@@ -403,12 +403,12 @@ namespace ImpostersOrdeal
         /// <summary>
         ///  Overwrites GlobalData with parsed DexEntries and PersonalEntries.
         /// </summary>
-        private static void ParsePokemon()
+        private static async Task ParsePokemon()
         {
             gameData.dexEntries = new();
             gameData.personalEntries = new();
-            List<AssetTypeValueField> monoBehaviours = fileManager.GetMonoBehaviours(PathEnum.PersonalMasterdatas);
-            AssetTypeValueField textData = fileManager.GetMonoBehaviours(PathEnum.CommonMsbt).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_ss_monsname");
+            List<AssetTypeValueField> monoBehaviours = (await monoBehaviourCollection[PathEnum.PersonalMasterdatas]);
+            AssetTypeValueField textData = (await monoBehaviourCollection[PathEnum.CommonMsbt]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_ss_monsname");
 
             AssetTypeValueField[] levelUpMoveFields = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "WazaOboeTable").children[4].children[0].children;
             AssetTypeValueField[] eggMoveFields = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "TamagoWazaTable").children[4].children[0].children;
@@ -538,9 +538,9 @@ namespace ImpostersOrdeal
             SetLegendaries();
         }
 
-        private static void SetLegendaries()
+        private static async void SetLegendaries()
         {
-            AssetTypeValueField[] legendFields = fileManager.GetMonoBehaviours(PathEnum.Gamesettings).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "FieldEncountTable_d").children[10].children[0].children;
+            AssetTypeValueField[] legendFields = (await monoBehaviourCollection[PathEnum.Gamesettings]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "FieldEncountTable_d").children[10].children[0].children;
             for (int legendEntryIdx = 0; legendEntryIdx < legendFields.Length; legendEntryIdx++)
             {
                 List<Pokemon> forms = gameData.dexEntries[legendFields[legendEntryIdx].children[0].value.value.asInt32].forms;
@@ -726,11 +726,11 @@ namespace ImpostersOrdeal
         /// <summary>
         ///  Overwrites GlobalData with parsed TMs.
         /// </summary>
-        private static void ParseTMs()
+        private static async Task ParseTMs()
         {
             gameData.tms = new();
-            AssetTypeValueField monoBehaviour = fileManager.GetMonoBehaviours(PathEnum.PersonalMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "ItemTable");
-            AssetTypeValueField textData = fileManager.GetMonoBehaviours(PathEnum.English).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_ss_itemname");
+            AssetTypeValueField monoBehaviour = (await monoBehaviourCollection[PathEnum.PersonalMasterdatas]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "ItemTable");
+            AssetTypeValueField textData = (await monoBehaviourCollection[PathEnum.English]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_ss_itemname");
 
             AssetTypeValueField[] tmFields = monoBehaviour.children[5].children[0].children;
             AssetTypeValueField[] textFields = textData.children[8].children[0].children;
@@ -749,10 +749,10 @@ namespace ImpostersOrdeal
                 gameData.tms.Add(tm);
             }
         }
-        private static void ParsePersonalMasterDatas()
+        private static async Task ParsePersonalMasterDatas()
         {
             gameData.addPersonalTables = new();
-            AssetTypeValueField addPersonalTable = fileManager.GetMonoBehaviours(PathEnum.PersonalMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "AddPersonalTable");
+            AssetTypeValueField addPersonalTable = (await monoBehaviourCollection[PathEnum.PersonalMasterdatas]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "AddPersonalTable");
             AssetTypeValueField[] addPersonalTableArray = addPersonalTable["AddPersonal"].children[0].children;
             for (int i = 0; i < addPersonalTableArray.Length; i++)
             {
@@ -767,14 +767,14 @@ namespace ImpostersOrdeal
             }
         }
 
-        private static void ParseUIMasterDatas()
+        private static async Task ParseUIMasterDatas()
         {
             gameData.uiPokemonIcon = new();
             gameData.uiAshiatoIcon = new();
             gameData.uiPokemonVoice = new();
             gameData.uiZukanDisplay = new();
             gameData.uiZukanCompareHeights = new();
-            AssetTypeValueField uiDatabase = fileManager.GetMonoBehaviours(PathEnum.UIMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "UIDatabase");
+            AssetTypeValueField uiDatabase = (await monoBehaviourCollection[PathEnum.UIMasterdatas]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "UIDatabase");
 
             AssetTypeValueField[] pokemonIcons = uiDatabase["PokemonIcon"].children[0].children;
             for (int i = 0; i < pokemonIcons.Length; i++)
@@ -867,10 +867,10 @@ namespace ImpostersOrdeal
             }
         }
 
-        private static void ParseMasterDatas()
+        private static async Task ParseMasterDatas()
         {
             gameData.pokemonInfos = new();
-            AssetTypeValueField pokemonInfo = fileManager.GetMonoBehaviours(PathEnum.DprMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "PokemonInfo");
+            AssetTypeValueField pokemonInfo = (await monoBehaviourCollection[PathEnum.DprMasterdatas]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "PokemonInfo");
             AssetTypeValueField[] catalogArray = pokemonInfo["Catalog"].children[0].children;
 
             for (int i = 0; i < catalogArray.Length; i++)
@@ -996,10 +996,10 @@ namespace ImpostersOrdeal
                 gameData.pokemonInfos.Add(catalog);
             }
         }
-        private static void ParseBattleMasterDatas()
+        private static async Task ParseBattleMasterDatas()
         {
             gameData.motionTimingData = new();
-            AssetTypeValueField battleDataTable = fileManager.GetMonoBehaviours(PathEnum.BattleMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "BattleDataTable");
+            AssetTypeValueField battleDataTable = (await monoBehaviourCollection[PathEnum.BattleMasterdatas]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "BattleDataTable");
             AssetTypeValueField[] motionTimingDataArray = battleDataTable["MotionTimingData"].children[0].children;
 
             for (int i = 0; i < motionTimingDataArray.Length; i++)
@@ -1035,12 +1035,12 @@ namespace ImpostersOrdeal
         /// <summary>
         ///  Overwrites GlobalData with parsed Moves.
         /// </summary>
-        private static void ParseMoves()
+        private static async Task ParseMoves()
         {
             gameData.moves = new();
-            AssetTypeValueField monoBehaviour = fileManager.GetMonoBehaviours(PathEnum.PersonalMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "WazaTable");
-            AssetTypeValueField animationData = fileManager.GetMonoBehaviours(PathEnum.BattleMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "BattleDataTable");
-            AssetTypeValueField textData = fileManager.GetMonoBehaviours(PathEnum.English).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_ss_wazaname");
+            AssetTypeValueField monoBehaviour = (await monoBehaviourCollection[PathEnum.PersonalMasterdatas]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "WazaTable");
+            AssetTypeValueField animationData = (await monoBehaviourCollection[PathEnum.BattleMasterdatas]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "BattleDataTable");
+            AssetTypeValueField textData = (await monoBehaviourCollection[PathEnum.English]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_ss_wazaname");
 
             AssetTypeValueField[] moveFields = monoBehaviour.children[4].children[0].children;
             AssetTypeValueField[] animationFields = animationData.children[8].children[0].children;
@@ -1102,10 +1102,10 @@ namespace ImpostersOrdeal
         /// <summary>
         ///  Overwrites GlobalData with parsed ShopTables.
         /// </summary>
-        private static void ParseShopTables()
+        private static async Task ParseShopTables()
         {
             gameData.shopTables = new();
-            AssetTypeValueField monoBehaviour = fileManager.GetMonoBehaviours(PathEnum.DprMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "ShopTable");
+            AssetTypeValueField monoBehaviour = (await monoBehaviourCollection[PathEnum.DprMasterdatas]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "ShopTable");
 
             gameData.shopTables.martItems = new();
             AssetTypeValueField[] martItemFields = monoBehaviour.children[4].children[0].children;
@@ -1155,10 +1155,10 @@ namespace ImpostersOrdeal
         /// <summary>
         ///  Overwrites GlobalData with parsed PickupItems.
         /// </summary>
-        private static void ParsePickupItems()
+        private static async Task ParsePickupItems()
         {
             gameData.pickupItems = new();
-            AssetTypeValueField monoBehaviour = fileManager.GetMonoBehaviours(PathEnum.DprMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "MonohiroiTable");
+            AssetTypeValueField monoBehaviour = (await monoBehaviourCollection[PathEnum.DprMasterdatas]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "MonohiroiTable");
 
             AssetTypeValueField[] pickupItemFields = monoBehaviour.children[4].children[0].children;
             for (int pickupItemIdx = 0; pickupItemIdx < pickupItemFields.Length; pickupItemIdx++)
@@ -1178,11 +1178,11 @@ namespace ImpostersOrdeal
         /// <summary>
         ///  Overwrites GlobalData with parsed Items.
         /// </summary>
-        private static void ParseItems()
+        private static async Task ParseItems()
         {
             gameData.items = new();
-            AssetTypeValueField monoBehaviour = fileManager.GetMonoBehaviours(PathEnum.PersonalMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "ItemTable");
-            AssetTypeValueField textData = fileManager.GetMonoBehaviours(PathEnum.English).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_ss_itemname");
+            AssetTypeValueField monoBehaviour = (await monoBehaviourCollection[PathEnum.PersonalMasterdatas]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "ItemTable");
+            AssetTypeValueField textData = (await monoBehaviourCollection[PathEnum.English]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_ss_itemname");
 
 
             AssetTypeValueField[] itemFields = monoBehaviour.children[4].children[0].children;
@@ -1236,10 +1236,10 @@ namespace ImpostersOrdeal
         /// <summary>
         ///  Overwrites GlobalData with parsed growth rates.
         /// </summary>
-        private static void ParseGrowthRates()
+        private static async Task ParseGrowthRates()
         {
             gameData.growthRates = new();
-            AssetTypeValueField monoBehaviour = fileManager.GetMonoBehaviours(PathEnum.PersonalMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "GrowTable");
+            AssetTypeValueField monoBehaviour = (await monoBehaviourCollection[PathEnum.PersonalMasterdatas]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "GrowTable");
 
             AssetTypeValueField[] growthRateFields = monoBehaviour.children[4].children[0].children;
             for (int growthRateIdx = 0; growthRateIdx < growthRateFields.Length; growthRateIdx++)
@@ -1259,7 +1259,7 @@ namespace ImpostersOrdeal
         /// <summary>
         ///  Overwrites GlobalData with parsed MessageFiles.
         /// </summary>
-        public static void ParseAllMessageFiles()
+        public static async Task ParseAllMessageFiles()
         {
             gameData.messageFileSets = new MessageFileSet[10];
             for (int i = 0; i < gameData.messageFileSets.Length; i++)
@@ -1278,17 +1278,17 @@ namespace ImpostersOrdeal
             gameData.messageFileSets[8].langID = 9;
             gameData.messageFileSets[9].langID = 10;
 
-            List<AssetTypeValueField> monoBehaviours = fileManager.GetMonoBehaviours(PathEnum.CommonMsbt);
-            monoBehaviours.AddRange(fileManager.GetMonoBehaviours(PathEnum.English));
-            monoBehaviours.AddRange(fileManager.GetMonoBehaviours(PathEnum.French));
-            monoBehaviours.AddRange(fileManager.GetMonoBehaviours(PathEnum.German));
-            monoBehaviours.AddRange(fileManager.GetMonoBehaviours(PathEnum.Italian));
-            monoBehaviours.AddRange(fileManager.GetMonoBehaviours(PathEnum.Jpn));
-            monoBehaviours.AddRange(fileManager.GetMonoBehaviours(PathEnum.JpnKanji));
-            monoBehaviours.AddRange(fileManager.GetMonoBehaviours(PathEnum.Korean));
-            monoBehaviours.AddRange(fileManager.GetMonoBehaviours(PathEnum.SimpChinese));
-            monoBehaviours.AddRange(fileManager.GetMonoBehaviours(PathEnum.Spanish));
-            monoBehaviours.AddRange(fileManager.GetMonoBehaviours(PathEnum.TradChinese));
+            List<AssetTypeValueField> monoBehaviours = await monoBehaviourCollection[PathEnum.CommonMsbt];
+            monoBehaviours.AddRange(await monoBehaviourCollection[PathEnum.English]);
+            monoBehaviours.AddRange(await monoBehaviourCollection[PathEnum.French]);
+            monoBehaviours.AddRange(await monoBehaviourCollection[PathEnum.German]);
+            monoBehaviours.AddRange(await monoBehaviourCollection[PathEnum.Italian]);
+            monoBehaviours.AddRange(await monoBehaviourCollection[PathEnum.Jpn]);
+            monoBehaviours.AddRange(await monoBehaviourCollection[PathEnum.JpnKanji]);
+            monoBehaviours.AddRange(await monoBehaviourCollection[PathEnum.Korean]);
+            monoBehaviours.AddRange(await monoBehaviourCollection[PathEnum.SimpChinese]);
+            monoBehaviours.AddRange(await monoBehaviourCollection[PathEnum.Spanish]);
+            monoBehaviours.AddRange(await monoBehaviourCollection[PathEnum.TradChinese]);
 
             for (int mIdx = 0; mIdx < monoBehaviours.Count; mIdx++)
             {
@@ -1399,115 +1399,12 @@ namespace ImpostersOrdeal
         }
 
         /// <summary>
-        ///  Overwrites GlobalData with parsed MapWarpAssets.
-        /// </summary>
-        private static void ParseMapWarpAssets()
-        {
-            gameData.mapWarpAssets = new();
-            List<int> areaIDs = GenerateAreaIDList();
-            List<AssetTypeValueField> monoBehaviours = fileManager.GetMonoBehaviours(PathEnum.DprMasterdatas).Where(m => Encoding.Default.GetString(m.children[3].value.value.asString).StartsWith("MapWarp")).ToList();
-            Dictionary<int, MapWarpAsset> links = new();
-
-            for (int mIdx = monoBehaviours.Count - 1; mIdx >= 0; mIdx--)
-            {
-                MapWarpAsset mapWarpAsset = new();
-                mapWarpAsset.mName = Encoding.Default.GetString(monoBehaviours[mIdx].children[3].value.value.asString);
-
-                int areaID = GetAreaID(mapWarpAsset.mName.Replace("MapWarp_", ""));
-                List<int> zoneIDs = FindAllIndexes(areaIDs, areaID);
-                if (zoneIDs.Count == 0)
-                    continue;
-                for (int i = 0; i < zoneIDs.Count; i++)
-                    links[zoneIDs[i]] = mapWarpAsset;
-                mapWarpAsset.zoneIDs = new();
-                mapWarpAsset.zoneIDs.AddRange(zoneIDs);
-
-                //Parse MapWarp
-                mapWarpAsset.mapWarps = new();
-                AssetTypeValueField[] mapWarpFields = monoBehaviours[mIdx].children[4].children[0].children;
-                for (int mapWarpIdx = 0; mapWarpIdx < mapWarpFields.Length; mapWarpIdx++)
-                {
-                    MapWarp mapWarp = new();
-                    mapWarp.groupId = mapWarpFields[mapWarpIdx].children[1].value.value.asInt32;
-                    mapWarp.destWarpZone = mapWarpFields[mapWarpIdx].children[3].value.value.asInt32;
-                    mapWarp.destWarpIndex = mapWarpFields[mapWarpIdx].children[4].value.value.asInt32;
-                    mapWarp.inputDir = mapWarpFields[mapWarpIdx].children[5].value.value.asInt32;
-                    mapWarp.flagIndex = mapWarpFields[mapWarpIdx].children[6].value.value.asInt32;
-                    mapWarp.scriptLabel = mapWarpFields[mapWarpIdx].children[7].value.value.asInt32;
-                    mapWarp.exitLabel = mapWarpFields[mapWarpIdx].children[8].value.value.asInt32;
-                    mapWarp.connectionName = Encoding.Default.GetString(mapWarpFields[mapWarpIdx].children[9].value.value.asString);
-                    mapWarp.currentWarpIndex = mapWarpIdx;
-
-                    mapWarpAsset.mapWarps.Add(mapWarp);
-                }
-
-                gameData.mapWarpAssets.Add(mapWarpAsset);
-            }
-
-            //Link MapWarps
-            for (int mIdx = 0; mIdx < gameData.mapWarpAssets.Count; mIdx++)
-                for (int mapWarpIdx = 0; mapWarpIdx < gameData.mapWarpAssets[mIdx].mapWarps.Count; mapWarpIdx++)
-                    if (gameData.mapWarpAssets[mIdx].mapWarps[mapWarpIdx].destWarpZone != -1)
-                        try
-                        {
-                            MapWarp mapWarp = gameData.mapWarpAssets[mIdx].mapWarps[mapWarpIdx];
-                            mapWarp.destination = links[mapWarp.destWarpZone];
-                        }
-                        catch (KeyNotFoundException)
-                        {
-                            //Some areas don't have warp data because their warps are handled by evScripts for some reason...
-                        }
-        }
-
-        /// <summary>
-        ///  Finds the indexes of all instances of the number in the specified list.
-        /// </summary>
-        private static List<int> FindAllIndexes(List<int> list, int number)
-        {
-            List<int> dummy = new();
-            dummy.AddRange(list);
-            List<int> indexes = new();
-            while (true)
-            {
-                int index = dummy.IndexOf(number);
-                if (index == -1)
-                    break;
-                indexes.Add(index);
-                dummy[index] = number + 1;
-            }
-            return indexes;
-        }
-
-        /// <summary>
-        ///  Generates a list of AreaIDs ordered by ZoneIDs.
-        /// </summary>
-        private static List<int> GenerateAreaIDList()
-        {
-            return fileManager.GetMonoBehaviours(PathEnum.Gamesettings).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "MapInfo").children[4].children[0].children.Select(f => f.children[17].value.value.asInt32).ToList();
-        }
-
-        /// <summary>
-        ///  Returns the areaID of an area name.
-        /// </summary>
-        public static int GetAreaID(string areaName)
-        {
-            try
-            {
-                return (int)(AreaName)Enum.Parse(typeof(AreaName), areaName);
-            }
-            catch (ArgumentException)
-            {
-                return -1;
-            }
-        }
-
-        /// <summary>
         ///  Overwrites GlobalData with parsed EvScripts.
         /// </summary>
-        private static void ParseEvScripts()
+        private static async Task ParseEvScripts()
         {
             gameData.evScripts = new();
-            List<AssetTypeValueField> monoBehaviours = fileManager.GetMonoBehaviours(PathEnum.EvScript).Where(m => m.children[4].GetName() == "Scripts").ToList();
+            List<AssetTypeValueField> monoBehaviours = (await monoBehaviourCollection[PathEnum.EvScript]).Where(m => m.children[4].GetName() == "Scripts").ToList();
 
             for (int mIdx = 0; mIdx < monoBehaviours.Count; mIdx++)
             {
@@ -1945,8 +1842,6 @@ namespace ImpostersOrdeal
         {
             if (gameData.IsModified(GameDataSet.DataField.EvScripts))
                 CommitEvScripts();
-            //if (gameData.IsModified(GameDataSet.DataField.MapWarpAssets))
-            //    CommitMapWarpAssets();
             if (gameData.IsModified(GameDataSet.DataField.PickupItems))
                 CommitPickupItems();
             if (gameData.IsModified(GameDataSet.DataField.ShopTables))
@@ -1957,8 +1852,6 @@ namespace ImpostersOrdeal
                 CommitEncounterTables();
             if (gameData.IsModified(GameDataSet.DataField.MessageFileSets))
                 CommitMessageFileSets();
-            //if (gameData.IsModified(GameDataSet.DataField.GrowthRates))
-            //    CommitGrowthRates();
             if (gameData.IsModified(GameDataSet.DataField.UgEncounterFiles))
                 CommitUgEncounters();
             if (gameData.IsModified(GameDataSet.DataField.PersonalEntries))
@@ -2318,7 +2211,7 @@ namespace ImpostersOrdeal
             gameData.uiZukanDisplay.Sort();
             gameData.uiZukanCompareHeights.Sort();
 
-            List <AssetTypeValueField> monoBehaviours = fileManager.GetMonoBehaviours(PathEnum.UIMasterdatas);
+            List<AssetTypeValueField> monoBehaviours = fileManager.GetMonoBehaviours(PathEnum.UIMasterdatas);
 
             AssetTypeValueField uiDatabase = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "UIDatabase");
             monoBehaviours = new();
