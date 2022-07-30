@@ -304,16 +304,16 @@ namespace ImpostersOrdeal
                     ExportFile(fileArchive.Values.ToList()[fileDataIdx], outputDirectory);
         }
 
-        public BundleFileInstance GetBundleFileInstance(string path)
+        public BundleFileInstance GetPokemonBundleFileInstance(string path)
         {
-            string absolutePath = assetAssistantPath + path;
-            string gamePath = "romfs\\Data\\StreamingAssets\\AssetAssistant" + path;
+            string absolutePath = assetAssistantPath + "\\Pokemon Database\\" + path;
+            string gamePath = "romfs\\Data\\StreamingAssets\\AssetAssistant\\Pokemon Database\\" + path;
 
             if (!fileArchive.ContainsKey(gamePath))
             {
                 if (!File.Exists(absolutePath))
                 {
-                    MessageBox.Show("File not found:\n" + gamePath + "\nIncomplete dump.",
+                    MessageBox.Show("File not found:\n" + gamePath,
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return null;
                 }
@@ -324,6 +324,31 @@ namespace ImpostersOrdeal
                 fd.fileSource = FileSource.Dump;
                 fileArchive[gamePath] = fd;
             }
+
+            if (!fileArchive[gamePath].IsBundle())
+            {
+                FileData fd = fileArchive[gamePath];
+                fd.bundle = am.LoadBundleFile(fd.fileLocation, false);
+                DecompressBundle(fd.bundle);
+            }
+
+            return fileArchive[gamePath].bundle;
+        }
+
+        /// <summary>
+        ///  Returns the specified BundleFileInstance in Pokemon Database if it's loaded, and null otherwise.
+        /// </summary>
+        public BundleFileInstance TryGetPokemonBundleFileInstance(string path)
+        {
+            string gamePath = "romfs\\Data\\StreamingAssets\\AssetAssistant\\Pokemon Database\\" + path;
+
+            if (!fileArchive.ContainsKey(gamePath))
+                return null;
+
+            if (MessageBox.Show("Assetbundle detected in mod:\n" + gamePath +
+                "\nNeeds full set of assetbundles to succeed.\nCopy assetbundles from mod instead?",
+            "Assetbundle Detected", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.No)
+                return null;
 
             if (!fileArchive[gamePath].IsBundle())
             {
@@ -397,6 +422,11 @@ namespace ImpostersOrdeal
                 fileArchive[delphisMainPath] = fd;
             }
             return File.ReadAllBytes(fileArchive[delphisMainPath].fileLocation);
+        }
+
+        public byte[] GetInitBuffer()
+        {
+            return File.ReadAllBytes(audioPath + "\\Init.bnk");
         }
 
         /// <summary>

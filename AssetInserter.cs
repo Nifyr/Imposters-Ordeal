@@ -24,8 +24,6 @@ namespace ImpostersOrdeal
             AssetBundle = 142,
         }
 
-        private const string basePath = "\\Pokemon Database\\";
-
         private static AssetInserter instance;
         private Random rnd;
         private Dictionary<string, string> CABNames;
@@ -315,7 +313,7 @@ namespace ImpostersOrdeal
                     dstPIC.AssetBundleName = assetBundleNames.Find(p => p.Item1 == srcPIC.AssetBundleName).Item2;
                 else
                 {
-                    dstPIC.AssetBundleName = GenAssetBundleName(uniqueIDPair.Item2, srcPIC.AssetBundleName.Length);
+                    dstPIC.AssetBundleName = GenAssetBundleName(uniqueIDPair.Item2, srcPIC.AssetBundleName.Length, true);
                     assetBundleNames.Add((srcPIC.AssetBundleName, dstPIC.AssetBundleName));
                 }
             }
@@ -324,10 +322,10 @@ namespace ImpostersOrdeal
         private static string GenAssetBundleName(string oldFileName, int newLength) =>
             GenAssetBundleName(int.Parse(oldFileName.Replace("pm", "").Replace("_", "")), newLength);
 
-        private static string GenAssetBundleName(int uniqueID, int length)
+        private static string GenAssetBundleName(int uniqueID, int length, bool adjustFormID = false)
         {
             //I've developed a strong distaste for this naming scheme lately. 
-            if (uniqueID / 100 % 100 == 1)
+            if (adjustFormID)
                 uniqueID += 1100;
             return length switch
             {
@@ -409,16 +407,21 @@ namespace ImpostersOrdeal
             }
         }
 
-        public void DuplicateAssetBundles(Dictionary<string, string> assetBundlePaths, int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo)
+        private void DuplicateAssetBundles(Dictionary<string, string> assetBundlePaths, int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo)
         {
+            CloneMode c = CloneMode.Unk;
             foreach (KeyValuePair<string, string> item in assetBundlePaths)
-                DuplicateAssetBundle(item.Key, item.Value, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
+                c = DuplicateAssetBundle(item.Key, item.Value, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo, c);
         }
 
-        public BundleFileInstance DuplicateAssetBundle(string ifpath, string ofpath, int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo)
+        private enum CloneMode
+        {
+            Unk, Mod, Dump
+        }
+
+        private CloneMode DuplicateAssetBundle(string srcPath, string dstPath, int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo, CloneMode c)
         {
             string baseDirectory = Environment.CurrentDirectory + "\\" + FileManager.outputModName + "\\romfs\\Data\\StreamingAssets\\AssetAssistant\\";
-            ofpath = "romfs\\Data\\StreamingAssets\\AssetAssistant\\Pokemon Database\\" + ofpath;
             string newCAB = GenCABName();
             string oldPMName = string.Format("pm{0}_{1}", srcMonsNo.ToString("D4"), srcFormNo.ToString("D2"));
             string newPMName = string.Format("pm{0}_{1}", dstMonsNo.ToString("D4"), dstFormNo.ToString("D2"));
@@ -426,7 +429,32 @@ namespace ImpostersOrdeal
             List<AssetsReplacer> ars = new();
             AssetsManager am = fileManager.getAssetsManager();
             am.updateAfterLoad = true;
-            BundleFileInstance bfi = fileManager.GetBundleFileInstance(basePath + ifpath.Replace('/', '\\'));
+            BundleFileInstance bfi = null;
+            switch (c)
+            {
+                case CloneMode.Unk:
+                    bfi = fileManager.TryGetPokemonBundleFileInstance(dstPath.Replace('/', '\\'));
+                    if (bfi == null)
+                    {
+                        bfi = fileManager.GetPokemonBundleFileInstance(srcPath.Replace('/', '\\'));
+                        c = CloneMode.Dump;
+                    }
+                    else
+                    {
+                        srcPath = dstPath;
+                        c = CloneMode.Mod;
+                    }
+                    break;
+                case CloneMode.Mod:
+                    srcPath = dstPath;
+                    bfi = fileManager.GetPokemonBundleFileInstance(srcPath.Replace('/', '\\'));
+                    break;
+                case CloneMode.Dump:
+                    srcPath = dstPath;
+                    bfi = fileManager.GetPokemonBundleFileInstance(srcPath.Replace('/', '\\'));
+                    break;
+            }
+
             bfi.name = bfi.name.Replace(oldPMName, newPMName);
 
             AssetsFileInstance afi = am.LoadAssetsFileFromBundle(bfi, 0);
@@ -594,9 +622,13 @@ namespace ImpostersOrdeal
 
             am.UpdateDependencies(afi);
 
-            fileManager.MakeTempBundle("romfs\\Data\\StreamingAssets\\AssetAssistant\\Pokemon Database\\" + ifpath.Replace('/', '\\'), ofpath.Replace('/', '\\'), ars, "CAB-" + newCAB);
+            if (c == CloneMode.Mod)
+                srcPath = dstPath;
 
-            return bfi;
+            fileManager.MakeTempBundle("romfs\\Data\\StreamingAssets\\AssetAssistant\\Pokemon Database\\" + srcPath.Replace('/', '\\'),
+                "romfs\\Data\\StreamingAssets\\AssetAssistant\\Pokemon Database\\" + dstPath.Replace('/', '\\'), ars, "CAB-" + newCAB);
+
+            return c;
         }
     }
 }
