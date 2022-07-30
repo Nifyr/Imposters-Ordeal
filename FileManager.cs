@@ -473,7 +473,7 @@ namespace ImpostersOrdeal
                 switch (Path.GetFileName(fd.gamePath))
                 {
                     case "Delphis_Main.bnk":
-                        buffer = gameData.audioCollection.delphisMainBuffer;
+                        buffer = gameData.audioData.GetBytes();
                         break;
                     case "global-metadata.dat":
                         buffer = gameData.globalMetadata.buffer;

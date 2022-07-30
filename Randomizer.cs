@@ -159,38 +159,45 @@ namespace ImpostersOrdeal
 
         private void RandomizeMusic()
         {
-            if (gameData.audioCollection == null)
-                DataParser.ParseAudioCollection();
+            if (gameData.audioData == null)
+                DataParser.ParseAudioData();
 
-            double minDuration = 20000;
-            uint[] musicSwitchIDs = new uint[]
-            {
-                319787682,
-                805188190,
-                101322741,
-                275563224,
-                429717840,
-                120949528,
-                182025970,
-                620908413,
-                175587878,
-                717132912
+            uint[] groupIDs = {
+                2944413750, //BGM_BATTLE
+                3369806648, //BGM_CONTEST
+                1799075776, //BGM_EVENT
+                3346466364  //BGM_FIELD
+            };
+            uint[] ignoreIDs = {
+                0,
+                748895195,  //NONE
+                1454758594, //BA_SILENCE
+                595984104,  //B_CON_SILENCE
+                4176813980, //EV_SILENCE_100MS
+                3652652993, //EV_SILENCE_2000MS
+                789285764,  //EV_SILENCE_VS_TRAINER
+                191715830,  //FI_SILENCE
+                2460189219, //FI_SILENCE_ARC
+                1302076938, //SILENCE_BA013
             };
 
-            foreach (uint musicSwitchID in musicSwitchIDs)
-            {
-                List<HircItem> mrsCollection = gameData.audioCollection.mrsBySourceIDs.Values.SelectMany(l => l).Where(h => h.sourceDuration > minDuration && musicSwitchID == h.parentID).ToList();
-                List<int> mrsMapping = new();
-                for (int i = 0; i < mrsCollection.Count; i++)
-                    mrsMapping.Add(i);
-
-                Shuffle(mrsMapping);
-
-                for (int i = 0; i < mrsMapping.Count; i++)
-                    gameData.audioCollection.SetID(mrsCollection[i].id, mrsCollection[mrsMapping[i]].id);
-            }
-            
-            gameData.SetModified(GameDataSet.DataField.AudioCollection);
+            foreach (Wwise.WwiseObject wo in gameData.audioData.objectsByID.Values)
+                if (wo is Wwise.MusicSwitchCntr msc)
+                {
+                    (Wwise.GameSync gs, int i) argumentIdx = msc.arguments.Select((gs, i) => (gs, i)).FirstOrDefault(p => groupIDs.Contains(p.gs.group));
+                    if (argumentIdx.gs == null)
+                        continue;
+                    List<Wwise.Node> nodes = new() { msc.decisionTree };
+                    for (int i = 0; i <= argumentIdx.i; i++)
+                        nodes = nodes.SelectMany(n => n.nodes).ToList();
+                    nodes = nodes.Where(n => !ignoreIDs.Contains(n.key)).ToList();
+                    while (nodes.Any(n => n.childrenCount > 0))
+                        nodes = nodes.SelectMany(n => n.nodes).ToList();
+                    List<uint> anis = nodes.Select(n => n.audioNodeId).Distinct().ToList();
+                    foreach (Wwise.Node n in nodes)
+                        n.audioNodeId = GetRandom(anis);
+                }
+            gameData.SetModified(GameDataSet.DataField.AudioData);
         }
 
         private void ScaleTrainerPokemon(double coefficient)
