@@ -450,7 +450,6 @@ namespace ImpostersOrdeal
                     bfi = fileManager.GetPokemonBundleFileInstance(srcPath.Replace('/', '\\'));
                     break;
                 case CloneMode.Dump:
-                    srcPath = dstPath;
                     bfi = fileManager.GetPokemonBundleFileInstance(srcPath.Replace('/', '\\'));
                     break;
             }
