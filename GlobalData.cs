@@ -46,11 +46,12 @@ namespace ImpostersOrdeal
             public List<UIMasterdatas.PokemonVoice> uiPokemonVoice;
             public List<UIMasterdatas.ZukanDisplay> uiZukanDisplay;
             public List<UIMasterdatas.ZukanCompareHeight> uiZukanCompareHeights;
+            public List<UIMasterdatas.SearchPokeIconSex> uiSearchPokeIconSex;
             public AssetBundleDownloadManifest dprBin;
 
             public Dictionary<string, string> trainerNames;
 
-            private bool[] fieldStates = new bool[Enum.GetNames(typeof(DataField)).Length];
+            private readonly bool[] fieldStates = new bool[Enum.GetNames(typeof(DataField)).Length];
 
             public enum DataField
             {

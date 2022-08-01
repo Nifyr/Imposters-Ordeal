@@ -25,8 +25,8 @@ namespace ImpostersOrdeal
         }
 
         private static AssetInserter instance;
-        private Random rnd;
-        private Dictionary<string, string> CABNames;
+        private readonly Random rnd;
+        private readonly Dictionary<string, string> CABNames;
         private AssetInserter()
         {
             rnd = new();
@@ -56,16 +56,16 @@ namespace ImpostersOrdeal
             return monsNo * 10000 + formNo * 100 + gender * 10 + (isRare ? 1 : 0);
         }
 
-        public void InsertPokemon(int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo, string formName)
+        public void InsertPokemon(int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo, string speciesName, string formName)
         {
             List<(int, int)> uniqueIDs = GetUniqueIDs(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
             UpdatePokemonInfo(uniqueIDs, out List<(string, string)> assetBundleNames);
             UpdateDprBin(assetBundleNames, out Dictionary<string, string> assetBundlePaths);
             UpdateUIMasterdatas(uniqueIDs);
             UpdateAddPersonalTable(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
-            UpdateMotionTimingData(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
-            UpdatePersonalInfos(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
-            UpdateCommonMsbt(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo, formName);
+            UpdateMotionTimingData(uniqueIDs);
+            UpdatePersonalInfos(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo, speciesName);
+            UpdateCommonMsbt(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo, speciesName, formName);
             DuplicateAssetBundles(assetBundlePaths, srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
             gameData.SetModified(GameDataSet.DataField.UIMasterdatas);
             gameData.SetModified(GameDataSet.DataField.AddPersonalTable);
@@ -136,13 +136,6 @@ namespace ImpostersOrdeal
             }
         }
 
-        private string IncrementName(string assetBundlePath)
-        {
-            if (Regex.Matches(assetBundlePath, @"_\d+$").Count == 0)
-                return assetBundlePath + "_0";
-            return Regex.Replace(assetBundlePath, @"_\d+$", m => "_" + (int.Parse(m.Value[1..]) + 1));
-        }
-
         private string UpdateAssetPath(string assetPath, string assetBundleName)
         {
             string name = Path.Combine(Path.GetDirectoryName(assetPath), Path.GetFileNameWithoutExtension(assetPath)).Replace('\\', '/');
@@ -154,7 +147,7 @@ namespace ImpostersOrdeal
             return Regex.Replace(name, @"pm\d+$", m => assetBundleName) + ext;
         }
 
-        public void UpdatePersonalInfos(int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo)
+        public void UpdatePersonalInfos(int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo, string speciesName)
         {
             Pokemon srcPokemon = null;
             foreach (Pokemon pokemon in gameData.personalEntries)
@@ -177,6 +170,7 @@ namespace ImpostersOrdeal
             PersonalInsert(newPokemon);
             if (gameData.dexEntries.Count == newPokemon.dexID)
             {
+                newPokemon.name = speciesName;
                 gameData.dexEntries.Add(new());
                 gameData.dexEntries[newPokemon.dexID].dexID = newPokemon.dexID;
                 gameData.dexEntries[newPokemon.dexID].forms = new();
@@ -227,12 +221,69 @@ namespace ImpostersOrdeal
             return gameData.personalEntries.Count;
         }
 
-        public void UpdateCommonMsbt(int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo, string formName)
+        public void UpdateCommonMsbt(int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo, string speciesName, string formName)
         {
+            bool newSpecies = dstFormNo == 0;
             foreach (MessageFileSet msgFileSet in gameData.messageFileSets)
             {
                 foreach (MessageFile msgFile in msgFileSet.messageFiles)
                 {
+                    if (newSpecies && msgFile.mName.Contains("dlp_whitelist_monsname") || msgFile.mName.Contains("ss_monsname"))
+                    {
+                        string srcLabelName = "MONSNAME_" + srcMonsNo.ToString("D3");
+                        string dstLabelName = "MONSNAME_" + dstMonsNo.ToString("D3");
+                        LabelData srcLabelData = msgFile.labelDatas.Find(mf => mf.labelName == srcLabelName);
+                        LabelData newLabelData = (LabelData)srcLabelData.Clone();
+                        newLabelData.labelName = dstLabelName;
+                        newLabelData.labelIndex = dstMonsNo;
+                        newLabelData.arrayIndex = newLabelData.labelIndex;
+                        newLabelData.wordDatas[0].str = speciesName;
+
+                        if (dstMonsNo < msgFile.labelDatas.Count)
+                            msgFile.labelDatas[dstMonsNo] = newLabelData;
+                        else
+                            msgFile.labelDatas.Add(newLabelData);
+                    }
+
+                    if (newSpecies && msgFile.mName.Contains("dp_pokedex_diamond"))
+                    {
+                        string srcLabelName = "DP_pokedex_diamond_" + srcMonsNo.ToString("D3");
+                        string dstLabelName = "DP_pokedex_diamond_" + dstMonsNo.ToString("D3");
+                        LabelData srcLabelData = msgFile.labelDatas.Find(mf => mf.labelName == srcLabelName);
+                        LabelData newLabelData = (LabelData)srcLabelData.Clone();
+                        newLabelData.labelName = dstLabelName;
+                        newLabelData.labelIndex = dstMonsNo;
+                        newLabelData.arrayIndex = newLabelData.labelIndex;
+
+                        msgFile.labelDatas.Add(newLabelData);
+                    }
+
+                    if (newSpecies && msgFile.mName.Contains("dp_pokedex_pearl"))
+                    {
+                        string srcLabelName = "DP_pokedex_pearl_" + srcMonsNo.ToString("D3");
+                        string dstLabelName = "DP_pokedex_pearl_" + dstMonsNo.ToString("D3");
+                        LabelData srcLabelData = msgFile.labelDatas.Find(mf => mf.labelName == srcLabelName);
+                        LabelData newLabelData = (LabelData)srcLabelData.Clone();
+                        newLabelData.labelName = dstLabelName;
+                        newLabelData.labelIndex = dstMonsNo;
+                        newLabelData.arrayIndex = newLabelData.labelIndex;
+
+                        msgFile.labelDatas.Add(newLabelData);
+                    }
+
+                    if (newSpecies && msgFile.mName.Contains("ss_zkn_type"))
+                    {
+                        string srcLabelName = "ZKN_TYPE_" + srcMonsNo.ToString("D3");
+                        string dstLabelName = "ZKN_TYPE_" + dstMonsNo.ToString("D3");
+                        LabelData srcLabelData = msgFile.labelDatas.Find(mf => mf.labelName == srcLabelName);
+                        LabelData newLabelData = (LabelData)srcLabelData.Clone();
+                        newLabelData.labelName = dstLabelName;
+                        newLabelData.labelIndex = dstMonsNo;
+                        newLabelData.arrayIndex = newLabelData.labelIndex;
+
+                        msgFile.labelDatas.Add(newLabelData);
+                    }
+
                     if (msgFile.mName.Contains("ss_zkn_form"))
                     {
                         LabelData baseLabelData = null;
@@ -338,22 +389,34 @@ namespace ImpostersOrdeal
             };
         }
 
-        public void UpdateMotionTimingData(int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo)
+        public void UpdateMotionTimingData(List<(int src, int dst)> uniqueIDs)
         {
-            BattleMasterdatas.MotionTimingData baseMotionTimingData = null;
-            foreach (BattleMasterdatas.MotionTimingData motionTimingData in gameData.motionTimingData)
+            foreach ((int src, int dst) pair in uniqueIDs)
             {
-                if (motionTimingData.MonsNo == srcMonsNo && motionTimingData.FormNo == srcFormNo)
+                int srcMonsNo = pair.src / 10000;
+                int srcFormNo = pair.src / 100 % 100;
+                int srcSex = pair.src / 10 % 10;
+                int dstMonsNo = pair.dst / 10000;
+                int dstFormNo = pair.dst / 100 % 100;
+                int dstSex = pair.dst / 10 % 10;
+                if (gameData.motionTimingData.Any(o => o.MonsNo == dstMonsNo && o.FormNo == dstFormNo && o.Sex == dstSex))
+                    continue;
+                BattleMasterdatas.MotionTimingData baseMotionTimingData = null;
+                foreach (BattleMasterdatas.MotionTimingData motionTimingData in gameData.motionTimingData)
                 {
-                    baseMotionTimingData = motionTimingData;
-                    break;
+                    if (motionTimingData.MonsNo == srcMonsNo && motionTimingData.FormNo == srcFormNo && motionTimingData.Sex == srcSex)
+                    {
+                        baseMotionTimingData = motionTimingData;
+                        break;
+                    }
                 }
-            }
 
-            BattleMasterdatas.MotionTimingData newMotionTimingData = (BattleMasterdatas.MotionTimingData)baseMotionTimingData.Clone();
-            newMotionTimingData.MonsNo = dstMonsNo;
-            newMotionTimingData.FormNo = dstFormNo;
-            gameData.motionTimingData.Add(newMotionTimingData);
+                BattleMasterdatas.MotionTimingData newMotionTimingData = (BattleMasterdatas.MotionTimingData)baseMotionTimingData.Clone();
+                newMotionTimingData.MonsNo = dstMonsNo;
+                newMotionTimingData.FormNo = dstFormNo;
+                newMotionTimingData.Sex = dstSex;
+                gameData.motionTimingData.Add(newMotionTimingData);
+            }
         }
         public void UpdateAddPersonalTable(int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo)
         {
@@ -380,30 +443,39 @@ namespace ImpostersOrdeal
                 int srcUniqueID = uniqueIDPair.Item1;
                 int dstUniqueID = uniqueIDPair.Item2;
 
-                UIMasterdatas.PokemonIcon pokemonIcon = gameData.uiPokemonIcon.Find(o => o.UniqueID == srcUniqueID);
+                UIMasterdatas.PokemonIcon pokemonIcon = gameData.uiPokemonIcon.Find(o => o.uniqueID == srcUniqueID);
                 UIMasterdatas.PokemonIcon newPokemonIcon = (UIMasterdatas.PokemonIcon)pokemonIcon.Clone();
-                newPokemonIcon.UniqueID = dstUniqueID;
+                newPokemonIcon.uniqueID = dstUniqueID;
                 gameData.uiPokemonIcon.Add(newPokemonIcon);
 
-                UIMasterdatas.AshiatoIcon ashiatoIcon = gameData.uiAshiatoIcon.Find(o => o.UniqueID == srcUniqueID);
+                UIMasterdatas.AshiatoIcon ashiatoIcon = gameData.uiAshiatoIcon.Find(o => o.uniqueID == srcUniqueID);
                 UIMasterdatas.AshiatoIcon newAshiatoIcon = (UIMasterdatas.AshiatoIcon)ashiatoIcon.Clone();
-                newAshiatoIcon.UniqueID = dstUniqueID;
+                newAshiatoIcon.uniqueID = dstUniqueID;
                 gameData.uiAshiatoIcon.Add(newAshiatoIcon);
 
-                UIMasterdatas.PokemonVoice pokemonVoice = gameData.uiPokemonVoice.Find(o => o.UniqueID == srcUniqueID);
+                UIMasterdatas.PokemonVoice pokemonVoice = gameData.uiPokemonVoice.Find(o => o.uniqueID == srcUniqueID);
                 UIMasterdatas.PokemonVoice newPokemonVoice = (UIMasterdatas.PokemonVoice)pokemonVoice.Clone();
-                newPokemonVoice.UniqueID = dstUniqueID;
+                newPokemonVoice.uniqueID = dstUniqueID;
                 gameData.uiPokemonVoice.Add(newPokemonVoice);
 
-                UIMasterdatas.ZukanDisplay zukanDisplay = gameData.uiZukanDisplay.Find(o => o.UniqueID == srcUniqueID);
+                UIMasterdatas.ZukanDisplay zukanDisplay = gameData.uiZukanDisplay.Find(o => o.uniqueID == srcUniqueID);
                 UIMasterdatas.ZukanDisplay newZukanDisplay = (UIMasterdatas.ZukanDisplay)zukanDisplay.Clone();
-                newZukanDisplay.UniqueID = dstUniqueID;
+                newZukanDisplay.uniqueID = dstUniqueID;
                 gameData.uiZukanDisplay.Add(newZukanDisplay);
 
-                UIMasterdatas.ZukanCompareHeight zukanCompareHeight = gameData.uiZukanCompareHeights.Find(o => o.UniqueID == srcUniqueID);
+                UIMasterdatas.ZukanCompareHeight zukanCompareHeight = gameData.uiZukanCompareHeights.Find(o => o.uniqueID == srcUniqueID);
                 UIMasterdatas.ZukanCompareHeight newZukanCompareHeight = (UIMasterdatas.ZukanCompareHeight)zukanCompareHeight.Clone();
-                newZukanCompareHeight.UniqueID = dstUniqueID;
+                newZukanCompareHeight.uniqueID = dstUniqueID;
                 gameData.uiZukanCompareHeights.Add(newZukanCompareHeight);
+
+                if (gameData.uiSearchPokeIconSex[0].monsNo == dstUniqueID / 10000)
+                {
+                    gameData.uiSearchPokeIconSex[0].monsNo++;
+                    UIMasterdatas.SearchPokeIconSex searchPokeIconSex = gameData.uiSearchPokeIconSex.Find(o => o.monsNo == srcUniqueID / 10000);
+                    UIMasterdatas.SearchPokeIconSex newSearchPokeIconSex = (UIMasterdatas.SearchPokeIconSex)searchPokeIconSex.Clone();
+                    newSearchPokeIconSex.monsNo = dstUniqueID / 10000;
+                    gameData.uiSearchPokeIconSex.Add(newSearchPokeIconSex);
+                }
             }
         }
 

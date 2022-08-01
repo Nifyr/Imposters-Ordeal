@@ -1,27 +1,20 @@
-﻿using AssetsTools.NET;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static ImpostersOrdeal.GlobalData;
-using static ImpostersOrdeal.GameDataTypes;
+﻿using System;
 using System.Numerics;
 
 namespace ImpostersOrdeal
 {
-	public static class UIMasterdatas
+    public static class UIMasterdatas
 	{
 		public class PokemonIcon : ICloneable, IComparable<PokemonIcon>
 		{
-			public int UniqueID;
-			public string AssetBundleName;
-			public string AssetName;
-			public string AssetBundleNameLarge;
-			public string AssetNameLarge;
-			public string AssetBundleNameDP;
-			public string AssetNameDP;
-			public Vector2 HallofFameOffset;
+			public int uniqueID;
+			public string assetBundleName;
+			public string assetName;
+			public string assetBundleNameLarge;
+			public string assetNameLarge;
+			public string assetBundleNameDP;
+			public string assetNameDP;
+			public Vector2 hallofFameOffset;
 
             public object Clone()
             {
@@ -30,15 +23,15 @@ namespace ImpostersOrdeal
 
             public int CompareTo(PokemonIcon other)
             {
-                return UniqueID.CompareTo(other.UniqueID);
+                return uniqueID.CompareTo(other.uniqueID);
             }
         }
 
 		public class AshiatoIcon : ICloneable, IComparable<AshiatoIcon>
 		{
-			public int UniqueID;
-			public string SideIconAssetName;
-			public string BothIconAssetName;
+			public int uniqueID;
+			public string sideIconAssetName;
+			public string bothIconAssetName;
 
             public object Clone()
             {
@@ -47,18 +40,18 @@ namespace ImpostersOrdeal
 
 			public int CompareTo(AshiatoIcon other)
 			{
-				return UniqueID.CompareTo(other.UniqueID);
+				return uniqueID.CompareTo(other.uniqueID);
 			}
 		}
 
 		public class PokemonVoice : ICloneable, IComparable<PokemonVoice>
 		{
-			public int UniqueID; 
-			public string WwiseEvent;
+			public int uniqueID; 
+			public string wwiseEvent;
 			public string stopEventId;
-			public Vector3 CenterPointOffset;
-			public bool RotationLimits;
-			public Vector2 RotationLimitAngle;
+			public Vector3 centerPointOffset;
+			public bool rotationLimits;
+			public Vector2 rotationLimitAngle;
 
             public object Clone()
             {
@@ -67,16 +60,16 @@ namespace ImpostersOrdeal
 
 			public int CompareTo(PokemonVoice other)
 			{
-				return UniqueID.CompareTo(other.UniqueID);
+				return uniqueID.CompareTo(other.uniqueID);
 			}
 		}
 
 		public class ZukanDisplay : ICloneable, IComparable<ZukanDisplay>
 		{
-			public int UniqueID;
-			public Vector3 MoveLimit;
-			public Vector3 ModelOffset;
-			public Vector2 ModelRotationAngle;
+			public int uniqueID;
+			public Vector3 moveLimit;
+			public Vector3 modelOffset;
+			public Vector2 modelRotationAngle;
 
             public object Clone()
             {
@@ -85,15 +78,16 @@ namespace ImpostersOrdeal
 
 			public int CompareTo(ZukanDisplay other)
 			{
-				return UniqueID.CompareTo(other.UniqueID);
+				return uniqueID.CompareTo(other.uniqueID);
 			}
 		}
+
 		public class ZukanCompareHeight : ICloneable, IComparable<ZukanCompareHeight>
 		{
-			public int UniqueID;
-			public float PlayerScaleFactor;
-			public Vector3 PlayerOffset; 
-			public Vector2 PlayerRotationAngle;
+			public int uniqueID;
+			public float playerScaleFactor;
+			public Vector3 playerOffset; 
+			public Vector2 playerRotationAngle;
 
             public object Clone()
             {
@@ -102,8 +96,30 @@ namespace ImpostersOrdeal
 
 			public int CompareTo(ZukanCompareHeight other)
 			{
-				return UniqueID.CompareTo(other.UniqueID);
+				return uniqueID.CompareTo(other.uniqueID);
 			}
 		}
+
+		public class SearchPokeIconSex : ICloneable, IComparable<SearchPokeIconSex>
+        {
+			public int monsNo;
+			public int sex;
+
+            public object Clone()
+			{
+				return this.MemberwiseClone();
+			}
+
+            public int CompareTo(SearchPokeIconSex other)
+			{
+				if (monsNo == other.monsNo)
+					return 0;
+				if (monsNo == GlobalData.gameData.dexEntries.Count)
+					return -1;
+				if (other.monsNo == GlobalData.gameData.dexEntries.Count)
+					return 1;
+				return monsNo.CompareTo(other.monsNo);
+			}
+        }
 	}
 }

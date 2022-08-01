@@ -775,22 +775,23 @@ namespace ImpostersOrdeal
             gameData.uiPokemonVoice = new();
             gameData.uiZukanDisplay = new();
             gameData.uiZukanCompareHeights = new();
+            gameData.uiSearchPokeIconSex = new();
             AssetTypeValueField uiDatabase = (await monoBehaviourCollection[PathEnum.UIMasterdatas]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "UIDatabase");
 
             AssetTypeValueField[] pokemonIcons = uiDatabase["PokemonIcon"].children[0].children;
             for (int i = 0; i < pokemonIcons.Length; i++)
             {
                 UIMasterdatas.PokemonIcon pokemonIcon = new();
-                pokemonIcon.UniqueID = pokemonIcons[i]["UniqueID"].value.value.asInt32;
-                pokemonIcon.AssetBundleName = pokemonIcons[i]["AssetBundleName"].GetValue().AsString();
-                pokemonIcon.AssetName = pokemonIcons[i]["AssetName"].GetValue().AsString();
-                pokemonIcon.AssetBundleNameLarge = pokemonIcons[i]["AssetBundleNameLarge"].GetValue().AsString();
-                pokemonIcon.AssetNameLarge = pokemonIcons[i]["AssetNameLarge"].GetValue().AsString();
-                pokemonIcon.AssetBundleNameDP = pokemonIcons[i]["AssetBundleNameDP"].GetValue().AsString();
-                pokemonIcon.AssetNameDP = pokemonIcons[i]["AssetNameDP"].GetValue().AsString();
-                pokemonIcon.HallofFameOffset = new();
-                pokemonIcon.HallofFameOffset.X = pokemonIcons[i]["HallofFameOffset"].children[0].value.value.asFloat;
-                pokemonIcon.HallofFameOffset.Y = pokemonIcons[i]["HallofFameOffset"].children[1].value.value.asFloat;
+                pokemonIcon.uniqueID = pokemonIcons[i]["UniqueID"].value.value.asInt32;
+                pokemonIcon.assetBundleName = pokemonIcons[i]["AssetBundleName"].GetValue().AsString();
+                pokemonIcon.assetName = pokemonIcons[i]["AssetName"].GetValue().AsString();
+                pokemonIcon.assetBundleNameLarge = pokemonIcons[i]["AssetBundleNameLarge"].GetValue().AsString();
+                pokemonIcon.assetNameLarge = pokemonIcons[i]["AssetNameLarge"].GetValue().AsString();
+                pokemonIcon.assetBundleNameDP = pokemonIcons[i]["AssetBundleNameDP"].GetValue().AsString();
+                pokemonIcon.assetNameDP = pokemonIcons[i]["AssetNameDP"].GetValue().AsString();
+                pokemonIcon.hallofFameOffset = new();
+                pokemonIcon.hallofFameOffset.X = pokemonIcons[i]["HallofFameOffset"].children[0].value.value.asFloat;
+                pokemonIcon.hallofFameOffset.Y = pokemonIcons[i]["HallofFameOffset"].children[1].value.value.asFloat;
 
                 gameData.uiPokemonIcon.Add(pokemonIcon);
             }
@@ -799,9 +800,9 @@ namespace ImpostersOrdeal
             for (int i = 0; i < ashiatoIcons.Length; i++)
             {
                 UIMasterdatas.AshiatoIcon ashiatoIcon = new();
-                ashiatoIcon.UniqueID = ashiatoIcons[i]["UniqueID"].value.value.asInt32;
-                ashiatoIcon.SideIconAssetName = ashiatoIcons[i]["SideIconAssetName"].GetValue().AsString();
-                ashiatoIcon.BothIconAssetName = ashiatoIcons[i]["BothIconAssetName"].GetValue().AsString();
+                ashiatoIcon.uniqueID = ashiatoIcons[i]["UniqueID"].value.value.asInt32;
+                ashiatoIcon.sideIconAssetName = ashiatoIcons[i]["SideIconAssetName"].GetValue().AsString();
+                ashiatoIcon.bothIconAssetName = ashiatoIcons[i]["BothIconAssetName"].GetValue().AsString();
 
                 gameData.uiAshiatoIcon.Add(ashiatoIcon);
             }
@@ -810,17 +811,17 @@ namespace ImpostersOrdeal
             for (int i = 0; i < pokemonVoices.Length; i++)
             {
                 UIMasterdatas.PokemonVoice pokemonVoice = new();
-                pokemonVoice.UniqueID = pokemonVoices[i]["UniqueID"].value.value.asInt32;
-                pokemonVoice.WwiseEvent = pokemonVoices[i]["WwiseEvent"].GetValue().AsString();
+                pokemonVoice.uniqueID = pokemonVoices[i]["UniqueID"].value.value.asInt32;
+                pokemonVoice.wwiseEvent = pokemonVoices[i]["WwiseEvent"].GetValue().AsString();
                 pokemonVoice.stopEventId = pokemonVoices[i]["stopEventId"].GetValue().AsString();
-                pokemonVoice.CenterPointOffset = new();
-                pokemonVoice.CenterPointOffset.X = pokemonVoices[i]["CenterPointOffset"].children[0].value.value.asFloat;
-                pokemonVoice.CenterPointOffset.Y = pokemonVoices[i]["CenterPointOffset"].children[1].value.value.asFloat;
-                pokemonVoice.CenterPointOffset.Z = pokemonVoices[i]["CenterPointOffset"].children[2].value.value.asFloat;
-                pokemonVoice.RotationLimits = pokemonVoices[i]["RotationLimits"].value.value.asUInt8 == 0;
-                pokemonVoice.RotationLimitAngle = new();
-                pokemonVoice.RotationLimitAngle.X = pokemonVoices[i]["RotationLimitAngle"].children[0].value.value.asFloat;
-                pokemonVoice.RotationLimitAngle.Y = pokemonVoices[i]["RotationLimitAngle"].children[1].value.value.asFloat;
+                pokemonVoice.centerPointOffset = new();
+                pokemonVoice.centerPointOffset.X = pokemonVoices[i]["CenterPointOffset"].children[0].value.value.asFloat;
+                pokemonVoice.centerPointOffset.Y = pokemonVoices[i]["CenterPointOffset"].children[1].value.value.asFloat;
+                pokemonVoice.centerPointOffset.Z = pokemonVoices[i]["CenterPointOffset"].children[2].value.value.asFloat;
+                pokemonVoice.rotationLimits = pokemonVoices[i]["RotationLimits"].value.value.asUInt8 == 0;
+                pokemonVoice.rotationLimitAngle = new();
+                pokemonVoice.rotationLimitAngle.X = pokemonVoices[i]["RotationLimitAngle"].children[0].value.value.asFloat;
+                pokemonVoice.rotationLimitAngle.Y = pokemonVoices[i]["RotationLimitAngle"].children[1].value.value.asFloat;
 
                 gameData.uiPokemonVoice.Add(pokemonVoice);
             }
@@ -829,21 +830,21 @@ namespace ImpostersOrdeal
             for (int i = 0; i < zukanDisplays.Length; i++)
             {
                 UIMasterdatas.ZukanDisplay zukanDisplay = new();
-                zukanDisplay.UniqueID = zukanDisplays[i]["UniqueID"].value.value.asInt32;
+                zukanDisplay.uniqueID = zukanDisplays[i]["UniqueID"].value.value.asInt32;
 
-                zukanDisplay.MoveLimit = new();
-                zukanDisplay.MoveLimit.X = zukanDisplays[i]["MoveLimit"].children[0].value.value.asFloat;
-                zukanDisplay.MoveLimit.Y = zukanDisplays[i]["MoveLimit"].children[1].value.value.asFloat;
-                zukanDisplay.MoveLimit.Z = zukanDisplays[i]["MoveLimit"].children[2].value.value.asFloat;
+                zukanDisplay.moveLimit = new();
+                zukanDisplay.moveLimit.X = zukanDisplays[i]["MoveLimit"].children[0].value.value.asFloat;
+                zukanDisplay.moveLimit.Y = zukanDisplays[i]["MoveLimit"].children[1].value.value.asFloat;
+                zukanDisplay.moveLimit.Z = zukanDisplays[i]["MoveLimit"].children[2].value.value.asFloat;
 
-                zukanDisplay.ModelOffset = new();
-                zukanDisplay.ModelOffset.X = zukanDisplays[i]["ModelOffset"].children[0].value.value.asFloat;
-                zukanDisplay.ModelOffset.Y = zukanDisplays[i]["ModelOffset"].children[1].value.value.asFloat;
-                zukanDisplay.ModelOffset.Z = zukanDisplays[i]["ModelOffset"].children[2].value.value.asFloat;
+                zukanDisplay.modelOffset = new();
+                zukanDisplay.modelOffset.X = zukanDisplays[i]["ModelOffset"].children[0].value.value.asFloat;
+                zukanDisplay.modelOffset.Y = zukanDisplays[i]["ModelOffset"].children[1].value.value.asFloat;
+                zukanDisplay.modelOffset.Z = zukanDisplays[i]["ModelOffset"].children[2].value.value.asFloat;
 
-                zukanDisplay.ModelRotationAngle = new();
-                zukanDisplay.ModelRotationAngle.X = zukanDisplays[i]["ModelRotationAngle"].children[0].value.value.asFloat;
-                zukanDisplay.ModelRotationAngle.Y = zukanDisplays[i]["ModelRotationAngle"].children[1].value.value.asFloat;
+                zukanDisplay.modelRotationAngle = new();
+                zukanDisplay.modelRotationAngle.X = zukanDisplays[i]["ModelRotationAngle"].children[0].value.value.asFloat;
+                zukanDisplay.modelRotationAngle.Y = zukanDisplays[i]["ModelRotationAngle"].children[1].value.value.asFloat;
 
                 gameData.uiZukanDisplay.Add(zukanDisplay);
             }
@@ -852,19 +853,29 @@ namespace ImpostersOrdeal
             for (int i = 0; i < zukanCompareHeights.Length; i++)
             {
                 UIMasterdatas.ZukanCompareHeight zukanCompareHeight = new();
-                zukanCompareHeight.UniqueID = zukanCompareHeights[i]["UniqueID"].value.value.asInt32;
+                zukanCompareHeight.uniqueID = zukanCompareHeights[i]["UniqueID"].value.value.asInt32;
 
-                zukanCompareHeight.PlayerScaleFactor = zukanCompareHeights[i]["PlayerScaleFactor"].value.value.asFloat;
-                zukanCompareHeight.PlayerOffset = new();
-                zukanCompareHeight.PlayerOffset.X = zukanCompareHeights[i]["PlayerOffset"].children[0].value.value.asFloat;
-                zukanCompareHeight.PlayerOffset.Y = zukanCompareHeights[i]["PlayerOffset"].children[1].value.value.asFloat;
-                zukanCompareHeight.PlayerOffset.Z = zukanCompareHeights[i]["PlayerOffset"].children[2].value.value.asFloat;
+                zukanCompareHeight.playerScaleFactor = zukanCompareHeights[i]["PlayerScaleFactor"].value.value.asFloat;
+                zukanCompareHeight.playerOffset = new();
+                zukanCompareHeight.playerOffset.X = zukanCompareHeights[i]["PlayerOffset"].children[0].value.value.asFloat;
+                zukanCompareHeight.playerOffset.Y = zukanCompareHeights[i]["PlayerOffset"].children[1].value.value.asFloat;
+                zukanCompareHeight.playerOffset.Z = zukanCompareHeights[i]["PlayerOffset"].children[2].value.value.asFloat;
 
-                zukanCompareHeight.PlayerRotationAngle = new();
-                zukanCompareHeight.PlayerRotationAngle.X = zukanCompareHeights[i]["PlayerRotationAngle"].children[0].value.value.asFloat;
-                zukanCompareHeight.PlayerRotationAngle.Y = zukanCompareHeights[i]["PlayerRotationAngle"].children[1].value.value.asFloat;
+                zukanCompareHeight.playerRotationAngle = new();
+                zukanCompareHeight.playerRotationAngle.X = zukanCompareHeights[i]["PlayerRotationAngle"].children[0].value.value.asFloat;
+                zukanCompareHeight.playerRotationAngle.Y = zukanCompareHeights[i]["PlayerRotationAngle"].children[1].value.value.asFloat;
 
                 gameData.uiZukanCompareHeights.Add(zukanCompareHeight);
+            }
+
+            AssetTypeValueField[] searchPokeIconSexes = uiDatabase["SearchPokeIconSex"].children[0].children;
+            for (int i = 0; i < searchPokeIconSexes.Length; i++)
+            {
+                UIMasterdatas.SearchPokeIconSex searchPokeIconSex = new();
+                searchPokeIconSex.monsNo = searchPokeIconSexes[i]["MonsNo"].value.value.asInt32;
+                searchPokeIconSex.sex = searchPokeIconSexes[i]["Sex"].value.value.asInt32;
+
+                gameData.uiSearchPokeIconSex.Add(searchPokeIconSex);
             }
         }
 
@@ -2043,6 +2054,7 @@ namespace ImpostersOrdeal
             gameData.uiPokemonVoice.Sort();
             gameData.uiZukanDisplay.Sort();
             gameData.uiZukanCompareHeights.Sort();
+            gameData.uiSearchPokeIconSex.Sort();
 
             List<AssetTypeValueField> monoBehaviours = fileManager.GetMonoBehaviours(PathEnum.UIMasterdatas);
 
@@ -2052,38 +2064,36 @@ namespace ImpostersOrdeal
 
             // Pokemon Icon
             AssetTypeValueField[] pokemonIcons = uiDatabase["PokemonIcon"].children[0].children;
-            AssetTypeTemplateField templateField = new();
 
             AssetTypeValueField pokemonIconRef = pokemonIcons[0];
             List<AssetTypeValueField> newPokemonIcons = new();
             foreach (UIMasterdatas.PokemonIcon pokemonIcon in gameData.uiPokemonIcon)
             {
                 AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(pokemonIconRef.GetTemplateField());
-                baseField["UniqueID"].GetValue().Set(pokemonIcon.UniqueID);
-                baseField["AssetBundleName"].GetValue().Set(pokemonIcon.AssetBundleName);
-                baseField["AssetName"].GetValue().Set(pokemonIcon.AssetName);
-                baseField["AssetBundleNameLarge"].GetValue().Set(pokemonIcon.AssetBundleNameLarge);
-                baseField["AssetNameLarge"].GetValue().Set(pokemonIcon.AssetNameLarge);
-                baseField["AssetBundleNameDP"].GetValue().Set(pokemonIcon.AssetBundleNameDP);
-                baseField["AssetNameDP"].GetValue().Set(pokemonIcon.AssetNameDP);
-                baseField["HallofFameOffset"].children[0].GetValue().Set(pokemonIcon.HallofFameOffset.X);
-                baseField["HallofFameOffset"].children[1].GetValue().Set(pokemonIcon.HallofFameOffset.Y);
+                baseField["UniqueID"].GetValue().Set(pokemonIcon.uniqueID);
+                baseField["AssetBundleName"].GetValue().Set(pokemonIcon.assetBundleName);
+                baseField["AssetName"].GetValue().Set(pokemonIcon.assetName);
+                baseField["AssetBundleNameLarge"].GetValue().Set(pokemonIcon.assetBundleNameLarge);
+                baseField["AssetNameLarge"].GetValue().Set(pokemonIcon.assetNameLarge);
+                baseField["AssetBundleNameDP"].GetValue().Set(pokemonIcon.assetBundleNameDP);
+                baseField["AssetNameDP"].GetValue().Set(pokemonIcon.assetNameDP);
+                baseField["HallofFameOffset"].children[0].GetValue().Set(pokemonIcon.hallofFameOffset.X);
+                baseField["HallofFameOffset"].children[1].GetValue().Set(pokemonIcon.hallofFameOffset.Y);
                 newPokemonIcons.Add(baseField);
             }
             uiDatabase["PokemonIcon"].children[0].SetChildrenList(newPokemonIcons.ToArray());
 
             // Ashiato Icon
             AssetTypeValueField[] ashiatoIcons = uiDatabase["AshiatoIcon"].children[0].children;
-            templateField = new();
 
             AssetTypeValueField ashiatoIconRef = ashiatoIcons[0];
             List<AssetTypeValueField> newAshiatoIcons = new();
             foreach (UIMasterdatas.AshiatoIcon ashiatoIcon in gameData.uiAshiatoIcon)
             {
                 AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(ashiatoIconRef.GetTemplateField());
-                baseField["UniqueID"].GetValue().Set(ashiatoIcon.UniqueID);
-                baseField["SideIconAssetName"].GetValue().Set(ashiatoIcon.SideIconAssetName);
-                baseField["BothIconAssetName"].GetValue().Set(ashiatoIcon.BothIconAssetName);
+                baseField["UniqueID"].GetValue().Set(ashiatoIcon.uniqueID);
+                baseField["SideIconAssetName"].GetValue().Set(ashiatoIcon.sideIconAssetName);
+                baseField["BothIconAssetName"].GetValue().Set(ashiatoIcon.bothIconAssetName);
                 newAshiatoIcons.Add(baseField);
             }
             uiDatabase["AshiatoIcon"].children[0].SetChildrenList(newAshiatoIcons.ToArray());
@@ -2091,22 +2101,21 @@ namespace ImpostersOrdeal
 
             // Pokemon Voice
             AssetTypeValueField[] pokemonVoices = uiDatabase["PokemonVoice"].children[0].children;
-            templateField = new();
 
             AssetTypeValueField pokemonVoiceRef = pokemonVoices[0];
             List<AssetTypeValueField> newPokemonVoices = new();
             foreach (UIMasterdatas.PokemonVoice pokemonVoice in gameData.uiPokemonVoice)
             {
                 AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(pokemonVoiceRef.GetTemplateField());
-                baseField["UniqueID"].GetValue().Set(pokemonVoice.UniqueID);
-                baseField["WwiseEvent"].GetValue().Set(pokemonVoice.WwiseEvent);
+                baseField["UniqueID"].GetValue().Set(pokemonVoice.uniqueID);
+                baseField["WwiseEvent"].GetValue().Set(pokemonVoice.wwiseEvent);
                 baseField["stopEventId"].GetValue().Set(pokemonVoice.stopEventId);
-                baseField["CenterPointOffset"].children[0].GetValue().Set(pokemonVoice.CenterPointOffset.X);
-                baseField["CenterPointOffset"].children[1].GetValue().Set(pokemonVoice.CenterPointOffset.Y);
-                baseField["CenterPointOffset"].children[2].GetValue().Set(pokemonVoice.CenterPointOffset.Z);
-                baseField["RotationLimits"].GetValue().Set(pokemonVoice.RotationLimits);
-                baseField["RotationLimitAngle"].children[0].GetValue().Set(pokemonVoice.RotationLimitAngle.X);
-                baseField["RotationLimitAngle"].children[1].GetValue().Set(pokemonVoice.RotationLimitAngle.Y);
+                baseField["CenterPointOffset"].children[0].GetValue().Set(pokemonVoice.centerPointOffset.X);
+                baseField["CenterPointOffset"].children[1].GetValue().Set(pokemonVoice.centerPointOffset.Y);
+                baseField["CenterPointOffset"].children[2].GetValue().Set(pokemonVoice.centerPointOffset.Z);
+                baseField["RotationLimits"].GetValue().Set(pokemonVoice.rotationLimits);
+                baseField["RotationLimitAngle"].children[0].GetValue().Set(pokemonVoice.rotationLimitAngle.X);
+                baseField["RotationLimitAngle"].children[1].GetValue().Set(pokemonVoice.rotationLimitAngle.Y);
                 newPokemonVoices.Add(baseField);
             }
             uiDatabase["PokemonVoice"].children[0].SetChildrenList(newPokemonVoices.ToArray());
@@ -2114,46 +2123,57 @@ namespace ImpostersOrdeal
 
             // ZukanDisplay
             AssetTypeValueField[] zukanDisplays = uiDatabase["ZukanDisplay"].children[0].children;
-            templateField = new();
 
             AssetTypeValueField zukanDisplayRef = zukanDisplays[0];
             List<AssetTypeValueField> newZukanDisplays = new();
             foreach (UIMasterdatas.ZukanDisplay zukanDisplay in gameData.uiZukanDisplay)
             {
                 AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(zukanDisplayRef.GetTemplateField());
-                baseField["UniqueID"].GetValue().Set(zukanDisplay.UniqueID);
-                baseField["MoveLimit"].children[0].GetValue().Set(zukanDisplay.MoveLimit.X);
-                baseField["MoveLimit"].children[1].GetValue().Set(zukanDisplay.MoveLimit.Y);
-                baseField["MoveLimit"].children[2].GetValue().Set(zukanDisplay.MoveLimit.Z);
-                baseField["ModelOffset"].children[0].GetValue().Set(zukanDisplay.ModelOffset.X);
-                baseField["ModelOffset"].children[1].GetValue().Set(zukanDisplay.ModelOffset.Y);
-                baseField["ModelOffset"].children[2].GetValue().Set(zukanDisplay.ModelOffset.Z);
-                baseField["ModelRotationAngle"].children[0].GetValue().Set(zukanDisplay.ModelRotationAngle.X);
-                baseField["ModelRotationAngle"].children[1].GetValue().Set(zukanDisplay.ModelRotationAngle.Y);
+                baseField["UniqueID"].GetValue().Set(zukanDisplay.uniqueID);
+                baseField["MoveLimit"].children[0].GetValue().Set(zukanDisplay.moveLimit.X);
+                baseField["MoveLimit"].children[1].GetValue().Set(zukanDisplay.moveLimit.Y);
+                baseField["MoveLimit"].children[2].GetValue().Set(zukanDisplay.moveLimit.Z);
+                baseField["ModelOffset"].children[0].GetValue().Set(zukanDisplay.modelOffset.X);
+                baseField["ModelOffset"].children[1].GetValue().Set(zukanDisplay.modelOffset.Y);
+                baseField["ModelOffset"].children[2].GetValue().Set(zukanDisplay.modelOffset.Z);
+                baseField["ModelRotationAngle"].children[0].GetValue().Set(zukanDisplay.modelRotationAngle.X);
+                baseField["ModelRotationAngle"].children[1].GetValue().Set(zukanDisplay.modelRotationAngle.Y);
                 newZukanDisplays.Add(baseField);
             }
             uiDatabase["ZukanDisplay"].children[0].SetChildrenList(newZukanDisplays.ToArray());
 
-
             // ZukanCompareHeight
             AssetTypeValueField[] zukanCompareHeights = uiDatabase["ZukanCompareHeight"].children[0].children;
-            templateField = new();
 
             AssetTypeValueField zukanCompareHeightRef = zukanCompareHeights[0];
             List<AssetTypeValueField> newZukanCompareHeights = new();
             foreach (UIMasterdatas.ZukanCompareHeight zukanCompareHeight in gameData.uiZukanCompareHeights)
             {
                 AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(zukanCompareHeightRef.GetTemplateField());
-                baseField["UniqueID"].GetValue().Set(zukanCompareHeight.UniqueID);
-                baseField["PlayerScaleFactor"].GetValue().Set(zukanCompareHeight.PlayerScaleFactor);
-                baseField["PlayerOffset"].children[0].GetValue().Set(zukanCompareHeight.PlayerOffset.X);
-                baseField["PlayerOffset"].children[1].GetValue().Set(zukanCompareHeight.PlayerOffset.Y);
-                baseField["PlayerOffset"].children[2].GetValue().Set(zukanCompareHeight.PlayerOffset.Z);
-                baseField["PlayerRotationAngle"].children[0].GetValue().Set(zukanCompareHeight.PlayerRotationAngle.X);
-                baseField["PlayerRotationAngle"].children[1].GetValue().Set(zukanCompareHeight.PlayerRotationAngle.Y);
+                baseField["UniqueID"].GetValue().Set(zukanCompareHeight.uniqueID);
+                baseField["PlayerScaleFactor"].GetValue().Set(zukanCompareHeight.playerScaleFactor);
+                baseField["PlayerOffset"].children[0].GetValue().Set(zukanCompareHeight.playerOffset.X);
+                baseField["PlayerOffset"].children[1].GetValue().Set(zukanCompareHeight.playerOffset.Y);
+                baseField["PlayerOffset"].children[2].GetValue().Set(zukanCompareHeight.playerOffset.Z);
+                baseField["PlayerRotationAngle"].children[0].GetValue().Set(zukanCompareHeight.playerRotationAngle.X);
+                baseField["PlayerRotationAngle"].children[1].GetValue().Set(zukanCompareHeight.playerRotationAngle.Y);
                 newZukanCompareHeights.Add(baseField);
             }
             uiDatabase["ZukanCompareHeight"].children[0].SetChildrenList(newZukanCompareHeights.ToArray());
+
+            // SearchPokeIconSex
+            AssetTypeValueField[] searchPokeIconSexes = uiDatabase["SearchPokeIconSex"].children[0].children;
+
+            AssetTypeValueField searchPokeIconSexRef = searchPokeIconSexes[0];
+            List<AssetTypeValueField> newSearchPokeIconSexes = new();
+            foreach (UIMasterdatas.SearchPokeIconSex searchPokeIconSex in gameData.uiSearchPokeIconSex)
+            {
+                AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(searchPokeIconSexRef.GetTemplateField());
+                baseField["MonsNo"].GetValue().Set(searchPokeIconSex.monsNo);
+                baseField["Sex"].GetValue().Set(searchPokeIconSex.sex);
+                newSearchPokeIconSexes.Add(baseField);
+            }
+            uiDatabase["SearchPokeIconSex"].children[0].SetChildrenList(newSearchPokeIconSexes.ToArray());
 
             fileManager.WriteMonoBehaviours(PathEnum.UIMasterdatas, monoBehaviours.ToArray());
         }
