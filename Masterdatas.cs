@@ -27,6 +27,7 @@ namespace ImpostersOrdeal
             FLY = 1,
             RUN_FLY = 2,
         }
+
         public class PokemonInfoCatalog : ICloneable, IComparable<PokemonInfoCatalog>
         {
             public int UniqueID;
@@ -83,14 +84,36 @@ namespace ImpostersOrdeal
             public bool GroundEffect;
             public bool Waitmoving;
             public int BattleAjustHeight;
+            public Trearuki trearuki;
             public object Clone()
             {
-                return this.MemberwiseClone();
+                PokemonInfoCatalog pic = (PokemonInfoCatalog)this.MemberwiseClone();
+                pic.trearuki = (Trearuki)trearuki.Clone();
+                return pic;
             }
 
             public int CompareTo(PokemonInfoCatalog other)
             {
                 return UniqueID.CompareTo(other.UniqueID);
+            }
+        }
+
+        public class Trearuki : ICloneable
+        {
+            public bool enable;
+            public List<int> animeIndex;
+            public List<float> animeDuration;
+
+            public object Clone()
+            {
+                Trearuki t = (Trearuki)this.MemberwiseClone();
+                t.animeIndex = new();
+                foreach (int i in animeIndex)
+                    t.animeIndex.Add(i);
+                t.animeDuration = new();
+                foreach (float f in animeDuration)
+                    t.animeDuration.Add(f);
+                return t;
             }
         }
     }

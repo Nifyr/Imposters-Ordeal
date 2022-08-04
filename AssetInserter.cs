@@ -228,7 +228,7 @@ namespace ImpostersOrdeal
             {
                 foreach (MessageFile msgFile in msgFileSet.messageFiles)
                 {
-                    if (newSpecies && msgFile.mName.Contains("dlp_whitelist_monsname") || msgFile.mName.Contains("ss_monsname"))
+                    if (newSpecies && (msgFile.mName.Contains("dlp_whitelist_monsname") || msgFile.mName.Contains("ss_monsname")))
                     {
                         string srcLabelName = "MONSNAME_" + srcMonsNo.ToString("D3");
                         string dstLabelName = "MONSNAME_" + dstMonsNo.ToString("D3");
