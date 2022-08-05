@@ -103,6 +103,8 @@ namespace ImpostersOrdeal
             if (e.ColumnIndex == 0)
             {
                 m.destDexID = (ushort)pef.pokemon.IndexOf((string)dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                if (m.destDexID == ushort.MaxValue)
+                    m.destDexID = 0;
                 m.destFormID = 0;
             }
             if (e.ColumnIndex == 1)
