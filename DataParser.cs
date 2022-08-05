@@ -1219,9 +1219,15 @@ namespace ImpostersOrdeal
             AssetTypeValueField monoBehaviour = (await monoBehaviourCollection[PathEnum.PersonalMasterdatas]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "ItemTable");
             AssetTypeValueField textData = (await monoBehaviourCollection[PathEnum.English]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_ss_itemname");
 
-
             AssetTypeValueField[] itemFields = monoBehaviour.children[4].children[0].children;
             AssetTypeValueField[] textFields = textData.children[8].children[0].children;
+
+            if (textFields.Length < itemFields.Length)
+                MainForm.ShowParserError("Oh my, this english_ss_itemname is missing some stuff...\n" +
+                    "I don't feel so good...\n" +
+                    "ItemTable entries: " + itemFields.Length + "\n" +
+                    "english_ss_itemname entries: " + textFields.Length + "??");
+
             for (int itemIdx = 0; itemIdx < itemFields.Length; itemIdx++)
             {
                 Item item = new();
