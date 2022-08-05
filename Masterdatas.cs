@@ -88,7 +88,8 @@ namespace ImpostersOrdeal
             public object Clone()
             {
                 PokemonInfoCatalog pic = (PokemonInfoCatalog)this.MemberwiseClone();
-                pic.trearuki = (Trearuki)trearuki.Clone();
+                if (trearuki != null)
+                    pic.trearuki = (Trearuki)trearuki.Clone();
                 return pic;
             }
 

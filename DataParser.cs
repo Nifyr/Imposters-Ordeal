@@ -884,7 +884,10 @@ namespace ImpostersOrdeal
             gameData.pokemonInfos = new();
             AssetTypeValueField pokemonInfo = (await monoBehaviourCollection[PathEnum.DprMasterdatas]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "PokemonInfo");
             AssetTypeValueField[] catalogArray = pokemonInfo["Catalog"].children[0].children;
-            AssetTypeValueField[] trearukiArray = pokemonInfo["Trearuki"].children[0].children;
+            AssetTypeValueField[] trearukiArray = null;
+            if (pokemonInfo["Trearuki"].children != null)
+                trearukiArray = pokemonInfo["Trearuki"].children[0].children;
+            //pre-1.3.0 versions don't have this field
 
             for (int i = 0; i < catalogArray.Length; i++)
             {
@@ -1006,21 +1009,24 @@ namespace ImpostersOrdeal
                 catalog.Waitmoving = catalogArray[i]["Waitmoving"].value.value.asUInt8 != 0;
                 catalog.BattleAjustHeight = catalogArray[i]["BattleAjustHeight"].value.value.asInt32;
 
-                Masterdatas.Trearuki t = new()
+                if (trearukiArray != null)
                 {
-                    enable = trearukiArray[i]["Enable"].GetValue().value.asUInt8 != 0,
-                    animeIndex = new(),
-                    animeDuration = new()
-                };
-                catalog.trearuki = t;
+                    Masterdatas.Trearuki t = new()
+                    {
+                        enable = trearukiArray[i]["Enable"].GetValue().value.asUInt8 != 0,
+                        animeIndex = new(),
+                        animeDuration = new()
+                    };
+                    catalog.trearuki = t;
 
-                AssetTypeValueField[] animeIndexATVFS = trearukiArray[i]["AnimeIndex"].children[0].children;
-                foreach (AssetTypeValueField atvf in animeIndexATVFS)
-                    t.animeIndex.Add(atvf.GetValue().AsInt());
+                    AssetTypeValueField[] animeIndexATVFS = trearukiArray[i]["AnimeIndex"].children[0].children;
+                    foreach (AssetTypeValueField atvf in animeIndexATVFS)
+                        t.animeIndex.Add(atvf.GetValue().AsInt());
 
-                AssetTypeValueField[] animeDurationATVFS = trearukiArray[i]["AnimeIndex"].children[0].children;
-                foreach (AssetTypeValueField atvf in animeDurationATVFS)
-                    t.animeDuration.Add(atvf.GetValue().AsFloat());
+                    AssetTypeValueField[] animeDurationATVFS = trearukiArray[i]["AnimeIndex"].children[0].children;
+                    foreach (AssetTypeValueField atvf in animeDurationATVFS)
+                        t.animeDuration.Add(atvf.GetValue().AsFloat());
+                }
 
                 gameData.pokemonInfos.Add(catalog);
             }
@@ -1847,19 +1853,27 @@ namespace ImpostersOrdeal
             gameData.pokemonInfos.Sort();
 
             List<AssetTypeValueField> monoBehaviours = fileManager.GetMonoBehaviours(PathEnum.DprMasterdatas);
-            AssetTypeValueField PokemonInfo = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "PokemonInfo");
+            AssetTypeValueField pokemonInfo = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "PokemonInfo");
 
-            AssetTypeValueField[] PokemonInfoCatalog = PokemonInfo["Catalog"].children[0].children;
-            AssetTypeValueField[] PokemonInfoTrearuki = PokemonInfo["Trearuki"].children[0].children;
-
+            AssetTypeValueField[] PokemonInfoCatalog = pokemonInfo["Catalog"].children[0].children;
             AssetTypeValueField catalogRef = PokemonInfoCatalog[0];
-            AssetTypeValueField trearukiRef = PokemonInfoTrearuki[0];
+
+            AssetTypeValueField[] PokemonInfoTrearuki = null;
+            AssetTypeValueField trearukiRef = null;
+            if (pokemonInfo["Trearuki"].children != null)
+            {
+                PokemonInfoTrearuki = pokemonInfo["Trearuki"].children[0].children;
+                trearukiRef = PokemonInfoTrearuki[0];
+            }
+
             List<AssetTypeValueField> newCatalogs = new();
             List<AssetTypeValueField> newTrearukis = new();
             foreach (Masterdatas.PokemonInfoCatalog pokemonInfoCatalog in gameData.pokemonInfos)
             {
                 AssetTypeValueField catalogBaseField = ValueBuilder.DefaultValueFieldFromTemplate(catalogRef.GetTemplateField());
-                AssetTypeValueField trearukiBaseField = ValueBuilder.DefaultValueFieldFromTemplate(trearukiRef.GetTemplateField());
+                AssetTypeValueField trearukiBaseField = null;
+                if (trearukiRef != null)
+                    trearukiBaseField = ValueBuilder.DefaultValueFieldFromTemplate(trearukiRef.GetTemplateField());
                 Masterdatas.Trearuki t = pokemonInfoCatalog.trearuki;
 
                 catalogBaseField["UniqueID"].GetValue().Set(pokemonInfoCatalog.UniqueID);
@@ -1944,34 +1958,38 @@ namespace ImpostersOrdeal
                 catalogBaseField["Waitmoving"].GetValue().Set(pokemonInfoCatalog.Waitmoving);
                 catalogBaseField["BattleAjustHeight"].GetValue().Set(pokemonInfoCatalog.BattleAjustHeight);
 
-                trearukiBaseField["Enable"].GetValue().Set(t.enable ? 1 : 0);
-
-                List<AssetTypeValueField> newAnimeIndices = new();
-                for (int i = 0; i < t.animeIndex.Count; i++)
+                if (trearukiBaseField != null)
                 {
-                    AssetTypeValueField animeIndexBaseField = ValueBuilder.DefaultValueFieldFromTemplate(trearukiRef["AnimeIndex"].children[0].children[0].GetTemplateField());
-                    animeIndexBaseField.GetValue().Set(t.animeIndex[i]);
-                    newAnimeIndices.Add(animeIndexBaseField);
-                }
-                trearukiBaseField["AnimeIndex"].children[0].SetChildrenList(newAnimeIndices.ToArray());
+                    trearukiBaseField["Enable"].GetValue().Set(t.enable ? 1 : 0);
 
-                List<AssetTypeValueField> newAnimeDurations = new();
-                for (int i = 0; i < t.animeDuration.Count; i++)
-                {
-                    AssetTypeValueField animeDurationBaseField = ValueBuilder.DefaultValueFieldFromTemplate(trearukiRef["AnimeDuration"].children[0].children[0].GetTemplateField());
-                    animeDurationBaseField.GetValue().Set(t.animeDuration[i]);
-                    newAnimeDurations.Add(animeDurationBaseField);
-                }
-                trearukiBaseField["AnimeDuration"].children[0].SetChildrenList(newAnimeDurations.ToArray());
+                    List<AssetTypeValueField> newAnimeIndices = new();
+                    for (int i = 0; i < t.animeIndex.Count; i++)
+                    {
+                        AssetTypeValueField animeIndexBaseField = ValueBuilder.DefaultValueFieldFromTemplate(trearukiRef["AnimeIndex"].children[0].children[0].GetTemplateField());
+                        animeIndexBaseField.GetValue().Set(t.animeIndex[i]);
+                        newAnimeIndices.Add(animeIndexBaseField);
+                    }
+                    trearukiBaseField["AnimeIndex"].children[0].SetChildrenList(newAnimeIndices.ToArray());
 
+                    List<AssetTypeValueField> newAnimeDurations = new();
+                    for (int i = 0; i < t.animeDuration.Count; i++)
+                    {
+                        AssetTypeValueField animeDurationBaseField = ValueBuilder.DefaultValueFieldFromTemplate(trearukiRef["AnimeDuration"].children[0].children[0].GetTemplateField());
+                        animeDurationBaseField.GetValue().Set(t.animeDuration[i]);
+                        newAnimeDurations.Add(animeDurationBaseField);
+                    }
+                    trearukiBaseField["AnimeDuration"].children[0].SetChildrenList(newAnimeDurations.ToArray());
+
+                    newTrearukis.Add(trearukiBaseField);
+                }
                 newCatalogs.Add(catalogBaseField);
-                newTrearukis.Add(trearukiBaseField);
             }
 
-            PokemonInfo["Catalog"].children[0].SetChildrenList(newCatalogs.ToArray());
-            PokemonInfo["Trearuki"].children[0].SetChildrenList(newTrearukis.ToArray());
+            pokemonInfo["Catalog"].children[0].SetChildrenList(newCatalogs.ToArray());
+            if (pokemonInfo["Trearuki"].children != null)
+                pokemonInfo["Trearuki"].children[0].SetChildrenList(newTrearukis.ToArray());
 
-            fileManager.WriteMonoBehaviour(PathEnum.DprMasterdatas, PokemonInfo);
+            fileManager.WriteMonoBehaviour(PathEnum.DprMasterdatas, pokemonInfo);
         }
 
         private static void CommitMotionTimingData()
