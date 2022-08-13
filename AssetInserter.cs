@@ -127,7 +127,7 @@ namespace ImpostersOrdeal
                 newRecord.assetBundleName = assetBundlePaths[newRecord.assetBundleName];
 
                 for (int i = 0; i < newRecord.assetPaths.Length; i++)
-                    newRecord.assetPaths[i] = UpdateAssetPath(newRecord.assetPaths[i], Path.GetFileName(newRecord.assetBundleName));
+                    newRecord.assetPaths[i] = ReplacePM(newRecord.assetPaths[i], Path.GetFileName(newRecord.assetBundleName));
 
                 for (int i = 0; i < newRecord.allDependencies.Length; i++)
                     if (assetBundlePaths.ContainsKey(newRecord.allDependencies[i]))
@@ -136,15 +136,18 @@ namespace ImpostersOrdeal
             }
         }
 
-        private string UpdateAssetPath(string assetPath, string assetBundleName)
+        private string ReplacePM(string target, string reference)
         {
-            string name = Path.Combine(Path.GetDirectoryName(assetPath), Path.GetFileNameWithoutExtension(assetPath)).Replace('\\', '/');
-            string ext = Path.GetExtension(assetPath);
-            if (ext == null)
-                ext = "";
-            if (Regex.Matches(name, @"pm\d+$").Count == 0)
-                return name + assetBundleName + ext;
-            return Regex.Replace(name, @"pm\d+$", m => assetBundleName) + ext;
+            string name6 = reference[..6];
+            string name9 = reference[..9];
+            string name12 = null;
+            if (reference.Length >= 12)
+                name12 = reference[..12];
+            target = Regex.Replace(target, @"pm\d{4}", name6);
+            target = Regex.Replace(target, @"pm\d{4}_\d{2}", name9);
+            if (name12 != null)
+                target = Regex.Replace(target, @"pm\d{4}_\d{2}_\d{2}", name12);
+            return target;
         }
 
         public void UpdatePersonalInfos(int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo, string speciesName)
@@ -495,8 +498,7 @@ namespace ImpostersOrdeal
         {
             string baseDirectory = Environment.CurrentDirectory + "\\" + FileManager.outputModName + "\\romfs\\Data\\StreamingAssets\\AssetAssistant\\";
             string newCAB = GenCABName();
-            string oldPMName = string.Format("pm{0}_{1}", srcMonsNo.ToString("D4"), srcFormNo.ToString("D2"));
-            string newPMName = string.Format("pm{0}_{1}", dstMonsNo.ToString("D4"), dstFormNo.ToString("D2"));
+            string refPM = Path.GetFileNameWithoutExtension(dstPath);
 
             List<AssetsReplacer> ars = new();
             AssetsManager am = fileManager.getAssetsManager();
@@ -526,7 +528,7 @@ namespace ImpostersOrdeal
                     break;
             }
 
-            bfi.name = bfi.name.Replace(oldPMName, newPMName);
+            bfi.name = ReplacePM(bfi.name, refPM);
 
             AssetsFileInstance afi = am.LoadAssetsFileFromBundle(bfi, 0);
 
@@ -566,7 +568,7 @@ namespace ImpostersOrdeal
                 AssetFileInfoEx afie = afi.table.GetAssetInfo(m_Name, (int)AssetClassID.Texture2D);
 
                 string m_StreamDataPath = texture2DField["m_StreamData"].children[2].value.AsString();
-                m_Name = m_Name.Replace(oldPMName, newPMName);
+                m_Name = ReplacePM(m_Name, refPM);
                 m_StreamDataPath = m_StreamDataPath.Replace(oldCAB, newCAB);
                 texture2DField["m_Name"].GetValue().Set(m_Name);
                 texture2DField["m_StreamData"].children[2].GetValue().Set(m_StreamDataPath);
@@ -586,7 +588,7 @@ namespace ImpostersOrdeal
                 string m_Name = gameObject["m_Name"].value.AsString();
                 AssetFileInfoEx afie = afi.table.GetAssetInfo(m_Name, (int)AssetClassID.GameObject);
 
-                m_Name = m_Name.Replace(oldPMName, newPMName);
+                m_Name = ReplacePM(m_Name, refPM);
                 gameObject["m_Name"].GetValue().Set(m_Name);
 
                 byte[] b = gameObject.WriteToByteArray();
@@ -604,7 +606,7 @@ namespace ImpostersOrdeal
                 string m_Name = material["m_Name"].value.AsString();
                 AssetFileInfoEx afie = afi.table.GetAssetInfo(m_Name, (int)AssetClassID.Material);
 
-                m_Name = m_Name.Replace(oldPMName, newPMName);
+                m_Name = ReplacePM(m_Name, refPM);
                 material["m_Name"].GetValue().Set(m_Name);
 
                 byte[] b = material.WriteToByteArray();
@@ -622,7 +624,7 @@ namespace ImpostersOrdeal
                 string m_Name = mesh["m_Name"].value.AsString();
                 AssetFileInfoEx afie = afi.table.GetAssetInfo(m_Name, (int)AssetClassID.Mesh);
 
-                m_Name = m_Name.Replace(oldPMName, newPMName);
+                m_Name = ReplacePM(m_Name, refPM);
                 mesh["m_Name"].GetValue().Set(m_Name);
 
                 byte[] b = mesh.WriteToByteArray();
@@ -641,7 +643,7 @@ namespace ImpostersOrdeal
                 string m_Name = animationClip["m_Name"].value.AsString();
                 AssetFileInfoEx afie = afi.table.GetAssetInfo(m_Name, (int)AssetClassID.AnimationClip);
 
-                m_Name = m_Name.Replace(oldPMName, newPMName);
+                m_Name = ReplacePM(m_Name, refPM);
                 animationClip["m_Name"].GetValue().Set(m_Name);
 
                 byte[] b = animationClip.WriteToByteArray();
@@ -659,8 +661,8 @@ namespace ImpostersOrdeal
                 string m_AssetBundleName = assetBundle["m_AssetBundleName"].value.AsString();
                 AssetFileInfoEx afie = afi.table.GetAssetInfo(m_Name, (int)AssetClassID.AssetBundle);
 
-                m_Name = m_Name.Replace(oldPMName, newPMName);
-                m_AssetBundleName = m_Name.Replace(oldPMName, newPMName);
+                m_Name = ReplacePM(m_Name, refPM);
+                m_AssetBundleName = ReplacePM(m_AssetBundleName, refPM);
                 assetBundle["m_Name"].GetValue().Set(m_Name);
                 assetBundle["m_AssetBundleName"].GetValue().Set(m_AssetBundleName);
 
@@ -669,7 +671,7 @@ namespace ImpostersOrdeal
                 {
                     AssetTypeValueField entry = m_Dependencies.children[j];
                     string key = entry.value.AsString();
-                    key = key.Replace(oldPMName, newPMName);
+                    key = ReplacePM(key, refPM);
                     entry.GetValue().Set(key);
                 }
 
@@ -679,7 +681,7 @@ namespace ImpostersOrdeal
                 {
                     AssetTypeValueField entry = m_Container.children[j];
                     string key = entry.children[0].value.AsString();
-                    key = key.Replace(oldPMName, newPMName);
+                    key = ReplacePM(key, refPM);
                     entry.children[0].GetValue().Set(key);
                 }
 
