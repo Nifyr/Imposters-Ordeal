@@ -18,6 +18,7 @@ namespace ImpostersOrdeal
     public class FileManager
     {
         public static readonly string outputModName = "Output";
+        public static readonly string tempLocationName = "Temp";
         public static readonly string[] assetAssistantRelevantFiles = new string[]
         {
             "\\Dpr\\ev_script",
@@ -396,7 +397,7 @@ namespace ImpostersOrdeal
                 AssetsReplacerFromMemory arfm = new AssetsReplacerFromMemory(0, afie.index, (int)afie.curFileType, AssetHelper.GetScriptIndex(afi.file, afie), b);
                 ars.Add(arfm);
             }
-            MakeTempBundle(fd, ars, Environment.CurrentDirectory + "\\" + Path.GetFileName(fd.gamePath) + GetFileIndex());
+            MakeTempBundle(fd, ars, Path.GetFileName(fd.gamePath));
             fd.fileSource = FileSource.App;
         }
 
@@ -598,15 +599,17 @@ namespace ImpostersOrdeal
                 ars.Add(arfm);
             }
 
-            MakeTempBundle(fd, ars, Environment.CurrentDirectory + "\\" + Path.GetFileName(fd.gamePath) + GetFileIndex());
+            MakeTempBundle(fd, ars, Path.GetFileName(fd.gamePath));
             return true;
         }
 
         /// <summary>
         ///  Swaps out the loaded bundle with a modified bundle
         /// </summary>
-        private void MakeTempBundle(FileData fd, List<AssetsReplacer> ars, string fileLocation, string cab = null)
+        private void MakeTempBundle(FileData fd, List<AssetsReplacer> ars, string fileName, string cab = null)
         {
+            Directory.CreateDirectory(Environment.CurrentDirectory + "\\" + tempLocationName);
+            string fileLocation = Environment.CurrentDirectory + "\\" + tempLocationName + "\\" + fileName + GetFileIndex();
             BundleFileInstance bfi = fd.bundle;
             AssetsFileInstance afi = am.LoadAssetsFileFromBundle(bfi, bfi.file.bundleInf6.dirInf[0].name);
             MemoryStream memoryStream = new MemoryStream();
@@ -630,7 +633,8 @@ namespace ImpostersOrdeal
 
         public void MakeTempBundle(string srcGamePath, string dstGamePath, List<AssetsReplacer> ars, string cab = null)
         {
-            string fileLocation = Environment.CurrentDirectory + "\\" + Path.GetFileName(dstGamePath) + GetFileIndex();
+            Directory.CreateDirectory(Environment.CurrentDirectory + "\\" + tempLocationName);
+            string fileLocation = Environment.CurrentDirectory  + "\\" + tempLocationName + "\\" + Path.GetFileName(dstGamePath) + GetFileIndex();
             if (!fileArchive.ContainsKey(dstGamePath))
             {
                 FileData newFD = new();
@@ -651,8 +655,6 @@ namespace ImpostersOrdeal
             afw = new(File.OpenWrite(fileLocation));
             bfi.file.Write(afw, new List<BundleReplacer> { brfm });
             afw.Close();
-            //srcFD.bundle.file.Close();
-            //srcFD.bundle.stream.Dispose();
             am = new();
             srcFD.bundle = am.LoadBundleFile(srcFD.fileLocation, false);
             dstFD.bundle = am.LoadBundleFile(fileLocation, false);
