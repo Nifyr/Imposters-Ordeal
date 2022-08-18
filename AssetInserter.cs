@@ -45,7 +45,7 @@ namespace ImpostersOrdeal
             string[] values = new string[4];
             for (int i = 0; i < values.Length; i++)
             {
-                values[i] = rnd.Next().ToString("x2");
+                values[i] = rnd.Next().ToString("x8");
             }
 
             return string.Join("", values);
@@ -531,11 +531,11 @@ namespace ImpostersOrdeal
             bfi.name = ReplacePM(bfi.name, refPM);
 
             AssetsFileInstance afi = am.LoadAssetsFileFromBundle(bfi, 0);
-
+            
             string oldCAB = afi.name.Replace("CAB-", "");
             afi.name = afi.name.Replace(oldCAB, newCAB);
             CABNames[oldCAB] = newCAB;
-
+            
             AssetBundleDirectoryInfo06[] dirInf = bfi.file.bundleInf6.dirInf;
             // afi.table.assetFileInfo
             foreach (AssetBundleDirectoryInfo06 iDirInf in dirInf)
@@ -556,7 +556,7 @@ namespace ImpostersOrdeal
                 }
                 afi.file.dependencies.dependencies[i].assetPath = assetPath;
             }
-
+            
             List<AssetTypeValueField> texture2Ds = afi.table.GetAssetsOfType((int)AssetClassID.Texture2D).Select(afie => am.GetTypeInstance(afi, afie).GetBaseField()).ToList();
 
             AssetTypeValueField texture2DField;
@@ -577,7 +577,7 @@ namespace ImpostersOrdeal
                 AssetsReplacerFromMemory arfm = new(0, afie.index, (int)afie.curFileType, AssetHelper.GetScriptIndex(afi.file, afie), b);
                 ars.Add(arfm);
             }
-
+            /*
             List<AssetTypeValueField> gameObjects = afi.table.GetAssetsOfType((int)AssetClassID.GameObject).Select(afie => am.GetTypeInstance(afi, afie).GetBaseField()).ToList();
             AssetTypeValueField gameObject;
 
@@ -650,7 +650,7 @@ namespace ImpostersOrdeal
                 AssetsReplacerFromMemory arfm = new(0, afie.index, (int)afie.curFileType, AssetHelper.GetScriptIndex(afi.file, afie), b);
                 ars.Add(arfm);
             }
-
+            */
             List<AssetTypeValueField> assetBundles = afi.table.GetAssetsOfType((int)AssetClassID.AssetBundle).Select(afie => am.GetTypeInstance(afi, afie).GetBaseField()).ToList();
             AssetTypeValueField assetBundle;
             for (int i = 0; i < assetBundles.Count; i++)
@@ -689,12 +689,12 @@ namespace ImpostersOrdeal
                 AssetsReplacerFromMemory arfm = new(0, afie.index, (int)afie.curFileType, AssetHelper.GetScriptIndex(afi.file, afie), b);
                 ars.Add(arfm);
             }
-
+            
             // TODO: Update AABBData in PokemonPrefabInfo
             // TODO: Update FieldPokemonEntity
-
+            
             am.UpdateDependencies(afi);
-
+            
             if (c == CloneMode.Mod)
                 srcPath = dstPath;
 
