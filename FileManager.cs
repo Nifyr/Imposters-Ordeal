@@ -653,7 +653,10 @@ namespace ImpostersOrdeal
             afw.Close();
             //srcFD.bundle.file.Close();
             //srcFD.bundle.stream.Dispose();
+            am = new();
+            srcFD.bundle = am.LoadBundleFile(srcFD.fileLocation, false);
             dstFD.bundle = am.LoadBundleFile(fileLocation, false);
+            DecompressBundle(srcFD.bundle);
             DecompressBundle(dstFD.bundle);
             if (dstFD.tempLocation)
                 File.Delete(dstFD.fileLocation);
