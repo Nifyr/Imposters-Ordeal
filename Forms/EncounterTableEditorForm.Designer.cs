@@ -33,9 +33,6 @@ namespace ImpostersOrdeal
             this.Morning = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.monsNoMorning = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.min_lvl = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.max_lvl = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.monsNoDay = new System.Windows.Forms.DataGridViewComboBoxColumn();
@@ -92,6 +89,17 @@ namespace ImpostersOrdeal
             this.label7 = new System.Windows.Forms.Label();
             this.formProbNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
+            this.monsNoMorning = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.min_lvl = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.max_lvl = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.morningRateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dayRateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nightRateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pokeradarRateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.surfRateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.oldRodRateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.goodRodRateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.superRodRateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Morning.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -152,7 +160,8 @@ namespace ImpostersOrdeal
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.monsNoMorning,
             this.min_lvl,
-            this.max_lvl});
+            this.max_lvl,
+            this.morningRateColumn});
             this.dataGridView1.Location = new System.Drawing.Point(3, 3);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
@@ -160,28 +169,6 @@ namespace ImpostersOrdeal
             this.dataGridView1.RowTemplate.Height = 29;
             this.dataGridView1.Size = new System.Drawing.Size(370, 381);
             this.dataGridView1.TabIndex = 2;
-            // 
-            // monsNoMorning
-            // 
-            this.monsNoMorning.DataPropertyName = "monsNoMorning";
-            this.monsNoMorning.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.monsNoMorning.HeaderText = "Species";
-            this.monsNoMorning.MinimumWidth = 6;
-            this.monsNoMorning.Name = "monsNoMorning";
-            this.monsNoMorning.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.monsNoMorning.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // min_lvl
-            // 
-            this.min_lvl.HeaderText = "Min Lvl";
-            this.min_lvl.MinimumWidth = 6;
-            this.min_lvl.Name = "min_lvl";
-            // 
-            // max_lvl
-            // 
-            this.max_lvl.HeaderText = "Max Lvl";
-            this.max_lvl.MinimumWidth = 6;
-            this.max_lvl.Name = "max_lvl";
             // 
             // tabPage2
             // 
@@ -203,7 +190,8 @@ namespace ImpostersOrdeal
             this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.monsNoDay,
             this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3});
+            this.dataGridViewTextBoxColumn3,
+            this.dayRateColumn});
             this.dataGridView2.Location = new System.Drawing.Point(3, 3);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersVisible = false;
@@ -254,7 +242,8 @@ namespace ImpostersOrdeal
             this.dataGridView3.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.monsNoNight,
             this.dataGridViewTextBoxColumn5,
-            this.dataGridViewTextBoxColumn6});
+            this.dataGridViewTextBoxColumn6,
+            this.nightRateColumn});
             this.dataGridView3.Location = new System.Drawing.Point(3, 3);
             this.dataGridView3.Name = "dataGridView3";
             this.dataGridView3.RowHeadersVisible = false;
@@ -449,7 +438,7 @@ namespace ImpostersOrdeal
             this.groupBox2.Size = new System.Drawing.Size(384, 194);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Pokeradar";
+            this.groupBox2.Text = "Pokéradar";
             // 
             // dataGridView4
             // 
@@ -460,7 +449,8 @@ namespace ImpostersOrdeal
             this.dataGridView4.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.monsNoPokeradar,
             this.dataGridViewTextBoxColumn8,
-            this.dataGridViewTextBoxColumn9});
+            this.dataGridViewTextBoxColumn9,
+            this.pokeradarRateColumn});
             this.dataGridView4.Location = new System.Drawing.Point(6, 26);
             this.dataGridView4.Name = "dataGridView4";
             this.dataGridView4.RowHeadersVisible = false;
@@ -510,7 +500,8 @@ namespace ImpostersOrdeal
             this.dataGridView5.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.monsNoSurf,
             this.dataGridViewTextBoxColumn11,
-            this.dataGridViewTextBoxColumn12});
+            this.dataGridViewTextBoxColumn12,
+            this.surfRateColumn});
             this.dataGridView5.Location = new System.Drawing.Point(6, 26);
             this.dataGridView5.Name = "dataGridView5";
             this.dataGridView5.RowHeadersVisible = false;
@@ -572,7 +563,8 @@ namespace ImpostersOrdeal
             this.dataGridView6.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.monsNoOldRod,
             this.dataGridViewTextBoxColumn14,
-            this.dataGridViewTextBoxColumn15});
+            this.dataGridViewTextBoxColumn15,
+            this.oldRodRateColumn});
             this.dataGridView6.Location = new System.Drawing.Point(3, 3);
             this.dataGridView6.Name = "dataGridView6";
             this.dataGridView6.RowHeadersVisible = false;
@@ -623,7 +615,8 @@ namespace ImpostersOrdeal
             this.dataGridView7.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.monsNoGoodRod,
             this.dataGridViewTextBoxColumn17,
-            this.dataGridViewTextBoxColumn18});
+            this.dataGridViewTextBoxColumn18,
+            this.goodRodRateColumn});
             this.dataGridView7.Location = new System.Drawing.Point(3, 3);
             this.dataGridView7.Name = "dataGridView7";
             this.dataGridView7.RowHeadersVisible = false;
@@ -674,7 +667,8 @@ namespace ImpostersOrdeal
             this.dataGridView8.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.monsNoSuperRod,
             this.dataGridViewTextBoxColumn20,
-            this.dataGridViewTextBoxColumn21});
+            this.dataGridViewTextBoxColumn21,
+            this.superRodRateColumn});
             this.dataGridView8.Location = new System.Drawing.Point(3, 3);
             this.dataGridView8.Name = "dataGridView8";
             this.dataGridView8.RowHeadersVisible = false;
@@ -797,6 +791,84 @@ namespace ImpostersOrdeal
             this.label6.TabIndex = 6;
             this.label6.Text = "formProb";
             // 
+            // monsNoMorning
+            // 
+            this.monsNoMorning.DataPropertyName = "monsNoMorning";
+            this.monsNoMorning.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.monsNoMorning.HeaderText = "Species";
+            this.monsNoMorning.MinimumWidth = 6;
+            this.monsNoMorning.Name = "monsNoMorning";
+            this.monsNoMorning.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.monsNoMorning.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // min_lvl
+            // 
+            this.min_lvl.HeaderText = "Min Lvl";
+            this.min_lvl.MinimumWidth = 6;
+            this.min_lvl.Name = "min_lvl";
+            // 
+            // max_lvl
+            // 
+            this.max_lvl.HeaderText = "Max Lvl";
+            this.max_lvl.MinimumWidth = 6;
+            this.max_lvl.Name = "max_lvl";
+            // 
+            // morningRateColumn
+            // 
+            this.morningRateColumn.HeaderText = "Rate";
+            this.morningRateColumn.MinimumWidth = 6;
+            this.morningRateColumn.Name = "morningRateColumn";
+            this.morningRateColumn.ReadOnly = true;
+            // 
+            // dayRateColumn
+            // 
+            this.dayRateColumn.HeaderText = "Rate";
+            this.dayRateColumn.MinimumWidth = 6;
+            this.dayRateColumn.Name = "dayRateColumn";
+            this.dayRateColumn.ReadOnly = true;
+            // 
+            // nightRateColumn
+            // 
+            this.nightRateColumn.HeaderText = "Rate";
+            this.nightRateColumn.MinimumWidth = 6;
+            this.nightRateColumn.Name = "nightRateColumn";
+            this.nightRateColumn.ReadOnly = true;
+            // 
+            // pokeradarRateColumn
+            // 
+            this.pokeradarRateColumn.HeaderText = "Rate";
+            this.pokeradarRateColumn.MinimumWidth = 6;
+            this.pokeradarRateColumn.Name = "pokeradarRateColumn";
+            this.pokeradarRateColumn.ReadOnly = true;
+            // 
+            // surfRateColumn
+            // 
+            this.surfRateColumn.HeaderText = "Rate";
+            this.surfRateColumn.MinimumWidth = 6;
+            this.surfRateColumn.Name = "surfRateColumn";
+            this.surfRateColumn.ReadOnly = true;
+            // 
+            // oldRodRateColumn
+            // 
+            this.oldRodRateColumn.HeaderText = "Rate";
+            this.oldRodRateColumn.MinimumWidth = 6;
+            this.oldRodRateColumn.Name = "oldRodRateColumn";
+            this.oldRodRateColumn.ReadOnly = true;
+            // 
+            // goodRodRateColumn
+            // 
+            this.goodRodRateColumn.HeaderText = "Rate";
+            this.goodRodRateColumn.MinimumWidth = 6;
+            this.goodRodRateColumn.Name = "goodRodRateColumn";
+            this.goodRodRateColumn.ReadOnly = true;
+            // 
+            // superRodRateColumn
+            // 
+            this.superRodRateColumn.HeaderText = "Rate";
+            this.superRodRateColumn.MinimumWidth = 6;
+            this.superRodRateColumn.Name = "superRodRateColumn";
+            this.superRodRateColumn.ReadOnly = true;
+            // 
             // EncounterTableEditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -886,9 +958,6 @@ namespace ImpostersOrdeal
         private System.Windows.Forms.ListBox zoneIDListBox;
         private System.Windows.Forms.TextBox zoneIDLabel;
         private System.Windows.Forms.ComboBox versionComboBox;
-        private System.Windows.Forms.DataGridViewComboBoxColumn monsNoMorning;
-        private System.Windows.Forms.DataGridViewTextBoxColumn min_lvl;
-        private System.Windows.Forms.DataGridViewTextBoxColumn max_lvl;
         private System.Windows.Forms.DataGridViewComboBoxColumn monsNoDay;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
@@ -915,5 +984,16 @@ namespace ImpostersOrdeal
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.NumericUpDown formProbNumericUpDown;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.DataGridViewComboBoxColumn monsNoMorning;
+        private System.Windows.Forms.DataGridViewTextBoxColumn min_lvl;
+        private System.Windows.Forms.DataGridViewTextBoxColumn max_lvl;
+        private System.Windows.Forms.DataGridViewTextBoxColumn morningRateColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dayRateColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nightRateColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn pokeradarRateColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn surfRateColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn oldRodRateColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn goodRodRateColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn superRodRateColumn;
     }
 }

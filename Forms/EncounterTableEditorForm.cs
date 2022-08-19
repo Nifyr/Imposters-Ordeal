@@ -26,6 +26,21 @@ namespace ImpostersOrdeal
             "Diamond", "Pearl"
         };
 
+        private readonly string[] groundRates = new string[]
+        {
+            "20%", "20%", "10%", "10%", "10%", "10%", "5%", "5%", "4%", "4%", "1%", "1%"
+        };
+
+        private readonly string[] pokeradarRates = new string[]
+        {
+            "10%", "10%", "1%", "1%"
+        };
+
+        private readonly string[] waterRates = new string[]
+        {
+            "60%", "30%", "5%", "4%", "1%"
+        };
+
         public EncounterTableEditorForm()
         {
             InitializeComponent();
@@ -102,16 +117,19 @@ namespace ImpostersOrdeal
                     iRow.Cells[0].Value = pokemon[encounter.dexID];
                     iRow.Cells[1].Value = encounter.minLv;
                     iRow.Cells[2].Value = encounter.maxLv;
+                    iRow.Cells[3].Value = groundRates[i];
                     // Day
                     iRow = dataGridView2.Rows[i];
                     iRow.Cells[0].Value = pokemon[encounter.dexID];
                     iRow.Cells[1].Value = encounter.minLv;
                     iRow.Cells[2].Value = encounter.maxLv;
+                    iRow.Cells[3].Value = groundRates[i];
                     // Night
                     iRow = dataGridView3.Rows[i];
                     iRow.Cells[0].Value = pokemon[encounter.dexID];
                     iRow.Cells[1].Value = encounter.minLv;
                     iRow.Cells[2].Value = encounter.maxLv;
+                    iRow.Cells[3].Value = groundRates[i];
                 }
                 else
                 {
@@ -123,16 +141,19 @@ namespace ImpostersOrdeal
                     iRow.Cells[0].Value = pokemon[morning.dexID];
                     iRow.Cells[1].Value = morning.minLv;
                     iRow.Cells[2].Value = morning.maxLv;
+                    iRow.Cells[3].Value = groundRates[i];
                     // Day
                     iRow = dataGridView2.Rows[i];
                     iRow.Cells[0].Value = pokemon[day.dexID];
                     iRow.Cells[1].Value = day.minLv;
                     iRow.Cells[2].Value = day.maxLv;
+                    iRow.Cells[3].Value = groundRates[i];
                     // Night
                     iRow = dataGridView3.Rows[i];
                     iRow.Cells[0].Value = pokemon[night.dexID];
                     iRow.Cells[1].Value = night.minLv;
                     iRow.Cells[2].Value = night.maxLv;
+                    iRow.Cells[3].Value = groundRates[i];
                 }
             }
         }
@@ -151,6 +172,7 @@ namespace ImpostersOrdeal
                 iRow.Cells[0].Value = pokemon[encounter.dexID];
                 iRow.Cells[1].Value = encounter.minLv;
                 iRow.Cells[2].Value = encounter.maxLv;
+                iRow.Cells[3].Value = pokeradarRates[i];
             }
 
             // Water Mons
@@ -161,6 +183,7 @@ namespace ImpostersOrdeal
                 iRow.Cells[0].Value = pokemon[encounter.dexID];
                 iRow.Cells[1].Value = encounter.minLv;
                 iRow.Cells[2].Value = encounter.maxLv;
+                iRow.Cells[3].Value = waterRates[i];
             }
 
             // Old Rod
@@ -171,6 +194,7 @@ namespace ImpostersOrdeal
                 iRow.Cells[0].Value = pokemon[encounter.dexID];
                 iRow.Cells[1].Value = encounter.minLv;
                 iRow.Cells[2].Value = encounter.maxLv;
+                iRow.Cells[3].Value = waterRates[i];
             }
             
             // Good Rod
@@ -181,6 +205,7 @@ namespace ImpostersOrdeal
                 iRow.Cells[0].Value = pokemon[encounter.dexID];
                 iRow.Cells[1].Value = encounter.minLv;
                 iRow.Cells[2].Value = encounter.maxLv;
+                iRow.Cells[3].Value = waterRates[i];
             }
 
             // Super Rod
@@ -191,6 +216,7 @@ namespace ImpostersOrdeal
                 iRow.Cells[0].Value = pokemon[encounter.dexID];
                 iRow.Cells[1].Value = encounter.minLv;
                 iRow.Cells[2].Value = encounter.maxLv;
+                iRow.Cells[3].Value = waterRates[i];
             }
 
             encRateGround.Value = encounterTable.encRateGround;
