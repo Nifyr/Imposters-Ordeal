@@ -129,9 +129,14 @@ namespace ImpostersOrdeal
                 for (int i = 0; i < newRecord.assetPaths.Length; i++)
                     newRecord.assetPaths[i] = ReplacePM(newRecord.assetPaths[i], Path.GetFileName(newRecord.assetBundleName));
 
+                // What a surprise, gender variations in the same bundle! (sometimes)
+                // Let's just get rid of the duplicates. Probably didn't need them anyway...
+                newRecord.assetPaths = newRecord.assetPaths.Distinct().ToArray();
+
                 for (int i = 0; i < newRecord.allDependencies.Length; i++)
                     if (assetBundlePaths.ContainsKey(newRecord.allDependencies[i]))
                         newRecord.allDependencies[i] = assetBundlePaths[newRecord.allDependencies[i]];
+
                 abdm.Add(newRecord);
             }
         }
