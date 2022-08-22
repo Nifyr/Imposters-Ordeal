@@ -106,11 +106,14 @@ namespace ImpostersOrdeal
                         recordsToClone.Add(record);
                         string newAssetBundlePath = Path.Combine(Path.GetDirectoryName(record.assetBundleName),
                             GenAssetBundleName(assetBundleNamePair.Item2, Path.GetFileName(record.assetBundleName).Length)).Replace('\\', '/');
-                        /*
+
                         while (assetBundlePaths.Values.Contains(newAssetBundlePath) || assetBundlePathsWithDependencies.Values.Contains(newAssetBundlePath) ||
                             assetBundlePaths.Keys.Contains(newAssetBundlePath) || assetBundlePathsWithDependencies.Keys.Contains(newAssetBundlePath))
-                            newAssetBundlePath = IncrementName(newAssetBundlePath);
-                        */
+                            newAssetBundlePath = Path.Combine(Path.GetDirectoryName(record.assetBundleName),
+                                GenAssetBundleName(int.Parse(assetBundleNamePair.Item2.Replace("pm", "").Replace("_", "")) + 2,
+                                Path.GetFileName(record.assetBundleName).Length)).Replace('\\', '/');
+
+
                         if (record.allDependencies.Length == 0)
                             assetBundlePaths[record.assetBundleName] = newAssetBundlePath;
                         else
