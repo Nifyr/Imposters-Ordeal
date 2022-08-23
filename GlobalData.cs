@@ -24,8 +24,10 @@ namespace ImpostersOrdeal
             public EncounterTableFile[] encounterTableFiles;
             public MessageFileSet[] messageFileSets;
             public List<GrowthRate> growthRates;
+            public List<UgArea> ugAreas;
             public List<UgEncounterFile> ugEncounterFiles;
             public List<UgEncounterLevelSet> ugEncounterLevelSets;
+            public List<UgSpecialEncounter> ugSpecialEncounters;
             public List<Ability> abilities; //Readonly
             public List<Typing> typings; //Readonly
             public List<DamageCategory> damageCategories; //Readonly
@@ -63,8 +65,10 @@ namespace ImpostersOrdeal
                 EncounterTableFiles,
                 MessageFileSets,
                 GrowthRates,
+                UgAreas,
                 UgEncounterFiles,
                 UgEncounterLevelSets,
+                UgSpecialEncounters,
                 Abilities,
                 Typings,
                 DamageCategories,

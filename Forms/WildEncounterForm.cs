@@ -29,8 +29,10 @@ namespace ImpostersOrdeal
         {
             UgEncounterEditorForm ueef = new();
             ueef.ShowDialog();
+            gameData.SetModified(GameDataSet.DataField.UgAreas);
             gameData.SetModified(GameDataSet.DataField.UgEncounterFiles);
             gameData.SetModified(GameDataSet.DataField.UgEncounterLevelSets);
+            gameData.SetModified(GameDataSet.DataField.UgSpecialEncounters);
         }
 
         private void OpenMiscEncounterEditor(object sender, EventArgs e)

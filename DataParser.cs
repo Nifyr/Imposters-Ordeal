@@ -45,7 +45,7 @@ namespace ImpostersOrdeal
                 Task.Run(() => ParsePokemon()),
                 Task.Run(() => ParseEncounterTables()),
                 Task.Run(() => ParseTrainers()),
-                Task.Run(() => ParseUgEncounterTables()),
+                Task.Run(() => ParseUgTables()),
                 Task.Run(() => ParseAbilities()),
                 Task.Run(() => ParseTypings()),
                 Task.Run(() => ParseTrainerTypes()),
@@ -123,7 +123,7 @@ namespace ImpostersOrdeal
         }
 
         /// <summary>
-        ///  Overwrites GlobalData with parsed DamageCategories.
+        ///  Overwrites GlobalData with parsed DamageCategorie.
         /// </summary>
         private static void ParseDamagaCategories()
         {
@@ -173,22 +173,34 @@ namespace ImpostersOrdeal
         }
 
         /// <summary>
-        ///  Overwrites GlobalData with parsed UgEncounterTables.
+        ///  Overwrites GlobalData with parsed underground data.
         /// </summary>
-        private static async Task ParseUgEncounterTables()
+        private static async Task ParseUgTables()
         {
+            gameData.ugAreas = new();
             gameData.ugEncounterFiles = new();
             gameData.ugEncounterLevelSets = new();
+            gameData.ugSpecialEncounters = new();
             List<AssetTypeValueField> monoBehaviours = await monoBehaviourCollection[PathEnum.Ugdata];
 
-            List<AssetTypeValueField> ugEncounterMonobehaviours = monoBehaviours.Where(m => Encoding.Default.GetString(m.children[3].value.value.asString).StartsWith("UgEncount_")).ToList();
-            for (int ugEncounterFileIdx = 0; ugEncounterFileIdx < ugEncounterMonobehaviours.Count; ugEncounterFileIdx++)
+            AssetTypeValueField[] ugAreaFields = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "UgRandMark").children[4].children[0].children;
+            for (int ugAreaIdx = 0; ugAreaIdx < ugAreaFields.Length; ugAreaIdx++)
+            {
+                UgArea ugArea = new();
+                ugArea.id = ugAreaFields[ugAreaIdx]["id"].GetValue().AsInt();
+                ugArea.fileName = ugAreaFields[ugAreaIdx]["FileName"].GetValue().AsString();
+
+                gameData.ugAreas.Add(ugArea);
+            }
+
+            List<AssetTypeValueField> ugEncounterFiles = monoBehaviours.Where(m => Encoding.Default.GetString(m.children[3].value.value.asString).StartsWith("UgEncount_")).ToList();
+            for (int ugEncounterFileIdx = 0; ugEncounterFileIdx < ugEncounterFiles.Count; ugEncounterFileIdx++)
             {
                 UgEncounterFile ugEncounterFile = new();
-                ugEncounterFile.mName = Encoding.Default.GetString(ugEncounterMonobehaviours[ugEncounterFileIdx].children[3].value.value.asString);
+                ugEncounterFile.mName = Encoding.Default.GetString(ugEncounterFiles[ugEncounterFileIdx].children[3].value.value.asString);
 
-                ugEncounterFile.ugEncounter = new();
-                AssetTypeValueField[] ugMonFields = ugEncounterMonobehaviours[ugEncounterFileIdx].children[4].children[0].children;
+                ugEncounterFile.ugEncounters = new();
+                AssetTypeValueField[] ugMonFields = ugEncounterFiles[ugEncounterFileIdx].children[4].children[0].children;
                 for (int ugMonIdx = 0; ugMonIdx < ugMonFields.Length; ugMonIdx++)
                 {
                     UgEncounter ugEncounter = new();
@@ -196,7 +208,7 @@ namespace ImpostersOrdeal
                     ugEncounter.version = ugMonFields[ugMonIdx].children[1].value.value.asInt32;
                     ugEncounter.zukanFlag = ugMonFields[ugMonIdx].children[2].value.value.asInt32;
 
-                    ugEncounterFile.ugEncounter.Add(ugEncounter);
+                    ugEncounterFile.ugEncounters.Add(ugEncounter);
                 }
 
                 gameData.ugEncounterFiles.Add(ugEncounterFile);
@@ -210,6 +222,19 @@ namespace ImpostersOrdeal
                 ugLevels.maxLv = ugEncounterLevelFields[ugEncouterLevelIdx].children[1].value.value.asInt32;
 
                 gameData.ugEncounterLevelSets.Add(ugLevels);
+            }
+
+            AssetTypeValueField[] ugSpecialEncounterFields = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "UgSpecialPokemon").children[4].children[0].children;
+            for (int ugSpecialEncounterIdx = 0; ugSpecialEncounterIdx < ugSpecialEncounterFields.Length; ugSpecialEncounterIdx++)
+            {
+                UgSpecialEncounter ugSpecialEncounter = new();
+                ugSpecialEncounter.id = ugSpecialEncounterFields[ugSpecialEncounterIdx]["id"].GetValue().AsInt();
+                ugSpecialEncounter.dexID = ugSpecialEncounterFields[ugSpecialEncounterIdx]["monsno"].GetValue().AsInt();
+                ugSpecialEncounter.version = ugSpecialEncounterFields[ugSpecialEncounterIdx]["version"].GetValue().AsInt();
+                ugSpecialEncounter.dRate = ugSpecialEncounterFields[ugSpecialEncounterIdx]["Dspecialrate"].GetValue().AsInt();
+                ugSpecialEncounter.pRate = ugSpecialEncounterFields[ugSpecialEncounterIdx]["Pspecialrate"].GetValue().AsInt();
+
+                gameData.ugSpecialEncounters.Add(ugSpecialEncounter);
             }
         }
 
@@ -1683,7 +1708,7 @@ namespace ImpostersOrdeal
             if (gameData.IsModified(GameDataSet.DataField.MessageFileSets))
                 CommitMessageFileSets();
             if (gameData.IsModified(GameDataSet.DataField.UgEncounterFiles))
-                CommitUgEncounters();
+                CommitUgTables();
             if (gameData.IsModified(GameDataSet.DataField.PersonalEntries))
                 CommitPokemon();
             if (gameData.IsModified(GameDataSet.DataField.Items))
@@ -2050,7 +2075,6 @@ namespace ImpostersOrdeal
             AssetTypeValueField AddPersonalTable = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "AddPersonalTable");
 
             AssetTypeValueField[] addPersonals = AddPersonalTable["AddPersonal"].children[0].children;
-            AssetTypeTemplateField templateField = new();
 
             AssetTypeValueField addPersonalRef = addPersonals[0];
 
@@ -2377,28 +2401,42 @@ namespace ImpostersOrdeal
         /// <summary>
         ///  Updates loaded bundle with UgEncounters.
         /// </summary>
-        private static void CommitUgEncounters()
+        private static void CommitUgTables()
         {
             List<AssetTypeValueField> monoBehaviours = fileManager.GetMonoBehaviours(PathEnum.Ugdata);
+            List<AssetTypeValueField> updatedMonoBehaviours = new();
 
-            List<AssetTypeValueField> ugEncounterMonobehaviours = monoBehaviours.Where(m => Encoding.Default.GetString(m.children[3].value.value.asString).StartsWith("UgEncount_")).ToList();
-            for (int ugEncounterFileIdx = 0; ugEncounterFileIdx < ugEncounterMonobehaviours.Count; ugEncounterFileIdx++)
+            AssetTypeValueField ugRandMark = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "UgRandMark");
+            AssetTypeValueField[] ugAreaFields = ugRandMark["table"].children[0].children;
+
+            for (int ugAreaIdx = 0; ugAreaIdx < gameData.ugAreas.Count; ugAreaIdx++)
+            {
+                UgArea ugArea = gameData.ugAreas[ugAreaIdx];
+                ugAreaFields[ugAreaIdx]["id"].GetValue().Set(ugArea.id);
+                ugAreaFields[ugAreaIdx]["FileName"].GetValue().Set(ugArea.fileName);
+            }
+            updatedMonoBehaviours.Add(ugRandMark);
+
+            List<AssetTypeValueField> ugEncounterFileMonobehaviours = monoBehaviours.Where(m => Encoding.Default.GetString(m.children[3].value.value.asString).StartsWith("UgEncount_")).ToList();
+            AssetTypeTemplateField ugEncounterTemplate = ugEncounterFileMonobehaviours[0]["table"][0][0].GetTemplateField();
+            for (int ugEncounterFileIdx = 0; ugEncounterFileIdx < ugEncounterFileMonobehaviours.Count; ugEncounterFileIdx++)
             {
                 UgEncounterFile ugEncounterFile = gameData.ugEncounterFiles[ugEncounterFileIdx];
-                ugEncounterMonobehaviours[ugEncounterFileIdx].children[3].GetValue().Set(ugEncounterFile.mName);
+                ugEncounterFileMonobehaviours[ugEncounterFileIdx]["m_Name"].GetValue().Set(ugEncounterFile.mName);
 
-                List<List<AssetTypeValue>> ugEncounters = new();
-                for (int ugEncounterIdx = 0; ugEncounterIdx < ugEncounterFile.ugEncounter.Count; ugEncounterIdx++)
+                List<AssetTypeValueField> newUgEncounters = new();
+                foreach (UgEncounter ugEncounter in ugEncounterFile.ugEncounters)
                 {
-                    UgEncounter ugEncounter = ugEncounterFile.ugEncounter[ugEncounterIdx];
-                    List<AssetTypeValue> atvs = new();
-                    atvs.Add(new AssetTypeValue(EnumValueTypes.Int32, ugEncounter.dexID));
-                    atvs.Add(new AssetTypeValue(EnumValueTypes.Int32, ugEncounter.version));
-                    atvs.Add(new AssetTypeValue(EnumValueTypes.Int32, ugEncounter.zukanFlag));
-                    ugEncounters.Add(atvs);
+                    AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(ugEncounterTemplate);
+                    baseField["monsno"].GetValue().Set(ugEncounter.dexID);
+                    baseField["version"].GetValue().Set(ugEncounter.version);
+                    baseField["zukanflag"].GetValue().Set(ugEncounter.zukanFlag);
+
+                    newUgEncounters.Add(baseField);
                 }
-                AssetTypeValueField ugEncounterReference = ugEncounterMonobehaviours[ugEncounterFileIdx].children[4].children[0].children[0];
-                ugEncounterMonobehaviours[ugEncounterFileIdx].children[4].children[0].SetChildrenList(GetATVFs(ugEncounterReference, ugEncounters));
+                ugEncounterFileMonobehaviours[ugEncounterFileIdx]["table"][0].SetChildrenList(newUgEncounters.ToArray());
+
+                updatedMonoBehaviours.Add(ugEncounterFileMonobehaviours[ugEncounterFileIdx]);
             }
 
             AssetTypeValueField ugEncounterLevelMonobehaviour = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "UgEncountLevel");
@@ -2409,9 +2447,31 @@ namespace ImpostersOrdeal
                 ugEncounterLevelFields[ugEncouterLevelIdx].children[0].GetValue().Set(ugLevels.minLv);
                 ugEncounterLevelFields[ugEncouterLevelIdx].children[1].GetValue().Set(ugLevels.maxLv);
             }
-            ugEncounterMonobehaviours.Add(ugEncounterLevelMonobehaviour);
+            updatedMonoBehaviours.Add(ugEncounterLevelMonobehaviour);
 
-            fileManager.WriteMonoBehaviours(PathEnum.Ugdata, ugEncounterMonobehaviours.ToArray());
+            AssetTypeValueField ugSpecialPokemon = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "UgSpecialPokemon");
+            AssetTypeValueField[] ugSpecialPokemonFields = ugSpecialPokemon["Sheet1"].children[0].children;
+
+            AssetTypeTemplateField ugSpecialPokemonTemplate = ugSpecialPokemonFields[0].GetTemplateField();
+
+            List<AssetTypeValueField> newUgSpecialPokemon = new();
+            foreach (UgSpecialEncounter ugSpecialEncounter in gameData.ugSpecialEncounters)
+            {
+                AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(ugSpecialPokemonTemplate);
+
+                baseField["id"].GetValue().Set(ugSpecialEncounter.id);
+                baseField["monsno"].GetValue().Set(ugSpecialEncounter.dexID);
+                baseField["version"].GetValue().Set(ugSpecialEncounter.version);
+                baseField["Dspecialrate"].GetValue().Set(ugSpecialEncounter.dRate);
+                baseField["Pspecialrate"].GetValue().Set(ugSpecialEncounter.pRate);
+
+                newUgSpecialPokemon.Add(baseField);
+            }
+            ugSpecialPokemon["Sheet1"].children[0].SetChildrenList(newUgSpecialPokemon.ToArray());
+
+            updatedMonoBehaviours.Add(ugSpecialPokemon);
+
+            fileManager.WriteMonoBehaviours(PathEnum.Ugdata, updatedMonoBehaviours.ToArray());
         }
 
         /// <summary>

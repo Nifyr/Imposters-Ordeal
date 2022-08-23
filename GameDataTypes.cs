@@ -1089,10 +1089,16 @@ namespace ImpostersOrdeal
             }
         }
 
+        public class UgArea
+        {
+            public int id;
+            public string fileName;
+        }
+
         public class UgEncounterFile
         {
             public string mName;
-            public List<UgEncounter> ugEncounter;
+            public List<UgEncounter> ugEncounters;
         }
 
         public class UgEncounter
@@ -1111,6 +1117,15 @@ namespace ImpostersOrdeal
             {
                 return (minLv + maxLv) / 2.0;
             }
+        }
+
+        public class UgSpecialEncounter
+        {
+            public int id;
+            public int dexID;
+            public int version;
+            public int dRate;
+            public int pRate;
         }
 
         public class Ability : INamedEntity
@@ -1203,46 +1218,6 @@ namespace ImpostersOrdeal
             {
                 return true;
             }
-        }
-
-        public class AudioCollection
-        {
-            public byte[] delphisMainBuffer;
-
-            //Readonly
-            public Dictionary<uint, HircItem> itemsByIDs;
-            public Dictionary<uint, HashSet<HircItem>> mrsBySourceIDs;
-
-            public void SetID(uint targetHirc, uint newID)
-            {
-                HircItem h = itemsByIDs[targetHirc];
-                BitConverter.GetBytes(itemsByIDs[newID].parentID).CopyTo(delphisMainBuffer, h.parentIDOffset);
-                BitConverter.GetBytes(newID).CopyTo(delphisMainBuffer, h.idOffset);
-                foreach (long offset in h.idReferenceOffsets)
-                    BitConverter.GetBytes(newID).CopyTo(delphisMainBuffer, offset);
-            }
-        }
-
-        public class HircItem
-        {
-            //All
-            public byte hircType;
-            public uint id;
-            public long idOffset;
-            public uint parentID;
-
-            //Music Switch
-            public List<(uint, long)> childReferences;
-
-            //Music Random Sequence
-            public List<long> idReferenceOffsets;
-
-            //Music Segment
-            public long parentIDOffset;
-
-            //Music Track
-            public uint sourceID;
-            public double sourceDuration;
         }
 
         public class GlobalMetadata
