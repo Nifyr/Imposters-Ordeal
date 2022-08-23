@@ -656,8 +656,8 @@ namespace ImpostersOrdeal
 
             if (randomizeSpecies)
                 foreach (UgEncounterFile ugEncounterFile in gameData.ugEncounterFiles)
-                    for (int i = 0; i < ugEncounterFile.ugEncounter.Count; i++)
-                        ugEncounterFile.ugEncounter[i].dexID = speciesDistribution.Next(ugEncounterFile.ugEncounter[i].dexID);
+                    for (int i = 0; i < ugEncounterFile.ugEncounters.Count; i++)
+                        ugEncounterFile.ugEncounters[i].dexID = speciesDistribution.Next(ugEncounterFile.ugEncounters[i].dexID);
 
             if (randomizeLevels)
                 foreach (UgEncounterLevelSet ugEncounterLevelSet in gameData.ugEncounterLevelSets)
