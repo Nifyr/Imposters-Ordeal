@@ -659,16 +659,22 @@ namespace ImpostersOrdeal
                     for (int i = 0; i < ugEncounterFile.ugEncounters.Count; i++)
                         ugEncounterFile.ugEncounters[i].dexID = speciesDistribution.Next(ugEncounterFile.ugEncounters[i].dexID);
 
+            if (randomizeSpecies)
+                foreach (UgSpecialEncounter ugSpecialEncounter in gameData.ugSpecialEncounters)
+                    ugSpecialEncounter.dexID = speciesDistribution.Next(ugSpecialEncounter.dexID);
+
             if (randomizeLevels)
                 foreach (UgEncounterLevelSet ugEncounterLevelSet in gameData.ugEncounterLevelSets)
                     if (IsWithin(AbsoluteBoundary.Level, (int)ugEncounterLevelSet.GetAvgLevel()))
                     {
                         ugEncounterLevelSet.minLv = Conform(AbsoluteBoundary.Level, levelDistribution.Next(ugEncounterLevelSet.minLv));
-                        ugEncounterLevelSet.minLv = Conform(AbsoluteBoundary.Level, levelDistribution.Next(ugEncounterLevelSet.maxLv));
+                        ugEncounterLevelSet.maxLv = Conform(AbsoluteBoundary.Level, levelDistribution.Next(ugEncounterLevelSet.maxLv));
                     }
 
             gameData.SetModified(GameDataSet.DataField.EncounterTableFiles);
             gameData.SetModified(GameDataSet.DataField.UgEncounterFiles);
+            gameData.SetModified(GameDataSet.DataField.UgEncounterLevelSets);
+            gameData.SetModified(GameDataSet.DataField.UgSpecialEncounters);
         }
 
         /// <summary>
