@@ -382,7 +382,7 @@ namespace ImpostersOrdeal
                 moveSequences.AddRange(fileManager.GetMoveSequences());
             }
             MoveAnimationEditorForm maef = new(m, moveSequences);
-            maef.ShowDialog();
+            maef.Show();
         }
     }
 }

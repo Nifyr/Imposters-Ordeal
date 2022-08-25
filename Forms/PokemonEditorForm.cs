@@ -346,7 +346,7 @@ namespace ImpostersOrdeal
         private void OpenEvolutionEditor(object sender, EventArgs e)
         {
             EvolutionEditorForm eef = new(this);
-            eef.ShowDialog();
+            eef.Show();
         }
     }
 }

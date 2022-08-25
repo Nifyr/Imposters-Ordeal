@@ -21,14 +21,14 @@ namespace ImpostersOrdeal
         private void OpenEcounterTableEditor(object sender, EventArgs e)
         {
             EncounterTableEditorForm etef = new();
-            etef.ShowDialog();
+            etef.Show();
             gameData.SetModified(GameDataSet.DataField.EncounterTableFiles);
         }
 
         private void OpenUndergroundEncounterEditor(object sender, EventArgs e)
         {
             UgEncounterEditorForm ueef = new();
-            ueef.ShowDialog();
+            ueef.Show();
             gameData.SetModified(GameDataSet.DataField.UgAreas);
             gameData.SetModified(GameDataSet.DataField.UgEncounterFiles);
             gameData.SetModified(GameDataSet.DataField.UgEncounterLevelSets);
@@ -38,7 +38,7 @@ namespace ImpostersOrdeal
         private void OpenMiscEncounterEditor(object sender, EventArgs e)
         {
             MiscEncounterEditorForm meef = new();
-            meef.ShowDialog();
+            meef.Show();
             gameData.SetModified(GameDataSet.DataField.EncounterTableFiles);
         }
     }

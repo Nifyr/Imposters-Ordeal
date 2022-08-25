@@ -287,7 +287,7 @@ namespace ImpostersOrdeal
         {
             NumericDistributionControl ndc = (NumericDistributionControl)((Button)sender).Parent;
             NumericDistributionForm form = new(ndc);
-            form.ShowDialog();
+            form.Show();
             ndc.UpdateTextBox();
         }
 
@@ -309,7 +309,7 @@ namespace ImpostersOrdeal
         {
             ItemDistributionControl idc = (ItemDistributionControl)sender;
             ItemDistributionForm form = new(idc);
-            form.ShowDialog();
+            form.Show();
         }
 
         private void DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -403,21 +403,21 @@ namespace ImpostersOrdeal
         private void OpenPokemonEditor(object sender, EventArgs e)
         {
             PokemonEditorForm pef = new();
-            pef.ShowDialog();
+            pef.Show();
             gameData.SetModified(GameDataSet.DataField.PersonalEntries);
         }
 
         private void OpenMoveEditor(object sender, EventArgs e)
         {
             MoveEditorForm mef = new();
-            mef.ShowDialog();
+            mef.Show();
             gameData.SetModified(GameDataSet.DataField.Moves);
         }
 
         private void OpenTMEditor(object sender, EventArgs e)
         {
             TMEditorForm tmef = new();
-            tmef.ShowDialog();
+            tmef.Show();
             gameData.SetModified(GameDataSet.DataField.TMs);
             gameData.SetModified(GameDataSet.DataField.Items);
         }
@@ -425,55 +425,55 @@ namespace ImpostersOrdeal
         private void OpenItemEditor(object sender, EventArgs e)
         {
             ItemEditorForm ief = new();
-            ief.ShowDialog();
+            ief.Show();
             gameData.SetModified(GameDataSet.DataField.Items);
         }
 
         private void OpenPickupEditor(object sender, EventArgs e)
         {
             PickupEditorForm pef = new();
-            pef.ShowDialog();
+            pef.Show();
             gameData.SetModified(GameDataSet.DataField.PickupItems);
         }
 
         private void OpenShopEditor(object sender, EventArgs e)
         {
             ShopEditorForm sef = new();
-            sef.ShowDialog();
+            sef.Show();
             gameData.SetModified(GameDataSet.DataField.ShopTables);
         }
 
         private void OpenWildEncounterEditors(object sender, EventArgs e)
         {
             WildEncounterForm wef = new();
-            wef.ShowDialog();
+            wef.Show();
         }
 
         private void OpenTrainerEditor(object sender, EventArgs e)
         {
             TrainerEditorForm tef = new();
-            tef.ShowDialog();
+            tef.Show();
             gameData.SetModified(GameDataSet.DataField.Trainers);
         }
 
         private void OpenTypeMatchupEditor(object sender, EventArgs e)
         {
             TypeMatchupEditorForm tmef = new();
-            tmef.ShowDialog();
+            tmef.Show();
             gameData.SetModified(GameDataSet.DataField.GlobalMetadata);
         }
 
         private void OpenGlobalMetadataEditor(object sender, EventArgs e)
         {
             GlobalMetadataEditorForm gmef = new();
-            gmef.ShowDialog();
+            gmef.Show();
             gameData.SetModified(GameDataSet.DataField.GlobalMetadata);
         }
 
         private void OpenPokemonInserter(object sender, EventArgs e)
         {
             PokemonInserterForm pif = new();
-            pif.ShowDialog();
+            pif.Show();
         }
     }
 }
