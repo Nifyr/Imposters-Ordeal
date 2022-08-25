@@ -390,6 +390,11 @@ namespace ImpostersOrdeal
             public List<Encounter> swayGrass;
             public int formProb;
             public int unownTable;
+            public List<Encounter> gbaRuby;
+            public List<Encounter> gbaSapphire;
+            public List<Encounter> gbaEmerald;
+            public List<Encounter> gbaFire;
+            public List<Encounter> gbaLeaf;
             public int encRateWater;
             public List<Encounter> waterMons;
             public int encRateOldRod;

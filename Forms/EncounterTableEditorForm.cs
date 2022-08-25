@@ -18,6 +18,7 @@ namespace ImpostersOrdeal
         public List<string> zoneIDs;
         public List<EncounterTable> encounterTables;
         public EncounterTable encounterTable;
+        public GBAEncounterEditorForm gbaeef;
 
         public BindingSource pokemonSource = new BindingSource();
 
@@ -227,6 +228,9 @@ namespace ImpostersOrdeal
 
             formProbNumericUpDown.Value = encounterTable.formProb;
             unownTableNumericUpDown.Value = encounterTable.unownTable;
+
+            if (gbaeef != null)
+                gbaeef.ZoneChanged();
         }
 
         private void CommitEdit(object sender, EventArgs e)
@@ -477,6 +481,12 @@ namespace ImpostersOrdeal
         private void DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             MainForm.ShowDataError();
+        }
+
+        private void OpenGBAEncounterEditor(object sender, EventArgs e)
+        {
+            gbaeef ??= new(this);
+            gbaeef.Show();
         }
     }
 }

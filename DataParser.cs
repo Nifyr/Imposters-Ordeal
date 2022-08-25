@@ -363,6 +363,21 @@ namespace ImpostersOrdeal
                     //Parse pokefinder tables
                     encounterTable.swayGrass = GetParsedEncounters(encounterTableFields[encounterTableIdx].children[6].children[0].children);
 
+                    //Parse ruby tables
+                    encounterTable.gbaRuby = GetParsedEncounters(encounterTableFields[encounterTableIdx]["gbaRuby"].children[0].children);
+
+                    //Parse sapphire tables
+                    encounterTable.gbaSapphire = GetParsedEncounters(encounterTableFields[encounterTableIdx]["gbaSapp"].children[0].children);
+
+                    //Parse emerald tables
+                    encounterTable.gbaEmerald = GetParsedEncounters(encounterTableFields[encounterTableIdx]["gbaEme"].children[0].children);
+
+                    //Parse fire tables
+                    encounterTable.gbaFire = GetParsedEncounters(encounterTableFields[encounterTableIdx]["gbaFire"].children[0].children);
+
+                    //Parse leaf tables
+                    encounterTable.gbaLeaf = GetParsedEncounters(encounterTableFields[encounterTableIdx]["gbaLeaf"].children[0].children);
+
                     //Parse surfing tables
                     encounterTable.waterMons = GetParsedEncounters(encounterTableFields[encounterTableIdx].children[16].children[0].children);
 
@@ -2680,6 +2695,21 @@ namespace ImpostersOrdeal
 
                     //Write pokefinder tables
                     SetEncounters(encounterTableFields[encounterTableIdx].children[6].children[0], encounterTable.swayGrass);
+
+                    //Write ruby tables
+                    SetEncounters(encounterTableFields[encounterTableIdx]["gbaRuby"].children[0], encounterTable.gbaRuby);
+
+                    //Write sapphire tables
+                    SetEncounters(encounterTableFields[encounterTableIdx]["gbaSapp"].children[0], encounterTable.gbaSapphire);
+
+                    //Write emerald tables
+                    SetEncounters(encounterTableFields[encounterTableIdx]["gbaEme"].children[0], encounterTable.gbaEmerald);
+
+                    //Write fire tables
+                    SetEncounters(encounterTableFields[encounterTableIdx]["gbaFire"].children[0], encounterTable.gbaFire);
+
+                    //Write leaf tables
+                    SetEncounters(encounterTableFields[encounterTableIdx]["gbaLeaf"].children[0], encounterTable.gbaLeaf);
 
                     //Write surfing tables
                     SetEncounters(encounterTableFields[encounterTableIdx].children[16].children[0], encounterTable.waterMons);
