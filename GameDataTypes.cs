@@ -247,15 +247,15 @@ namespace ImpostersOrdeal
             public byte hpIV;
             public byte atkIV;
             public byte defIV;
-            public byte spdIV;
             public byte spAtkIV;
             public byte spDefIV;
+            public byte spdIV;
             public byte hpEV;
             public byte atkEV;
             public byte defEV;
-            public byte spdEV;
             public byte spAtkEV;
             public byte spDefEV;
+            public byte spdEV;
 
             public TrainerPokemon() { }
 

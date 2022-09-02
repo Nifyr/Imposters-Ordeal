@@ -28,6 +28,8 @@ namespace ImpostersOrdeal
         /// </summary>
         public void Randomize()
         {
+            //FixTPEVIVs();
+
             if (m.checkBox57.Checked)
                 ScaleEvolutionLevels((double)m.numericUpDown8.Value);
             if (m.checkBox58.Checked)
@@ -121,6 +123,29 @@ namespace ImpostersOrdeal
 
             if (m.checkBox62.Checked)
                 RandomizeMusic();
+        }
+
+        private void FixTPEVIVs()
+        {
+            foreach (Trainer t in gameData.trainers)
+            {
+                foreach (TrainerPokemon tp in t.trainerPokemon)
+                {
+                    byte spAtkIV = tp.spDefIV;
+                    byte spDefIV = tp.spdIV;
+                    byte spdIV = tp.spAtkIV;
+                    byte spAtkEV = tp.spDefEV;
+                    byte spDefEV = tp.spdEV;
+                    byte spdEV = tp.spAtkEV;
+
+                    tp.spAtkIV = spAtkIV;
+                    tp.spDefIV = spDefIV;
+                    tp.spdIV = spdIV;
+                    tp.spAtkEV = spAtkEV;
+                    tp.spDefEV = spDefEV;
+                    tp.spdEV = spdEV;
+                }
+            }
         }
 
         private void RandomizeTypeMatchups(IDistribution distribution)

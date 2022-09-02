@@ -300,15 +300,15 @@ namespace ImpostersOrdeal
                     pokemon.hpIV = pokemonFields[pokemonIdx + 14].value.value.asUInt8;
                     pokemon.atkIV = pokemonFields[pokemonIdx + 15].value.value.asUInt8;
                     pokemon.defIV = pokemonFields[pokemonIdx + 16].value.value.asUInt8;
-                    pokemon.spdIV = pokemonFields[pokemonIdx + 17].value.value.asUInt8;
-                    pokemon.spAtkIV = pokemonFields[pokemonIdx + 18].value.value.asUInt8;
-                    pokemon.spDefIV = pokemonFields[pokemonIdx + 19].value.value.asUInt8;
+                    pokemon.spAtkIV = pokemonFields[pokemonIdx + 17].value.value.asUInt8;
+                    pokemon.spDefIV = pokemonFields[pokemonIdx + 18].value.value.asUInt8;
+                    pokemon.spdIV = pokemonFields[pokemonIdx + 19].value.value.asUInt8;
                     pokemon.hpEV = pokemonFields[pokemonIdx + 20].value.value.asUInt8;
                     pokemon.atkEV = pokemonFields[pokemonIdx + 21].value.value.asUInt8;
                     pokemon.defEV = pokemonFields[pokemonIdx + 22].value.value.asUInt8;
-                    pokemon.spdEV = pokemonFields[pokemonIdx + 23].value.value.asUInt8;
-                    pokemon.spAtkEV = pokemonFields[pokemonIdx + 24].value.value.asUInt8;
-                    pokemon.spDefEV = pokemonFields[pokemonIdx + 25].value.value.asUInt8;
+                    pokemon.spAtkEV = pokemonFields[pokemonIdx + 23].value.value.asUInt8;
+                    pokemon.spDefEV = pokemonFields[pokemonIdx + 24].value.value.asUInt8;
+                    pokemon.spdEV = pokemonFields[pokemonIdx + 25].value.value.asUInt8;
 
                     trainer.trainerPokemon.Add(pokemon);
                 }
