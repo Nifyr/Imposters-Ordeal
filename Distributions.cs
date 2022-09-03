@@ -226,8 +226,11 @@ namespace ImpostersOrdeal
         {
             double sum = 0;
             if (observations.Count > 1)
+            {
+                double avg = observations.Average();
                 for (int i = 0; i < observations.Count; i++)
-                    sum += Math.Pow(observations.Average() - observations[i], 2) / (observations.Count - 1);
+                    sum += Math.Pow(avg - observations[i], 2) / (observations.Count - 1);
+            }
             return Math.Sqrt(sum);
         }
 
