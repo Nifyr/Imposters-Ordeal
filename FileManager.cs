@@ -490,6 +490,16 @@ namespace ImpostersOrdeal
             fileArchive[dprBinPath].fileSource = FileSource.App;
         }
 
+        public void DuplicateAudioSource(uint src, uint dst)
+        {
+            FileData fd = new();
+            fd.fileLocation = audioPath + "\\" + src + ".wem";
+            fd.gamePath = "romfs\\Data\\StreamingAssets\\Audio\\GeneratedSoundBanks\\Switch\\" +
+                dst + ".wem";
+            fd.fileSource = FileSource.App;
+            fileArchive[fd.gamePath] = fd;
+        }
+
         /// <summary>
         ///  Places a file relative to the mod root in accordance with its FileData.
         /// </summary>

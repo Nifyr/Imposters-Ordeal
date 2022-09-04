@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows.Forms;
 using static ImpostersOrdeal.GameDataTypes;
 using static ImpostersOrdeal.GlobalData;
+using static ImpostersOrdeal.Wwise;
 using SmartPoint.AssetAssistant;
 using System.Text.RegularExpressions;
 
@@ -62,6 +63,8 @@ namespace ImpostersOrdeal
             UpdatePokemonInfo(uniqueIDs, out List<(string, string)> assetBundleNames);
             UpdateDprBin(assetBundleNames, out Dictionary<string, string> assetBundlePaths);
             UpdateUIMasterdatas(uniqueIDs);
+            UpdateAudioBank(uniqueIDs, out (uint, uint) sourceID);
+            DuplicateAudioSource(sourceID.Item1, sourceID.Item2);
             UpdateAddPersonalTable(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
             UpdateMotionTimingData(uniqueIDs);
             UpdatePersonalInfos(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo, speciesName);
@@ -74,6 +77,65 @@ namespace ImpostersOrdeal
             gameData.SetModified(GameDataSet.DataField.MessageFileSets);
             gameData.SetModified(GameDataSet.DataField.PersonalEntries);
             gameData.SetModified(GameDataSet.DataField.DprBin);
+            gameData.SetModified(GameDataSet.DataField.AudioData);
+        }
+
+        private static void DuplicateAudioSource(uint srcID, uint dstID) => fileManager.DuplicateAudioSource(srcID, dstID);
+
+        private void UpdateAudioBank(List<(int, int)> uniqueIDs, out (uint, uint) sourceID)
+        {
+            (int, int) uniqueID = uniqueIDs.First();
+            Dictionary<uint, WwiseObject> lookup = gameData.audioData.objectsByID;
+            HircChunk hc = (HircChunk)gameData.audioData.banks.First().chunks.Find(c => c is HircChunk);
+
+            Event e = (Event)lookup[FNV132(GetWwiseEvents(uniqueID.Item1).First())];
+            ActionPlay ap = (ActionPlay)lookup[e.actionIDs.First()];
+            WwiseObject wo = lookup[ap.idExt];
+            Sound s;
+            if (wo is Sound s0)
+                s = s0;
+            else
+            {
+                SwitchCntr sc = (SwitchCntr)wo;
+                s = (Sound)lookup[sc.children.childIDs.First()];
+            }
+            sourceID = (s.bankSourceData.mediaInformation.sourceID, NextUInt32(gameData.audioData));
+
+            Sound newS = (Sound)s.Clone();
+            newS.id = NextUInt32(gameData.audioData);
+            newS.nodeBaseParams.directParentID = 0;
+            newS.bankSourceData.mediaInformation.sourceID = sourceID.Item2;
+            gameData.audioData.objectsByID[newS.id] = newS;
+            hc.loadedItem.Add(newS);
+
+            ActionPlay newAP = (ActionPlay)ap.Clone();
+            newAP.id = NextUInt32(gameData.audioData);
+            newAP.idExt = newS.id;
+            gameData.audioData.objectsByID[newAP.id] = newAP;
+            hc.loadedItem.Add(newAP);
+
+            List<uint> newEventIDs = GetWwiseEvents(uniqueID.Item2).Select(s => FNV132(s)).ToList();
+            foreach (uint newEventID in newEventIDs)
+            {
+                Event newE = (Event)e.Clone();
+                newE.id = newEventID;
+                newE.actionIDs = new();
+                newE.actionIDs.Add(newAP.id);
+                gameData.audioData.objectsByID[newE.id] = newE;
+                hc.loadedItem.Add(newE);
+            }
+        }
+
+        private uint NextUInt32(WwiseData wd)
+        {
+            uint output = 0;
+            do
+            {
+                byte[] uintBytes = new byte[4];
+                rnd.NextBytes(uintBytes);
+                output = BitConverter.ToUInt32(uintBytes);
+            } while (wd.objectsByID.ContainsKey(output));
+            return output;
         }
 
         private List<(int, int)> GetUniqueIDs(int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo)
@@ -466,6 +528,7 @@ namespace ImpostersOrdeal
 
                 UIMasterdatas.PokemonVoice pokemonVoice = gameData.uiPokemonVoice.Find(o => o.uniqueID == srcUniqueID);
                 UIMasterdatas.PokemonVoice newPokemonVoice = (UIMasterdatas.PokemonVoice)pokemonVoice.Clone();
+                newPokemonVoice.wwiseEvent = GetWwiseEvents(dstUniqueID).First();
                 newPokemonVoice.uniqueID = dstUniqueID;
                 gameData.uiPokemonVoice.Add(newPokemonVoice);
 
@@ -488,6 +551,20 @@ namespace ImpostersOrdeal
                     gameData.uiSearchPokeIconSex.Add(newSearchPokeIconSex);
                 }
             }
+        }
+
+        private static List<string> GetWwiseEvents(int uniqueID)
+        {
+            List<string> events = new();
+            string[] prefixes = new string[]
+            {
+                "PLAY_PV", "PLAY_PV_BTL", "PLAY_PV_EV"
+            };
+            foreach (string p in prefixes)
+                for (int i = 0; i < 5; i++)
+                    events.Add(p + "_" + (uniqueID / 10000).ToString("D3") + "_" +
+                        (uniqueID / 100 % 100).ToString("D2") + "_" + i.ToString("D2"));
+            return events;
         }
 
         private void DuplicateAssetBundles(Dictionary<string, string> assetBundlePaths, int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo)

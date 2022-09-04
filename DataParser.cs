@@ -57,6 +57,7 @@ namespace ImpostersOrdeal
             ParseDamagaCategories();
             ParseGlobalMetadata();
             ParseDprBin();
+            ParseAudioData();
             Task.WaitAll(tasks.ToArray());
             //Hot damn! 4GB?? This has got to go.
             monoBehaviourCollection = null;
@@ -1557,7 +1558,7 @@ namespace ImpostersOrdeal
         /// <summary>
         ///  Overwrites GlobalData with a parsed WwiseData.
         /// </summary>
-        public static void ParseAudioData()
+        private static void ParseAudioData()
         {
             gameData.audioData = new();
             gameData.audioData.Parse(fileManager.GetDelphisMainBuffer());

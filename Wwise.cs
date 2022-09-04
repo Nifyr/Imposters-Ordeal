@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using static ImpostersOrdeal.Wwise;
 
 namespace ImpostersOrdeal
 {
@@ -13,6 +14,7 @@ namespace ImpostersOrdeal
     /// </summary>
     public static class Wwise
     {
+
         public class WwiseData
         {
             internal byte[] buffer;
@@ -721,7 +723,7 @@ namespace ImpostersOrdeal
             }
         }
 
-        public class Sound : HircItem
+        public class Sound : HircItem, ICloneable
         {
             public BankSourceData bankSourceData;
             public NodeBaseParams nodeBaseParams;
@@ -748,9 +750,17 @@ namespace ImpostersOrdeal
                 b.AddRange(b0);
                 return b;
             }
+
+            public object Clone()
+            {
+                Sound s = (Sound)MemberwiseClone();
+                s.bankSourceData = (BankSourceData)bankSourceData.Clone();
+                s.nodeBaseParams = (NodeBaseParams)nodeBaseParams.Clone();
+                return s;
+            }
         }
 
-        public class BankSourceData : ISerializable
+        public class BankSourceData : ISerializable, ICloneable
         {
             public uint pluginID;
             public byte streamType;
@@ -772,9 +782,16 @@ namespace ImpostersOrdeal
                 b.AddRange(mediaInformation.Serialize());
                 return b;
             }
+
+            public object Clone()
+            {
+                BankSourceData bsd = (BankSourceData)MemberwiseClone();
+                bsd.mediaInformation = (MediaInformation)mediaInformation.Clone();
+                return bsd;
+            }
         }
 
-        public class MediaInformation : ISerializable
+        public class MediaInformation : ISerializable, ICloneable
         {
             public uint sourceID;
             public uint inMemoryMediaSize;
@@ -810,9 +827,14 @@ namespace ImpostersOrdeal
                 b.Add(GetByte(flags));
                 return b;
             }
+
+            public object Clone()
+            {
+                return MemberwiseClone();
+            }
         }
 
-        public class NodeBaseParams : ISerializable
+        public class NodeBaseParams : ISerializable, ICloneable
         {
             public NodeInitialFxParams nodeInitialFxParams;
             public byte overrideAttachmentParams;
@@ -883,9 +905,22 @@ namespace ImpostersOrdeal
                 b.AddRange(initialRTPC.Serialize());
                 return b;
             }
+
+            public object Clone()
+            {
+                NodeBaseParams nbp = (NodeBaseParams)MemberwiseClone();
+                nbp.nodeInitialFxParams = (NodeInitialFxParams)nodeInitialFxParams.Clone();
+                nbp.nodeInitialParams = (NodeInitialParams)nodeInitialParams.Clone();
+                nbp.positioningParams = (PositioningParams)positioningParams.Clone();
+                nbp.auxParams = (AuxParams)auxParams.Clone();
+                nbp.advSettingsParams = (AdvSettingsParams)advSettingsParams.Clone();
+                nbp.stateChunk = (StateChunk)stateChunk.Clone();
+                nbp.initialRTPC = (InitialRTPC)initialRTPC.Clone();
+                return nbp;
+            }
         }
 
-        public class NodeInitialFxParams : ISerializable
+        public class NodeInitialFxParams : ISerializable, ICloneable
         {
             public byte isOverrideParentFX;
             public byte numFx;
@@ -903,9 +938,14 @@ namespace ImpostersOrdeal
                 b.Add(numFx);
                 return b;
             }
+
+            public object Clone()
+            {
+                return MemberwiseClone();
+            }
         }
 
-        public class NodeInitialParams : ISerializable
+        public class NodeInitialParams : ISerializable, ICloneable
         {
             public PropBundle0 propBundle0;
             public PropBundle2 propBundle2;
@@ -925,9 +965,19 @@ namespace ImpostersOrdeal
                 b.AddRange(propBundle2.Serialize());
                 return b;
             }
+
+            public object Clone()
+            {
+                NodeInitialParams nip = new()
+                {
+                    propBundle0 = (PropBundle0)propBundle0.Clone(),
+                    propBundle2 = (PropBundle2)propBundle2.Clone()
+                };
+                return nip;
+            }
         }
 
-        public class PropBundle0 : ISerializable
+        public class PropBundle0 : ISerializable, ICloneable
         {
             public byte propsCount;
             public List<PropBundle1> props;
@@ -957,9 +1007,18 @@ namespace ImpostersOrdeal
                     b.AddRange(pb1.SerializeValue());
                 return b;
             }
+
+            public object Clone()
+            {
+                PropBundle0 pb0 = (PropBundle0)MemberwiseClone();
+                pb0.props = new();
+                foreach (PropBundle1 pb1 in props)
+                    pb0.props.Add((PropBundle1)pb1.Clone());
+                return pb0;
+            }
         }
 
-        public class PropBundle1 : ISerializable
+        public class PropBundle1 : ISerializable, ICloneable
         {
             public byte id;
             public float value;
@@ -983,9 +1042,14 @@ namespace ImpostersOrdeal
             {
                 return GetBytes(value);
             }
+
+            public object Clone()
+            {
+                return MemberwiseClone();
+            }
         }
 
-        public class PropBundle2 : ISerializable
+        public class PropBundle2 : ISerializable, ICloneable
         {
             public byte propsCount;
             public List<PropBundle3> props;
@@ -1015,9 +1079,18 @@ namespace ImpostersOrdeal
                     b.AddRange(pb3.SerializeBoundaries());
                 return b;
             }
+
+            public object Clone()
+            {
+                PropBundle2 pb2 = (PropBundle2)MemberwiseClone();
+                pb2.props = new();
+                foreach (PropBundle3 pb3 in props)
+                    pb2.props.Add((PropBundle3)pb3.Clone());
+                return pb2;
+            }
         }
 
-        public class PropBundle3 : ISerializable
+        public class PropBundle3 : ISerializable, ICloneable
         {
             public byte id;
             public byte[] min;
@@ -1046,9 +1119,17 @@ namespace ImpostersOrdeal
                 b.AddRange(max);
                 return b;
             }
+
+            public object Clone()
+            {
+                PropBundle3 pb3 = (PropBundle3)MemberwiseClone();
+                pb3.min = min.ToArray();
+                pb3.max = max.ToArray();
+                return pb3;
+            }
         }
 
-        public class PositioningParams : ISerializable
+        public class PositioningParams : ISerializable, ICloneable
         {
             public bool positioningInfoOverrideParent;
             public bool hasListenerRelativeRouting;
@@ -1109,9 +1190,14 @@ namespace ImpostersOrdeal
                 }
                 return b;
             }
+
+            public object Clone()
+            {
+                return MemberwiseClone();
+            }
         }
 
-        public class AuxParams : ISerializable
+        public class AuxParams : ISerializable, ICloneable
         {
             public bool unkFlag0;
             public bool unkFlag1;
@@ -1155,9 +1241,17 @@ namespace ImpostersOrdeal
                 b.AddRange(GetBytes(reflectionsAuxBus));
                 return b;
             }
+
+            public object Clone()
+            {
+                AuxParams ap = (AuxParams)MemberwiseClone();
+                if (auxIDs != null)
+                    ap.auxIDs = auxIDs.ToArray();
+                return ap;
+            }
         }
 
-        public class AdvSettingsParams : ISerializable
+        public class AdvSettingsParams : ISerializable, ICloneable
         {
             public bool killNewest;
             public bool useVirtualBehavior;
@@ -1213,9 +1307,14 @@ namespace ImpostersOrdeal
                 b.Add(GetByte(flags1));
                 return b;
             }
+
+            public object Clone()
+            {
+                return MemberwiseClone();
+            }
         }
 
-        public class StateChunk : ISerializable
+        public class StateChunk : ISerializable, ICloneable
         {
             public ulong statePropsCount;
             public List<StatePropertyInfo> stateProps;
@@ -1255,9 +1354,21 @@ namespace ImpostersOrdeal
                     b.AddRange(sgc.Serialize());
                 return b;
             }
+
+            public object Clone()
+            {
+                StateChunk sc = (StateChunk)MemberwiseClone();
+                sc.stateProps = new();
+                foreach (StatePropertyInfo spi in stateProps)
+                    sc.stateProps.Add((StatePropertyInfo)spi.Clone());
+                sc.stateChunks = new();
+                foreach (StateGroupChunk sgc in stateChunks)
+                    sc.stateChunks.Add((StateGroupChunk)sgc.Clone());
+                return sc;
+            }
         }
 
-        public class StatePropertyInfo : ISerializable
+        public class StatePropertyInfo : ISerializable, ICloneable
         {
             public ulong propertyID;
             public byte accumType;
@@ -1278,9 +1389,14 @@ namespace ImpostersOrdeal
                 b.Add(inDb);
                 return b;
             }
+
+            public object Clone()
+            {
+                return MemberwiseClone();
+            }
         }
 
-        public class StateGroupChunk : ISerializable
+        public class StateGroupChunk : ISerializable, ICloneable
         {
             public uint stateGroupID;
             public byte stateSyncType;
@@ -1312,9 +1428,18 @@ namespace ImpostersOrdeal
                     b.AddRange(s.Serialize());
                 return b;
             }
+
+            public object Clone()
+            {
+                StateGroupChunk sgc = (StateGroupChunk)MemberwiseClone();
+                sgc.states = new();
+                foreach (AkState akState in states)
+                    sgc.states.Add((AkState)akState.Clone());
+                return sgc;
+            }
         }
 
-        public class AkState : ISerializable
+        public class AkState : ISerializable, ICloneable
         {
             public uint stateID;
             public uint stateInstanceID;
@@ -1332,9 +1457,14 @@ namespace ImpostersOrdeal
                 b.AddRange(GetBytes(stateInstanceID));
                 return b;
             }
+
+            public object Clone()
+            {
+                return MemberwiseClone();
+            }
         }
 
-        public class InitialRTPC : ISerializable
+        public class InitialRTPC : ISerializable, ICloneable
         {
             public ushort rtpcCount;
             public List<RTPC> pRTPCMgr;
@@ -1360,9 +1490,18 @@ namespace ImpostersOrdeal
                     b.AddRange(rtpc.Serialize());
                 return b;
             }
+
+            public object Clone()
+            {
+                InitialRTPC irtpc = (InitialRTPC)MemberwiseClone();
+                irtpc.pRTPCMgr = new();
+                foreach (RTPC rtpc in pRTPCMgr)
+                    irtpc.pRTPCMgr.Add((RTPC)rtpc.Clone());
+                return irtpc;
+            }
         }
 
-        public class RTPC : WwiseObject
+        public class RTPC : WwiseObject, ICloneable
         {
             public uint rtpcID;
             public byte rtpcType;
@@ -1406,6 +1545,15 @@ namespace ImpostersOrdeal
                 foreach (RTPCGraphPoint rtpcgp in pRTPCMgr)
                     b.AddRange(rtpcgp.Serialize());
                 return b;
+            }
+
+            public object Clone()
+            {
+                RTPC rtpc = (RTPC)MemberwiseClone();
+                rtpc.pRTPCMgr = new();
+                foreach (RTPCGraphPoint rtpcgp in pRTPCMgr)
+                    rtpc.pRTPCMgr.Add((RTPCGraphPoint)rtpcgp.Clone());
+                return rtpc;
             }
         }
 
@@ -1703,7 +1851,7 @@ namespace ImpostersOrdeal
             }
         }
 
-        public class ActionPlay : Action
+        public class ActionPlay : Action, ICloneable
         {
             public byte fadeCurve;
             public uint bankID;
@@ -1723,6 +1871,14 @@ namespace ImpostersOrdeal
                 b.Add(fadeCurve);
                 b.AddRange(GetBytes(bankID));
                 return b;
+            }
+
+            public object Clone()
+            {
+                ActionPlay ap = (ActionPlay)MemberwiseClone();
+                ap.propBundle0 = (PropBundle0)propBundle0.Clone();
+                ap.propBundle1 = (PropBundle2)propBundle1.Clone();
+                return ap;
             }
         }
 
@@ -1993,7 +2149,7 @@ namespace ImpostersOrdeal
 
         public class ActionPlayEvent : Action { }
 
-        public class Event : HircItem
+        public class Event : HircItem, ICloneable
         {
             public ulong actionListSize;
             public List<uint> actionIDs;
@@ -2021,6 +2177,14 @@ namespace ImpostersOrdeal
                 b.AddRange(base.Serialize());
                 b.AddRange(b0);
                 return b;
+            }
+
+            public object Clone()
+            {
+                Event e = (Event)MemberwiseClone();
+                e.actionIDs = new();
+                e.actionIDs.AddRange(actionIDs);
+                return e;
             }
         }
 
@@ -4261,7 +4425,7 @@ namespace ImpostersOrdeal
             }
         }
 
-        public class RTPCGraphPoint : ISerializable
+        public class RTPCGraphPoint : ISerializable, ICloneable
         {
             public float from;
             public float to;
@@ -4281,6 +4445,11 @@ namespace ImpostersOrdeal
                 b.AddRange(GetBytes(to));
                 b.AddRange(GetBytes(interp));
                 return b;
+            }
+
+            public object Clone()
+            {
+                return MemberwiseClone();
             }
         }
 
@@ -4657,6 +4826,17 @@ namespace ImpostersOrdeal
             {
                 throw new NotImplementedException();
             }
+        }
+        public static uint FNV132(string data)
+        {
+            data = data.ToLower();
+            uint hash = 0x811c9dc5;
+            foreach (char c in data)
+            {
+                hash *= 0x01000193;
+                hash ^= (byte)c;
+            }
+            return hash;
         }
 
         private static bool[] ReadFlags(WwiseData wd)

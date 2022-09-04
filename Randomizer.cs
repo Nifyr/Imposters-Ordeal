@@ -184,9 +184,6 @@ namespace ImpostersOrdeal
 
         private void RandomizeMusic()
         {
-            if (gameData.audioData == null)
-                DataParser.ParseAudioData();
-
             uint[] groupIDs = {
                 2944413750, //BGM_BATTLE
                 3369806648, //BGM_CONTEST
