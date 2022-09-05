@@ -99,8 +99,6 @@ namespace ImpostersOrdeal
                 SwitchCntr sc = (SwitchCntr)wo;
                 s = (Sound)lookup[sc.children.childIDs.First()];
             }
-            ActorMixer am = (ActorMixer)lookup[s.nodeBaseParams.directParentID];
-            ActorMixer amParent = (ActorMixer)lookup[am.nodeBaseParams.directParentID];
             sourceID = (s.bankSourceData.mediaInformation.sourceID, NextUInt32(gameData.audioData));
 
             Sound newS = (Sound)s.Clone();
@@ -110,12 +108,19 @@ namespace ImpostersOrdeal
             gameData.audioData.objectsByID[newS.id] = newS;
             hc.loadedItem.Add(newS);
 
-            ActorMixer newAM = (ActorMixer)am.Clone();
-            newAM.id = newS.nodeBaseParams.directParentID;
-            newAM.children.childIDs = new() { newS.id };
-            amParent.children.childIDs.Add(newAM.id);
-            gameData.audioData.objectsByID[newAM.id] = newAM;
-            hc.loadedItem.Add(newAM);
+            if (uniqueID.Item1 / 10000 != 25 && uniqueID.Item1 / 10000 != 133)
+            {
+                ActorMixer am = (ActorMixer)lookup[s.nodeBaseParams.directParentID];
+                ActorMixer amParent = (ActorMixer)lookup[am.nodeBaseParams.directParentID];
+                ActorMixer newAM = (ActorMixer)am.Clone();
+                newAM.id = newS.nodeBaseParams.directParentID;
+                newAM.children.childIDs = new() { newS.id };
+                amParent.children.childIDs.Add(newAM.id);
+                gameData.audioData.objectsByID[newAM.id] = newAM;
+                hc.loadedItem.Add(newAM);
+            }
+            else
+                newS.nodeBaseParams.directParentID = 0;
 
             ActionPlay newAP = (ActionPlay)ap.Clone();
             newAP.id = NextUInt32(gameData.audioData);
