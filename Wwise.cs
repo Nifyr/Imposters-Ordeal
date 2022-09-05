@@ -2451,7 +2451,7 @@ namespace ImpostersOrdeal
             }
         }
 
-        public class ActorMixer : HircItem
+        public class ActorMixer : HircItem, ICloneable
         {
             public NodeBaseParams nodeBaseParams;
             public Children children;
@@ -2478,9 +2478,17 @@ namespace ImpostersOrdeal
                 b.AddRange(b0);
                 return b;
             }
+
+            public object Clone()
+            {
+                ActorMixer am = (ActorMixer)MemberwiseClone();
+                am.nodeBaseParams = (NodeBaseParams)nodeBaseParams.Clone();
+                am.children = (Children)children.Clone();
+                return am;
+            }
         }
 
-        public class Children : ISerializable
+        public class Children : ISerializable, ICloneable
         {
             public uint childsCount;
             public List<uint> childIDs;
@@ -2503,6 +2511,14 @@ namespace ImpostersOrdeal
                 foreach (uint i in childIDs)
                     b.AddRange(GetBytes(i));
                 return b;
+            }
+
+            public object Clone()
+            {
+                Children c = (Children)MemberwiseClone();
+                c.childIDs = new();
+                c.childIDs.AddRange(childIDs);
+                return c;
             }
         }
 

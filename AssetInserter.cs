@@ -99,14 +99,23 @@ namespace ImpostersOrdeal
                 SwitchCntr sc = (SwitchCntr)wo;
                 s = (Sound)lookup[sc.children.childIDs.First()];
             }
+            ActorMixer am = (ActorMixer)lookup[s.nodeBaseParams.directParentID];
+            ActorMixer amParent = (ActorMixer)lookup[am.nodeBaseParams.directParentID];
             sourceID = (s.bankSourceData.mediaInformation.sourceID, NextUInt32(gameData.audioData));
 
             Sound newS = (Sound)s.Clone();
             newS.id = NextUInt32(gameData.audioData);
-            newS.nodeBaseParams.directParentID = 0;
+            newS.nodeBaseParams.directParentID = NextUInt32(gameData.audioData);
             newS.bankSourceData.mediaInformation.sourceID = sourceID.Item2;
             gameData.audioData.objectsByID[newS.id] = newS;
             hc.loadedItem.Add(newS);
+
+            ActorMixer newAM = (ActorMixer)am.Clone();
+            newAM.id = newS.nodeBaseParams.directParentID;
+            newAM.children.childIDs = new() { newS.id };
+            amParent.children.childIDs.Add(newAM.id);
+            gameData.audioData.objectsByID[newAM.id] = newAM;
+            hc.loadedItem.Add(newAM);
 
             ActionPlay newAP = (ActionPlay)ap.Clone();
             newAP.id = NextUInt32(gameData.audioData);
@@ -128,7 +137,7 @@ namespace ImpostersOrdeal
 
         private uint NextUInt32(WwiseData wd)
         {
-            uint output = 0;
+            uint output;
             do
             {
                 byte[] uintBytes = new byte[4];
