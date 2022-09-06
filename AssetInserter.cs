@@ -80,7 +80,11 @@ namespace ImpostersOrdeal
             gameData.SetModified(GameDataSet.DataField.AudioData);
         }
 
-        private static void DuplicateAudioSource(uint srcID, uint dstID) => fileManager.DuplicateAudioSource(srcID, dstID);
+        private static void DuplicateAudioSource(uint srcID, uint dstID)
+        {
+            if (srcID != 0 && dstID != 0)
+                fileManager.DuplicateAudioSource(srcID, dstID);
+        }
 
         private void UpdateAudioBank(List<(int, int)> uniqueIDs, out (uint, uint) sourceID)
         {
@@ -88,15 +92,26 @@ namespace ImpostersOrdeal
             Dictionary<uint, WwiseObject> lookup = gameData.audioData.objectsByID;
             HircChunk hc = (HircChunk)gameData.audioData.banks.First().chunks.Find(c => c is HircChunk);
 
-            Event e = (Event)lookup[FNV132(GetWwiseEvents(uniqueID.Item1).First())];
+            lookup.TryGetValue(FNV132(GetWwiseEvents(uniqueID.Item1).First()), out WwiseObject wo);
+            if (wo == null)
+            {
+                sourceID = (0, 0);
+                return;
+            }
+            Event e = (Event)wo;
             ActionPlay ap = (ActionPlay)lookup[e.actionIDs.First()];
-            WwiseObject wo = lookup[ap.idExt];
+            lookup.TryGetValue(ap.idExt, out WwiseObject wo1);
+            if (wo1 == null)
+            {
+                sourceID = (0, 0);
+                return;
+            }
             Sound s;
-            if (wo is Sound s0)
+            if (wo1 is Sound s0)
                 s = s0;
             else
             {
-                SwitchCntr sc = (SwitchCntr)wo;
+                SwitchCntr sc = (SwitchCntr)wo1;
                 s = (Sound)lookup[sc.children.childIDs.First()];
             }
             sourceID = (s.bankSourceData.mediaInformation.sourceID, NextUInt32(gameData.audioData));
@@ -542,7 +557,8 @@ namespace ImpostersOrdeal
 
                 UIMasterdatas.PokemonVoice pokemonVoice = gameData.uiPokemonVoice.Find(o => o.uniqueID == srcUniqueID);
                 UIMasterdatas.PokemonVoice newPokemonVoice = (UIMasterdatas.PokemonVoice)pokemonVoice.Clone();
-                newPokemonVoice.wwiseEvent = GetWwiseEvents(dstUniqueID).First();
+                if (uniqueIDPair.Item1 / 10000 != 25 && uniqueIDPair.Item1 / 10000 != 133)
+                    newPokemonVoice.wwiseEvent = GetWwiseEvents(dstUniqueID).First();
                 newPokemonVoice.uniqueID = dstUniqueID;
                 gameData.uiPokemonVoice.Add(newPokemonVoice);
 
