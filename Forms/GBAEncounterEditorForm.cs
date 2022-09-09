@@ -41,6 +41,30 @@ namespace ImpostersOrdeal
             leafMinLvlColumn.ValueType = typeof(int);
             leafMaxLvlColumn.ValueType = typeof(int);
 
+            if (etef.formIDEnabled)
+            {
+                DataGridViewTextBoxColumn rubyFormIDColumn = new();
+                DataGridViewTextBoxColumn sapphireFormIDColumn = new();
+                DataGridViewTextBoxColumn emeraldFormIDColumn = new();
+                DataGridViewTextBoxColumn fireFormIDColumn = new();
+                DataGridViewTextBoxColumn leafFormIDColumn = new();
+                rubyFormIDColumn.Name = "FormID";
+                sapphireFormIDColumn.Name = "FormID";
+                emeraldFormIDColumn.Name = "FormID";
+                fireFormIDColumn.Name = "FormID";
+                leafFormIDColumn.Name = "FormID";
+                rubyFormIDColumn.ValueType = typeof(ushort);
+                sapphireFormIDColumn.ValueType = typeof(ushort);
+                emeraldFormIDColumn.ValueType = typeof(ushort);
+                fireFormIDColumn.ValueType = typeof(ushort);
+                leafFormIDColumn.ValueType = typeof(ushort);
+                rubyDataGridView.Columns.Add(rubyFormIDColumn);
+                sapphireDataGridView.Columns.Add(sapphireFormIDColumn);
+                emeraldDataGridView.Columns.Add(emeraldFormIDColumn);
+                fireDataGridView.Columns.Add(fireFormIDColumn);
+                leafDataGridView.Columns.Add(leafFormIDColumn);
+            }
+
             RefreshDisplay();
             ActivateControls();
         }
@@ -48,91 +72,63 @@ namespace ImpostersOrdeal
         private void RefreshDisplay()
         {
             // Ruby GBA slot
-            rubyDataGridView.Rows.Clear();
-            for (int i = 0; i < etef.encounterTable.gbaRuby.Count; i++)
-            {
-                Encounter encounter = etef.encounterTable.gbaRuby[i];
-                rubyDataGridView.Rows.Add(new object[] { etef.pokemon[encounter.dexID],
-                    encounter.minLv, encounter.maxLv, gbaSlotRates[i] });
-            }
+            UpdateTable(rubyDataGridView, etef.encounterTable.gbaRuby);
 
             // Sapphire GBA slot
-            sapphireDataGridView.Rows.Clear();
-            for (int i = 0; i < etef.encounterTable.gbaSapphire.Count; i++)
-            {
-                Encounter encounter = etef.encounterTable.gbaSapphire[i];
-                sapphireDataGridView.Rows.Add(new object[] { etef.pokemon[encounter.dexID],
-                    encounter.minLv, encounter.maxLv, gbaSlotRates[i] });
-            }
+            UpdateTable(sapphireDataGridView, etef.encounterTable.gbaSapphire);
 
             // Emerald GBA slot
-            emeraldDataGridView.Rows.Clear();
-            for (int i = 0; i < etef.encounterTable.gbaEmerald.Count; i++)
-            {
-                Encounter encounter = etef.encounterTable.gbaEmerald[i];
-                emeraldDataGridView.Rows.Add(new object[] { etef.pokemon[encounter.dexID],
-                    encounter.minLv, encounter.maxLv, gbaSlotRates[i] });
-            }
+            UpdateTable(emeraldDataGridView, etef.encounterTable.gbaEmerald);
 
             // Fire Red GBA slot
-            fireDataGridView.Rows.Clear();
-            for (int i = 0; i < etef.encounterTable.gbaFire.Count; i++)
-            {
-                Encounter encounter = etef.encounterTable.gbaFire[i];
-                fireDataGridView.Rows.Add(new object[] { etef.pokemon[encounter.dexID],
-                    encounter.minLv, encounter.maxLv, gbaSlotRates[i] });
-            }
+            UpdateTable(fireDataGridView, etef.encounterTable.gbaFire);
 
             // Leaf Green GBA slot
-            leafDataGridView.Rows.Clear();
-            for (int i = 0; i < etef.encounterTable.gbaLeaf.Count; i++)
+            UpdateTable(leafDataGridView, etef.encounterTable.gbaLeaf);
+        }
+
+        private void UpdateTable(DataGridView dgv, List<Encounter> es)
+        {
+            dgv.Rows.Clear();
+            for (int i = 0; i < es.Count; i++)
             {
-                Encounter encounter = etef.encounterTable.gbaLeaf[i];
-                leafDataGridView.Rows.Add(new object[] { etef.pokemon[encounter.dexID],
-                    encounter.minLv, encounter.maxLv, gbaSlotRates[i] });
+                Encounter e = es[i];
+                if (etef.formIDEnabled)
+                    dgv.Rows.Add(new object[] { etef.pokemon[(ushort)e.dexID],
+                        e.minLv, e.maxLv, gbaSlotRates[i], (ushort)(e.dexID >> 16) });
+                else
+                    dgv.Rows.Add(new object[] { etef.pokemon[(ushort)e.dexID],
+                        e.minLv, e.maxLv, gbaSlotRates[i] });
             }
         }
 
         private void CommitEdit(object sender, EventArgs e)
         {
             // Ruby GBA slot
-            for (int i = 0; i < etef.encounterTable.gbaRuby.Count; i++)
-            {
-                etef.encounterTable.gbaRuby[i].dexID = etef.pokemon.IndexOf((string)rubyDataGridView.Rows[i].Cells[0].Value);
-                etef.encounterTable.gbaRuby[i].minLv = (int)rubyDataGridView.Rows[i].Cells[1].Value;
-                etef.encounterTable.gbaRuby[i].maxLv = (int)rubyDataGridView.Rows[i].Cells[2].Value;
-            }
+            CommitTable(rubyDataGridView, etef.encounterTable.gbaRuby);
 
             // Sapphire GBA slot
-            for (int i = 0; i < etef.encounterTable.gbaSapphire.Count; i++)
-            {
-                etef.encounterTable.gbaSapphire[i].dexID = etef.pokemon.IndexOf((string)sapphireDataGridView.Rows[i].Cells[0].Value);
-                etef.encounterTable.gbaSapphire[i].minLv = (int)sapphireDataGridView.Rows[i].Cells[1].Value;
-                etef.encounterTable.gbaSapphire[i].maxLv = (int)sapphireDataGridView.Rows[i].Cells[2].Value;
-            }
+            CommitTable(sapphireDataGridView, etef.encounterTable.gbaSapphire);
 
             // Emerald GBA slot
-            for (int i = 0; i < etef.encounterTable.gbaEmerald.Count; i++)
-            {
-                etef.encounterTable.gbaEmerald[i].dexID = etef.pokemon.IndexOf((string)emeraldDataGridView.Rows[i].Cells[0].Value);
-                etef.encounterTable.gbaEmerald[i].minLv = (int)emeraldDataGridView.Rows[i].Cells[1].Value;
-                etef.encounterTable.gbaEmerald[i].maxLv = (int)emeraldDataGridView.Rows[i].Cells[2].Value;
-            }
+            CommitTable(emeraldDataGridView, etef.encounterTable.gbaEmerald);
 
             // Fire Red GBA slot
-            for (int i = 0; i < etef.encounterTable.gbaFire.Count; i++)
-            {
-                etef.encounterTable.gbaFire[i].dexID = etef.pokemon.IndexOf((string)fireDataGridView.Rows[i].Cells[0].Value);
-                etef.encounterTable.gbaFire[i].minLv = (int)fireDataGridView.Rows[i].Cells[1].Value;
-                etef.encounterTable.gbaFire[i].maxLv = (int)fireDataGridView.Rows[i].Cells[2].Value;
-            }
+            CommitTable(fireDataGridView, etef.encounterTable.gbaFire);
 
             // Leaf Green GBA slot
-            for (int i = 0; i < etef.encounterTable.gbaLeaf.Count; i++)
+            CommitTable(leafDataGridView, etef.encounterTable.gbaLeaf);
+        }
+
+        private void CommitTable(DataGridView dgv, List<Encounter> es)
+        {
+            for (int i = 0; i < es.Count; i++)
             {
-                etef.encounterTable.gbaLeaf[i].dexID = etef.pokemon.IndexOf((string)leafDataGridView.Rows[i].Cells[0].Value);
-                etef.encounterTable.gbaLeaf[i].minLv = (int)leafDataGridView.Rows[i].Cells[1].Value;
-                etef.encounterTable.gbaLeaf[i].maxLv = (int)leafDataGridView.Rows[i].Cells[2].Value;
+                es[i].dexID = etef.pokemon.IndexOf((string)dgv.Rows[i].Cells[0].Value);
+                es[i].minLv = (int)dgv.Rows[i].Cells[1].Value;
+                es[i].maxLv = (int)dgv.Rows[i].Cells[2].Value;
+                if (etef.formIDEnabled)
+                    es[i].dexID += (ushort)dgv.Rows[i].Cells[4].Value << 16;
             }
         }
 

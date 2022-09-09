@@ -19,6 +19,7 @@ namespace ImpostersOrdeal
         public List<EncounterTable> encounterTables;
         public EncounterTable encounterTable;
         public GBAEncounterEditorForm gbaeef;
+        public bool formIDEnabled;
 
         public BindingSource pokemonSource = new BindingSource();
 
@@ -79,6 +80,43 @@ namespace ImpostersOrdeal
             dataGridView8.Columns[1].ValueType = typeof(int);
             dataGridView8.Columns[2].ValueType = typeof(int);
 
+            formIDEnabled = encounterTables.Any(o => o.groundMons.Any(e => (uint)e.dexID > 0xFFFF));
+            if (formIDEnabled)
+            {
+                DataGridViewTextBoxColumn dgvtbc1 = new();
+                DataGridViewTextBoxColumn dgvtbc2 = new();
+                DataGridViewTextBoxColumn dgvtbc3 = new();
+                DataGridViewTextBoxColumn dgvtbc4 = new();
+                DataGridViewTextBoxColumn dgvtbc5 = new();
+                DataGridViewTextBoxColumn dgvtbc6 = new();
+                DataGridViewTextBoxColumn dgvtbc7 = new();
+                DataGridViewTextBoxColumn dgvtbc8 = new();
+                dgvtbc1.Name = "FormID";
+                dgvtbc2.Name = "FormID";
+                dgvtbc3.Name = "FormID";
+                dgvtbc4.Name = "FormID";
+                dgvtbc5.Name = "FormID";
+                dgvtbc6.Name = "FormID";
+                dgvtbc7.Name = "FormID";
+                dgvtbc8.Name = "FormID";
+                dgvtbc1.ValueType = typeof(ushort);
+                dgvtbc2.ValueType = typeof(ushort);
+                dgvtbc3.ValueType = typeof(ushort);
+                dgvtbc4.ValueType = typeof(ushort);
+                dgvtbc5.ValueType = typeof(ushort);
+                dgvtbc6.ValueType = typeof(ushort);
+                dgvtbc7.ValueType = typeof(ushort);
+                dgvtbc8.ValueType = typeof(ushort);
+                dataGridView1.Columns.Add(dgvtbc1);
+                dataGridView2.Columns.Add(dgvtbc2);
+                dataGridView3.Columns.Add(dgvtbc3);
+                dataGridView4.Columns.Add(dgvtbc4);
+                dataGridView5.Columns.Add(dgvtbc5);
+                dataGridView6.Columns.Add(dgvtbc6);
+                dataGridView7.Columns.Add(dgvtbc7);
+                dataGridView8.Columns.Add(dgvtbc8);
+            }
+
             dataGridView1.Rows.Add(12);
             dataGridView2.Rows.Add(12);
             dataGridView3.Rows.Add(12);
@@ -115,22 +153,28 @@ namespace ImpostersOrdeal
                 {
                     // Morning
                     iRow = dataGridView1.Rows[i];
-                    iRow.Cells[0].Value = pokemon[encounter.dexID];
+                    iRow.Cells[0].Value = pokemon[(ushort)encounter.dexID];
                     iRow.Cells[1].Value = encounter.minLv;
                     iRow.Cells[2].Value = encounter.maxLv;
                     iRow.Cells[3].Value = groundRates[i];
+                    if (formIDEnabled)
+                        iRow.Cells[4].Value = (ushort)(encounter.dexID >> 16);
                     // Day
                     iRow = dataGridView2.Rows[i];
-                    iRow.Cells[0].Value = pokemon[encounter.dexID];
+                    iRow.Cells[0].Value = pokemon[(ushort)encounter.dexID];
                     iRow.Cells[1].Value = encounter.minLv;
                     iRow.Cells[2].Value = encounter.maxLv;
                     iRow.Cells[3].Value = groundRates[i];
+                    if (formIDEnabled)
+                        iRow.Cells[4].Value = (ushort)(encounter.dexID >> 16);
                     // Night
                     iRow = dataGridView3.Rows[i];
-                    iRow.Cells[0].Value = pokemon[encounter.dexID];
+                    iRow.Cells[0].Value = pokemon[(ushort)encounter.dexID];
                     iRow.Cells[1].Value = encounter.minLv;
                     iRow.Cells[2].Value = encounter.maxLv;
                     iRow.Cells[3].Value = groundRates[i];
+                    if (formIDEnabled)
+                        iRow.Cells[4].Value = (ushort)(encounter.dexID >> 16);
                 }
                 else
                 {
@@ -139,22 +183,28 @@ namespace ImpostersOrdeal
                     Encounter night = encounterTable.night[i - 2];
                     // Morning
                     iRow = dataGridView1.Rows[i];
-                    iRow.Cells[0].Value = pokemon[morning.dexID];
+                    iRow.Cells[0].Value = pokemon[(ushort)morning.dexID];
                     iRow.Cells[1].Value = morning.minLv;
                     iRow.Cells[2].Value = morning.maxLv;
                     iRow.Cells[3].Value = groundRates[i];
+                    if (formIDEnabled)
+                        iRow.Cells[4].Value = (ushort)(encounter.dexID >> 16);
                     // Day
                     iRow = dataGridView2.Rows[i];
-                    iRow.Cells[0].Value = pokemon[day.dexID];
+                    iRow.Cells[0].Value = pokemon[(ushort)day.dexID];
                     iRow.Cells[1].Value = day.minLv;
                     iRow.Cells[2].Value = day.maxLv;
                     iRow.Cells[3].Value = groundRates[i];
+                    if (formIDEnabled)
+                        iRow.Cells[4].Value = (ushort)(encounter.dexID >> 16);
                     // Night
                     iRow = dataGridView3.Rows[i];
-                    iRow.Cells[0].Value = pokemon[night.dexID];
+                    iRow.Cells[0].Value = pokemon[(ushort)night.dexID];
                     iRow.Cells[1].Value = night.minLv;
                     iRow.Cells[2].Value = night.maxLv;
                     iRow.Cells[3].Value = groundRates[i];
+                    if (formIDEnabled)
+                        iRow.Cells[4].Value = (ushort)(encounter.dexID >> 16);
                 }
             }
         }
@@ -170,10 +220,12 @@ namespace ImpostersOrdeal
             {
                 Encounter encounter = encounterTable.swayGrass[i];
                 DataGridViewRow iRow = dataGridView4.Rows[i];
-                iRow.Cells[0].Value = pokemon[encounter.dexID];
+                iRow.Cells[0].Value = pokemon[(ushort)encounter.dexID];
                 iRow.Cells[1].Value = encounter.minLv;
                 iRow.Cells[2].Value = encounter.maxLv;
                 iRow.Cells[3].Value = pokeradarRates[i];
+                if (formIDEnabled)
+                    iRow.Cells[4].Value = (ushort)(encounter.dexID >> 16);
             }
 
             // Water Mons
@@ -181,10 +233,12 @@ namespace ImpostersOrdeal
             {
                 Encounter encounter = encounterTable.waterMons[i];
                 DataGridViewRow iRow = dataGridView5.Rows[i];
-                iRow.Cells[0].Value = pokemon[encounter.dexID];
+                iRow.Cells[0].Value = pokemon[(ushort)encounter.dexID];
                 iRow.Cells[1].Value = encounter.minLv;
                 iRow.Cells[2].Value = encounter.maxLv;
                 iRow.Cells[3].Value = waterRates[i];
+                if (formIDEnabled)
+                    iRow.Cells[4].Value = (ushort)(encounter.dexID >> 16);
             }
 
             // Old Rod
@@ -192,10 +246,12 @@ namespace ImpostersOrdeal
             {
                 Encounter encounter = encounterTable.oldRodMons[i];
                 DataGridViewRow iRow = dataGridView6.Rows[i];
-                iRow.Cells[0].Value = pokemon[encounter.dexID];
+                iRow.Cells[0].Value = pokemon[(ushort)encounter.dexID];
                 iRow.Cells[1].Value = encounter.minLv;
                 iRow.Cells[2].Value = encounter.maxLv;
                 iRow.Cells[3].Value = waterRates[i];
+                if (formIDEnabled)
+                    iRow.Cells[4].Value = (ushort)(encounter.dexID >> 16);
             }
             
             // Good Rod
@@ -203,10 +259,12 @@ namespace ImpostersOrdeal
             {
                 Encounter encounter = encounterTable.goodRodMons[i];
                 DataGridViewRow iRow = dataGridView7.Rows[i];
-                iRow.Cells[0].Value = pokemon[encounter.dexID];
+                iRow.Cells[0].Value = pokemon[(ushort)encounter.dexID];
                 iRow.Cells[1].Value = encounter.minLv;
                 iRow.Cells[2].Value = encounter.maxLv;
                 iRow.Cells[3].Value = waterRates[i];
+                if (formIDEnabled)
+                    iRow.Cells[4].Value = (ushort)(encounter.dexID >> 16);
             }
 
             // Super Rod
@@ -214,10 +272,12 @@ namespace ImpostersOrdeal
             {
                 Encounter encounter = encounterTable.superRodMons[i];
                 DataGridViewRow iRow = dataGridView8.Rows[i];
-                iRow.Cells[0].Value = pokemon[encounter.dexID];
+                iRow.Cells[0].Value = pokemon[(ushort)encounter.dexID];
                 iRow.Cells[1].Value = encounter.minLv;
                 iRow.Cells[2].Value = encounter.maxLv;
                 iRow.Cells[3].Value = waterRates[i];
+                if (formIDEnabled)
+                    iRow.Cells[4].Value = (ushort)(encounter.dexID >> 16);
             }
 
             encRateGround.Value = encounterTable.encRateGround;
@@ -249,6 +309,8 @@ namespace ImpostersOrdeal
                 swayGrassEnc.dexID = pokemon.IndexOf((string)iRow.Cells[0].Value);
                 swayGrassEnc.minLv = (int)iRow.Cells[1].Value;
                 swayGrassEnc.maxLv = (int)iRow.Cells[2].Value;
+                if (formIDEnabled)
+                    swayGrassEnc.dexID += (ushort)iRow.Cells[4].Value << 16;
                 swayGrass.Add(swayGrassEnc);
             }
 
@@ -260,6 +322,8 @@ namespace ImpostersOrdeal
                 waterMon.dexID = pokemon.IndexOf((string)iRow.Cells[0].Value);
                 waterMon.minLv = (int)iRow.Cells[1].Value;
                 waterMon.maxLv = (int)iRow.Cells[2].Value;
+                if (formIDEnabled)
+                    waterMon.dexID += (ushort)iRow.Cells[4].Value << 16;
                 waterMons.Add(waterMon);
             }
 
@@ -271,6 +335,8 @@ namespace ImpostersOrdeal
                 oldRodMon.dexID = pokemon.IndexOf((string)iRow.Cells[0].Value);
                 oldRodMon.minLv = (int)iRow.Cells[1].Value;
                 oldRodMon.maxLv = (int)iRow.Cells[2].Value;
+                if (formIDEnabled)
+                    oldRodMon.dexID += (ushort)iRow.Cells[4].Value << 16;
                 oldRodMons.Add(oldRodMon);
             }
 
@@ -282,6 +348,8 @@ namespace ImpostersOrdeal
                 goodRodMon.dexID = pokemon.IndexOf((string)iRow.Cells[0].Value);
                 goodRodMon.minLv = (int)iRow.Cells[1].Value;
                 goodRodMon.maxLv = (int)iRow.Cells[2].Value;
+                if (formIDEnabled)
+                    goodRodMon.dexID += (ushort)iRow.Cells[4].Value << 16;
                 goodRodMons.Add(goodRodMon);
             }
 
@@ -293,6 +361,8 @@ namespace ImpostersOrdeal
                 superRodMon.dexID = pokemon.IndexOf((string)iRow.Cells[0].Value);
                 superRodMon.minLv = (int)iRow.Cells[1].Value;
                 superRodMon.maxLv = (int)iRow.Cells[2].Value;
+                if (formIDEnabled)
+                    superRodMon.dexID += (ushort)iRow.Cells[4].Value << 16;
                 superRodMons.Add(superRodMon);
             }
 
@@ -322,6 +392,8 @@ namespace ImpostersOrdeal
                 groundMon.dexID = pokemon.IndexOf((string)iRow.Cells[0].Value);
                 groundMon.minLv = (int)iRow.Cells[1].Value;
                 groundMon.maxLv = (int)iRow.Cells[2].Value;
+                if (formIDEnabled)
+                    groundMon.dexID += (ushort)iRow.Cells[4].Value << 16;
                 groundMons.Add(groundMon);
                 if (i == 2 || i == 3)
                 {
@@ -329,6 +401,8 @@ namespace ImpostersOrdeal
                     morningEnc.dexID = pokemon.IndexOf((string)iRow.Cells[0].Value);
                     morningEnc.minLv = (int)iRow.Cells[1].Value;
                     morningEnc.maxLv = (int)iRow.Cells[2].Value;
+                    if (formIDEnabled)
+                        morningEnc.dexID += (ushort)iRow.Cells[4].Value << 16;
                     morning.Add(morningEnc);
                 }
             }
@@ -354,6 +428,8 @@ namespace ImpostersOrdeal
                 groundMon.dexID = pokemon.IndexOf((string)iRow.Cells[0].Value);
                 groundMon.minLv = (int)iRow.Cells[1].Value;
                 groundMon.maxLv = (int)iRow.Cells[2].Value;
+                if (formIDEnabled)
+                    groundMon.dexID += (ushort)iRow.Cells[4].Value << 16;
                 groundMons.Add(groundMon);
                 if (i == 2 || i == 3)
                 {
@@ -361,6 +437,8 @@ namespace ImpostersOrdeal
                     dayEnc.dexID = pokemon.IndexOf((string)iRow.Cells[0].Value);
                     dayEnc.minLv = (int)iRow.Cells[1].Value;
                     dayEnc.maxLv = (int)iRow.Cells[2].Value;
+                    if (formIDEnabled)
+                        dayEnc.dexID += (ushort)iRow.Cells[4].Value << 16;
                     day.Add(groundMon);
                 }
             }
@@ -386,6 +464,8 @@ namespace ImpostersOrdeal
                 groundMon.dexID = pokemon.IndexOf((string)iRow.Cells[0].Value);
                 groundMon.minLv = (int)iRow.Cells[1].Value;
                 groundMon.maxLv = (int)iRow.Cells[2].Value;
+                if (formIDEnabled)
+                    groundMon.dexID += (ushort)iRow.Cells[4].Value << 16;
                 groundMons.Add(groundMon);
                 if (i == 2 || i == 3)
                 {
@@ -393,6 +473,8 @@ namespace ImpostersOrdeal
                     nightEnc.dexID = pokemon.IndexOf((string)iRow.Cells[0].Value);
                     nightEnc.minLv = (int)iRow.Cells[1].Value;
                     nightEnc.maxLv = (int)iRow.Cells[2].Value;
+                    if (formIDEnabled)
+                        nightEnc.dexID += (ushort)iRow.Cells[4].Value << 16;
                     night.Add(groundMon);
                 }
             }
