@@ -110,13 +110,13 @@ namespace ImpostersOrdeal
 
             if (inserterMode == InserterMode.Form)
             {
-                AssetInserter.GetInstance().InsertPokemon(d.dexID, d.dexID, (int)formIDComboBox.SelectedItem, d.forms.Count, speciesNameTextBox.Text, formNameTextBox.Text);
+                PokemonInserter.GetInstance().InsertPokemon(d.dexID, d.dexID, (int)formIDComboBox.SelectedItem, d.forms.Count, speciesNameTextBox.Text, formNameTextBox.Text);
                 MessageBox.Show("Data for " + d.GetName() + " " + formNameTextBox.Text + " has been inserted!",
                     "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                AssetInserter.GetInstance().InsertPokemon(d.dexID, dexEntries.Count, (int)formIDComboBox.SelectedItem, 0, speciesNameTextBox.Text, formNameTextBox.Text);
+                PokemonInserter.GetInstance().InsertPokemon(d.dexID, dexEntries.Count, (int)formIDComboBox.SelectedItem, 0, speciesNameTextBox.Text, formNameTextBox.Text);
                 MessageBox.Show("Data for " + speciesNameTextBox.Text + " has been inserted!",
                     "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }

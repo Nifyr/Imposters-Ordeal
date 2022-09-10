@@ -9,6 +9,7 @@ using static ImpostersOrdeal.GlobalData;
 using SmartPoint.AssetAssistant;
 using System.Configuration;
 using System.Threading.Tasks;
+using System.Text;
 
 namespace ImpostersOrdeal
 {
@@ -500,6 +501,22 @@ namespace ImpostersOrdeal
             fileArchive[fd.gamePath] = fd;
         }
 
+        public StringBuilder GetAudioSourceLog()
+        {
+            string logPath = "romfs\\Data\\StreamingAssets\\Audio\\GeneratedSoundBanks\\Switch\\AudioSources.txt";
+            if (!fileArchive.ContainsKey(logPath))
+            {
+                FileData fd = new();
+                fd.fileLocation = audioPath + "\\AudioSources.txt";
+                fd.fileSource = FileSource.App;
+                fd.gamePath = logPath;
+                fileArchive[logPath] = fd;
+                return new("\n");
+            }
+
+            return new(File.ReadAllText(fileArchive[logPath].fileLocation));
+        }
+
         /// <summary>
         ///  Places a file relative to the mod root in accordance with its FileData.
         /// </summary>
@@ -515,6 +532,9 @@ namespace ImpostersOrdeal
                 {
                     case "Delphis_Main.bnk":
                         buffer = gameData.audioData.GetBytes();
+                        break;
+                    case "AudioSources.txt":
+                        buffer = Encoding.UTF8.GetBytes(gameData.audioSourceLog.ToString());
                         break;
                     case "global-metadata.dat":
                         buffer = gameData.globalMetadata.buffer;
