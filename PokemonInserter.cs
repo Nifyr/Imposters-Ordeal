@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace ImpostersOrdeal
 {
-    class AssetInserter
+    class PokemonInserter
     {
         enum AssetClassID
         {
@@ -25,15 +25,15 @@ namespace ImpostersOrdeal
             AssetBundle = 142,
         }
 
-        private static AssetInserter instance;
+        private static PokemonInserter instance;
         private readonly Random rnd;
         private readonly Dictionary<string, string> CABNames;
-        private AssetInserter()
+        private PokemonInserter()
         {
             rnd = new();
             CABNames = new();
         }
-        public static AssetInserter GetInstance()
+        public static PokemonInserter GetInstance()
         {
             if (instance == null)
             {
@@ -143,7 +143,8 @@ namespace ImpostersOrdeal
             gameData.audioData.objectsByID[newAP.id] = newAP;
             hc.loadedItem.Add(newAP);
 
-            List<uint> newEventIDs = GetWwiseEvents(uniqueID.Item2).Select(s => FNV132(s)).ToList();
+            List<string> eventNames = GetWwiseEvents(uniqueID.Item2);
+            List<uint> newEventIDs = eventNames.Select(s => FNV132(s)).ToList();
             foreach (uint newEventID in newEventIDs)
             {
                 Event newE = (Event)e.Clone();
@@ -153,6 +154,8 @@ namespace ImpostersOrdeal
                 gameData.audioData.objectsByID[newE.id] = newE;
                 hc.loadedItem.Add(newE);
             }
+            gameData.audioSourceLog ??= fileManager.GetAudioSourceLog();
+            gameData.audioSourceLog.Append(eventNames[0] + " → " + sourceID.Item2 + "\n");
         }
 
         private uint NextUInt32(WwiseData wd)
@@ -692,7 +695,7 @@ namespace ImpostersOrdeal
                 AssetsReplacerFromMemory arfm = new(0, afie.index, (int)afie.curFileType, AssetHelper.GetScriptIndex(afi.file, afie), b);
                 ars.Add(arfm);
             }
-            /*
+            
             List<AssetTypeValueField> gameObjects = afi.table.GetAssetsOfType((int)AssetClassID.GameObject).Select(afie => am.GetTypeInstance(afi, afie).GetBaseField()).ToList();
             AssetTypeValueField gameObject;
 
@@ -710,7 +713,7 @@ namespace ImpostersOrdeal
                 AssetsReplacerFromMemory arfm = new(0, afie.index, (int)afie.curFileType, AssetHelper.GetScriptIndex(afi.file, afie), b);
                 ars.Add(arfm);
             }
-
+            /*
             List<AssetTypeValueField> materials = afi.table.GetAssetsOfType((int)AssetClassID.Material).Select(afie => am.GetTypeInstance(afi, afie).GetBaseField()).ToList();
             AssetTypeValueField material;
 

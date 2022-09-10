@@ -52,6 +52,7 @@ namespace ImpostersOrdeal
             public AssetBundleDownloadManifest dprBin;
 
             public Dictionary<string, string> trainerNames;
+            public StringBuilder audioSourceLog;
 
             private readonly bool[] fieldStates = new bool[Enum.GetNames(typeof(DataField)).Length];
 
