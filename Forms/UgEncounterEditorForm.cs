@@ -85,6 +85,8 @@ namespace ImpostersOrdeal
             specialEncounters = gameData.ugSpecialEncounters;
             dexEntries = gameData.dexEntries.Select(d => d.GetName()).ToList();
             versionNames = versions;
+
+            encounterFiles[0].ugEncounters[0].version = 0;
             versionUnbounded = encounterFiles.SelectMany(o => o.ugEncounters).Any(e => e.version < 1 || e.version > 3);
             if (versionUnbounded)
             {

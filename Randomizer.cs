@@ -14,8 +14,8 @@ namespace ImpostersOrdeal
     /// </summary>
     public class Randomizer
     {
-        private MainForm m;
-        private Random rng;
+        private readonly MainForm m;
+        private readonly Random rng;
 
         public Randomizer(MainForm m)
         {
@@ -125,7 +125,8 @@ namespace ImpostersOrdeal
                 RandomizeMusic();
         }
 
-        private void FixTPEVIVs()
+        // Fix in case an older version of Imposter's Ordeal broke someone's iv and ev spreads.
+        private static void FixTPEVIVs()
         {
             foreach (Trainer t in gameData.trainers)
             {
@@ -478,33 +479,35 @@ namespace ImpostersOrdeal
         /// </summary>
         private static TrainerPokemon Copy(TrainerPokemon o)
         {
-            TrainerPokemon t = new();
-            t.abilityID = o.abilityID;
-            t.atkEV = o.atkEV;
-            t.atkIV = o.atkIV;
-            t.ballID = o.ballID;
-            t.defEV = o.defEV;
-            t.defIV = o.defIV;
-            t.dexID = o.dexID;
-            t.formID = o.formID;
-            t.hpEV = o.hpEV;
-            t.hpIV = o.hpIV;
-            t.isRare = o.isRare;
-            t.itemID = o.itemID;
-            t.level = o.level;
-            t.moveID1 = o.moveID1;
-            t.moveID2 = o.moveID2;
-            t.moveID3 = o.moveID3;
-            t.moveID4 = o.moveID4;
-            t.natureID = o.natureID;
-            t.seal = o.seal;
-            t.sex = o.sex;
-            t.spAtkEV = o.spAtkEV;
-            t.spAtkIV = o.spAtkIV;
-            t.spDefEV = o.spDefEV;
-            t.spDefIV = o.spDefIV;
-            t.spdEV = o.spdEV;
-            t.spdIV = o.spdIV;
+            TrainerPokemon t = new()
+            {
+                abilityID = o.abilityID,
+                atkEV = o.atkEV,
+                atkIV = o.atkIV,
+                ballID = o.ballID,
+                defEV = o.defEV,
+                defIV = o.defIV,
+                dexID = o.dexID,
+                formID = o.formID,
+                hpEV = o.hpEV,
+                hpIV = o.hpIV,
+                isRare = o.isRare,
+                itemID = o.itemID,
+                level = o.level,
+                moveID1 = o.moveID1,
+                moveID2 = o.moveID2,
+                moveID3 = o.moveID3,
+                moveID4 = o.moveID4,
+                natureID = o.natureID,
+                seal = o.seal,
+                sex = o.sex,
+                spAtkEV = o.spAtkEV,
+                spAtkIV = o.spAtkIV,
+                spDefEV = o.spDefEV,
+                spDefIV = o.spDefIV,
+                spdEV = o.spdEV,
+                spdIV = o.spdIV
+            };
             return t;
         }
         
@@ -647,19 +650,28 @@ namespace ImpostersOrdeal
 
         private void RandomizeWildEncounters(bool randomizeSpecies, IDistribution speciesDistribution, bool randomizeLevels, IDistribution levelDistribution, bool legendLogic, bool evolveLogic)
         {
+            bool randomizeEncounterTableFormIDs = gameData.encounterTableFiles.Any(etf => etf.encounterTables.Any(et => et.groundMons.Any(e => e.dexID > 0xFFFF)));
+            bool randomizeUgEncounterFormIDs = gameData.ugEncounterFiles.Any(ugef => ugef.ugEncounters.Any(uge => uge.version < 1 || uge.version > 3));
             foreach (EncounterTableFile encounterTableFile in gameData.encounterTableFiles)
             {
                 foreach (EncounterTable encounterTable in encounterTableFile.encounterTables)
                 {
-                    RandomizeEncounterList(encounterTable.day, randomizeSpecies, speciesDistribution, randomizeLevels, levelDistribution, legendLogic, evolveLogic);
-                    RandomizeEncounterList(encounterTable.goodRodMons, randomizeSpecies, speciesDistribution, randomizeLevels, levelDistribution, legendLogic, evolveLogic);
-                    RandomizeEncounterList(encounterTable.groundMons, randomizeSpecies, speciesDistribution, randomizeLevels, levelDistribution, legendLogic, evolveLogic);
-                    RandomizeEncounterList(encounterTable.night, randomizeSpecies, speciesDistribution, randomizeLevels, levelDistribution, legendLogic, evolveLogic);
-                    RandomizeEncounterList(encounterTable.oldRodMons, randomizeSpecies, speciesDistribution, randomizeLevels, levelDistribution, legendLogic, evolveLogic);
-                    RandomizeEncounterList(encounterTable.superRodMons, randomizeSpecies, speciesDistribution, randomizeLevels, levelDistribution, legendLogic, evolveLogic);
-                    RandomizeEncounterList(encounterTable.swayGrass, randomizeSpecies, speciesDistribution, randomizeLevels, levelDistribution, legendLogic, evolveLogic);
-                    RandomizeEncounterList(encounterTable.tairyo, randomizeSpecies, speciesDistribution, randomizeLevels, levelDistribution, legendLogic, evolveLogic);
-                    RandomizeEncounterList(encounterTable.waterMons, randomizeSpecies, speciesDistribution, randomizeLevels, levelDistribution, legendLogic, evolveLogic);
+                    RandomizeEncounterList(encounterTable.day, randomizeSpecies, speciesDistribution, randomizeLevels, levelDistribution, legendLogic, evolveLogic, randomizeEncounterTableFormIDs);
+                    RandomizeEncounterList(encounterTable.goodRodMons, randomizeSpecies, speciesDistribution, randomizeLevels, levelDistribution, legendLogic, evolveLogic, randomizeEncounterTableFormIDs);
+                    RandomizeEncounterList(encounterTable.groundMons, randomizeSpecies, speciesDistribution, randomizeLevels, levelDistribution, legendLogic, evolveLogic, randomizeEncounterTableFormIDs);
+                    RandomizeEncounterList(encounterTable.night, randomizeSpecies, speciesDistribution, randomizeLevels, levelDistribution, legendLogic, evolveLogic, randomizeEncounterTableFormIDs);
+                    RandomizeEncounterList(encounterTable.oldRodMons, randomizeSpecies, speciesDistribution, randomizeLevels, levelDistribution, legendLogic, evolveLogic, randomizeEncounterTableFormIDs);
+                    RandomizeEncounterList(encounterTable.superRodMons, randomizeSpecies, speciesDistribution, randomizeLevels, levelDistribution, legendLogic, evolveLogic, randomizeEncounterTableFormIDs);
+                    RandomizeEncounterList(encounterTable.swayGrass, randomizeSpecies, speciesDistribution, randomizeLevels, levelDistribution, legendLogic, evolveLogic, randomizeEncounterTableFormIDs);
+                    RandomizeEncounterList(encounterTable.tairyo, randomizeSpecies, speciesDistribution, randomizeLevels, levelDistribution, legendLogic, evolveLogic, randomizeEncounterTableFormIDs);
+                    RandomizeEncounterList(encounterTable.waterMons, randomizeSpecies, speciesDistribution, randomizeLevels, levelDistribution, legendLogic, evolveLogic, randomizeEncounterTableFormIDs);
+
+                    // Unused tables too, why not?
+                    RandomizeEncounterList(encounterTable.gbaRuby, randomizeSpecies, speciesDistribution, randomizeLevels, levelDistribution, legendLogic, evolveLogic, randomizeEncounterTableFormIDs);
+                    RandomizeEncounterList(encounterTable.gbaSapphire, randomizeSpecies, speciesDistribution, randomizeLevels, levelDistribution, legendLogic, evolveLogic, randomizeEncounterTableFormIDs);
+                    RandomizeEncounterList(encounterTable.gbaEmerald, randomizeSpecies, speciesDistribution, randomizeLevels, levelDistribution, legendLogic, evolveLogic, randomizeEncounterTableFormIDs);
+                    RandomizeEncounterList(encounterTable.gbaFire, randomizeSpecies, speciesDistribution, randomizeLevels, levelDistribution, legendLogic, evolveLogic, randomizeEncounterTableFormIDs);
+                    RandomizeEncounterList(encounterTable.gbaLeaf, randomizeSpecies, speciesDistribution, randomizeLevels, levelDistribution, legendLogic, evolveLogic, randomizeEncounterTableFormIDs);
                 }
                 if (randomizeSpecies)
                 {
@@ -679,7 +691,11 @@ namespace ImpostersOrdeal
             if (randomizeSpecies)
                 foreach (UgEncounterFile ugEncounterFile in gameData.ugEncounterFiles)
                     for (int i = 0; i < ugEncounterFile.ugEncounters.Count; i++)
+                    {
                         ugEncounterFile.ugEncounters[i].dexID = speciesDistribution.Next(ugEncounterFile.ugEncounters[i].dexID);
+                        if (randomizeUgEncounterFormIDs)
+                            ugEncounterFile.ugEncounters[i].version = rng.Next(gameData.dexEntries[ugEncounterFile.ugEncounters[i].dexID].forms.Count);
+                    }
 
             if (randomizeSpecies)
                 foreach (UgSpecialEncounter ugSpecialEncounter in gameData.ugSpecialEncounters)
@@ -702,7 +718,7 @@ namespace ImpostersOrdeal
         /// <summary>
         ///  Randomizes a list of Encounter objects.
         /// </summary>
-        private void RandomizeEncounterList(List<Encounter> encounters, bool randomizeSpecies, IDistribution speciesDistribution, bool randomizeLevels, IDistribution levelDistribution, bool legendLogic, bool evolveLogic)
+        private void RandomizeEncounterList(List<Encounter> encounters, bool randomizeSpecies, IDistribution speciesDistribution, bool randomizeLevels, IDistribution levelDistribution, bool legendLogic, bool evolveLogic, bool randomizeFormIDs)
         {
             List<int> legendaryDexIDs = gameData.dexEntries.Where(d => d.forms[0].legendary).Select(d => d.dexID).ToList();
             foreach (Encounter encounter in encounters)
@@ -714,22 +730,34 @@ namespace ImpostersOrdeal
 
                     if (encounter.minLv > encounter.maxLv)
                     {
-                        int temp = encounter.minLv;
-                        encounter.minLv = encounter.maxLv;
-                        encounter.maxLv = temp;
+                        (encounter.maxLv, encounter.minLv) = (encounter.minLv, encounter.maxLv);
                     }
                 }
 
                 if (randomizeSpecies)
                 {
-                    encounter.dexID = speciesDistribution.Next(encounter.dexID);
+                    encounter.dexID = speciesDistribution.Next((ushort)encounter.dexID);
+                    if (randomizeFormIDs)
+                        encounter.dexID += rng.Next(gameData.dexEntries[(ushort)encounter.dexID].forms.Count) << 16;
                     if (legendLogic && !P(encounter.GetAvgLevel()))
-                        while (legendaryDexIDs.Contains(encounter.dexID))
-                            encounter.dexID = speciesDistribution.Next(encounter.dexID);
+                        while (legendaryDexIDs.Contains((ushort)encounter.dexID))
+                        {
+                            encounter.dexID = speciesDistribution.Next((ushort)encounter.dexID);
+                            if (randomizeFormIDs)
+                                encounter.dexID += rng.Next(gameData.dexEntries[(ushort)encounter.dexID].forms.Count) << 16;
+                        }
                 }
 
                 if (evolveLogic)
-                    encounter.dexID = FindStage(gameData.personalEntries[encounter.dexID], (int)encounter.GetAvgLevel(), true).dexID;
+                {
+                    if (randomizeFormIDs)
+                    {
+                        Pokemon p = FindStage(gameData.GetPokemon((ushort)encounter.dexID, encounter.dexID >> 16), (int)encounter.GetAvgLevel(), true);
+                        encounter.dexID = p.dexID + (p.formID << 16);
+                    }
+                    else
+                        encounter.dexID = FindStage(gameData.personalEntries[(ushort)encounter.dexID], (int)encounter.GetAvgLevel(), true).dexID;
+                }
             }
         }
 
@@ -849,9 +877,11 @@ namespace ImpostersOrdeal
                     {
                         if (levelUpMoves.Count == 0)
                         {
-                            LevelUpMove l = new();
-                            l.level = (ushort)Conform(AbsoluteBoundary.Level, levelDistribution.Next(1));
-                            l.moveID = (ushort)moveDistribution.Next(1);
+                            LevelUpMove l = new()
+                            {
+                                level = (ushort)Conform(AbsoluteBoundary.Level, levelDistribution.Next(1)),
+                                moveID = (ushort)moveDistribution.Next(1)
+                            };
                             levelUpMoves.Add(l);
                             continue;
                         }
@@ -893,9 +923,7 @@ namespace ImpostersOrdeal
                 if (attacks.Count > 0)
                 {
                     LevelUpMove target = GetRandom(attacks);
-                    ushort temp = firstMove.moveID;
-                    firstMove.moveID = target.moveID;
-                    target.moveID = temp;
+                    (target.moveID, firstMove.moveID) = (firstMove.moveID, target.moveID);
                 }
                 else
                     while (!IsWithin(AbsoluteBoundary.Power, gameData.moves[firstMove.moveID].power))
@@ -931,9 +959,11 @@ namespace ImpostersOrdeal
         /// </summary>
         private static LevelUpMove Copy(LevelUpMove o)
         {
-            LevelUpMove c = new();
-            c.level = o.level;
-            c.moveID = o.moveID;
+            LevelUpMove c = new()
+            {
+                level = o.level,
+                moveID = o.moveID
+            };
             return c;
         }
 
@@ -1133,8 +1163,10 @@ namespace ImpostersOrdeal
                     continue;
 
                 List<int> oldTyping = pokemon.GetTyping();
-                List<int> newTyping = new();
-                newTyping.Add(distribution.Next(oldTyping.First()));
+                List<int> newTyping = new()
+                {
+                    distribution.Next(oldTyping.First())
+                };
                 if (P(doubleTypingP))
                     newTyping.Add(distribution.Next(oldTyping.Last()));
                 pokemon.SetTyping(newTyping);
@@ -1291,9 +1323,7 @@ namespace ImpostersOrdeal
                         maxDelta = delta;
                     }
                 }
-                byte temp = pastStats[index];
-                pastStats[index] = nextStats[index];
-                nextStats[index] = temp;
+                (nextStats[index], pastStats[index]) = (pastStats[index], nextStats[index]);
             }
 
             past.SetStats(pastStats.ToArray());
@@ -1310,9 +1340,7 @@ namespace ImpostersOrdeal
             {
                 n--;
                 int k = rng.Next(n + 1);
-                T value = list[k];
-                list[k] = list[n];
-                list[n] = value;
+                (list[n], list[k]) = (list[k], list[n]);
             }
         }
 

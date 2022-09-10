@@ -239,32 +239,32 @@ namespace ImpostersOrdeal
                 {
                     EncounterTable e = gameData.encounterTableFiles[version].encounterTables[zone];
                     for (int i = 0; i < e.day.Count; i++)
-                        if (e.day[i].dexID > 0)
-                            instances[e.day[i].dexID]++;
+                        if ((ushort)e.day[i].dexID > 0)
+                            instances[(ushort)e.day[i].dexID]++;
                     for (int i = 0; i < e.goodRodMons.Count; i++)
-                        if (e.goodRodMons[i].dexID > 0)
-                            instances[e.goodRodMons[i].dexID]++;
+                        if ((ushort)e.goodRodMons[i].dexID > 0)
+                            instances[(ushort)e.goodRodMons[i].dexID]++;
                     for (int i = 0; i < e.groundMons.Count; i++)
-                        if (e.groundMons[i].dexID > 0)
-                            instances[e.groundMons[i].dexID]++;
+                        if ((ushort)e.groundMons[i].dexID > 0)
+                            instances[(ushort)e.groundMons[i].dexID]++;
                     for (int i = 0; i < e.night.Count; i++)
-                        if (e.night[i].dexID > 0)
-                            instances[e.night[i].dexID]++;
+                        if ((ushort)e.night[i].dexID > 0)
+                            instances[(ushort)e.night[i].dexID]++;
                     for (int i = 0; i < e.oldRodMons.Count; i++)
-                        if (e.oldRodMons[i].dexID > 0)
-                            instances[e.oldRodMons[i].dexID]++;
+                        if ((ushort)e.oldRodMons[i].dexID > 0)
+                            instances[(ushort)e.oldRodMons[i].dexID]++;
                     for (int i = 0; i < e.superRodMons.Count; i++)
-                        if (e.superRodMons[i].dexID > 0)
-                            instances[e.superRodMons[i].dexID]++;
+                        if ((ushort)e.superRodMons[i].dexID > 0)
+                            instances[(ushort)e.superRodMons[i].dexID]++;
                     for (int i = 0; i < e.swayGrass.Count; i++)
-                        if (e.swayGrass[i].dexID > 0)
-                            instances[e.swayGrass[i].dexID]++;
+                        if ((ushort)e.swayGrass[i].dexID > 0)
+                            instances[(ushort)e.swayGrass[i].dexID]++;
                     for (int i = 0; i < e.tairyo.Count; i++)
-                        if (e.tairyo[i].dexID > 0)
-                            instances[e.tairyo[i].dexID]++;
+                        if ((ushort)e.tairyo[i].dexID > 0)
+                            instances[(ushort)e.tairyo[i].dexID]++;
                     for (int i = 0; i < e.waterMons.Count; i++)
-                        if (e.waterMons[i].dexID > 0)
-                            instances[e.waterMons[i].dexID]++;
+                        if ((ushort)e.waterMons[i].dexID > 0)
+                            instances[(ushort)e.waterMons[i].dexID]++;
                 }
 
                 for (int i = 0; i < gameData.encounterTableFiles[version].trophyGardenMons.Count; i++)
@@ -299,55 +299,55 @@ namespace ImpostersOrdeal
                 {
                     EncounterTable e = gameData.encounterTableFiles[version].encounterTables[zone];
                     for (int i = 0; i < e.day.Count; i++)
-                        if (e.day[i].dexID > 0)
+                        if ((ushort)e.day[i].dexID > 0)
                         {
                             observations.Add(e.day[i].minLv);
                             observations.Add(e.day[i].maxLv);
                         }
                     for (int i = 0; i < e.goodRodMons.Count; i++)
-                        if (e.goodRodMons[i].dexID > 0)
+                        if ((ushort)e.goodRodMons[i].dexID > 0)
                         {
                             observations.Add(e.goodRodMons[i].minLv);
                             observations.Add(e.goodRodMons[i].maxLv);
                         }
                     for (int i = 0; i < e.groundMons.Count; i++)
-                        if (e.groundMons[i].dexID > 0)
+                        if ((ushort)e.groundMons[i].dexID > 0)
                         {
                             observations.Add(e.groundMons[i].minLv);
                             observations.Add(e.groundMons[i].maxLv);
                         }
                     for (int i = 0; i < e.night.Count; i++)
-                        if (e.night[i].dexID > 0)
+                        if ((ushort)e.night[i].dexID > 0)
                         {
                             observations.Add(e.night[i].minLv);
                             observations.Add(e.night[i].maxLv);
                         }
                     for (int i = 0; i < e.oldRodMons.Count; i++)
-                        if (e.oldRodMons[i].dexID > 0)
+                        if ((ushort)e.oldRodMons[i].dexID > 0)
                         {
                             observations.Add(e.oldRodMons[i].minLv);
                             observations.Add(e.oldRodMons[i].maxLv);
                         }
                     for (int i = 0; i < e.superRodMons.Count; i++)
-                        if (e.superRodMons[i].dexID > 0)
+                        if ((ushort)e.superRodMons[i].dexID > 0)
                         {
                             observations.Add(e.superRodMons[i].minLv);
                             observations.Add(e.superRodMons[i].maxLv);
                         }
                     for (int i = 0; i < e.swayGrass.Count; i++)
-                        if (e.swayGrass[i].dexID > 0)
+                        if ((ushort)e.swayGrass[i].dexID > 0)
                         {
                             observations.Add(e.swayGrass[i].minLv);
                             observations.Add(e.swayGrass[i].maxLv);
                         }
                     for (int i = 0; i < e.tairyo.Count; i++)
-                        if (e.tairyo[i].dexID > 0)
+                        if ((ushort)e.tairyo[i].dexID > 0)
                         {
                             observations.Add(e.tairyo[i].minLv);
                             observations.Add(e.tairyo[i].maxLv);
                         }
                     for (int i = 0; i < e.waterMons.Count; i++)
-                        if (e.waterMons[i].dexID > 0)
+                        if ((ushort)e.waterMons[i].dexID > 0)
                         {
                             observations.Add(e.waterMons[i].minLv);
                             observations.Add(e.waterMons[i].maxLv);
