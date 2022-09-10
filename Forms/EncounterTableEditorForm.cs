@@ -80,7 +80,7 @@ namespace ImpostersOrdeal
             dataGridView8.Columns[1].ValueType = typeof(int);
             dataGridView8.Columns[2].ValueType = typeof(int);
 
-            encounterTables[0].groundMons[0].dexID = ushort.MaxValue + 1;
+            //encounterTables[0].groundMons[0].dexID = ushort.MaxValue + 1;
             formIDEnabled = encounterTables.Any(o => o.groundMons.Any(e => (uint)e.dexID > 0xFFFF));
             if (formIDEnabled)
             {
