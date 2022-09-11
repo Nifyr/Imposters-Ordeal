@@ -1245,7 +1245,7 @@ new() { GenderConfig.Genderless, GenderConfig.Genderless, GenderConfig.Genderles
                             srcFormID = 0;
                             break;
                     }
-                    AssetInserter.GetInstance().InsertPokemon(srcDexID, dexID, srcFormID, 0, "Ditto" + dexID, "Form0");
+                    PokemonInserter.GetInstance().InsertPokemon(srcDexID, dexID, srcFormID, 0, "Ditto" + dexID, "Form0");
                 }
                 for (int formID = 0; formID < formCounts[dexID]; formID++)
                     if (dexEntries[dexID].forms.Count == formID)
@@ -1275,7 +1275,7 @@ new() { GenderConfig.Genderless, GenderConfig.Genderless, GenderConfig.Genderles
                                 srcFormID = 0;
                                 break;
                         }
-                        AssetInserter.GetInstance().InsertPokemon(srcDexID, dexID, srcFormID, formID, "Ditto" + dexID, "Form" + formID);
+                        PokemonInserter.GetInstance().InsertPokemon(srcDexID, dexID, srcFormID, formID, "Ditto" + dexID, "Form" + formID);
                     }
             }
         }
