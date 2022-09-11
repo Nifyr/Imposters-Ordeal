@@ -151,7 +151,9 @@ namespace ImpostersOrdeal
                 newE.id = newEventID;
                 newE.actionIDs = new();
                 newE.actionIDs.Add(newAP.id);
-                gameData.audioData.objectsByID[newE.id] = newE;
+                if (gameData.audioData.objectsByID.ContainsKey(newEventID))
+                    hc.loadedItem.Remove((HircItem)gameData.audioData.objectsByID[newEventID]);
+                gameData.audioData.objectsByID[newEventID] = newE;
                 hc.loadedItem.Add(newE);
             }
             gameData.audioSourceLog ??= fileManager.GetAudioSourceLog();
