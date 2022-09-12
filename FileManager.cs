@@ -10,6 +10,7 @@ using SmartPoint.AssetAssistant;
 using System.Configuration;
 using System.Threading.Tasks;
 using System.Text;
+using System.Security.Cryptography;
 
 namespace ImpostersOrdeal
 {
@@ -74,7 +75,7 @@ namespace ImpostersOrdeal
             App
         }
 
-        public AssetsManager getAssetsManager()
+        public AssetsManager GetAssetsManager()
         {
             return am;
         }
@@ -363,6 +364,47 @@ namespace ImpostersOrdeal
         }
 
         /// <summary>
+        ///  Returns the BundleFileInstance of the texturemass bundle.
+        /// </summary>
+        public BundleFileInstance GetTexturemassBundle()
+        {
+            string absolutePath = assetAssistantPath + "\\UIs\\textures_mass\\texturemass";
+            string gamePath = "romfs\\Data\\StreamingAssets\\AssetAssistant\\UIs\\textures_mass\\texturemass";
+
+            if (!fileArchive.ContainsKey(gamePath))
+            {
+                if (!File.Exists(absolutePath))
+                {
+                    MessageBox.Show("File not found:\n" + gamePath,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return null;
+                }
+
+                FileData fd = new();
+                fd.fileLocation = absolutePath;
+                fd.gamePath = gamePath;
+                fd.fileSource = FileSource.Dump;
+                fileArchive[gamePath] = fd;
+            }
+
+            if (!fileArchive[gamePath].IsBundle())
+            {
+                FileData fd = fileArchive[gamePath];
+                fd.bundle = am.LoadBundleFile(fd.fileLocation, false);
+                DecompressBundle(fd.bundle);
+            }
+
+            return fileArchive[gamePath].bundle;
+        }
+
+        public void WriteTexturemassBundle(List<AssetsReplacer> ars)
+        {
+            string gamePath = "romfs\\Data\\StreamingAssets\\AssetAssistant\\UIs\\textures_mass\\texturemass";
+            fileArchive[gamePath].fileSource = FileSource.App;
+            MakeTempBundle(fileArchive[gamePath], ars, "texturemass");
+        }
+
+        /// <summary>
         ///  Gets a list of MonoBehaviour value fields by PathEnum.
         /// </summary>
         public List<AssetTypeValueField> GetMonoBehaviours(PathEnum pathEnum)
@@ -517,6 +559,15 @@ namespace ImpostersOrdeal
             return new(File.ReadAllText(fileArchive[logPath].fileLocation));
         }
 
+        public void DuplicateIconBundle(string srcPath, string dstPath)
+        {
+            FileData fd = new();
+            fd.fileLocation = assetAssistantPath + "\\UIs\\" + srcPath;
+            fd.gamePath = "romfs\\Data\\StreamingAssets\\AssetAssistant\\UIs\\" + dstPath;
+            fd.fileSource = FileSource.App;
+            fileArchive[fd.gamePath] = fd;
+        }
+
         /// <summary>
         ///  Places a file relative to the mod root in accordance with its FileData.
         /// </summary>
@@ -651,8 +702,7 @@ namespace ImpostersOrdeal
             afw = new(File.OpenWrite(fileLocation));
             fd.bundle.file.Write(afw, new List<BundleReplacer> { brfm });
             afw.Close();
-            fd.bundle.file.Close();
-            fd.bundle.stream.Dispose();
+            am = new();
             fd.bundle = am.LoadBundleFile(fileLocation, false);
             DecompressBundle(fd.bundle);
             if (fd.tempLocation)
