@@ -28,75 +28,7 @@ namespace ImpostersOrdeal
             "HP", "Atk", "Def", "SpA", "SpD", "Spe"
         };
 
-        private readonly Dictionary<string, int[]> monForms = new()
-        {
-            {"Nidoran-F", new int[] {29,0}},
-            {"Nidoran-M", new int[] {32,0}},
-            {"Unown-B", new int[] {201,1}},
-            {"Unown-C", new int[] {201,2}},
-            {"Unown-D", new int[] {201,3}},
-            {"Unown-E", new int[] {201,4}},
-            {"Unown-F", new int[] {201,5}},
-            {"Unown-G", new int[] {201,6}},
-            {"Unown-H", new int[] {201,7}},
-            {"Unown-I", new int[] {201,8}},
-            {"Unown-J", new int[] {201,9}},
-            {"Unown-K", new int[] {201,10}},
-            {"Unown-L", new int[] {201,11}},
-            {"Unown-M", new int[] {201,12}},
-            {"Unown-N", new int[] {201,13}},
-            {"Unown-O", new int[] {201,14}},
-            {"Unown-P", new int[] {201,15}},
-            {"Unown-Q", new int[] {201,16}},
-            {"Unown-R", new int[] {201,17}},
-            {"Unown-S", new int[] {201,18}},
-            {"Unown-T", new int[] {201,19}},
-            {"Unown-U", new int[] {201,20}},
-            {"Unown-V", new int[] {201,21}},
-            {"Unown-W", new int[] {201,22}},
-            {"Unown-X", new int[] {201,23}},
-            {"Unown-Y", new int[] {201,24}},
-            {"Unown-Z", new int[] {201,25}},
-            {"Unown-Exclamation", new int[] {201,26}},
-            {"Unown-Question", new int[] {201,27}},
-            {"Castform-Sunny", new int[] {351,1}},
-            {"Castform-Rainy", new int[] {351,2}},
-            {"Castform-Snowy", new int[] {351,3}},
-            {"Deoxys-Attack", new int[] {386,1}},
-            {"Deoxys-Defense", new int[] {386,2}},
-            {"Deoxys-Speed", new int[] {386,3}},
-            {"Burmy-Sandy", new int[] {412,1}},
-            {"Burmy-Trash", new int[] {412,1} },
-            {"Wormadam-Sandy", new int[] {413,1}},
-            {"Wormadam-Trash", new int[] {413,2}},
-            {"Cherrim-Sunshine", new int[] {421,1}},
-            {"Shellos-East", new int[] {422,1}},
-            {"Gastrodon-East", new int[] {423,1}},
-            {"Rotom-Heat", new int[] {479,1}},
-            {"Rotom-Wash", new int[] {479,2}},
-            {"Rotom-Frost", new int[] {479,3}},
-            {"Rotom-Fan", new int[] {479,4}},
-            {"Rotom-Mow", new int[] {479,5}},
-            {"Giratina-Origin", new int[] {487,1}},
-            {"Shaymin-Sky", new int[] {492,1}},
-            {"Arceus-Fighting", new int[] {493,1}},
-            {"Arceus-Flying", new int[] {493,2}},
-            {"Arceus-Poison", new int[] {493,3}},
-            {"Arceus-Ground", new int[] {493,4}},
-            {"Arceus-Rock", new int[] {493,5}},
-            {"Arceus-Bug", new int[] {493,6}},
-            {"Arceus-Ghost", new int[] {493,7}},
-            {"Arceus-Steel", new int[] {493,8}},
-            {"Arceus-Fire", new int[] {493,9}},
-            {"Arceus-Water", new int[] {493,10}},
-            {"Arceus-Grass", new int[] {493,11}},
-            {"Arceus-Electric", new int[] {493,12}},
-            {"Arceus-Psychic", new int[] {493,13}},
-            {"Arceus-Ice", new int[] {493,14}},
-            {"Arceus-Dragon", new int[] {493,15}},
-            {"Arceus-Dark", new int[] {493,16}},
-            {"Arceus-Fairy", new int[] {493,17}}
-        };
+        private readonly Dictionary<string, int[]> monForms = PokemonFormes.monForms;
 
 
         public void SetTP(Trainer t)
@@ -327,12 +259,41 @@ namespace ImpostersOrdeal
             }
         }
 
+        private String GetForm(int[] formArray)
+        {
+            foreach (KeyValuePair<String, int[]> entry in monForms)
+            {
+                if (Enumerable.SequenceEqual(formArray, entry.Value))
+                {
+                    return entry.Key;
+                }
+            }
+            return null;
+        }
+
         private String ToShowdownText(List<TrainerPokemon> trainer)
         {
             String showdownText = "";
             foreach (TrainerPokemon tp in trainer)
             {
-                showdownText += dexEntries[tp.dexID];
+                int[] formArray = new int[] { tp.dexID, tp.formID };
+
+                String formName = GetForm(formArray);
+
+                if(tp.dexID < dexEntries.Count) {
+                    if (formName != null)
+                    {
+                        showdownText += formName;
+                    }
+                    else
+                    {
+                        showdownText += dexEntries[tp.dexID];
+                    }
+                }
+                else
+                {
+                    showdownText += "Unrecognized";
+                }
                 showdownText += " ";
                 if(tp.sex != 255) //Gender defaults to 255
                 {
