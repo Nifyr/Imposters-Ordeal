@@ -537,8 +537,12 @@ namespace ImpostersOrdeal
         {
             FileData fd = new();
             fd.fileLocation = audioPath + "\\" + src + ".wem";
-            fd.gamePath = "romfs\\Data\\StreamingAssets\\Audio\\GeneratedSoundBanks\\Switch\\" +
-                dst + ".wem";
+            if (fileArchive.TryGetValue("romfs\\Data\\StreamingAssets\\Audio\\GeneratedSoundBanks\\Switch\\" + src + ".wem", out FileData srcFD))
+            {
+                fd.fileLocation = srcFD.fileLocation;
+                (fd.tempLocation, srcFD.tempLocation) = (srcFD.tempLocation, false);
+            }
+            fd.gamePath = "romfs\\Data\\StreamingAssets\\Audio\\GeneratedSoundBanks\\Switch\\" + dst + ".wem";
             fd.fileSource = FileSource.App;
             fileArchive[fd.gamePath] = fd;
         }
@@ -563,6 +567,11 @@ namespace ImpostersOrdeal
         {
             FileData fd = new();
             fd.fileLocation = assetAssistantPath + "\\UIs\\" + srcPath;
+            if (fileArchive.TryGetValue("romfs\\Data\\StreamingAssets\\AssetAssistant\\UIs\\" + srcPath, out FileData srcFD))
+            {
+                fd.fileLocation = srcFD.fileLocation;
+                (fd.tempLocation, srcFD.tempLocation) = (srcFD.tempLocation, false);
+            }
             fd.gamePath = "romfs\\Data\\StreamingAssets\\AssetAssistant\\UIs\\" + dstPath;
             fd.fileSource = FileSource.App;
             fileArchive[fd.gamePath] = fd;
