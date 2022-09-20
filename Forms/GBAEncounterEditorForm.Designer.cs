@@ -93,7 +93,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(399, 661);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(402, 663);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // groupBox5
@@ -102,7 +102,7 @@
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox5.Location = new System.Drawing.Point(3, 531);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(393, 127);
+            this.groupBox5.Size = new System.Drawing.Size(396, 129);
             this.groupBox5.TabIndex = 7;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Dual Slot Leaf Green";
@@ -124,7 +124,7 @@
             this.leafDataGridView.RowHeadersVisible = false;
             this.leafDataGridView.RowHeadersWidth = 51;
             this.leafDataGridView.RowTemplate.Height = 29;
-            this.leafDataGridView.Size = new System.Drawing.Size(387, 101);
+            this.leafDataGridView.Size = new System.Drawing.Size(390, 103);
             this.leafDataGridView.TabIndex = 3;
             this.leafDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.DataError);
             // 
@@ -163,7 +163,7 @@
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox4.Location = new System.Drawing.Point(3, 399);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(393, 126);
+            this.groupBox4.Size = new System.Drawing.Size(396, 126);
             this.groupBox4.TabIndex = 6;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Dual Slot Fire Red";
@@ -185,7 +185,7 @@
             this.fireDataGridView.RowHeadersVisible = false;
             this.fireDataGridView.RowHeadersWidth = 51;
             this.fireDataGridView.RowTemplate.Height = 29;
-            this.fireDataGridView.Size = new System.Drawing.Size(387, 100);
+            this.fireDataGridView.Size = new System.Drawing.Size(390, 100);
             this.fireDataGridView.TabIndex = 3;
             this.fireDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.DataError);
             // 
@@ -224,7 +224,7 @@
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Location = new System.Drawing.Point(3, 267);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(393, 126);
+            this.groupBox3.Size = new System.Drawing.Size(396, 126);
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Dual Slot Emerald";
@@ -246,7 +246,7 @@
             this.emeraldDataGridView.RowHeadersVisible = false;
             this.emeraldDataGridView.RowHeadersWidth = 51;
             this.emeraldDataGridView.RowTemplate.Height = 29;
-            this.emeraldDataGridView.Size = new System.Drawing.Size(387, 100);
+            this.emeraldDataGridView.Size = new System.Drawing.Size(390, 100);
             this.emeraldDataGridView.TabIndex = 3;
             this.emeraldDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.DataError);
             // 
@@ -285,7 +285,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(3, 135);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(393, 126);
+            this.groupBox1.Size = new System.Drawing.Size(396, 126);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Dual Slot Sapphire";
@@ -307,7 +307,7 @@
             this.sapphireDataGridView.RowHeadersVisible = false;
             this.sapphireDataGridView.RowHeadersWidth = 51;
             this.sapphireDataGridView.RowTemplate.Height = 29;
-            this.sapphireDataGridView.Size = new System.Drawing.Size(387, 100);
+            this.sapphireDataGridView.Size = new System.Drawing.Size(390, 100);
             this.sapphireDataGridView.TabIndex = 3;
             this.sapphireDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.DataError);
             // 
@@ -346,7 +346,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(3, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(393, 126);
+            this.groupBox2.Size = new System.Drawing.Size(396, 126);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Dual Slot Ruby";
@@ -368,7 +368,7 @@
             this.rubyDataGridView.RowHeadersVisible = false;
             this.rubyDataGridView.RowHeadersWidth = 51;
             this.rubyDataGridView.RowTemplate.Height = 29;
-            this.rubyDataGridView.Size = new System.Drawing.Size(387, 100);
+            this.rubyDataGridView.Size = new System.Drawing.Size(390, 100);
             this.rubyDataGridView.TabIndex = 3;
             this.rubyDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.DataError);
             // 
@@ -405,7 +405,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(399, 661);
+            this.ClientSize = new System.Drawing.Size(402, 663);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
