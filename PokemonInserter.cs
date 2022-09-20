@@ -718,8 +718,16 @@ namespace ImpostersOrdeal
             }
 
             IEnumerable<LabelData> lds = gameData.messageFileSets.SelectMany(mfs => mfs.messageFiles.Where
-            (mf => mf.mName.Contains("ss_zkn_form") || mf.mName.Contains("ss_zkn_height") || mf.mName.Contains("ss_zkn_weight"))
-            .SelectMany(mf => mf.labelDatas));
+                (mf => mf.mName.Contains("ss_zkn_form") || mf.mName.Contains("ss_zkn_height") || mf.mName.Contains("ss_zkn_weight"))
+                .SelectMany(mf => mf.labelDatas));
+            if (gameData.FormDescriptionsExist())
+            {
+                List<LabelData> lds0 = lds.ToList();
+                lds0.AddRange(gameData.messageFileSets.SelectMany(mfs => mfs.messageFiles.Where
+                    (mf => mf.mName.Contains("dp_pokedex_diamond") || mf.mName.Contains("dp_pokedex_pearl"))
+                    .SelectMany(mf => mf.labelDatas)));
+                lds = lds0;
+            }
             foreach (LabelData ld in lds)
             {
                 if (ld.labelIndex >= insert.personalID)
@@ -728,10 +736,7 @@ namespace ImpostersOrdeal
                     ld.arrayIndex++;
             }
 
-            if (insert.personalID == gameData.personalEntries.Count)
-                gameData.personalEntries.Add(insert);
-            else
-                gameData.personalEntries.Insert(insert.personalID, insert);
+            gameData.personalEntries.Insert(insert.personalID, insert);
         }
 
         private static int GetPersonalInsertPos(Pokemon p)
@@ -745,6 +750,7 @@ namespace ImpostersOrdeal
         public void UpdateCommonMsbt(int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo, string speciesName, string formName)
         {
             bool newSpecies = dstFormNo == 0;
+            bool formDescriptions = gameData.FormDescriptionsExist();
             foreach (MessageFileSet msgFileSet in gameData.messageFileSets)
             {
                 foreach (MessageFile msgFile in msgFileSet.messageFiles)
@@ -766,30 +772,30 @@ namespace ImpostersOrdeal
                             msgFile.labelDatas.Add(newLabelData);
                     }
 
-                    if (newSpecies && msgFile.mName.Contains("dp_pokedex_diamond"))
+                    if ((newSpecies || formDescriptions) && msgFile.mName.Contains("dp_pokedex_diamond"))
                     {
                         string srcLabelName = "DP_pokedex_diamond_" + srcMonsNo.ToString("D3");
                         string dstLabelName = "DP_pokedex_diamond_" + dstMonsNo.ToString("D3");
                         LabelData srcLabelData = msgFile.labelDatas.Find(mf => mf.labelName == srcLabelName);
                         LabelData newLabelData = (LabelData)srcLabelData.Clone();
                         newLabelData.labelName = dstLabelName;
-                        newLabelData.labelIndex = dstMonsNo;
+                        newLabelData.labelIndex = gameData.GetPokemon(dstMonsNo, dstFormNo).personalID;
                         newLabelData.arrayIndex = newLabelData.labelIndex;
 
-                        msgFile.labelDatas.Add(newLabelData);
+                        msgFile.labelDatas.Insert(newLabelData.labelIndex, newLabelData);
                     }
 
-                    if (newSpecies && msgFile.mName.Contains("dp_pokedex_pearl"))
+                    if ((newSpecies || formDescriptions) && msgFile.mName.Contains("dp_pokedex_pearl"))
                     {
                         string srcLabelName = "DP_pokedex_pearl_" + srcMonsNo.ToString("D3");
                         string dstLabelName = "DP_pokedex_pearl_" + dstMonsNo.ToString("D3");
                         LabelData srcLabelData = msgFile.labelDatas.Find(mf => mf.labelName == srcLabelName);
                         LabelData newLabelData = (LabelData)srcLabelData.Clone();
                         newLabelData.labelName = dstLabelName;
-                        newLabelData.labelIndex = dstMonsNo;
+                        newLabelData.labelIndex = gameData.GetPokemon(dstMonsNo, dstFormNo).personalID;
                         newLabelData.arrayIndex = newLabelData.labelIndex;
 
-                        msgFile.labelDatas.Add(newLabelData);
+                        msgFile.labelDatas.Insert(newLabelData.labelIndex, newLabelData);
                     }
 
                     if (newSpecies && msgFile.mName.Contains("ss_zkn_type"))
