@@ -413,6 +413,17 @@ namespace ImpostersOrdeal
                     waterMons, oldRodMons, goodRodMons, superRodMons
                 };
             }
+
+            public double GetAvgLevel()
+            {
+                return GetAllTables()
+                    .Take(5)
+                    .SelectMany(l => l)
+                    .Where(e => e.dexID != 0)
+                    .Select(e => e.GetAvgLevel())
+                    .DefaultIfEmpty()
+                    .Average();
+            }
         }
 
         public class Encounter

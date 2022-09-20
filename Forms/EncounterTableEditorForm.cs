@@ -15,7 +15,6 @@ namespace ImpostersOrdeal
     public partial class EncounterTableEditorForm : Form
     {
         public List<string> pokemon;
-        public List<string> zoneIDs;
         public List<EncounterTable> encounterTables;
         public EncounterTable encounterTable;
         public GBAEncounterEditorForm gbaeef;
@@ -53,16 +52,35 @@ namespace ImpostersOrdeal
             "60%", "30%", "5%", "4%", "1%"
         };
 
+        private readonly string[] sortNames = new string[]
+        {
+            "Sort by zoneID",
+            "Sort by name",
+            "Sort by level"
+        };
+
+        private readonly Comparison<EncounterTable>[] sortComparisons = new Comparison<EncounterTable>[]
+        {
+            (e0, e1) => e0.zoneID.CompareTo(e1.zoneID),
+            (e0, e1) => GetZoneName((int)e0.zoneID).CompareTo(GetZoneName((int)e1.zoneID)),
+            (e0, e1) => e0.GetAvgLevel().CompareTo(e1.GetAvgLevel())
+        };
+
         public EncounterTableEditorForm()
         {
             InitializeComponent();
 
             pokemon = gameData.dexEntries.Select(m => m.GetName()).ToList();
-            encounterTables = gameData.encounterTableFiles[0].encounterTables;
-            zoneIDs = encounterTables.Select(e => GetZoneName((int)e.zoneID)).ToList();
+            encounterTables = new();
+            encounterTables.AddRange(gameData.encounterTableFiles[0].encounterTables);
+
+            sortComboBox.DataSource = sortNames;
+            sortComboBox.SelectedIndex = 0;
+            encounterTables.Sort(sortComparisons[sortComboBox.SelectedIndex]);
+
+            PopulateListBox();
 
             versionComboBox.DataSource = gameVersions;
-            zoneIDListBox.DataSource = zoneIDs;
             pokemonSource.DataSource = pokemon.ToArray();
             monsNoGround.DataSource = pokemonSource;
             monsNoSwarm.DataSource = pokemonSource;
@@ -191,8 +209,6 @@ namespace ImpostersOrdeal
 
         private void RefreshDisplay()
         {
-            zoneIDLabel.Text = zoneIDs[zoneIDListBox.SelectedIndex];
-            
             RefreshGroundMonsDisplay();
 
             // Swarm
@@ -513,7 +529,6 @@ namespace ImpostersOrdeal
             DeactivateControls();
 
             encounterTables = gameData.encounterTableFiles[versionComboBox.SelectedIndex].encounterTables;
-            zoneIDs = encounterTables.Select(e => e.zoneID.ToString()).ToList();
             encounterTable = encounterTables[zoneIDListBox.SelectedIndex];
 
             RefreshDisplay();
@@ -521,8 +536,20 @@ namespace ImpostersOrdeal
             ActivateControls();
         }
 
+        private void SortChanged(object sender, EventArgs e)
+        {
+            DeactivateControls();
+
+            encounterTables.Sort(sortComparisons[sortComboBox.SelectedIndex]);
+            PopulateListBox();
+            zoneIDListBox.SelectedIndex = encounterTables.IndexOf(encounterTable);
+
+            ActivateControls();
+        }
+
         private void ActivateControls()
         {
+            sortComboBox.SelectedIndexChanged += SortChanged;
             zoneIDListBox.SelectedIndexChanged += ZoneIDChanged;
             versionComboBox.SelectedIndexChanged += VersionChanged;
 
@@ -549,6 +576,7 @@ namespace ImpostersOrdeal
 
         private void DeactivateControls()
         {
+            sortComboBox.SelectedIndexChanged -= SortChanged;
             zoneIDListBox.SelectedIndexChanged -= ZoneIDChanged;
             versionComboBox.SelectedIndexChanged -= VersionChanged;
 
@@ -571,6 +599,15 @@ namespace ImpostersOrdeal
             dataGridView6.CellEndEdit -= CommitEdit;
             dataGridView7.CellEndEdit -= CommitEdit;
             dataGridView8.CellEndEdit -= CommitEdit;
+        }
+
+        private void PopulateListBox()
+        {
+            int index = zoneIDListBox.SelectedIndex;
+            if (index < 0)
+                index = 0;
+            zoneIDListBox.DataSource = encounterTables.Select(e => GetZoneName((int)e.zoneID)).ToList();
+            zoneIDListBox.SelectedIndex = index;
         }
 
         private void DataError(object sender, DataGridViewDataErrorEventArgs e)

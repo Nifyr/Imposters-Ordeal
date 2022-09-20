@@ -75,7 +75,6 @@ namespace ImpostersOrdeal
             this.dataGridViewTextBoxColumn20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn21 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.superRodRateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.zoneIDLabel = new System.Windows.Forms.TextBox();
             this.versionComboBox = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -114,6 +113,7 @@ namespace ImpostersOrdeal
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.sortComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.groundMonsDataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -653,16 +653,6 @@ namespace ImpostersOrdeal
             this.superRodRateColumn.Name = "superRodRateColumn";
             this.superRodRateColumn.ReadOnly = true;
             // 
-            // zoneIDLabel
-            // 
-            this.zoneIDLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.zoneIDLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.zoneIDLabel.Location = new System.Drawing.Point(3, 38);
-            this.zoneIDLabel.Name = "zoneIDLabel";
-            this.zoneIDLabel.ReadOnly = true;
-            this.zoneIDLabel.Size = new System.Drawing.Size(191, 27);
-            this.zoneIDLabel.TabIndex = 1;
-            // 
             // versionComboBox
             // 
             this.versionComboBox.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -783,7 +773,6 @@ namespace ImpostersOrdeal
             this.tableLayoutPanel1.Controls.Add(this.versionComboBox, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.button1, 2, 9);
             this.tableLayoutPanel1.Controls.Add(this.groupBox3, 4, 0);
-            this.tableLayoutPanel1.Controls.Add(this.zoneIDLabel, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.groupBox2, 3, 7);
             this.tableLayoutPanel1.Controls.Add(this.groupBox4, 2, 7);
             this.tableLayoutPanel1.Controls.Add(this.zoneIDListBox, 0, 2);
@@ -795,6 +784,7 @@ namespace ImpostersOrdeal
             this.tableLayoutPanel1.Controls.Add(this.groupBox10, 4, 4);
             this.tableLayoutPanel1.Controls.Add(this.groupBox11, 4, 6);
             this.tableLayoutPanel1.Controls.Add(this.groupBox12, 4, 8);
+            this.tableLayoutPanel1.Controls.Add(this.sortComboBox, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -1114,6 +1104,16 @@ namespace ImpostersOrdeal
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Super Rod";
             // 
+            // sortComboBox
+            // 
+            this.sortComboBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sortComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.sortComboBox.FormattingEnabled = true;
+            this.sortComboBox.Location = new System.Drawing.Point(3, 38);
+            this.sortComboBox.Name = "sortComboBox";
+            this.sortComboBox.Size = new System.Drawing.Size(191, 28);
+            this.sortComboBox.TabIndex = 1;
+            // 
             // EncounterTableEditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -1147,7 +1147,6 @@ namespace ImpostersOrdeal
             ((System.ComponentModel.ISupportInitialize)(this.formProbNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.unownTableNumericUpDown)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.morningDataGridView)).EndInit();
             this.groupBox5.ResumeLayout(false);
@@ -1185,7 +1184,6 @@ namespace ImpostersOrdeal
         private System.Windows.Forms.DataGridView dataGridView6;
         private System.Windows.Forms.DataGridView dataGridView7;
         private System.Windows.Forms.DataGridView dataGridView8;
-        private System.Windows.Forms.TextBox zoneIDLabel;
         private System.Windows.Forms.ComboBox versionComboBox;
         private System.Windows.Forms.DataGridViewComboBoxColumn monsNoPokeradar;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
@@ -1249,5 +1247,6 @@ namespace ImpostersOrdeal
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn16;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn19;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn22;
+        private System.Windows.Forms.ComboBox sortComboBox;
     }
 }
