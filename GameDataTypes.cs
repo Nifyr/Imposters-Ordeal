@@ -403,6 +403,16 @@ namespace ImpostersOrdeal
             public List<Encounter> goodRodMons;
             public int encRateSuperRod;
             public List<Encounter> superRodMons;
+
+            public List<List<Encounter>> GetAllTables()
+            {
+                return new List<List<Encounter>>()
+                {
+                    groundMons, tairyo, day, night, swayGrass,
+                    gbaRuby, gbaSapphire, gbaEmerald, gbaFire, gbaLeaf,
+                    waterMons, oldRodMons, goodRodMons, superRodMons
+                };
+            }
         }
 
         public class Encounter
