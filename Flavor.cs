@@ -86,7 +86,7 @@ namespace ImpostersOrdeal
 
         public string GetSubTask()
         {
-            if (rng.Next(10) == 0)
+            if (rng.Next(10) != 0)
                 return verbs[rng.Next(verbs.Length)] + " " + articles[rng.Next(articles.Length)].ToLower() + " " + nouns[rng.Next(nouns.Length)].ToLower() + ".";
             return GetQuote();
         }
