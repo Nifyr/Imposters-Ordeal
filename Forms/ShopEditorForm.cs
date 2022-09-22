@@ -26,7 +26,7 @@ namespace ImpostersOrdeal
             fixedShopItems = gameData.shopTables.fixedShopItems;
             bpShopItems = gameData.shopTables.bpShopItems;
             items = gameData.items.Select(i => i.GetName()).ToList();
-            zones = zoneNames.ToList();
+            zones = Zones.zoneNames.ToList();
             zones[zones.Count - 1] = "All";
 
             InitializeComponent();

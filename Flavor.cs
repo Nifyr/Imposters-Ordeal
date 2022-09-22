@@ -77,9 +77,18 @@ namespace ImpostersOrdeal
             ("Hmmm... ", "? Yeah, let's place one here. Why not?")
         };
 
+        private readonly string[] quotes = new string[]
+        {
+            "\"Do you all think these editors grow on trees?\" - Nifyr",
+            "\"Man, what an ordeal...\" - Nifyr",
+            "\"And if there's still more bugs, I am going to...\" - Nifyr"
+        };
+
         public string GetSubTask()
         {
-            return verbs[rng.Next(verbs.Length)] + " " + articles[rng.Next(articles.Length)].ToLower() + " " + nouns[rng.Next(nouns.Length)].ToLower() + ".";
+            if (rng.Next(10) == 0)
+                return verbs[rng.Next(verbs.Length)] + " " + articles[rng.Next(articles.Length)].ToLower() + " " + nouns[rng.Next(nouns.Length)].ToLower() + ".";
+            return GetQuote();
         }
 
         private string GetRandomName()
@@ -96,8 +105,17 @@ namespace ImpostersOrdeal
 
         public string GetThought()
         {
-            int thoughtIdx = rng.Next(thoughts.Length);
-            return thoughts[thoughtIdx].Item1 + GetRandomName() + thoughts[thoughtIdx].Item2;
+            if (rng.Next(10) != 0)
+            {
+                int thoughtIdx = rng.Next(thoughts.Length);
+                return thoughts[thoughtIdx].Item1 + GetRandomName() + thoughts[thoughtIdx].Item2;
+            }
+            return GetQuote();
+        }
+
+        private string GetQuote()
+        {
+            return quotes[rng.Next(quotes.Length)];
         }
     }
 }
