@@ -96,7 +96,7 @@ namespace ImpostersOrdeal
             InitializeComponent();
 
             //encounterFiles[0].ugEncounters[0].version = 0;
-            encounterFiles[0].ugEncounters[0].dexID = 0xFFFF + 1;
+            //encounterFiles[0].ugEncounters[0].dexID = 0xFFFF + 1;
             mode = Mode.Normal;
             if (gameData.Uint16UgTables())
                 mode = Mode.Uint16DexID;
