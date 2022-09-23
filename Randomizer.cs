@@ -650,8 +650,10 @@ namespace ImpostersOrdeal
 
         private void RandomizeWildEncounters(bool randomizeSpecies, IDistribution speciesDistribution, bool randomizeLevels, IDistribution levelDistribution, bool legendLogic, bool evolveLogic)
         {
-            bool randomizeEncounterTableFormIDs = gameData.encounterTableFiles.Any(etf => etf.encounterTables.Any(et => et.groundMons.Any(e => e.dexID > 0xFFFF)));
-            bool randomizeUgEncounterFormIDs = gameData.ugEncounterFiles.Any(ugef => ugef.ugEncounters.Any(uge => uge.version < 1 || uge.version > 3));
+            bool randomizeEncounterTableFormIDs = gameData.Uint16EncounterTables();
+            bool ugVersionsUnbounded = gameData.UgVersionsUnbounded();
+            bool uint16UgTables = gameData.Uint16UgTables();
+            bool randomizeUgEncounterTableFormIDs = ugVersionsUnbounded || uint16UgTables;
             foreach (EncounterTableFile encounterTableFile in gameData.encounterTableFiles)
             {
                 foreach (EncounterTable encounterTable in encounterTableFile.encounterTables)
@@ -692,9 +694,15 @@ namespace ImpostersOrdeal
                 foreach (UgEncounterFile ugEncounterFile in gameData.ugEncounterFiles)
                     for (int i = 0; i < ugEncounterFile.ugEncounters.Count; i++)
                     {
-                        ugEncounterFile.ugEncounters[i].dexID = speciesDistribution.Next(ugEncounterFile.ugEncounters[i].dexID);
-                        if (randomizeUgEncounterFormIDs)
-                            ugEncounterFile.ugEncounters[i].version = rng.Next(gameData.dexEntries[ugEncounterFile.ugEncounters[i].dexID].forms.Count);
+                        ugEncounterFile.ugEncounters[i].dexID = speciesDistribution.Next((ushort)ugEncounterFile.ugEncounters[i].dexID);
+                        if (randomizeUgEncounterTableFormIDs)
+                        {
+                            ushort formID = (ushort)rng.Next(gameData.dexEntries[(ushort)ugEncounterFile.ugEncounters[i].dexID].forms.Count);
+                            if (ugVersionsUnbounded)
+                                ugEncounterFile.ugEncounters[i].version = formID;
+                            if (uint16UgTables)
+                                ugEncounterFile.ugEncounters[i].dexID += formID << 16;
+                        }
                     }
 
             if (randomizeSpecies)

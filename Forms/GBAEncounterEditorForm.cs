@@ -41,7 +41,7 @@ namespace ImpostersOrdeal
             leafMinLvlColumn.ValueType = typeof(int);
             leafMaxLvlColumn.ValueType = typeof(int);
 
-            if (etef.formIDEnabled)
+            if (etef.uint16DexID)
             {
                 DataGridViewTextBoxColumn rubyFormIDColumn = new();
                 DataGridViewTextBoxColumn sapphireFormIDColumn = new();
@@ -93,7 +93,7 @@ namespace ImpostersOrdeal
             for (int i = 0; i < es.Count; i++)
             {
                 Encounter e = es[i];
-                if (etef.formIDEnabled)
+                if (etef.uint16DexID)
                     dgv.Rows.Add(new object[] { etef.pokemon[(ushort)e.dexID],
                         e.minLv, e.maxLv, gbaSlotRates[i], (ushort)(e.dexID >> 16) });
                 else
@@ -127,7 +127,7 @@ namespace ImpostersOrdeal
                 es[i].dexID = etef.pokemon.IndexOf((string)dgv.Rows[i].Cells[0].Value);
                 es[i].minLv = (int)dgv.Rows[i].Cells[1].Value;
                 es[i].maxLv = (int)dgv.Rows[i].Cells[2].Value;
-                if (etef.formIDEnabled)
+                if (etef.uint16DexID)
                     es[i].dexID += (ushort)dgv.Rows[i].Cells[4].Value << 16;
             }
         }

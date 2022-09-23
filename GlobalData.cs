@@ -108,6 +108,29 @@ namespace ImpostersOrdeal
                 return "Lv. " + tp.level + " " + GetPokemon(tp.dexID, tp.formID).GetName();
             }
 
+            public bool UgVersionsUnbounded()
+            {
+                return ugEncounterFiles
+                    .SelectMany(o => o.ugEncounters)
+                    .Any(e => e.version < 1 || e.version > 3);
+            }
+
+            public bool Uint16UgTables()
+            {
+                return ugEncounterFiles
+                    .SelectMany(ugef => ugef.ugEncounters)
+                    .Any(uge => (uint)uge.dexID > 0xFFFF); 
+            }
+
+            public bool Uint16EncounterTables()
+            {
+                return encounterTableFiles
+                    .Any(etf => etf.encounterTables
+                    .Any(o => o.GetAllTables()
+                    .Any(l => l
+                    .Any(e => (uint)e.dexID > 0xFFFF))));
+            }
+
             public bool FormDescriptionsExist()
             {
                 return Math.Abs(messageFileSets.SelectMany(mfs => mfs.messageFiles)

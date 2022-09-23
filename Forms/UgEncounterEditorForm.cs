@@ -15,10 +15,17 @@ namespace ImpostersOrdeal
         private List<UgEncounterLevelSet> levelSets;
         private List<UgSpecialEncounter> specialEncounters;
         private List<string> dexEntries;
-        private bool versionUnbounded;
+        private Mode mode;
         private string[] versionNames;
         private UgEncounterFile ef;
         private UgArea a;
+
+        public enum Mode
+        {
+            Normal,
+            VersionUnbounded,
+            Uint16DexID
+        }
 
         private readonly string[] areaNames = new string[]
         {
@@ -86,16 +93,31 @@ namespace ImpostersOrdeal
             dexEntries = gameData.dexEntries.Select(d => d.GetName()).ToList();
             versionNames = versions;
 
+            InitializeComponent();
+
             //encounterFiles[0].ugEncounters[0].version = 0;
-            versionUnbounded = encounterFiles.SelectMany(o => o.ugEncounters).Any(e => e.version < 1 || e.version > 3);
-            if (versionUnbounded)
+            encounterFiles[0].ugEncounters[0].dexID = 0xFFFF + 1;
+            mode = Mode.Normal;
+            if (gameData.Uint16UgTables())
+                mode = Mode.Uint16DexID;
+            else if (gameData.UgVersionsUnbounded())
+                mode = Mode.VersionUnbounded;
+
+            if (mode == Mode.Uint16DexID)
+            {
+                DataGridViewTextBoxColumn formColumn = new();
+                string formIDColumnName = "FormID";
+                formColumn.Name = formIDColumnName;
+                formColumn.ValueType = typeof(ushort);
+                pokemonDataGridView.Columns.Add(formColumn);
+            }
+
+            if (mode == Mode.VersionUnbounded)
             {
                 versionNames = new string[256];
                 for (int i = 0; i < versionNames.Length; i++)
                     versionNames[i] = i.ToString();
             }
-
-            InitializeComponent();
 
             areaComboBox.DataSource = areas.Select(o => o.id).OrderBy(i => i).Select(i => areaNames[i]).ToArray();
             areaComboBox.SelectedIndex = 0;
@@ -160,9 +182,13 @@ namespace ImpostersOrdeal
         {
             pokemonDataGridView.Rows.Clear();
             for (int i = 0; i < ef.ugEncounters.Count; i++)
-                pokemonDataGridView.Rows.Add(new object[] { dexEntries[ef.ugEncounters[i].dexID],
-                    versionNames[ef.ugEncounters[i].version], requirements[ef.ugEncounters[i].zukanFlag] });
-            
+            {
+                object[] rowItems = new object[] { dexEntries[(ushort)ef.ugEncounters[i].dexID],
+                    versionNames[ef.ugEncounters[i].version], requirements[ef.ugEncounters[i].zukanFlag] };
+                if (mode == Mode.Uint16DexID)
+                    rowItems = rowItems.Append((ushort)(ef.ugEncounters[i].dexID >> 16)).ToArray();
+                pokemonDataGridView.Rows.Add(rowItems);
+            }
         }
 
         private void CommitEdit(object sender, EventArgs e)
@@ -185,11 +211,13 @@ namespace ImpostersOrdeal
                 UgEncounter ue = new();
                 ue.dexID = dexEntries.IndexOf((string)pokemonDataGridView.Rows[i].Cells[0].Value);
                 ue.version = versions.ToList().IndexOf((string)pokemonDataGridView.Rows[i].Cells[1].Value);
-                if (ue.version <= 0 && !versionUnbounded)
+                if (ue.version <= 0 && mode != Mode.VersionUnbounded)
                     ue.version = 1;
                 ue.zukanFlag = requirements.ToList().IndexOf((string)pokemonDataGridView.Rows[i].Cells[2].Value);
                 if (ue.zukanFlag <= 0)
                     ue.zukanFlag = 1;
+                if (mode == Mode.Uint16DexID)
+                    ue.dexID += (ushort)pokemonDataGridView.Rows[i].Cells[3].Value << 16;
                 newEncounters.Add(ue);
             }
             newEncounters.Sort((ue0, ue1) => ue0.dexID.CompareTo(ue1.dexID));
@@ -208,7 +236,7 @@ namespace ImpostersOrdeal
                 use.id = areaNames.ToList().IndexOf((string)rareDataGridView.Rows[i].Cells[0].Value);
                 use.dexID = dexEntries.IndexOf((string)rareDataGridView.Rows[i].Cells[1].Value);
                 use.version = versions.ToList().IndexOf((string)rareDataGridView.Rows[i].Cells[2].Value);
-                if (use.version <= 0 && !versionUnbounded)
+                if (use.version <= 0 && mode != Mode.VersionUnbounded)
                     use.version = 1;
                 use.dRate = (int)((double)rareDataGridView.Rows[i].Cells[3].Value * 10);
                 use.pRate = (int)((double)rareDataGridView.Rows[i].Cells[4].Value * 10);
