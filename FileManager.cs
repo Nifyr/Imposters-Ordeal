@@ -554,11 +554,12 @@ namespace ImpostersOrdeal
             {
                 FileData fd = new();
                 fd.fileLocation = audioPath + "\\AudioSources.txt";
-                fd.fileSource = FileSource.App;
                 fd.gamePath = logPath;
                 fileArchive[logPath] = fd;
-                return new("\n");
+                return new("");
             }
+
+            fileArchive[logPath].fileSource = FileSource.App;
 
             return new(File.ReadAllText(fileArchive[logPath].fileLocation));
         }
