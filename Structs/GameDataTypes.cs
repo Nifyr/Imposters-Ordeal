@@ -673,6 +673,23 @@ namespace ImpostersOrdeal
                 return p;
             }
 
+            public List<int> GetEggGroups()
+            {
+                List<int> l = new();
+                l.Add(eggGroup1);
+                if (eggGroup1 != eggGroup2)
+                    l.Add(eggGroup2);
+                return l;
+            }
+
+            public void SetEggGroups(List<int> l)
+            {
+                eggGroup1 = (byte)l[0];
+                eggGroup2 = (byte)l[0];
+                if (l.Count > 1)
+                    eggGroup2 = (byte)l[1];
+            }
+
             public int GetBST()
             {
                 return basicHp + basicAtk + basicDef + basicSpAtk + basicSpDef + basicSpd;
@@ -756,6 +773,14 @@ namespace ImpostersOrdeal
                     if (tmCompatibility[tmID])
                         compatibleTMs.Add(tmID);
                 return compatibleTMs;
+            }
+
+            public void SetCompatibleTMs(List<int> compatibleTMs)
+            {
+                bool[] tmCompatibility = new bool[128];
+                for (int tmID = 0; tmID < tmCompatibility.Length; tmID++)
+                    tmCompatibility[tmID] = compatibleTMs.Contains(tmID);
+                SetTMCompatibility(tmCompatibility);
             }
 
             public int[] GetWildHeldItems()

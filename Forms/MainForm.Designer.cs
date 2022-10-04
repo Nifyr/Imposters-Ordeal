@@ -243,6 +243,7 @@ namespace ImpostersOrdeal
             this.button32 = new System.Windows.Forms.Button();
             this.groupBox34 = new System.Windows.Forms.GroupBox();
             this.button29 = new System.Windows.Forms.Button();
+            this.button33 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -2515,6 +2516,7 @@ namespace ImpostersOrdeal
             // 
             // groupBox34
             // 
+            this.groupBox34.Controls.Add(this.button33);
             this.groupBox34.Controls.Add(this.button29);
             this.groupBox34.Location = new System.Drawing.Point(12, 544);
             this.groupBox34.Name = "groupBox34";
@@ -2532,6 +2534,16 @@ namespace ImpostersOrdeal
             this.button29.Text = "Pokémon Inserter";
             this.button29.UseVisualStyleBackColor = true;
             this.button29.Click += new System.EventHandler(this.OpenPokemonInserter);
+            // 
+            // button33
+            // 
+            this.button33.Location = new System.Drawing.Point(6, 61);
+            this.button33.Name = "button33";
+            this.button33.Size = new System.Drawing.Size(173, 29);
+            this.button33.TabIndex = 14;
+            this.button33.Text = "JSON Converter";
+            this.button33.UseVisualStyleBackColor = true;
+            this.button33.Click += new System.EventHandler(this.OpenJsonConverter);
             // 
             // MainForm
             // 
@@ -2877,5 +2889,6 @@ namespace ImpostersOrdeal
         public System.Windows.Forms.Button button23;
         private System.Windows.Forms.GroupBox groupBox34;
         public System.Windows.Forms.Button button29;
+        public System.Windows.Forms.Button button33;
     }
 }

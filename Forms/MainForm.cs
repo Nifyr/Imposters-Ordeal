@@ -475,5 +475,11 @@ namespace ImpostersOrdeal
             PokemonInserterForm pif = new();
             pif.Show();
         }
+
+        private void OpenJsonConverter(object sender, EventArgs e)
+        {
+            JsonConverterForm jcf = new();
+            jcf.Show();
+        }
     }
 }
