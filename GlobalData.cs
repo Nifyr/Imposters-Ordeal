@@ -133,9 +133,9 @@ namespace ImpostersOrdeal
 
             public bool FormDescriptionsExist()
             {
-                return Math.Abs(messageFileSets.SelectMany(mfs => mfs.messageFiles)
+                return messageFileSets.SelectMany(mfs => mfs.messageFiles)
                     .First(mf => mf.mName.Contains("dp_pokedex_diamond"))
-                    .labelDatas.Count - personalEntries.Count) < 2;
+                    .labelDatas.Count >= personalEntries.Count - 1;
             }
         }
 
