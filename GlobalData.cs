@@ -28,6 +28,7 @@ namespace ImpostersOrdeal
             public List<UgEncounterFile> ugEncounterFiles;
             public List<UgEncounterLevelSet> ugEncounterLevelSets;
             public List<UgSpecialEncounter> ugSpecialEncounters;
+            public List<UgPokemonData> ugPokemonData;
             public List<Ability> abilities; //Readonly
             public List<Typing> typings; //Readonly
             public List<DamageCategory> damageCategories; //Readonly
@@ -70,6 +71,7 @@ namespace ImpostersOrdeal
                 UgEncounterFiles,
                 UgEncounterLevelSets,
                 UgSpecialEncounters,
+                UgPokemonData,
                 Abilities,
                 Typings,
                 DamageCategories,

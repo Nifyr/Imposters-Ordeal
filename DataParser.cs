@@ -182,6 +182,7 @@ namespace ImpostersOrdeal
             gameData.ugEncounterFiles = new();
             gameData.ugEncounterLevelSets = new();
             gameData.ugSpecialEncounters = new();
+            gameData.ugPokemonData = new();
             List<AssetTypeValueField> monoBehaviours = await monoBehaviourCollection[PathEnum.Ugdata];
 
             AssetTypeValueField[] ugAreaFields = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "UgRandMark").children[4].children[0].children;
@@ -236,6 +237,35 @@ namespace ImpostersOrdeal
                 ugSpecialEncounter.pRate = ugSpecialEncounterFields[ugSpecialEncounterIdx]["Pspecialrate"].GetValue().AsInt();
 
                 gameData.ugSpecialEncounters.Add(ugSpecialEncounter);
+            }
+
+            AssetTypeValueField[] ugPokemonDataFields = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "UgPokemonData").children[4].children[0].children;
+            for (int ugPokemonDataIdx = 0; ugPokemonDataIdx < ugPokemonDataFields.Length; ugPokemonDataIdx++)
+            {
+                UgPokemonData ugPokemonData = new();
+                ugPokemonData.monsno = ugPokemonDataFields[ugPokemonDataIdx]["monsno"].GetValue().AsInt();
+                ugPokemonData.type1ID = ugPokemonDataFields[ugPokemonDataIdx]["type1ID"].GetValue().AsInt();
+                ugPokemonData.type2ID = ugPokemonDataFields[ugPokemonDataIdx]["type2ID"].GetValue().AsInt();
+                ugPokemonData.size = ugPokemonDataFields[ugPokemonDataIdx]["size"].GetValue().AsInt();
+                ugPokemonData.movetype = ugPokemonDataFields[ugPokemonDataIdx]["movetype"].GetValue().AsInt();
+                ugPokemonData.reactioncode = new int[2];
+                for (int i = 0; i < ugPokemonData.reactioncode.Length; i++)
+                    ugPokemonData.reactioncode[i] = ugPokemonDataFields[ugPokemonDataIdx]["reactioncode"][0][i].GetValue().AsInt();
+                ugPokemonData.moveRate = new int[2];
+                for (int i = 0; i < ugPokemonData.moveRate.Length; i++)
+                    ugPokemonData.moveRate[i] = ugPokemonDataFields[ugPokemonDataIdx]["move_rate"][0][i].GetValue().AsInt();
+                ugPokemonData.submoveRate = new int[5];
+                for (int i = 0; i < ugPokemonData.submoveRate.Length; i++)
+                    ugPokemonData.submoveRate[i] = ugPokemonDataFields[ugPokemonDataIdx]["submove_rate"][0][i].GetValue().AsInt();
+                ugPokemonData.reaction = new int[5];
+                for (int i = 0; i < ugPokemonData.reaction.Length; i++)
+                    ugPokemonData.reaction[i] = ugPokemonDataFields[ugPokemonDataIdx]["reaction"][0][i].GetValue().AsInt();
+                ugPokemonData.flagrate = new int[6];
+                for (int i = 0; i < ugPokemonData.flagrate.Length; i++)
+                    ugPokemonData.flagrate[i] = ugPokemonDataFields[ugPokemonDataIdx]["flagrate"][0][i].GetValue().AsInt();
+                ugPokemonData.rateup = ugPokemonDataFields[ugPokemonDataIdx]["rateup"].GetValue().AsInt();
+
+                gameData.ugPokemonData.Add(ugPokemonData);
             }
         }
 
@@ -1723,7 +1753,11 @@ namespace ImpostersOrdeal
                 CommitEncounterTables();
             if (gameData.IsModified(GameDataSet.DataField.MessageFileSets))
                 CommitMessageFileSets();
-            if (gameData.IsModified(GameDataSet.DataField.UgEncounterFiles))
+            if (gameData.IsModified(GameDataSet.DataField.UgAreas) || 
+                gameData.IsModified(GameDataSet.DataField.UgEncounterFiles) ||
+                gameData.IsModified(GameDataSet.DataField.UgEncounterLevelSets) ||
+                gameData.IsModified(GameDataSet.DataField.UgSpecialEncounters) ||
+                gameData.IsModified(GameDataSet.DataField.UgPokemonData))
                 CommitUgTables();
             if (gameData.IsModified(GameDataSet.DataField.PersonalEntries))
                 CommitPokemon();
@@ -2487,7 +2521,51 @@ namespace ImpostersOrdeal
 
             updatedMonoBehaviours.Add(ugSpecialPokemon);
 
+            AssetTypeValueField ugPokemonDataMonobehaviour = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "UgPokemonData");
+            AssetTypeValueField[] ugPokemonDataFields = ugPokemonDataMonobehaviour["table"].children[0].children;
+
+            AssetTypeTemplateField ugPokemonDataTemplate = ugPokemonDataFields[0].GetTemplateField();
+            AssetTypeTemplateField intATTF = ugPokemonDataFields[0]["reactioncode"][0][0].GetTemplateField();
+
+            List<AssetTypeValueField> newUgPokemonData = new();
+            foreach (UgPokemonData ugPokemonData in gameData.ugPokemonData)
+            {
+                AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(ugPokemonDataTemplate);
+
+                baseField["monsno"].GetValue().Set(ugPokemonData.monsno);
+                baseField["type1ID"].GetValue().Set(ugPokemonData.type1ID);
+                baseField["type2ID"].GetValue().Set(ugPokemonData.type2ID);
+                baseField["size"].GetValue().Set(ugPokemonData.size);
+                baseField["movetype"].GetValue().Set(ugPokemonData.movetype);
+
+                baseField["reactioncode"][0].SetChildrenList(PrimitiveATVFArray(ugPokemonData.reactioncode, intATTF));
+                baseField["move_rate"][0].SetChildrenList(PrimitiveATVFArray(ugPokemonData.moveRate, intATTF));
+                baseField["submove_rate"][0].SetChildrenList(PrimitiveATVFArray(ugPokemonData.submoveRate, intATTF));
+                baseField["reaction"][0].SetChildrenList(PrimitiveATVFArray(ugPokemonData.reaction, intATTF));
+                baseField["flagrate"][0].SetChildrenList(PrimitiveATVFArray(ugPokemonData.flagrate, intATTF));
+
+                newUgPokemonData.Add(baseField);
+            }
+            ugPokemonDataMonobehaviour["table"].children[0].SetChildrenList(newUgPokemonData.ToArray());
+
+            updatedMonoBehaviours.Add(ugPokemonDataMonobehaviour);
+
             fileManager.WriteMonoBehaviours(PathEnum.Ugdata, updatedMonoBehaviours.ToArray());
+        }
+
+        /// <summary>
+        /// Builds an array of AssetTypeValueField objects from primitive values.
+        /// </summary>
+        private static AssetTypeValueField[] PrimitiveATVFArray<T>(T[] values, AssetTypeTemplateField attf)
+        {
+            List<AssetTypeValueField> atvfList = new();
+            for (int i = 0; i < values.Length; i++)
+            {
+                AssetTypeValueField intField = ValueBuilder.DefaultValueFieldFromTemplate(attf);
+                intField.GetValue().Set(values[i]);
+                atvfList.Add(intField);
+            }
+            return atvfList.ToArray();
         }
 
         /// <summary>

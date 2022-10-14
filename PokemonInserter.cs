@@ -303,6 +303,9 @@ namespace ImpostersOrdeal
 
         public void InsertPokemon(int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo, string speciesName, string formName)
         {
+            if (!LegalInsert(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo))
+                throw new ArgumentException("Uh oh...");
+
             List<(int, int)> uniqueIDs = GetUniqueIDs(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo);
             UpdatePokemonInfo(uniqueIDs, out List<(string, string)> assetBundleNames);
             UpdateUIMasterdatas(uniqueIDs,
@@ -316,6 +319,7 @@ namespace ImpostersOrdeal
             UpdateMotionTimingData(uniqueIDs);
             UpdatePersonalInfos(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo, speciesName);
             UpdateCommonMsbt(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo, speciesName, formName);
+            UpdateUgData(srcMonsNo, dstMonsNo, dstFormNo);
             DuplicateIcons(menuSprites, largeSprites, dpSprites);
             DuplicateAudioSource(sourceID.Item1, sourceID.Item2);
             DuplicateAssetBundles(assetBundlePaths);
@@ -325,8 +329,29 @@ namespace ImpostersOrdeal
             gameData.SetModified(GameDataSet.DataField.PokemonInfo);
             gameData.SetModified(GameDataSet.DataField.MessageFileSets);
             gameData.SetModified(GameDataSet.DataField.PersonalEntries);
+            gameData.SetModified(GameDataSet.DataField.UgPokemonData);
             gameData.SetModified(GameDataSet.DataField.DprBin);
             gameData.SetModified(GameDataSet.DataField.AudioData);
+        }
+
+        private bool LegalInsert(int srcMonsNo, int dstMonsNo, int srcFormNo, int dstFormNo)
+        {
+            List<DexEntry> d = gameData.dexEntries;
+            return srcMonsNo > 0 && dstMonsNo > 0 && srcMonsNo >= 0 && dstFormNo >= 0 &&
+                srcMonsNo < d.Count && srcFormNo < d[srcMonsNo].forms.Count &&
+                (dstMonsNo < d.Count && dstFormNo == d[dstMonsNo].forms.Count ||
+                dstMonsNo == d.Count && dstFormNo == 0);
+        }
+
+        private void UpdateUgData(int srcMonsNo, int dstMonsNo, int dstFormNo)
+        {
+            if (dstFormNo != 0)
+                return;
+
+            UgPokemonData srcUGPD = gameData.ugPokemonData.Find(u => u.monsno == srcMonsNo);
+            UgPokemonData dstUGPD = (UgPokemonData)srcUGPD.Clone();
+            dstUGPD.monsno = dstMonsNo;
+            gameData.ugPokemonData.Add(dstUGPD);
         }
 
         private void DuplicateIcons(Dictionary<string, string> menuSprites, Dictionary<string, string> largeSprites, Dictionary<string, string> dpSprites)

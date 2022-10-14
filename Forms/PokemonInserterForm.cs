@@ -166,7 +166,7 @@ namespace ImpostersOrdeal
                 return;
             }
 
-            if (srcDE.dexID == 0 || dstDE.dexID == 0)
+            if (srcDE.dexID == 0 || inserterMode == InserterMode.Form && dstDE.dexID == 0)
             {
                 MessageBox.Show("I'm not gonna insert a damn egg.\nAnd I couldn't even if I wanted to.",
                     "Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);

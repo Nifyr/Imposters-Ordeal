@@ -1179,6 +1179,42 @@ namespace ImpostersOrdeal
             public int pRate;
         }
 
+        public class UgPokemonData : ICloneable
+        {
+            public int monsno;
+            public int type1ID;
+            public int type2ID;
+            public int size;
+            public int movetype;
+            public int[] reactioncode;
+            public int[] moveRate;
+            public int[] submoveRate;
+            public int[] reaction;
+            public int[] flagrate;
+            public int rateup;
+
+            public object Clone()
+            {
+                UgPokemonData ugpd = (UgPokemonData)MemberwiseClone();
+                ugpd.reactioncode = new int[2];
+                for (int i = 0; i < ugpd.reactioncode.Length; i++)
+                    ugpd.reactioncode[i] = reactioncode[i];
+                ugpd.moveRate = new int[2];
+                for (int i = 0; i < ugpd.moveRate.Length; i++)
+                    ugpd.moveRate[i] = moveRate[i];
+                ugpd.submoveRate = new int[5];
+                for (int i = 0; i < ugpd.submoveRate.Length; i++)
+                    ugpd.submoveRate[i] = submoveRate[i];
+                ugpd.reaction = new int[5];
+                for (int i = 0; i < ugpd.reaction.Length; i++)
+                    ugpd.reaction[i] = reaction[i];
+                ugpd.flagrate = new int[6];
+                for (int i = 0; i < ugpd.flagrate.Length; i++)
+                    ugpd.flagrate[i] = flagrate[i];
+                return ugpd;
+            }
+        }
+
         public class Ability : INamedEntity
         {
             public int abilityID;
