@@ -592,17 +592,17 @@ namespace ImpostersOrdeal
 
         private void RandomizeTrainerPokemonSpecies(IDistribution distribution, bool legendLogic, bool typeThemes, bool evolveLogic)
         {
-            List<int> legendaryDexIDs = gameData.dexEntries.Where(d => d.forms[0].legendary).Select(d => d.dexID).ToList();
+            HashSet<int> legendaryDexIDs = gameData.dexEntries.Where(d => d.forms[0].legendary).Select(d => d.dexID).ToHashSet();
             foreach (Trainer trainer in gameData.trainers)
             {
                 int typing = trainer.GetTypeTheme();
 
                 foreach (TrainerPokemon trainerPokemon in trainer.trainerPokemon)
                 {
-                    Pokemon pokemon = gameData.personalEntries[distribution.Next(gameData.GetPokemon(trainerPokemon.dexID, trainerPokemon.formID).personalID)];
+                    Pokemon pokemon = GetRandom(gameData.dexEntries[distribution.Next(trainerPokemon.dexID)].forms);
                     bool acceptLegendary = !legendLogic || P(trainerPokemon.level);
                     while (typeThemes && typing != -1 && !pokemon.GetTyping().Contains(typing) || !acceptLegendary && legendaryDexIDs.Contains(pokemon.dexID))
-                        pokemon = gameData.personalEntries[distribution.Next(pokemon.personalID)];
+                        pokemon = GetRandom(gameData.dexEntries[distribution.Next(pokemon.dexID)].forms);
 
                     if (evolveLogic)
                         pokemon = FindStage(pokemon, trainerPokemon.level, false);

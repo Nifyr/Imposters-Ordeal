@@ -376,7 +376,7 @@ namespace ImpostersOrdeal
 
             //Trainer Pokémon
             List<TrainerPokemon> tps = gameData.trainers.SelectMany(t => t.trainerPokemon).ToList();
-            randomizerSetupConfig.trainerPokemonSpecies = GetItemDistributionConfig(tps, p => gameData.GetPokemon(p.dexID, p.formID).personalID, gameData.personalEntries.Select(o =>(INamedEntity)o).ToList());
+            randomizerSetupConfig.trainerPokemonSpecies = GetItemDistributionConfig(tps, p => p.dexID, gameData.dexEntries.Select(o =>(INamedEntity)o).ToList());
 
             //Trainer Pokémon Moves
             instances = new int[gameData.moves.Count];
