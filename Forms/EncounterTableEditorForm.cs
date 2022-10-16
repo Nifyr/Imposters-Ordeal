@@ -606,7 +606,7 @@ namespace ImpostersOrdeal
             int index = zoneIDListBox.SelectedIndex;
             if (index < 0)
                 index = 0;
-            zoneIDListBox.DataSource = encounterTables.Select(e => GetZoneName((int)e.zoneID)).ToList();
+            zoneIDListBox.DataSource = encounterTables.Select(e => (int)e.zoneID + " - " + GetZoneName((int)e.zoneID)).ToList();
             zoneIDListBox.SelectedIndex = index;
         }
 
