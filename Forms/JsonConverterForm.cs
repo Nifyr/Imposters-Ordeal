@@ -17,12 +17,14 @@ namespace ImpostersOrdeal
     public partial class JsonConverterForm : Form
     {
         private const string pokemonFileName = "IOPokémon.json";
-        private List<string> typings;
-        private List<string> items;
-        private List<string> growthRates;
-        private List<string> abilities;
-        private List<string> pokemon;
-        private List<string> moves;
+        private const string trainersFileName = "IOTrainers.json";
+        private readonly List<string> typings;
+        private readonly List<string> items;
+        private readonly List<string> growthRates;
+        private readonly List<string> abilities;
+        private readonly List<string> pokemon;
+        private readonly List<string> moves;
+        private readonly List<string> natures;
         public Dictionary<int, string> tms;
 
         private readonly string[] colors = new string[]
@@ -37,9 +39,14 @@ namespace ImpostersOrdeal
             "Human-Like", "Water 2", "Mineral", "Amorphous", "Water 2", "Ditto", "Dragon", "Undiscovered"
         };
 
+        public readonly string[] sexOptions = new string[]
+        {
+            "Male", "Female", "Genderless", "Random"
+        };
+
         public readonly string[] modes = new string[]
         {
-            "Pokémon"
+            "Pokémon", "Trainers"
         };
 
         public JsonConverterForm()
@@ -50,6 +57,7 @@ namespace ImpostersOrdeal
             abilities = MakeDistinct(gameData.abilities.Select(n => n.GetName()));
             pokemon = MakeDistinct(gameData.dexEntries.Select(n => n.GetName()));
             moves = MakeDistinct(gameData.moves.Select(n => n.GetName()));
+            natures = MakeDistinct(gameData.natures.Select(n => n.GetName()));
             tms = new();
             for (int tmID = 0; tmID < gameData.tms.Count; tmID++)
                 if (gameData.tms[tmID].IsValid() && !tms.ContainsKey(gameData.items[gameData.tms[tmID].itemID].groupID - 1))
@@ -61,7 +69,7 @@ namespace ImpostersOrdeal
             modeComboBox.SelectedIndex = 0;
         }
 
-        private List<string> MakeDistinct(IEnumerable<string> l)
+        private static List<string> MakeDistinct(IEnumerable<string> l)
         {
             HashSet<string> items = new();
             foreach (string s in l)
@@ -74,7 +82,7 @@ namespace ImpostersOrdeal
             return items.ToList();
         }
 
-        private string IncrementString(string s)
+        private static string IncrementString(string s)
         {
             Regex r = new(@"\d+\z");
             Match m = r.Match(s);
@@ -86,26 +94,28 @@ namespace ImpostersOrdeal
 
         private void ExportJson(object sender, EventArgs e)
         {
-            switch (modeComboBox.SelectedIndex)
-            {
-                case 0:
-                    ExportPokemon();
-                    break;
-            }
-        }
-
-        private void ExportPokemon()
-        {
             SaveFileDialog sfd = new()
             {
-                FileName = pokemonFileName,
                 DefaultExt = "json",
                 Filter = "(*.json)|*.json",
                 RestoreDirectory = true
             };
+            object data = null;
+            switch (modeComboBox.SelectedIndex)
+            {
+                case 0:
+                    sfd.FileName = pokemonFileName;
+                    data = GeneratePokemonStructs(gameData.personalEntries);
+                    break;
+                case 1:
+                    sfd.FileName = trainersFileName;
+                    data = GenerateTrainerStructs(gameData.trainers);
+                    break;
+            }
+            if (data == null)
+                return;
             if (sfd.ShowDialog() == DialogResult.Cancel)
                 return;
-            List<JsonConverterStructs.Pokemon> data = GeneratePokemonStructs(gameData.personalEntries);
             string json = JsonConvert.SerializeObject(data, Formatting.Indented);
             File.WriteAllText(sfd.FileName, json);
         }
@@ -197,24 +207,88 @@ namespace ImpostersOrdeal
             return output;
         }
 
-        private void ImportJson(object sender, EventArgs e)
+        private List<JsonConverterStructs.Trainer> GenerateTrainerStructs(List<GameDataTypes.Trainer> data)
         {
-            try
+            List<JsonConverterStructs.Trainer> output = new();
+            foreach (GameDataTypes.Trainer t in data)
             {
-                switch (modeComboBox.SelectedIndex)
+                bool[] aiFlags = t.GetAIFlags();
+                output.Add(new()
                 {
-                    case 0:
-                        ImportPokemon();
-                        break;
-                }
+                    readOnly = new()
+                    {
+                        trainerID = t.trainerID,
+                        name = t.name
+                    },
+                    trainerTypeID = t.trainerTypeID,
+                    colorID = t.colorID,
+                    fightType = t.fightType,
+                    arenaID = t.arenaID,
+                    gold = t.gold,
+                    useItems = new int[]
+                    {
+                        t.useItem1,
+                        t.useItem2,
+                        t.useItem3,
+                        t.useItem4,
+                    }.Where(i => i > 0).Select(i => items[i]).ToList(),
+                    hpRecoverFlag = t.hpRecoverFlag != 0,
+                    giftItem = t.giftItem,
+                    nameLabel = t.nameLabel,
+                    aiFlags = new()
+                    {
+                        basicAI = aiFlags[0],
+                        strongAI = aiFlags[1],
+                        expertAI = aiFlags[2],
+                        doubleBattleAI = aiFlags[3],
+                        mercifulAI = aiFlags[4],
+                        canUseItems = aiFlags[5],
+                        canSwitchPokemon = aiFlags[6]
+                    },
+                    party = t.trainerPokemon.Select(tp => new JsonConverterStructs.TrainerPokemon()
+                    {
+                        species = pokemon[tp.dexID],
+                        formID = tp.formID,
+                        shiny = tp.isRare != 0,
+                        level = tp.level,
+                        sex = sexOptions[tp.sex],
+                        nature = natures[tp.natureID],
+                        ability = abilities[tp.abilityID],
+                        moveset = new int[]
+                        {
+                            tp.moveID1,
+                            tp.moveID2,
+                            tp.moveID3,
+                            tp.moveID4
+                        }.Where(i => i > 0).Select(i => moves[i]).ToList(),
+                        heldItem = items[tp.itemID],
+                        ballID = tp.ballID,
+                        seal = tp.seal,
+                        ivs = new()
+                        {
+                            hp = tp.hpIV,
+                            atk = tp.atkIV,
+                            def = tp.defIV,
+                            spAtk = tp.spAtkIV,
+                            spDef = tp.spDefIV,
+                            spd = tp.spdIV
+                        },
+                        evs = new()
+                        {
+                            hp = tp.hpEV,
+                            atk = tp.atkEV,
+                            def = tp.defEV,
+                            spAtk = tp.spAtkEV,
+                            spDef = tp.spDefEV,
+                            spd = tp.spdEV
+                        }
+                    }).ToList()
+                });
             }
-            catch (Exception ex)
-            {
-                MainForm.ShowParserError(ex.Message);
-            }
+            return output;
         }
 
-        private void ImportPokemon()
+        private void ImportJson(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new()
             {
@@ -224,21 +298,40 @@ namespace ImpostersOrdeal
             };
             if (ofd.ShowDialog() == DialogResult.Cancel)
                 return;
-            List<JsonConverterStructs.Pokemon> data =
-                JsonConvert.DeserializeObject<List<JsonConverterStructs.Pokemon>>
-                (File.ReadAllText(ofd.FileName));
-            (List<GameDataTypes.Pokemon>, List<GameDataTypes.DexEntry>) newEntries = ParsePokemonSructs(data, gameData.personalEntries);
-            (gameData.personalEntries, gameData.dexEntries) = newEntries;
-            DataParser.SetFamilies();
-            gameData.SetModified(GameDataSet.DataField.PersonalEntries);
-            gameData.SetModified(GameDataSet.DataField.DexEntries);
-            ShowSuccessMessage();
+            try
+            {
+                switch (modeComboBox.SelectedIndex)
+                {
+                    case 0:
+                        List<JsonConverterStructs.Pokemon> p =
+                            JsonConvert.DeserializeObject<List<JsonConverterStructs.Pokemon>>
+                            (File.ReadAllText(ofd.FileName));
+                        (List<GameDataTypes.Pokemon>, List<GameDataTypes.DexEntry>) newEntries = ParsePokemonSructs(p, gameData.personalEntries);
+                        (gameData.personalEntries, gameData.dexEntries) = newEntries;
+                        DataParser.SetFamilies();
+                        gameData.SetModified(GameDataSet.DataField.PersonalEntries);
+                        gameData.SetModified(GameDataSet.DataField.DexEntries);
+                        break;
+                    case 1:
+                        List<JsonConverterStructs.Trainer> t =
+                            JsonConvert.DeserializeObject<List<JsonConverterStructs.Trainer>>
+                            (File.ReadAllText(ofd.FileName));
+                        gameData.trainers = ParseTrainerStructs(t, gameData.trainers);
+                        gameData.SetModified(GameDataSet.DataField.Trainers);
+                        break;
+                }
+                ShowSuccessMessage();
+            }
+            catch (Exception ex)
+            {
+                MainForm.ShowParserError(ex.Message);
+            }
         }
 
         private (List<GameDataTypes.Pokemon>, List<GameDataTypes.DexEntry>) ParsePokemonSructs(List<JsonConverterStructs.Pokemon> data, List<GameDataTypes.Pokemon> oldEntries)
         {
             if (data.Count != oldEntries.Count)
-                throw new ArgumentException("Incorrect number of Pokémon the in json, friend.");
+                throw new ArgumentException("Incorrect number of Pokémon in the json, friend.");
             List<GameDataTypes.Pokemon> personalEntries = new();
             List<GameDataTypes.DexEntry> dexEntries = new();
             int i = 0;
@@ -345,9 +438,89 @@ namespace ImpostersOrdeal
             return (personalEntries, dexEntries);
         }
 
-        private int GetIndex(string[] source, string s) => GetIndex(source.ToList(), s);
+        private List<GameDataTypes.Trainer> ParseTrainerStructs(List<JsonConverterStructs.Trainer> data, List<GameDataTypes.Trainer> oldEntries)
+        {
+            if (data.Count != oldEntries.Count)
+                throw new ArgumentException("Incorrect number of trainers in the json, friend.");
+            List<GameDataTypes.Trainer> trainers = new();
+            for (int i = 0; i < oldEntries.Count; i++)
+            {
+                JsonConverterStructs.Trainer jt = data[i];
+                GameDataTypes.Trainer oldT = oldEntries[i];
+                GameDataTypes.Trainer gt = new()
+                {
+                    trainerID = oldT.trainerID,
+                    name = oldT.name,
+                    trainerTypeID = jt.trainerTypeID,
+                    colorID = jt.colorID,
+                    fightType = jt.fightType,
+                    arenaID = jt.arenaID,
+                    effectID = jt.effectID,
+                    gold = jt.gold,
+                    hpRecoverFlag = (byte)(jt.hpRecoverFlag ? 1 : 0),
+                    giftItem = jt.giftItem,
+                    nameLabel = jt.nameLabel,
+                    trainerPokemon = jt.party.Select(tp => new GameDataTypes.TrainerPokemon()
+                    {
+                        dexID = (ushort)GetIndex(pokemon, tp.species),
+                        formID = tp.formID,
+                        isRare = (byte)(tp.shiny ? 1 : 0),
+                        level = tp.level,
+                        sex = (byte)GetIndex(sexOptions, tp.sex),
+                        natureID = (byte)GetIndex(natures, tp.nature),
+                        abilityID = (ushort)GetIndex(abilities, tp.ability),
+                        itemID = (ushort)GetIndex(items, tp.heldItem),
+                        ballID = tp.ballID,
+                        seal = tp.seal,
+                        hpIV = tp.ivs.hp,
+                        atkIV = tp.ivs.atk,
+                        defIV = tp.ivs.def,
+                        spAtkIV = tp.ivs.spAtk,
+                        spDefIV = tp.ivs.spDef,
+                        spdIV = tp.ivs.spd,
+                        hpEV = tp.evs.hp,
+                        atkEV = tp.evs.atk,
+                        defEV = tp.evs.def,
+                        spAtkEV = tp.evs.spAtk,
+                        spDefEV = tp.evs.spDef,
+                        spdEV = tp.evs.spd
+                    }).ToList()
+                };
 
-        private int GetIndex(List<string> source, string s)
+                if (jt.useItems.Count > 4)
+                    throw new ArgumentException("Invalid input. You gave " + gt.name + " " + jt.useItems.Count + " items, mate.");
+                gt.SetItems(jt.useItems.Select(s => GetIndex(items, s)).ToList());
+
+                gt.SetAIFlags(new bool[]
+                {
+                    jt.aiFlags.basicAI,
+                    jt.aiFlags.strongAI,
+                    jt.aiFlags.expertAI,
+                    jt.aiFlags.doubleBattleAI,
+                    jt.aiFlags.mercifulAI,
+                    jt.aiFlags.canUseItems,
+                    jt.aiFlags.canSwitchPokemon,
+                    false,
+                    false, false, false, false, false, false, false, false,
+                    false, false, false, false, false, false, false, false,
+                    false, false, false, false, false, false, false, false
+                });
+
+                for (int tpIdx = 0; tpIdx < jt.party.Count; tpIdx++)
+                {
+                    if (jt.party[tpIdx].moveset.Count > 4)
+                        throw new ArgumentException("Invalid input. You gave a pokémon of " + gt.name + " " + jt.party[tpIdx].moveset.Count + " moves, buddy.");
+                    gt.trainerPokemon[tpIdx].SetMoves(jt.party[tpIdx].moveset.Select(s => (ushort)GetIndex(moves, s)).ToList());
+                }
+
+                trainers.Add(gt);
+            }
+            return trainers;
+        }
+
+        private static int GetIndex(string[] source, string s) => GetIndex(source.ToList(), s);
+
+        private static int GetIndex(List<string> source, string s)
         {
             string u = s.ToUpper();
             int index = -1;
@@ -359,14 +532,14 @@ namespace ImpostersOrdeal
             return index;
         }
 
-        private int GetIndex(Dictionary<int, string> source, string s)
+        private static int GetIndex(Dictionary<int, string> source, string s)
         {
             string u = s.ToUpper();
             int index = -1;
             for (int i = 0; i < source.Count && index == -1; i++)
             {
                 KeyValuePair<int, string> pair = source.ElementAt(i);
-                if (pair.Value == s)
+                if (pair.Value.ToUpper() == u)
                     index = pair.Key;
             }
             if (index == -1)
@@ -374,7 +547,7 @@ namespace ImpostersOrdeal
             return index;
         }
 
-        private void ShowSuccessMessage()
+        private static void ShowSuccessMessage()
         {
             MessageBox.Show("Hey, what do you know, it actually worked.", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }

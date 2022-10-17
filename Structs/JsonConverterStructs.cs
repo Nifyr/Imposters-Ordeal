@@ -17,11 +17,11 @@ namespace ImpostersOrdeal
             public bool validFlag;
             public string color;
             public ushort graNo;
-            public BaseStats baseStats;
+            public StatSpread baseStats;
             public List<string> typing;
             public byte catchRate;
             public byte rank;
-            public EvYield evYield;
+            public StatSpread evYield;
             public HeldItems heldItems;
             public byte sexValue;
             public byte eggCycles;
@@ -54,17 +54,7 @@ namespace ImpostersOrdeal
             public bool legendaryMythical;
         }
 
-        public struct BaseStats
-        {
-            public byte hp;
-            public byte atk;
-            public byte def;
-            public byte spAtk;
-            public byte spDef;
-            public byte spd;
-        }
-
-        public struct EvYield
+        public struct StatSpread
         {
             public byte hp;
             public byte atk;
@@ -150,28 +140,8 @@ namespace ImpostersOrdeal
             public string heldItem;
             public byte ballID;
             public int seal;
-            public IVs ivs;
-            public EVs evs;
-        }
-
-        public struct IVs
-        {
-            public byte hp;
-            public byte atk;
-            public byte def;
-            public byte spAtk;
-            public byte spDef;
-            public byte spd;
-        }
-
-        public struct EVs
-        {
-            public byte hp;
-            public byte atk;
-            public byte def;
-            public byte spAtk;
-            public byte spDef;
-            public byte spd;
+            public StatSpread ivs;
+            public StatSpread evs;
         }
     }
 }
