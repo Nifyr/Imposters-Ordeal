@@ -18,6 +18,7 @@ namespace ImpostersOrdeal
     {
         private const string pokemonFileName = "IOPokémon.json";
         private const string trainersFileName = "IOTrainers.json";
+        private const string textFileName = "IOText.json";
         private readonly List<string> typings;
         private readonly List<string> items;
         private readonly List<string> growthRates;
@@ -46,7 +47,7 @@ namespace ImpostersOrdeal
 
         public readonly string[] modes = new string[]
         {
-            "Pokémon", "Trainers"
+            "Pokémon", "Trainers", "Text"
         };
 
         public JsonConverterForm()
@@ -110,6 +111,10 @@ namespace ImpostersOrdeal
                 case 1:
                     sfd.FileName = trainersFileName;
                     data = GenerateTrainerStructs(gameData.trainers);
+                    break;
+                case 2:
+                    sfd.FileName = textFileName;
+                    data = GenerateTextStructs(gameData.messageFileSets.ToList());
                     break;
             }
             if (data == null)
@@ -288,6 +293,26 @@ namespace ImpostersOrdeal
             return output;
         }
 
+        private static List<JsonConverterStructs.MessageFileSet> GenerateTextStructs(List<GameDataTypes.MessageFileSet> data)
+        {
+            List<JsonConverterStructs.MessageFileSet> output = new();
+            for (int languageIdx = 0; languageIdx < data.Count; languageIdx++)
+            {
+                GameDataTypes.MessageFileSet gmfs = data[languageIdx];
+                JsonConverterStructs.MessageFileSet jmfs = new()
+                {
+                    textAssets = gmfs.messageFiles.Select(gmf => new JsonConverterStructs.MessageFile()
+                    {
+                        assetName = gmf.mName,
+                        strings = gmf.labelDatas.Select(ld => ld.GetMacroString()).ToList()
+                    }).ToList()
+                };
+
+                output.Add(jmfs);
+            }
+            return output;
+        }
+
         private void ImportJson(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new()
@@ -318,6 +343,13 @@ namespace ImpostersOrdeal
                             (File.ReadAllText(ofd.FileName));
                         gameData.trainers = ParseTrainerStructs(t, gameData.trainers);
                         gameData.SetModified(GameDataSet.DataField.Trainers);
+                        break;
+                    case 2:
+                        List<JsonConverterStructs.MessageFileSet> mfs =
+                            JsonConvert.DeserializeObject<List<JsonConverterStructs.MessageFileSet>>
+                            (File.ReadAllText(ofd.FileName));
+                        gameData.messageFileSets = ParseTextStructs(mfs, gameData.messageFileSets.ToList()).ToArray();
+                        gameData.SetModified(GameDataSet.DataField.MessageFileSets);
                         break;
                 }
                 ShowSuccessMessage();
@@ -419,7 +451,7 @@ namespace ImpostersOrdeal
                 personalEntries.Add(gp);
 
                 if (gp.dexID > dexEntries.Count)
-                    throw new ArgumentException("Incorrect order. The dexID of " + gp.dexID + " shows up a little early, my main man.");
+                    throw new ArgumentException("Incorrect order. The dexID of " + gp.dexID + " shows up a little early, my man.");
 
                 if (dexEntries.Count == gp.dexID)
                 {
@@ -516,6 +548,30 @@ namespace ImpostersOrdeal
                 trainers.Add(gt);
             }
             return trainers;
+        }
+
+        private static List<GameDataTypes.MessageFileSet> ParseTextStructs(List<JsonConverterStructs.MessageFileSet> data, List<GameDataTypes.MessageFileSet> oldEntries)
+        {
+            if (data.Count != oldEntries.Count)
+                throw new ArgumentException("Incorrect number of languages in the json, friend.");
+            for (int languageIdx = 0; languageIdx < oldEntries.Count; languageIdx++)
+            {
+                JsonConverterStructs.MessageFileSet jmfs = data[languageIdx];
+                GameDataTypes.MessageFileSet gmfs = oldEntries[languageIdx];
+                if (jmfs.textAssets.Count != gmfs.messageFiles.Count)
+                    throw new ArgumentException("Incorrect number of text assets in the json, my man.");
+                for (int assetIdx = 0; assetIdx < gmfs.messageFiles.Count; assetIdx++)
+                {
+                    JsonConverterStructs.MessageFile jmf = jmfs.textAssets[assetIdx];
+                    GameDataTypes.MessageFile gmf = gmfs.messageFiles[assetIdx];
+                    if (jmf.strings.Count != gmf.labelDatas.Count)
+                        throw new ArgumentException("Incorrect number of strings in " + jmf.assetName + ", homeboy.");
+                    for (int stringIdx = 0; stringIdx < gmf.labelDatas.Count; stringIdx++)
+                        gmf.labelDatas[stringIdx].SetMacroString(jmf.strings[stringIdx]);
+                }
+            }
+
+            return oldEntries;
         }
 
         private static int GetIndex(string[] source, string s) => GetIndex(source.ToList(), s);

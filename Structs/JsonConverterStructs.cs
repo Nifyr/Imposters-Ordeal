@@ -143,5 +143,16 @@ namespace ImpostersOrdeal
             public StatSpread ivs;
             public StatSpread evs;
         }
+
+        public struct MessageFileSet
+        {
+            public List<MessageFile> textAssets;
+        }
+
+        public struct MessageFile
+        {
+            public string assetName;
+            public List<string> strings;
+        }
     }
 }

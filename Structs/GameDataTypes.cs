@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ImpostersOrdeal
@@ -525,6 +526,7 @@ namespace ImpostersOrdeal
             public List<int> attributeValues;
             public List<TagData> tagDatas;
             public List<WordData> wordDatas;
+
             public object Clone()
             {
                 LabelData ld = (LabelData)MemberwiseClone();
@@ -565,6 +567,60 @@ namespace ImpostersOrdeal
                         return true;
                 return false;
             }
+
+            public string GetMacroString()
+            {
+                string s = "";
+                foreach (WordData wd in wordDatas)
+                    s += wd.str + wd.GetMacro();
+                return s;
+            }
+
+            public void SetMacroString(string s)
+            {
+                List<WordData> newWordDatas = new();
+                int i = 0;
+                while (s.Length > 0)
+                {
+                    Match m = Regex.Match(s, @"\A[^\\]*\\");
+                    WordData wd = null;
+
+                    if (i < wordDatas.Count)
+                        wd = wordDatas[i];
+                    else
+                        wd = new()
+                        {
+                            patternID = 7,
+                            tagIndex = -1,
+                        };
+
+                    if (m.Success)
+                    {
+                        char c = s.ToCharArray()[m.Value.Length];
+                        wd.eventID = c switch
+                        {
+                            '0' => 0,
+                            'n' => 1,
+                            'w' => 2,
+                            'r' => 3,
+                            'f' => 4,
+                            'e' => 5,
+                            _ => throw new ArgumentException("Unknown macro: \\" + c),
+                        };
+                        wd.str = s[..(m.Value.Length - 1)];
+                        s = s[(m.Value.Length + 1)..];
+                    }
+                    else
+                    {
+                        wd.eventID = 7;
+                        wd.str = s;
+                        s = "";
+                    }
+
+                    wd.strWidth = wd.str.ToCharArray().Select(c => WordData.charWidths.TryGetValue(c, out float f) ? f : 0f).Sum();
+                    i++;
+                }
+            }
         }
 
         public class WordData : ICloneable
@@ -575,6 +631,82 @@ namespace ImpostersOrdeal
             public float tagValue;
             public string str;
             public float strWidth;
+
+            public static readonly Dictionary<char, float> charWidths = new()
+            {
+                { 'A', 20.125f },
+                { 'B', 17.3125f },
+                { 'C', 20.25f },
+                { 'D', 22.109375f },
+                { 'E', 15.84375f },
+                { 'F', 16.15625f },
+                { 'G', 23.328125f },
+                { 'H', 22.015625f },
+                { 'I', 8.390625f },
+                { 'J', 12.640625f },
+                { 'K', 19.046875f },
+                { 'L', 14.96875f },
+                { 'M', 25.984375f },
+                { 'N', 21.625f },
+                { 'O', 24.390625f },
+                { 'P', 16.28125f },
+                { 'Q', 24.390625f },
+                { 'R', 17.625f },
+                { 'S', 15.453125f },
+                { 'T', 17.125f },
+                { 'U', 21.34375f },
+                { 'V', 20.0f },
+                { 'W', 28.640625f },
+                { 'X', 20.28125f },
+                { 'Y', 19.328125f },
+                { 'Z', 18.171875f },
+                { 'a', 15.296875f },
+                { 'b', 17.25f },
+                { 'c', 13.953125f },
+                { 'd', 17.28125f },
+                { 'e', 15.96875f },
+                { 'é', 15.96875f },
+                { 'f', 9.765625f },
+                { 'g', 16.1875f },
+                { 'h', 15.578125f },
+                { 'i', 7.609375f },
+                { 'j', 7.328125f },
+                { 'k', 14.8125f },
+                { 'l', 7.78125f },
+                { 'm', 22.71875f },
+                { 'n', 15.578125f },
+                { 'o', 17.15625f },
+                { 'p', 17.25f },
+                { 'q', 17.28125f },
+                { 'r', 9.65625f },
+                { 's', 11.515625f },
+                { 't', 10.046875f },
+                { 'u', 15.578125f },
+                { 'v', 14.078125f },
+                { 'w', 19.8125f },
+                { 'x', 14.46875f },
+                { 'y', 14.375f },
+                { 'z', 13.03125f },
+                { '1', 0f },
+                { '2', 0f },
+                { '3', 0f },
+                { '4', 0f },
+                { '5', 0f },
+                { '6', 0f },
+                { '7', 0f },
+                { '8', 0f },
+                { '9', 0f },
+                { '0', 0f },
+                { '-', 11.203125f },
+                { '!', 7.265625f },
+                { '?', 14.46875f },
+                { '“', 13.03125f },
+                { '”', 13.03125f },
+                { ' ', 8.671875f },
+                { ',', 8.828125f },
+                { '.', 7.90625f },
+                { '’', 8.828125f }
+            };
 
             public string GetEndChar()
             {
@@ -588,6 +720,21 @@ namespace ImpostersOrdeal
                     5 => "", //Start/join event marker?
                     7 => "", //End of message
                     _ => "\0", //Unknown
+                };
+            }
+
+            public string GetMacro()
+            {
+                return eventID switch
+                {
+                    0 => "\\0", //No marker
+                    1 => "\\n", //New line marker
+                    2 => "\\w", //Wait marker
+                    3 => "\\r", //New textbox marker
+                    4 => "\\f", //Scroll textbox marker
+                    5 => "\\e", //Start/join event marker?
+                    7 => "", //End of message
+                    _ => "\\0", //Unknown
                 };
             }
 
@@ -1268,16 +1415,13 @@ namespace ImpostersOrdeal
 
             public string GetName()
             {
-                switch (damageCategoryID)
+                return damageCategoryID switch
                 {
-                    case 0:
-                        return "Status";
-                    case 1:
-                        return "Physical";
-                    case 2:
-                        return "Special";
-                }
-                return null;
+                    0 => "Status",
+                    1 => "Physical",
+                    2 => "Special",
+                    _ => null,
+                };
             }
 
             public bool IsValid()
