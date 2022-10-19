@@ -188,7 +188,7 @@ namespace ImpostersOrdeal
                     cmHeight = p.height,
                     hgWeight = p.weight,
                     sinnohDexNumber = p.chihouZukanNo,
-                    compatibleTMs = p.GetCompatibleTMs().Select(i => tms[i]).ToList(),
+                    compatibleTMs = p.GetCompatibleTMs().Select(i => tms.TryGetValue(i, out string s) ? s : null).Where(s => s != null).ToList(),
                     eggTarget = pokemon[p.eggMonsno],
                     eggTargetFormno = p.eggFormno,
                     eggFormnoKawarazunoishi = p.eggFormnoKawarazunoishi,
@@ -256,7 +256,7 @@ namespace ImpostersOrdeal
                         formID = tp.formID,
                         shiny = tp.isRare != 0,
                         level = tp.level,
-                        sex = sexOptions[tp.sex],
+                        sex = sexOptions.ElementAtOrDefault(tp.sex),
                         nature = natures[tp.natureID],
                         ability = abilities[tp.abilityID],
                         moveset = new int[]
