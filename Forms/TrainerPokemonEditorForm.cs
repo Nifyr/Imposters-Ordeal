@@ -114,11 +114,11 @@ namespace ImpostersOrdeal
             tp.level = (byte)levelNumericUpDown.Value;
 
             tp.hpIV = (byte)numericUpDown4.Value;
-            tp.atkIV = (byte)numericUpDown4.Value;
-            tp.defIV = (byte)numericUpDown4.Value;
-            tp.spAtkIV = (byte)numericUpDown4.Value;
-            tp.spDefIV = (byte)numericUpDown4.Value;
-            tp.spdIV = (byte)numericUpDown4.Value;
+            tp.atkIV = (byte)numericUpDown5.Value;
+            tp.defIV = (byte)numericUpDown6.Value;
+            tp.spAtkIV = (byte)numericUpDown7.Value;
+            tp.spDefIV = (byte)numericUpDown8.Value;
+            tp.spdIV = (byte)numericUpDown9.Value;
 
             tp.isRare = (byte)(checkBox1.Checked ? 1 : 0);
             tp.ballID = (byte)numericUpDown2.Value;
