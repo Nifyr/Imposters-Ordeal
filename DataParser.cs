@@ -2881,15 +2881,15 @@ namespace ImpostersOrdeal
                     atvs.Add(new AssetTypeValue(EnumValueTypes.UInt8, trainerPokemon.hpIV));
                     atvs.Add(new AssetTypeValue(EnumValueTypes.UInt8, trainerPokemon.atkIV));
                     atvs.Add(new AssetTypeValue(EnumValueTypes.UInt8, trainerPokemon.defIV));
-                    atvs.Add(new AssetTypeValue(EnumValueTypes.UInt8, trainerPokemon.spdIV));
                     atvs.Add(new AssetTypeValue(EnumValueTypes.UInt8, trainerPokemon.spAtkIV));
                     atvs.Add(new AssetTypeValue(EnumValueTypes.UInt8, trainerPokemon.spDefIV));
+                    atvs.Add(new AssetTypeValue(EnumValueTypes.UInt8, trainerPokemon.spdIV));
                     atvs.Add(new AssetTypeValue(EnumValueTypes.UInt8, trainerPokemon.hpEV));
                     atvs.Add(new AssetTypeValue(EnumValueTypes.UInt8, trainerPokemon.atkEV));
                     atvs.Add(new AssetTypeValue(EnumValueTypes.UInt8, trainerPokemon.defEV));
-                    atvs.Add(new AssetTypeValue(EnumValueTypes.UInt8, trainerPokemon.spdEV));
                     atvs.Add(new AssetTypeValue(EnumValueTypes.UInt8, trainerPokemon.spAtkEV));
                     atvs.Add(new AssetTypeValue(EnumValueTypes.UInt8, trainerPokemon.spDefEV));
+                    atvs.Add(new AssetTypeValue(EnumValueTypes.UInt8, trainerPokemon.spdEV));
                 }
                 tranierPokemons.Add(atvs);
                 AssetTypeValueField trainerPokemonsReference = monoBehaviour.children[6].children[0].children[trainerIdx];
