@@ -578,6 +578,8 @@ namespace ImpostersOrdeal
 
         private static int GetIndex(List<string> source, string s)
         {
+            if (s == null)
+                throw new ArgumentException("Invalid input. I won't accept \"null\" as input, champ.");
             string u = s.ToUpper();
             int index = -1;
             for (int i = 0; index == -1 && i < source.Count; i++)
@@ -590,6 +592,8 @@ namespace ImpostersOrdeal
 
         private static int GetIndex(Dictionary<int, string> source, string s)
         {
+            if (s == null)
+                throw new ArgumentException("Invalid input. I would never accept \"null\" as input, broski.");
             string u = s.ToUpper();
             int index = -1;
             for (int i = 0; i < source.Count && index == -1; i++)
