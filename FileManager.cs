@@ -8,9 +8,7 @@ using System.Windows.Forms;
 using static ImpostersOrdeal.GlobalData;
 using SmartPoint.AssetAssistant;
 using System.Configuration;
-using System.Threading.Tasks;
 using System.Text;
-using System.Security.Cryptography;
 
 namespace ImpostersOrdeal
 {
@@ -555,6 +553,7 @@ namespace ImpostersOrdeal
                 FileData fd = new();
                 fd.fileLocation = audioPath + "\\AudioSources.txt";
                 fd.gamePath = logPath;
+                fd.fileSource = FileSource.App;
                 fileArchive[logPath] = fd;
                 return new("");
             }

@@ -1795,6 +1795,27 @@ namespace ImpostersOrdeal
 
         private static void CommitAudio()
         {
+            gameData.audioSourceLog ??= fileManager.GetAudioSourceLog();
+            gameData.audioSourceLog.Clear();
+            Dictionary<uint, WwiseObject> lookup = gameData.audioData.objectsByID;
+
+            foreach (Pokemon p in gameData.personalEntries)
+            {
+                IEnumerable<string> eventNames = PokemonInserter.GetWwiseEvents(p.dexID, p.formID).Take(5);
+                foreach (string eventName in eventNames)
+                {
+                    uint eventID = FNV132(eventName);
+                    if (!lookup.TryGetValue(eventID, out WwiseObject ewo)) continue;
+                    Event e = (Event)ewo;
+                    ActionPlay ap = (ActionPlay)lookup[e.actionIDs.First()];
+                    WwiseObject swo = lookup[ap.idExt];
+                    if (swo is not Sound)
+                        continue;
+                    Sound s = (Sound)swo;
+                    gameData.audioSourceLog.Append(eventName + " → " + s.bankSourceData.mediaInformation.sourceID + "\n");
+                }
+            }
+
             fileManager.CommitAudio();
         }
 

@@ -566,8 +566,6 @@ namespace ImpostersOrdeal
                 gameData.audioData.objectsByID[newEventID] = newE;
                 hc.loadedItem.Add(newE);
             }
-            gameData.audioSourceLog ??= fileManager.GetAudioSourceLog();
-            gameData.audioSourceLog.Append(eventNames[0] + " → " + sourceID.Item2 + "\n");
         }
 
         private uint NextUInt32(WwiseData wd)
@@ -1060,7 +1058,9 @@ namespace ImpostersOrdeal
             }
         }
 
-        private static List<string> GetWwiseEvents(int uniqueID)
+        public static List<string> GetWwiseEvents(int uniqueID) => GetWwiseEvents((ushort)(uniqueID / 10000), uniqueID / 100 % 100);
+
+        public static List<string> GetWwiseEvents(ushort dexID, int formID)
         {
             List<string> events = new();
             string[] prefixes = new string[]
@@ -1069,8 +1069,8 @@ namespace ImpostersOrdeal
             };
             foreach (string p in prefixes)
                 for (int i = 0; i < 5; i++)
-                    events.Add(p + "_" + (uniqueID / 10000).ToString("D3") + "_" +
-                        (uniqueID / 100 % 100).ToString("D2") + "_" + i.ToString("D2"));
+                    events.Add(p + "_" + dexID.ToString("D3") + "_" +
+                        formID.ToString("D2") + "_" + i.ToString("D2"));
             return events;
         }
 
