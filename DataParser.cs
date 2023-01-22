@@ -1807,10 +1807,10 @@ namespace ImpostersOrdeal
                     uint eventID = FNV132(eventName);
                     if (!lookup.TryGetValue(eventID, out WwiseObject ewo)) continue;
                     Event e = (Event)ewo;
-                    ActionPlay ap = (ActionPlay)lookup[e.actionIDs.First()];
-                    WwiseObject swo = lookup[ap.idExt];
-                    if (swo is not Sound)
-                        continue;
+                    if (!lookup.TryGetValue(e.actionIDs.First(), out WwiseObject apwo)) continue;
+                    ActionPlay ap = (ActionPlay)apwo;
+                    if (!lookup.TryGetValue(ap.idExt, out WwiseObject swo)) continue;
+                    if (swo is not Sound) continue;
                     Sound s = (Sound)swo;
                     gameData.audioSourceLog.Append(eventName + " → " + s.bankSourceData.mediaInformation.sourceID + "\n");
                 }
