@@ -1047,13 +1047,32 @@ namespace ImpostersOrdeal
                 newZukanCompareHeight.uniqueID = dstUniqueID;
                 gameData.uiZukanCompareHeights.Add(newZukanCompareHeight);
 
-                if (gameData.uiSearchPokeIconSex[0].monsNo == dstUniqueID / 10000)
+                int dstDexID = dstUniqueID / 10000;
+                int srcDexID = srcUniqueID / 10000;
+                if (gameData.uiSearchPokeIconSex[0].monsNo == dstDexID)
                 {
+                    // It's a new species, expand some more tables
                     gameData.uiSearchPokeIconSex[0].monsNo++;
-                    UIMasterdatas.SearchPokeIconSex searchPokeIconSex = gameData.uiSearchPokeIconSex.Find(o => o.monsNo == srcUniqueID / 10000);
+                    UIMasterdatas.SearchPokeIconSex searchPokeIconSex = gameData.uiSearchPokeIconSex.Find(o => o.monsNo == srcDexID);
                     UIMasterdatas.SearchPokeIconSex newSearchPokeIconSex = (UIMasterdatas.SearchPokeIconSex)searchPokeIconSex.Clone();
                     newSearchPokeIconSex.monsNo = dstUniqueID / 10000;
                     gameData.uiSearchPokeIconSex.Add(newSearchPokeIconSex);
+
+                    UIMasterdatas.DistributionEntry diamondField = gameData.uiDistributionTable.diamondFieldTable[srcDexID];
+                    UIMasterdatas.DistributionEntry newDiamondField = (UIMasterdatas.DistributionEntry)diamondField.Clone();
+                    gameData.uiDistributionTable.diamondFieldTable.Add(newDiamondField);
+
+                    UIMasterdatas.DistributionEntry diamondDungeon = gameData.uiDistributionTable.diamondDungeonTable[srcDexID];
+                    UIMasterdatas.DistributionEntry newDiamondDungeon = (UIMasterdatas.DistributionEntry)diamondDungeon.Clone();
+                    gameData.uiDistributionTable.diamondDungeonTable.Add(newDiamondDungeon);
+
+                    UIMasterdatas.DistributionEntry pearlField = gameData.uiDistributionTable.pearlFieldTable[srcDexID];
+                    UIMasterdatas.DistributionEntry newPearlField = (UIMasterdatas.DistributionEntry)pearlField.Clone();
+                    gameData.uiDistributionTable.pearlFieldTable.Add(newPearlField);
+
+                    UIMasterdatas.DistributionEntry pearlDungeon = gameData.uiDistributionTable.pearlDungeonTable[srcDexID];
+                    UIMasterdatas.DistributionEntry newPearlDungeon = (UIMasterdatas.DistributionEntry)pearlDungeon.Clone();
+                    gameData.uiDistributionTable.pearlDungeonTable.Add(newPearlDungeon);
                 }
             }
         }

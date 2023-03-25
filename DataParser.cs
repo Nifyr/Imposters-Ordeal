@@ -847,7 +847,9 @@ namespace ImpostersOrdeal
             gameData.uiZukanDisplay = new();
             gameData.uiZukanCompareHeights = new();
             gameData.uiSearchPokeIconSex = new();
+            gameData.uiDistributionTable = new();
             AssetTypeValueField uiDatabase = (await monoBehaviourCollection[PathEnum.UIMasterdatas]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "UIDatabase");
+            AssetTypeValueField distributionTable = (await monoBehaviourCollection[PathEnum.UIMasterdatas]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "DistributionTable");
 
             AssetTypeValueField[] pokemonIcons = uiDatabase["PokemonIcon"].children[0].children;
             for (int i = 0; i < pokemonIcons.Length; i++)
@@ -948,7 +950,40 @@ namespace ImpostersOrdeal
 
                 gameData.uiSearchPokeIconSex.Add(searchPokeIconSex);
             }
+
+            AssetTypeValueField[] diamondField = distributionTable["Diamond_FieldTable"].children[0].children;
+            gameData.uiDistributionTable.diamondFieldTable = ParseDistributionSheet(diamondField);
+            AssetTypeValueField[] diamondDungeon = distributionTable["Diamond_DungeonTable"].children[0].children;
+            gameData.uiDistributionTable.diamondDungeonTable = ParseDistributionSheet(diamondDungeon);
+            AssetTypeValueField[] pearlField = distributionTable["Pearl_FieldTable"].children[0].children;
+            gameData.uiDistributionTable.pearlFieldTable = ParseDistributionSheet(pearlField);
+            AssetTypeValueField[] pearlDungeon = distributionTable["Pearl_DungeonTable"].children[0].children;
+            gameData.uiDistributionTable.pearlDungeonTable = ParseDistributionSheet(pearlDungeon);
         }
+
+        private static List<UIMasterdatas.DistributionEntry> ParseDistributionSheet(AssetTypeValueField[] sheetATVF)
+        {
+            List<UIMasterdatas.DistributionEntry> sheet = new();
+            for (int i = 0; i < sheetATVF.Length; i++)
+            {
+                UIMasterdatas.DistributionEntry entry = new()
+                {
+                    beforeMorning = ParseDistributionCoord(sheetATVF[i]["BeforeMorning"]),
+                    beforeDaytime = ParseDistributionCoord(sheetATVF[i]["BeforeDaytime"]),
+                    beforeNight = ParseDistributionCoord(sheetATVF[i]["BeforeNight"]),
+                    afterMorning = ParseDistributionCoord(sheetATVF[i]["AfterMorning"]),
+                    afterDaytime = ParseDistributionCoord(sheetATVF[i]["AfterDaytime"]),
+                    afterNight = ParseDistributionCoord(sheetATVF[i]["AfterNight"]),
+                    fishing = ParseDistributionCoord(sheetATVF[i]["Fishing"]),
+                    pokemonTraser = ParseDistributionCoord(sheetATVF[i]["PokemonTraser"]),
+                    honeyTree = ParseDistributionCoord(sheetATVF[i]["HoneyTree"])
+                };
+                sheet.Add(entry);
+            }
+            return sheet;
+        }
+
+        private static int[] ParseDistributionCoord(AssetTypeValueField posATVF) => posATVF[0].children.Select(a => a.GetValue().AsInt()).ToArray();
 
         private static async Task ParseMasterDatas()
         {
@@ -2088,8 +2123,7 @@ namespace ImpostersOrdeal
             }
 
             pokemonInfo["Catalog"].children[0].SetChildrenList(newCatalogs.ToArray());
-            if (pokemonInfo["Trearuki"].children != null)
-                pokemonInfo["Trearuki"].children[0].SetChildrenList(newTrearukis.ToArray());
+            pokemonInfo["Trearuki"].children?[0].SetChildrenList(newTrearukis.ToArray());
 
             fileManager.WriteMonoBehaviour(PathEnum.DprMasterdatas, pokemonInfo);
         }
@@ -2179,8 +2213,12 @@ namespace ImpostersOrdeal
             List<AssetTypeValueField> monoBehaviours = fileManager.GetMonoBehaviours(PathEnum.UIMasterdatas);
 
             AssetTypeValueField uiDatabase = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "UIDatabase");
-            monoBehaviours = new();
-            monoBehaviours.Add(uiDatabase);
+            AssetTypeValueField distributionTable = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "DistributionTable");
+            monoBehaviours = new()
+            {
+                uiDatabase,
+                distributionTable
+            };
 
             // Pokemon Icon
             AssetTypeValueField[] pokemonIcons = uiDatabase["PokemonIcon"].children[0].children;
@@ -2295,7 +2333,46 @@ namespace ImpostersOrdeal
             }
             uiDatabase["SearchPokeIconSex"].children[0].SetChildrenList(newSearchPokeIconSexes.ToArray());
 
+            // DistributionTable
+            CommitDistributionSheet(distributionTable["Diamond_FieldTable"].children[0], gameData.uiDistributionTable.diamondFieldTable);
+            CommitDistributionSheet(distributionTable["Diamond_DungeonTable"].children[0], gameData.uiDistributionTable.diamondDungeonTable);
+            CommitDistributionSheet(distributionTable["Pearl_FieldTable"].children[0], gameData.uiDistributionTable.pearlFieldTable);
+            CommitDistributionSheet(distributionTable["Pearl_DungeonTable"].children[0], gameData.uiDistributionTable.pearlDungeonTable);
+
             fileManager.WriteMonoBehaviours(PathEnum.UIMasterdatas, monoBehaviours.ToArray());
+        }
+
+        private static void CommitDistributionSheet(AssetTypeValueField sheetATVF, List<UIMasterdatas.DistributionEntry> sheet)
+        {
+            AssetTypeValueField distributionEntryRef = sheetATVF.children[0];
+            List<AssetTypeValueField> newSheet = new();
+            foreach (UIMasterdatas.DistributionEntry entry in sheet)
+            {
+                AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(distributionEntryRef.GetTemplateField());
+                CommitDistributionCoord(baseField["BeforeMorning"], entry.beforeMorning, distributionEntryRef[0][0][0]);
+                CommitDistributionCoord(baseField["BeforeDaytime"], entry.beforeDaytime, distributionEntryRef[0][0][0]);
+                CommitDistributionCoord(baseField["BeforeNight"], entry.beforeNight, distributionEntryRef[0][0][0]);
+                CommitDistributionCoord(baseField["AfterMorning"], entry.afterMorning, distributionEntryRef[0][0][0]);
+                CommitDistributionCoord(baseField["AfterDaytime"], entry.afterDaytime, distributionEntryRef[0][0][0]);
+                CommitDistributionCoord(baseField["AfterNight"], entry.afterNight, distributionEntryRef[0][0][0]);
+                CommitDistributionCoord(baseField["Fishing"], entry.fishing, distributionEntryRef[0][0][0]);
+                CommitDistributionCoord(baseField["PokemonTraser"], entry.pokemonTraser, distributionEntryRef[0][0][0]);
+                CommitDistributionCoord(baseField["HoneyTree"], entry.honeyTree, distributionEntryRef[0][0][0]);
+                newSheet.Add(baseField);
+            }
+            sheetATVF.SetChildrenList(newSheet.ToArray());
+        }
+
+        private static void CommitDistributionCoord(AssetTypeValueField posATVF, int[] pos, AssetTypeValueField intRef)
+        {
+            List<AssetTypeValueField> newInts = new();
+            for (int i = 0; i < pos.Length; i++)
+            {
+                AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(intRef.GetTemplateField());
+                baseField.GetValue().Set(pos[i]);
+                newInts.Add(baseField);
+            }
+            posATVF[0].SetChildrenList(newInts.ToArray());
         }
 
         /// <summary>

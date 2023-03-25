@@ -50,6 +50,7 @@ namespace ImpostersOrdeal
             public List<UIMasterdatas.ZukanDisplay> uiZukanDisplay;
             public List<UIMasterdatas.ZukanCompareHeight> uiZukanCompareHeights;
             public List<UIMasterdatas.SearchPokeIconSex> uiSearchPokeIconSex;
+            public UIMasterdatas.DistributionTable uiDistributionTable;
             public AssetBundleDownloadManifest dprBin;
 
             public Dictionary<string, string> trainerNames;

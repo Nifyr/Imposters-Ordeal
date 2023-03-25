@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Numerics;
 
 namespace ImpostersOrdeal
@@ -120,6 +121,40 @@ namespace ImpostersOrdeal
 					return 1;
 				return monsNo.CompareTo(other.monsNo);
 			}
+        }
+
+		public class DistributionTable
+		{
+			public List<DistributionEntry> diamondFieldTable;
+            public List<DistributionEntry> diamondDungeonTable;
+            public List<DistributionEntry> pearlFieldTable;
+            public List<DistributionEntry> pearlDungeonTable;
+        }
+
+		public class DistributionEntry : ICloneable
+		{
+			public int[] beforeMorning;
+            public int[] beforeDaytime;
+            public int[] beforeNight;
+            public int[] afterMorning;
+            public int[] afterDaytime;
+            public int[] afterNight;
+            public int[] fishing;
+            public int[] pokemonTraser;
+            public int[] honeyTree;
+
+			public object Clone() => new DistributionEntry()
+			{
+				beforeMorning = (int[])beforeMorning.Clone(),
+				beforeDaytime = (int[])beforeDaytime.Clone(),
+				beforeNight = (int[])beforeNight.Clone(),
+				afterMorning = (int[])afterMorning.Clone(),
+				afterDaytime = (int[])afterDaytime.Clone(),
+				afterNight = (int[])afterNight.Clone(),
+                fishing = (int[])fishing.Clone(),
+                pokemonTraser = (int[])pokemonTraser.Clone(),
+                honeyTree = (int[])honeyTree.Clone()
+            };
         }
 	}
 }
