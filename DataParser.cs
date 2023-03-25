@@ -53,6 +53,7 @@ namespace ImpostersOrdeal
                 Task.Run(() => ParseMasterDatas()),
                 Task.Run(() => ParsePersonalMasterDatas()),
                 Task.Run(() => ParseUIMasterDatas()),
+                Task.Run(() => ParseContestMasterDatas())
             };
             ParseDamagaCategories();
             ParseGlobalMetadata();
@@ -62,6 +63,28 @@ namespace ImpostersOrdeal
             //Hot damn! 4GB?? This has got to go.
             monoBehaviourCollection = null;
             GC.Collect();
+        }
+
+        private static async Task ParseContestMasterDatas()
+        {
+            gameData.contestResultMotion = new();
+            AssetTypeValueField monoBehaviour = (await monoBehaviourCollection[PathEnum.ContestMasterdatas]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "ContestConfigDatas");
+
+            AssetTypeValueField[] resultMotionSheet = monoBehaviour["ResultMotion"].children[0].children;
+            for (int i = 0; i < resultMotionSheet.Length; i++)
+            {
+                ResultMotion rm = new()
+                {
+                    validFlag = resultMotionSheet[i]["valid_flag"].GetValue().value.asUInt8,
+                    id = resultMotionSheet[i]["id"].GetValue().value.asUInt16,
+                    monsNo = resultMotionSheet[i]["monsNo"].GetValue().AsInt(),
+                    winAnim = resultMotionSheet[i]["winAnim"].GetValue().AsUInt(),
+                    loseAnim = resultMotionSheet[i]["loseAnim"].GetValue().AsUInt(),
+                    waitAnim = resultMotionSheet[i]["waitAnim"].GetValue().AsUInt(),
+                    duration = resultMotionSheet[i]["duration"].GetValue().AsFloat()
+                };
+                gameData.contestResultMotion.Add(rm);
+            }
         }
 
         /// <summary>
@@ -1814,8 +1837,35 @@ namespace ImpostersOrdeal
                 CommitMotionTimingData();
             if (gameData.IsModified(GameDataSet.DataField.PokemonInfo))
                 CommitPokemonInfo();
+            if (gameData.IsModified(GameDataSet.DataField.ContestResultMotion))
+                CommitContestMasterDatas();
             if (gameData.IsModified(GameDataSet.DataField.DprBin))
                 CommitDprBin();
+        }
+
+        private static void CommitContestMasterDatas()
+        {
+            gameData.contestResultMotion.Sort();
+            AssetTypeValueField monoBehaviour = fileManager.GetMonoBehaviours(PathEnum.ContestMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "ContestConfigDatas");
+
+            AssetTypeValueField[] resultMotionSheet = monoBehaviour["ResultMotion"].children[0].children;
+            AssetTypeValueField resultMotionRef = resultMotionSheet[0];
+            List<AssetTypeValueField> newResultMotionSheet = new();
+            for (int i = 0; i < gameData.contestResultMotion.Count; i++)
+            {
+                ResultMotion rm = gameData.contestResultMotion[i];
+                AssetTypeValueField baseField = ValueBuilder.DefaultValueFieldFromTemplate(resultMotionRef.GetTemplateField());
+                baseField["valid_flag"].GetValue().Set(rm.validFlag);
+                baseField["id"].GetValue().Set(rm.id);
+                baseField["monsNo"].GetValue().Set(rm.monsNo);
+                baseField["winAnim"].GetValue().Set(rm.winAnim);
+                baseField["loseAnim"].GetValue().Set(rm.loseAnim);
+                baseField["waitAnim"].GetValue().Set(rm.waitAnim);
+                baseField["duration"].GetValue().Set(rm.duration);
+                newResultMotionSheet.Add(baseField);
+            }
+            monoBehaviour["ResultMotion"].children[0].SetChildrenList(newResultMotionSheet.ToArray());
+            fileManager.WriteMonoBehaviour(PathEnum.ContestMasterdatas, monoBehaviour);
         }
 
         private static void CommitDprBin()

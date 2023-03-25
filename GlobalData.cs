@@ -51,6 +51,7 @@ namespace ImpostersOrdeal
             public List<UIMasterdatas.ZukanCompareHeight> uiZukanCompareHeights;
             public List<UIMasterdatas.SearchPokeIconSex> uiSearchPokeIconSex;
             public UIMasterdatas.DistributionTable uiDistributionTable;
+            public List<ResultMotion> contestResultMotion;
             public AssetBundleDownloadManifest dprBin;
 
             public Dictionary<string, string> trainerNames;
@@ -88,6 +89,7 @@ namespace ImpostersOrdeal
                 AddPersonalTable,
                 MotionTimingData,
                 PokemonInfo,
+                ContestResultMotion,
                 DprBin
             }
 
@@ -197,7 +199,8 @@ namespace ImpostersOrdeal
             PersonalMasterdatas,
             Ugdata,
             BattleMasterdatas,
-            UIMasterdatas
+            UIMasterdatas,
+            ContestMasterdatas
         }
 
         public enum AbsoluteBoundary
@@ -225,6 +228,7 @@ namespace ImpostersOrdeal
         public static void Initialize()
         {
             randomizerPaths[PathEnum.BattleMasterdatas] = "romfs\\Data\\StreamingAssets\\AssetAssistant\\Battle\\battle_masterdatas";
+            randomizerPaths[PathEnum.ContestMasterdatas] = "romfs\\Data\\StreamingAssets\\AssetAssistant\\Contest\\md\\contest_masterdatas";
             randomizerPaths[PathEnum.EvScript] = "romfs\\Data\\StreamingAssets\\AssetAssistant\\Dpr\\ev_script";
             randomizerPaths[PathEnum.DprMasterdatas] = "romfs\\Data\\StreamingAssets\\AssetAssistant\\Dpr\\masterdatas";
             randomizerPaths[PathEnum.Gamesettings] = "romfs\\Data\\StreamingAssets\\AssetAssistant\\Dpr\\scriptableobjects\\gamesettings";

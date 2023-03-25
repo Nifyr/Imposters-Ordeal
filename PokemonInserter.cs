@@ -320,9 +320,11 @@ namespace ImpostersOrdeal
             UpdatePersonalInfos(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo, speciesName);
             UpdateCommonMsbt(srcMonsNo, dstMonsNo, srcFormNo, dstFormNo, speciesName, formName);
             UpdateUgData(srcMonsNo, dstMonsNo, dstFormNo);
+            UpdateContestData(srcMonsNo, dstMonsNo, dstFormNo);
             DuplicateIcons(menuSprites, largeSprites, dpSprites);
             DuplicateAudioSource(sourceID.Item1, sourceID.Item2);
             DuplicateAssetBundles(assetBundlePaths);
+            gameData.SetModified(GameDataSet.DataField.ContestResultMotion);
             gameData.SetModified(GameDataSet.DataField.UIMasterdatas);
             gameData.SetModified(GameDataSet.DataField.AddPersonalTable);
             gameData.SetModified(GameDataSet.DataField.MotionTimingData);
@@ -352,6 +354,17 @@ namespace ImpostersOrdeal
             UgPokemonData dstUGPD = (UgPokemonData)srcUGPD.Clone();
             dstUGPD.monsno = dstMonsNo;
             gameData.ugPokemonData.Add(dstUGPD);
+        }
+        private void UpdateContestData(int srcMonsNo, int dstMonsNo, int dstFormNo)
+        {
+            if (dstFormNo != 0)
+                return;
+
+            ResultMotion srcRM = gameData.contestResultMotion.Find(rm => rm.monsNo == srcMonsNo);
+            ResultMotion dstRM = (ResultMotion)srcRM.Clone();
+            dstRM.monsNo = dstMonsNo;
+            dstRM.id = (ushort)gameData.contestResultMotion.Count;
+            gameData.contestResultMotion.Add(dstRM);
         }
 
         private void DuplicateIcons(Dictionary<string, string> menuSprites, Dictionary<string, string> largeSprites, Dictionary<string, string> dpSprites)

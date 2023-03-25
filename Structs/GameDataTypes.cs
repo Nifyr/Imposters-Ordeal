@@ -1451,6 +1451,27 @@ namespace ImpostersOrdeal
             }
         }
 
+        public class ResultMotion : ICloneable, IComparable<ResultMotion>
+        {
+            public byte validFlag;
+            public ushort id;
+            public int monsNo;
+            public uint winAnim;
+            public uint loseAnim;
+            public uint waitAnim;
+            public float duration;
+
+            public object Clone()
+            {
+                return MemberwiseClone();
+            }
+
+            public int CompareTo(ResultMotion other)
+            {
+                return id - other.id;
+            }
+        }
+
         public class GlobalMetadata
         {
             public byte[] buffer;

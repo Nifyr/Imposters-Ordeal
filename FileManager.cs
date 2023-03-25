@@ -21,6 +21,8 @@ namespace ImpostersOrdeal
         public static readonly string tempLocationName = "Temp";
         public static readonly string[] assetAssistantRelevantFiles = new string[]
         {
+            "\\Contest\\md\\contest_masterdatas",
+            "\\Battle\\battle_masterdatas",
             "\\Dpr\\ev_script",
             "\\Dpr\\masterdatas",
             "\\Dpr\\scriptableobjects\\gamesettings",
@@ -36,9 +38,8 @@ namespace ImpostersOrdeal
             "\\Message\\spanish",
             "\\Message\\trad_chinese",
             "\\Pml\\personal_masterdatas",
-            "\\UnderGround\\data\\ugdata",
-            "\\Battle\\battle_masterdatas",
-            "\\UIs\\masterdatas\\uimasterdatas"
+            "\\UIs\\masterdatas\\uimasterdatas",
+            "\\UnderGround\\data\\ugdata"
         };
         private static readonly string delphisMainPath = "romfs\\Data\\StreamingAssets\\Audio\\GeneratedSoundBanks\\Switch\\Delphis_Main.bnk";
         private static readonly string globalMetadataPath = "romfs\\Data\\Managed\\Metadata\\global-metadata.dat";
