@@ -810,8 +810,8 @@ namespace ImpostersOrdeal
 
                     if ((newSpecies || formDescriptions) && msgFile.mName.Contains("dp_pokedex_diamond"))
                     {
-                        string srcLabelName = "DP_pokedex_diamond_" + srcMonsNo.ToString("D3");
-                        string dstLabelName = "DP_pokedex_diamond_" + dstMonsNo.ToString("D3");
+                        string srcLabelName = formDescriptions ? $"DP_pokedex_diamond_{srcMonsNo:D3}_{srcFormNo:D3}" : $"DP_pokedex_diamond_{srcMonsNo:D3}";
+                        string dstLabelName = formDescriptions ? $"DP_pokedex_diamond_{dstMonsNo:D3}_{dstFormNo:D3}" : $"DP_pokedex_diamond_{dstMonsNo:D3}";
                         LabelData srcLabelData = msgFile.labelDatas.Find(mf => mf.labelName == srcLabelName);
                         LabelData newLabelData = (LabelData)srcLabelData.Clone();
                         newLabelData.labelName = dstLabelName;
@@ -823,8 +823,8 @@ namespace ImpostersOrdeal
 
                     if ((newSpecies || formDescriptions) && msgFile.mName.Contains("dp_pokedex_pearl"))
                     {
-                        string srcLabelName = "DP_pokedex_pearl_" + srcMonsNo.ToString("D3");
-                        string dstLabelName = "DP_pokedex_pearl_" + dstMonsNo.ToString("D3");
+                        string srcLabelName = formDescriptions ? $"DP_pokedex_pearl_{srcMonsNo:D3}_{srcFormNo:D3}" : $"DP_pokedex_pearl_{srcMonsNo:D3}";
+                        string dstLabelName = formDescriptions ? $"DP_pokedex_pearl_{dstMonsNo:D3}_{dstFormNo:D3}" : $"DP_pokedex_pearl_{dstMonsNo:D3}";
                         LabelData srcLabelData = msgFile.labelDatas.Find(mf => mf.labelName == srcLabelName);
                         LabelData newLabelData = (LabelData)srcLabelData.Clone();
                         newLabelData.labelName = dstLabelName;
