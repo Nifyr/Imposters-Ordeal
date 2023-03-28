@@ -95,11 +95,18 @@ namespace ImpostersOrdeal
                 Encounter e = es[i];
                 if (etef.uint16DexID)
                     dgv.Rows.Add(new object[] { etef.pokemon[(ushort)e.dexID],
-                        e.minLv, e.maxLv, gbaSlotRates[i], (ushort)(e.dexID >> 16) });
+                        e.minLv, e.maxLv, GetGBASlotRate(i), (ushort)(e.dexID >> 16) });
                 else
                     dgv.Rows.Add(new object[] { etef.pokemon[(ushort)e.dexID],
-                        e.minLv, e.maxLv, gbaSlotRates[i] });
+                        e.minLv, e.maxLv, GetGBASlotRate(i) });
             }
+        }
+
+        private string GetGBASlotRate(int index)
+        {
+            if (index >= gbaSlotRates.Length)
+                return "n/a";
+            return gbaSlotRates[index];
         }
 
         private void CommitEdit(object sender, EventArgs e)

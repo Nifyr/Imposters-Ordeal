@@ -103,16 +103,16 @@ namespace ImpostersOrdeal
             dayDataGridView.Columns[2].ValueType = typeof(int);
             nightDataGridView.Columns[1].ValueType = typeof(int);
             nightDataGridView.Columns[2].ValueType = typeof(int);
-            dataGridView4.Columns[1].ValueType = typeof(int);
-            dataGridView4.Columns[2].ValueType = typeof(int);
-            dataGridView5.Columns[1].ValueType = typeof(int);
-            dataGridView5.Columns[2].ValueType = typeof(int);
-            dataGridView6.Columns[1].ValueType = typeof(int);
-            dataGridView6.Columns[2].ValueType = typeof(int);
-            dataGridView7.Columns[1].ValueType = typeof(int);
-            dataGridView7.Columns[2].ValueType = typeof(int);
-            dataGridView8.Columns[1].ValueType = typeof(int);
-            dataGridView8.Columns[2].ValueType = typeof(int);
+            pokeradarDataGridView.Columns[1].ValueType = typeof(int);
+            pokeradarDataGridView.Columns[2].ValueType = typeof(int);
+            waterDataGridView.Columns[1].ValueType = typeof(int);
+            waterDataGridView.Columns[2].ValueType = typeof(int);
+            oldRodDataGridView6.Columns[1].ValueType = typeof(int);
+            oldRodDataGridView6.Columns[2].ValueType = typeof(int);
+            goodRodDataGridView7.Columns[1].ValueType = typeof(int);
+            goodRodDataGridView7.Columns[2].ValueType = typeof(int);
+            superRodDataGridView8.Columns[1].ValueType = typeof(int);
+            superRodDataGridView8.Columns[2].ValueType = typeof(int);
 
             //encounterTables[0].groundMons[0].dexID = ushort.MaxValue + 1;
             uint16DexID = gameData.Uint16EncounterTables();
@@ -154,36 +154,36 @@ namespace ImpostersOrdeal
                 morningDataGridView.Columns.Add(fcMorning);
                 dayDataGridView.Columns.Add(fcDay);
                 nightDataGridView.Columns.Add(fcNight);
-                dataGridView4.Columns.Add(dgvtbc4);
-                dataGridView5.Columns.Add(dgvtbc5);
-                dataGridView6.Columns.Add(dgvtbc6);
-                dataGridView7.Columns.Add(dgvtbc7);
-                dataGridView8.Columns.Add(dgvtbc8);
+                pokeradarDataGridView.Columns.Add(dgvtbc4);
+                waterDataGridView.Columns.Add(dgvtbc5);
+                oldRodDataGridView6.Columns.Add(dgvtbc6);
+                goodRodDataGridView7.Columns.Add(dgvtbc7);
+                superRodDataGridView8.Columns.Add(dgvtbc8);
             }
 
-            groundMonsDataGridView.Rows.Add(10);
-            swarmDataGridView.Rows.Add(2);
+            encounterTable = encounterTables[0];
+
+            groundMonsDataGridView.Rows.Add(encounterTable.groundMons.Count - 2);
+            swarmDataGridView.Rows.Add(encounterTable.tairyo.Count);
             morningDataGridView.Rows.Add(2);
-            dayDataGridView.Rows.Add(2);
-            nightDataGridView.Rows.Add(2);
-            dataGridView4.Rows.Add(4);
-            dataGridView5.Rows.Add(5);
-            dataGridView6.Rows.Add(5);
-            dataGridView7.Rows.Add(5);
-            dataGridView8.Rows.Add(5);
+            dayDataGridView.Rows.Add(encounterTable.day.Count);
+            nightDataGridView.Rows.Add(encounterTable.night.Count);
+            pokeradarDataGridView.Rows.Add(encounterTable.swayGrass.Count);
+            waterDataGridView.Rows.Add(encounterTable.waterMons.Count);
+            oldRodDataGridView6.Rows.Add(encounterTable.oldRodMons.Count);
+            goodRodDataGridView7.Rows.Add(encounterTable.goodRodMons.Count);
+            superRodDataGridView8.Rows.Add(encounterTable.superRodMons.Count);
 
             groundMonsDataGridView.DataError += DataError;
             swarmDataGridView.DataError += DataError;
             morningDataGridView.DataError += DataError;
             dayDataGridView.DataError += DataError;
             nightDataGridView.DataError += DataError;
-            dataGridView4.DataError += DataError;
-            dataGridView5.DataError += DataError;
-            dataGridView6.DataError += DataError;
-            dataGridView7.DataError += DataError;
-            dataGridView8.DataError += DataError;
-
-            encounterTable = encounterTables[0];
+            pokeradarDataGridView.DataError += DataError;
+            waterDataGridView.DataError += DataError;
+            oldRodDataGridView6.DataError += DataError;
+            goodRodDataGridView7.DataError += DataError;
+            superRodDataGridView8.DataError += DataError;
 
             RefreshDisplay();
 
@@ -193,7 +193,7 @@ namespace ImpostersOrdeal
         private void RefreshGroundMonsDisplay()
         {
             // Ground Mons
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < encounterTable.groundMons.Count - 2; i++)
             {
                 int index = i < 2 ? i : i + 2;
                 Encounter encounter = encounterTable.groundMons[index];
@@ -201,7 +201,7 @@ namespace ImpostersOrdeal
                 iRow.Cells[0].Value = pokemon[(ushort)encounter.dexID];
                 iRow.Cells[1].Value = encounter.minLv;
                 iRow.Cells[2].Value = encounter.maxLv;
-                iRow.Cells[3].Value = groundRates[i];
+                iRow.Cells[3].Value = GetGroundRate(i);
                 if (uint16DexID)
                     iRow.Cells[4].Value = (ushort)(encounter.dexID >> 16);
             }
@@ -219,7 +219,7 @@ namespace ImpostersOrdeal
                 iRow.Cells[0].Value = pokemon[(ushort)encounter.dexID];
                 iRow.Cells[1].Value = encounter.minLv;
                 iRow.Cells[2].Value = encounter.maxLv;
-                iRow.Cells[3].Value = swarmRates[i];
+                iRow.Cells[3].Value = GetSwarmRate(i);
                 if (uint16DexID)
                     iRow.Cells[4].Value = (ushort)(encounter.dexID >> 16);
             }
@@ -233,7 +233,7 @@ namespace ImpostersOrdeal
                 iRow.Cells[0].Value = pokemon[(ushort)encounter.dexID];
                 iRow.Cells[1].Value = encounter.minLv;
                 iRow.Cells[2].Value = encounter.maxLv;
-                iRow.Cells[3].Value = timeRates[i];
+                iRow.Cells[3].Value = GetTimeRate(i);
                 if (uint16DexID)
                     iRow.Cells[4].Value = (ushort)(encounter.dexID >> 16);
             }
@@ -246,7 +246,7 @@ namespace ImpostersOrdeal
                 iRow.Cells[0].Value = pokemon[(ushort)encounter.dexID];
                 iRow.Cells[1].Value = encounter.minLv;
                 iRow.Cells[2].Value = encounter.maxLv;
-                iRow.Cells[3].Value = timeRates[i];
+                iRow.Cells[3].Value = GetTimeRate(i);
                 if (uint16DexID)
                     iRow.Cells[4].Value = (ushort)(encounter.dexID >> 16);
             }
@@ -259,7 +259,7 @@ namespace ImpostersOrdeal
                 iRow.Cells[0].Value = pokemon[(ushort)encounter.dexID];
                 iRow.Cells[1].Value = encounter.minLv;
                 iRow.Cells[2].Value = encounter.maxLv;
-                iRow.Cells[3].Value = timeRates[i];
+                iRow.Cells[3].Value = GetTimeRate(i);
                 if (uint16DexID)
                     iRow.Cells[4].Value = (ushort)(encounter.dexID >> 16);
             }
@@ -268,11 +268,11 @@ namespace ImpostersOrdeal
             for (int i = 0; i < encounterTable.swayGrass.Count; i++)
             {
                 Encounter encounter = encounterTable.swayGrass[i];
-                DataGridViewRow iRow = dataGridView4.Rows[i];
+                DataGridViewRow iRow = pokeradarDataGridView.Rows[i];
                 iRow.Cells[0].Value = pokemon[(ushort)encounter.dexID];
                 iRow.Cells[1].Value = encounter.minLv;
                 iRow.Cells[2].Value = encounter.maxLv;
-                iRow.Cells[3].Value = pokeradarRates[i];
+                iRow.Cells[3].Value = GetPokeradarRate(i);
                 if (uint16DexID)
                     iRow.Cells[4].Value = (ushort)(encounter.dexID >> 16);
             }
@@ -281,11 +281,11 @@ namespace ImpostersOrdeal
             for (int i = 0; i < encounterTable.waterMons.Count; i++)
             {
                 Encounter encounter = encounterTable.waterMons[i];
-                DataGridViewRow iRow = dataGridView5.Rows[i];
+                DataGridViewRow iRow = waterDataGridView.Rows[i];
                 iRow.Cells[0].Value = pokemon[(ushort)encounter.dexID];
                 iRow.Cells[1].Value = encounter.minLv;
                 iRow.Cells[2].Value = encounter.maxLv;
-                iRow.Cells[3].Value = waterRates[i];
+                iRow.Cells[3].Value = GetWaterRate(i);
                 if (uint16DexID)
                     iRow.Cells[4].Value = (ushort)(encounter.dexID >> 16);
             }
@@ -294,11 +294,11 @@ namespace ImpostersOrdeal
             for (int i = 0; i < encounterTable.oldRodMons.Count; i++)
             {
                 Encounter encounter = encounterTable.oldRodMons[i];
-                DataGridViewRow iRow = dataGridView6.Rows[i];
+                DataGridViewRow iRow = oldRodDataGridView6.Rows[i];
                 iRow.Cells[0].Value = pokemon[(ushort)encounter.dexID];
                 iRow.Cells[1].Value = encounter.minLv;
                 iRow.Cells[2].Value = encounter.maxLv;
-                iRow.Cells[3].Value = waterRates[i];
+                iRow.Cells[3].Value = GetWaterRate(i);
                 if (uint16DexID)
                     iRow.Cells[4].Value = (ushort)(encounter.dexID >> 16);
             }
@@ -307,11 +307,11 @@ namespace ImpostersOrdeal
             for (int i = 0; i < encounterTable.goodRodMons.Count; i++)
             {
                 Encounter encounter = encounterTable.goodRodMons[i];
-                DataGridViewRow iRow = dataGridView7.Rows[i];
+                DataGridViewRow iRow = goodRodDataGridView7.Rows[i];
                 iRow.Cells[0].Value = pokemon[(ushort)encounter.dexID];
                 iRow.Cells[1].Value = encounter.minLv;
                 iRow.Cells[2].Value = encounter.maxLv;
-                iRow.Cells[3].Value = waterRates[i];
+                iRow.Cells[3].Value = GetSwarmRate(i);
                 if (uint16DexID)
                     iRow.Cells[4].Value = (ushort)(encounter.dexID >> 16);
             }
@@ -320,11 +320,11 @@ namespace ImpostersOrdeal
             for (int i = 0; i < encounterTable.superRodMons.Count; i++)
             {
                 Encounter encounter = encounterTable.superRodMons[i];
-                DataGridViewRow iRow = dataGridView8.Rows[i];
+                DataGridViewRow iRow = superRodDataGridView8.Rows[i];
                 iRow.Cells[0].Value = pokemon[(ushort)encounter.dexID];
                 iRow.Cells[1].Value = encounter.minLv;
                 iRow.Cells[2].Value = encounter.maxLv;
-                iRow.Cells[3].Value = waterRates[i];
+                iRow.Cells[3].Value = GetWaterRate(i);
                 if (uint16DexID)
                     iRow.Cells[4].Value = (ushort)(encounter.dexID >> 16);
             }
@@ -338,8 +338,7 @@ namespace ImpostersOrdeal
             formProbNumericUpDown.Value = encounterTable.formProb;
             unownTableNumericUpDown.Value = encounterTable.unownTable;
 
-            if (gbaeef != null)
-                gbaeef.ZoneChanged();
+            gbaeef?.ZoneChanged();
         }
 
         private void CommitEdit(object sender, EventArgs e)
@@ -397,7 +396,7 @@ namespace ImpostersOrdeal
             // Pokeradar Mons
             for (int i = 0; i < encounterTable.swayGrass.Count; i++)
             {
-                DataGridViewRow iRow = dataGridView4.Rows[i];
+                DataGridViewRow iRow = pokeradarDataGridView.Rows[i];
                 Encounter swayGrassEnc = new();
                 swayGrassEnc.dexID = pokemon.IndexOf((string)iRow.Cells[0].Value);
                 swayGrassEnc.minLv = (int)iRow.Cells[1].Value;
@@ -410,7 +409,7 @@ namespace ImpostersOrdeal
             // Water Mons
             for (int i = 0; i < encounterTable.waterMons.Count; i++)
             {
-                DataGridViewRow iRow = dataGridView5.Rows[i];
+                DataGridViewRow iRow = waterDataGridView.Rows[i];
                 Encounter waterMon = new();
                 waterMon.dexID = pokemon.IndexOf((string)iRow.Cells[0].Value);
                 waterMon.minLv = (int)iRow.Cells[1].Value;
@@ -423,7 +422,7 @@ namespace ImpostersOrdeal
             // Old Rod
             for (int i = 0; i < encounterTable.oldRodMons.Count; i++)
             {
-                DataGridViewRow iRow = dataGridView6.Rows[i];
+                DataGridViewRow iRow = oldRodDataGridView6.Rows[i];
                 Encounter oldRodMon = new();
                 oldRodMon.dexID = pokemon.IndexOf((string)iRow.Cells[0].Value);
                 oldRodMon.minLv = (int)iRow.Cells[1].Value;
@@ -436,7 +435,7 @@ namespace ImpostersOrdeal
             // Good Rod
             for (int i = 0; i < encounterTable.goodRodMons.Count; i++)
             {
-                DataGridViewRow iRow = dataGridView7.Rows[i];
+                DataGridViewRow iRow = goodRodDataGridView7.Rows[i];
                 Encounter goodRodMon = new();
                 goodRodMon.dexID = pokemon.IndexOf((string)iRow.Cells[0].Value);
                 goodRodMon.minLv = (int)iRow.Cells[1].Value;
@@ -449,7 +448,7 @@ namespace ImpostersOrdeal
             // Super Rod
             for (int i = 0; i < encounterTable.superRodMons.Count; i++)
             {
-                DataGridViewRow iRow = dataGridView8.Rows[i];
+                DataGridViewRow iRow = superRodDataGridView8.Rows[i];
                 Encounter superRodMon = new();
                 superRodMon.dexID = pokemon.IndexOf((string)iRow.Cells[0].Value);
                 superRodMon.minLv = (int)iRow.Cells[1].Value;
@@ -481,7 +480,7 @@ namespace ImpostersOrdeal
         private void CommitGroundAndMorning()
         {
             Encounter[] groundMons = new Encounter[12];
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < encounterTable.groundMons.Count - 2; i++)
             {
                 int index = i < 2 ? i : i + 2;
                 DataGridViewRow iRow = groundMonsDataGridView.Rows[i];
@@ -567,11 +566,11 @@ namespace ImpostersOrdeal
             morningDataGridView.CellEndEdit += CommitEdit;
             dayDataGridView.CellEndEdit += CommitEdit;
             nightDataGridView.CellEndEdit += CommitEdit;
-            dataGridView4.CellEndEdit += CommitEdit;
-            dataGridView5.CellEndEdit += CommitEdit;
-            dataGridView6.CellEndEdit += CommitEdit;
-            dataGridView7.CellEndEdit += CommitEdit;
-            dataGridView8.CellEndEdit += CommitEdit;
+            pokeradarDataGridView.CellEndEdit += CommitEdit;
+            waterDataGridView.CellEndEdit += CommitEdit;
+            oldRodDataGridView6.CellEndEdit += CommitEdit;
+            goodRodDataGridView7.CellEndEdit += CommitEdit;
+            superRodDataGridView8.CellEndEdit += CommitEdit;
         }
 
         private void DeactivateControls()
@@ -594,11 +593,11 @@ namespace ImpostersOrdeal
             morningDataGridView.CellEndEdit -= CommitEdit;
             dayDataGridView.CellEndEdit -= CommitEdit;
             nightDataGridView.CellEndEdit -= CommitEdit;
-            dataGridView4.CellEndEdit -= CommitEdit;
-            dataGridView5.CellEndEdit -= CommitEdit;
-            dataGridView6.CellEndEdit -= CommitEdit;
-            dataGridView7.CellEndEdit -= CommitEdit;
-            dataGridView8.CellEndEdit -= CommitEdit;
+            pokeradarDataGridView.CellEndEdit -= CommitEdit;
+            waterDataGridView.CellEndEdit -= CommitEdit;
+            oldRodDataGridView6.CellEndEdit -= CommitEdit;
+            goodRodDataGridView7.CellEndEdit -= CommitEdit;
+            superRodDataGridView8.CellEndEdit -= CommitEdit;
         }
 
         private void PopulateListBox()
@@ -619,6 +618,41 @@ namespace ImpostersOrdeal
         {
             gbaeef ??= new(this);
             gbaeef.Show();
+        }
+
+        private string GetGroundRate(int index)
+        {
+            if (index >= groundRates.Length)
+                return "n/a";
+            return groundRates[index];
+        }
+
+        private string GetSwarmRate(int index)
+        {
+            if (index >= swarmRates.Length)
+                return "n/a";
+            return swarmRates[index];
+        }
+
+        private string GetTimeRate(int index)
+        {
+            if (index >= timeRates.Length)
+                return "n/a";
+            return timeRates[index];
+        }
+
+        private string GetPokeradarRate(int index)
+        {
+            if (index >= pokeradarRates.Length)
+                return "n/a";
+            return pokeradarRates[index];
+        }
+
+        private string GetWaterRate(int index)
+        {
+            if (index >= waterRates.Length)
+                return "n/a";
+            return waterRates[index];
         }
     }
 }

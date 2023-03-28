@@ -49,28 +49,28 @@ namespace ImpostersOrdeal
             this.encRateOldRod = new System.Windows.Forms.NumericUpDown();
             this.Species = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.dataGridView4 = new System.Windows.Forms.DataGridView();
+            this.pokeradarDataGridView = new System.Windows.Forms.DataGridView();
             this.monsNoPokeradar = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pokeradarRateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.dataGridView5 = new System.Windows.Forms.DataGridView();
+            this.waterDataGridView = new System.Windows.Forms.DataGridView();
             this.monsNoSurf = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.surfRateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridView6 = new System.Windows.Forms.DataGridView();
+            this.oldRodDataGridView6 = new System.Windows.Forms.DataGridView();
             this.monsNoOldRod = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.oldRodRateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridView7 = new System.Windows.Forms.DataGridView();
+            this.goodRodDataGridView7 = new System.Windows.Forms.DataGridView();
             this.monsNoGoodRod = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.goodRodRateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridView8 = new System.Windows.Forms.DataGridView();
+            this.superRodDataGridView8 = new System.Windows.Forms.DataGridView();
             this.monsNoSuperRod = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.dataGridViewTextBoxColumn20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn21 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -123,12 +123,12 @@ namespace ImpostersOrdeal
             ((System.ComponentModel.ISupportInitialize)(this.encRateWater)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.encRateOldRod)).BeginInit();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pokeradarDataGridView)).BeginInit();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.waterDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.oldRodDataGridView6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.goodRodDataGridView7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.superRodDataGridView8)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.formProbNumericUpDown)).BeginInit();
@@ -386,7 +386,7 @@ namespace ImpostersOrdeal
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.dataGridView4);
+            this.groupBox2.Controls.Add(this.pokeradarDataGridView);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(594, 612);
             this.groupBox2.Name = "groupBox2";
@@ -398,23 +398,23 @@ namespace ImpostersOrdeal
             // 
             // dataGridView4
             // 
-            this.dataGridView4.AllowUserToAddRows = false;
-            this.dataGridView4.AllowUserToDeleteRows = false;
-            this.dataGridView4.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView4.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.pokeradarDataGridView.AllowUserToAddRows = false;
+            this.pokeradarDataGridView.AllowUserToDeleteRows = false;
+            this.pokeradarDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.pokeradarDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.pokeradarDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.monsNoPokeradar,
             this.dataGridViewTextBoxColumn8,
             this.dataGridViewTextBoxColumn9,
             this.pokeradarRateColumn});
-            this.dataGridView4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView4.Location = new System.Drawing.Point(3, 23);
-            this.dataGridView4.Name = "dataGridView4";
-            this.dataGridView4.RowHeadersVisible = false;
-            this.dataGridView4.RowHeadersWidth = 51;
-            this.dataGridView4.RowTemplate.Height = 29;
-            this.dataGridView4.Size = new System.Drawing.Size(382, 312);
-            this.dataGridView4.TabIndex = 3;
+            this.pokeradarDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pokeradarDataGridView.Location = new System.Drawing.Point(3, 23);
+            this.pokeradarDataGridView.Name = "dataGridView4";
+            this.pokeradarDataGridView.RowHeadersVisible = false;
+            this.pokeradarDataGridView.RowHeadersWidth = 51;
+            this.pokeradarDataGridView.RowTemplate.Height = 29;
+            this.pokeradarDataGridView.Size = new System.Drawing.Size(382, 312);
+            this.pokeradarDataGridView.TabIndex = 3;
             // 
             // monsNoPokeradar
             // 
@@ -447,7 +447,7 @@ namespace ImpostersOrdeal
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.dataGridView5);
+            this.groupBox3.Controls.Add(this.waterDataGridView);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Location = new System.Drawing.Point(988, 3);
             this.groupBox3.Name = "groupBox3";
@@ -459,23 +459,23 @@ namespace ImpostersOrdeal
             // 
             // dataGridView5
             // 
-            this.dataGridView5.AllowUserToAddRows = false;
-            this.dataGridView5.AllowUserToDeleteRows = false;
-            this.dataGridView5.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView5.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView5.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.waterDataGridView.AllowUserToAddRows = false;
+            this.waterDataGridView.AllowUserToDeleteRows = false;
+            this.waterDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.waterDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.waterDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.monsNoSurf,
             this.dataGridViewTextBoxColumn11,
             this.dataGridViewTextBoxColumn12,
             this.surfRateColumn});
-            this.dataGridView5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView5.Location = new System.Drawing.Point(3, 23);
-            this.dataGridView5.Name = "dataGridView5";
-            this.dataGridView5.RowHeadersVisible = false;
-            this.dataGridView5.RowHeadersWidth = 51;
-            this.dataGridView5.RowTemplate.Height = 29;
-            this.dataGridView5.Size = new System.Drawing.Size(385, 192);
-            this.dataGridView5.TabIndex = 3;
+            this.waterDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.waterDataGridView.Location = new System.Drawing.Point(3, 23);
+            this.waterDataGridView.Name = "dataGridView5";
+            this.waterDataGridView.RowHeadersVisible = false;
+            this.waterDataGridView.RowHeadersWidth = 51;
+            this.waterDataGridView.RowTemplate.Height = 29;
+            this.waterDataGridView.Size = new System.Drawing.Size(385, 192);
+            this.waterDataGridView.TabIndex = 3;
             // 
             // monsNoSurf
             // 
@@ -508,23 +508,23 @@ namespace ImpostersOrdeal
             // 
             // dataGridView6
             // 
-            this.dataGridView6.AllowUserToAddRows = false;
-            this.dataGridView6.AllowUserToDeleteRows = false;
-            this.dataGridView6.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView6.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView6.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.oldRodDataGridView6.AllowUserToAddRows = false;
+            this.oldRodDataGridView6.AllowUserToDeleteRows = false;
+            this.oldRodDataGridView6.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.oldRodDataGridView6.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.oldRodDataGridView6.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.monsNoOldRod,
             this.dataGridViewTextBoxColumn14,
             this.dataGridViewTextBoxColumn15,
             this.oldRodRateColumn});
-            this.dataGridView6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView6.Location = new System.Drawing.Point(3, 23);
-            this.dataGridView6.Name = "dataGridView6";
-            this.dataGridView6.RowHeadersVisible = false;
-            this.dataGridView6.RowHeadersWidth = 51;
-            this.dataGridView6.RowTemplate.Height = 29;
-            this.dataGridView6.Size = new System.Drawing.Size(385, 199);
-            this.dataGridView6.TabIndex = 2;
+            this.oldRodDataGridView6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.oldRodDataGridView6.Location = new System.Drawing.Point(3, 23);
+            this.oldRodDataGridView6.Name = "dataGridView6";
+            this.oldRodDataGridView6.RowHeadersVisible = false;
+            this.oldRodDataGridView6.RowHeadersWidth = 51;
+            this.oldRodDataGridView6.RowTemplate.Height = 29;
+            this.oldRodDataGridView6.Size = new System.Drawing.Size(385, 199);
+            this.oldRodDataGridView6.TabIndex = 2;
             // 
             // monsNoOldRod
             // 
@@ -557,23 +557,23 @@ namespace ImpostersOrdeal
             // 
             // dataGridView7
             // 
-            this.dataGridView7.AllowUserToAddRows = false;
-            this.dataGridView7.AllowUserToDeleteRows = false;
-            this.dataGridView7.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView7.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView7.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.goodRodDataGridView7.AllowUserToAddRows = false;
+            this.goodRodDataGridView7.AllowUserToDeleteRows = false;
+            this.goodRodDataGridView7.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.goodRodDataGridView7.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.goodRodDataGridView7.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.monsNoGoodRod,
             this.dataGridViewTextBoxColumn17,
             this.dataGridViewTextBoxColumn18,
             this.goodRodRateColumn});
-            this.dataGridView7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView7.Location = new System.Drawing.Point(3, 23);
-            this.dataGridView7.Name = "dataGridView7";
-            this.dataGridView7.RowHeadersVisible = false;
-            this.dataGridView7.RowHeadersWidth = 51;
-            this.dataGridView7.RowTemplate.Height = 29;
-            this.dataGridView7.Size = new System.Drawing.Size(385, 199);
-            this.dataGridView7.TabIndex = 3;
+            this.goodRodDataGridView7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.goodRodDataGridView7.Location = new System.Drawing.Point(3, 23);
+            this.goodRodDataGridView7.Name = "dataGridView7";
+            this.goodRodDataGridView7.RowHeadersVisible = false;
+            this.goodRodDataGridView7.RowHeadersWidth = 51;
+            this.goodRodDataGridView7.RowTemplate.Height = 29;
+            this.goodRodDataGridView7.Size = new System.Drawing.Size(385, 199);
+            this.goodRodDataGridView7.TabIndex = 3;
             // 
             // monsNoGoodRod
             // 
@@ -606,23 +606,23 @@ namespace ImpostersOrdeal
             // 
             // dataGridView8
             // 
-            this.dataGridView8.AllowUserToAddRows = false;
-            this.dataGridView8.AllowUserToDeleteRows = false;
-            this.dataGridView8.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView8.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView8.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.superRodDataGridView8.AllowUserToAddRows = false;
+            this.superRodDataGridView8.AllowUserToDeleteRows = false;
+            this.superRodDataGridView8.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.superRodDataGridView8.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.superRodDataGridView8.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.monsNoSuperRod,
             this.dataGridViewTextBoxColumn20,
             this.dataGridViewTextBoxColumn21,
             this.superRodRateColumn});
-            this.dataGridView8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView8.Location = new System.Drawing.Point(3, 23);
-            this.dataGridView8.Name = "dataGridView8";
-            this.dataGridView8.RowHeadersVisible = false;
-            this.dataGridView8.RowHeadersWidth = 51;
-            this.dataGridView8.RowTemplate.Height = 29;
-            this.dataGridView8.Size = new System.Drawing.Size(385, 235);
-            this.dataGridView8.TabIndex = 3;
+            this.superRodDataGridView8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superRodDataGridView8.Location = new System.Drawing.Point(3, 23);
+            this.superRodDataGridView8.Name = "dataGridView8";
+            this.superRodDataGridView8.RowHeadersVisible = false;
+            this.superRodDataGridView8.RowHeadersWidth = 51;
+            this.superRodDataGridView8.RowTemplate.Height = 29;
+            this.superRodDataGridView8.Size = new System.Drawing.Size(385, 235);
+            this.superRodDataGridView8.TabIndex = 3;
             // 
             // monsNoSuperRod
             // 
@@ -1070,7 +1070,7 @@ namespace ImpostersOrdeal
             // 
             // groupBox10
             // 
-            this.groupBox10.Controls.Add(this.dataGridView6);
+            this.groupBox10.Controls.Add(this.oldRodDataGridView6);
             this.groupBox10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox10.Location = new System.Drawing.Point(988, 227);
             this.groupBox10.Name = "groupBox10";
@@ -1082,7 +1082,7 @@ namespace ImpostersOrdeal
             // 
             // groupBox11
             // 
-            this.groupBox11.Controls.Add(this.dataGridView7);
+            this.groupBox11.Controls.Add(this.goodRodDataGridView7);
             this.groupBox11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox11.Location = new System.Drawing.Point(988, 458);
             this.groupBox11.Name = "groupBox11";
@@ -1094,7 +1094,7 @@ namespace ImpostersOrdeal
             // 
             // groupBox12
             // 
-            this.groupBox12.Controls.Add(this.dataGridView8);
+            this.groupBox12.Controls.Add(this.superRodDataGridView8);
             this.groupBox12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox12.Location = new System.Drawing.Point(988, 689);
             this.groupBox12.Name = "groupBox12";
@@ -1135,12 +1135,12 @@ namespace ImpostersOrdeal
             ((System.ComponentModel.ISupportInitialize)(this.encRateWater)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.encRateOldRod)).EndInit();
             this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pokeradarDataGridView)).EndInit();
             this.groupBox3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.waterDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.oldRodDataGridView6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.goodRodDataGridView7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.superRodDataGridView8)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
@@ -1178,12 +1178,12 @@ namespace ImpostersOrdeal
         private System.Windows.Forms.DataGridViewTextBoxColumn Species;
         private System.Windows.Forms.DataGridView groundMonsDataGridView;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.DataGridView dataGridView4;
+        private System.Windows.Forms.DataGridView pokeradarDataGridView;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.DataGridView dataGridView5;
-        private System.Windows.Forms.DataGridView dataGridView6;
-        private System.Windows.Forms.DataGridView dataGridView7;
-        private System.Windows.Forms.DataGridView dataGridView8;
+        private System.Windows.Forms.DataGridView waterDataGridView;
+        private System.Windows.Forms.DataGridView oldRodDataGridView6;
+        private System.Windows.Forms.DataGridView goodRodDataGridView7;
+        private System.Windows.Forms.DataGridView superRodDataGridView8;
         private System.Windows.Forms.ComboBox versionComboBox;
         private System.Windows.Forms.DataGridViewComboBoxColumn monsNoPokeradar;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
