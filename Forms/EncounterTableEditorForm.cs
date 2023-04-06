@@ -311,7 +311,7 @@ namespace ImpostersOrdeal
                 iRow.Cells[0].Value = pokemon[(ushort)encounter.dexID];
                 iRow.Cells[1].Value = encounter.minLv;
                 iRow.Cells[2].Value = encounter.maxLv;
-                iRow.Cells[3].Value = GetSwarmRate(i);
+                iRow.Cells[3].Value = GetWaterRate(i);
                 if (uint16DexID)
                     iRow.Cells[4].Value = (ushort)(encounter.dexID >> 16);
             }
