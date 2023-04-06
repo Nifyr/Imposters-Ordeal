@@ -600,12 +600,17 @@ namespace ImpostersOrdeal
                 foreach (TrainerPokemon trainerPokemon in trainer.trainerPokemon)
                 {
                     Pokemon pokemon = GetRandom(gameData.dexEntries[distribution.Next(trainerPokemon.dexID)].forms);
-                    bool acceptLegendary = !legendLogic || P(trainerPokemon.level);
-                    while (typeThemes && typing != -1 && !pokemon.GetTyping().Contains(typing) || !acceptLegendary && legendaryDexIDs.Contains(pokemon.dexID))
-                        pokemon = GetRandom(gameData.dexEntries[distribution.Next(pokemon.dexID)].forms);
-
                     if (evolveLogic)
                         pokemon = FindStage(pokemon, trainerPokemon.level, false);
+                    bool acceptLegendary = !legendLogic || P(trainerPokemon.level);
+                    while (!pokemon.IsValid() ||
+                        typeThemes && typing != -1 && !pokemon.GetTyping().Contains(typing) ||
+                        !acceptLegendary && legendaryDexIDs.Contains(pokemon.dexID))
+                    {
+                        pokemon = GetRandom(gameData.dexEntries[distribution.Next(pokemon.dexID)].forms);
+                        if (evolveLogic)
+                            pokemon = FindStage(pokemon, trainerPokemon.level, false);
+                    }
 
                     trainerPokemon.dexID = pokemon.dexID;
                     trainerPokemon.formID = (ushort)pokemon.formID;
@@ -698,6 +703,8 @@ namespace ImpostersOrdeal
                         if (randomizeUgEncounterTableFormIDs)
                         {
                             ushort formID = (ushort)rng.Next(gameData.dexEntries[(ushort)ugEncounterFile.ugEncounters[i].dexID].forms.Count);
+                            if (gameData.dexEntries[(ushort)ugEncounterFile.ugEncounters[i].dexID].forms.Any(u => u.IsValid()))
+                                formID = (ushort)GetRandom(gameData.dexEntries[(ushort)ugEncounterFile.ugEncounters[i].dexID].forms.Where(p => p.IsValid()).ToList()).formID;
                             if (ugVersionsUnbounded)
                                 ugEncounterFile.ugEncounters[i].version = formID;
                             if (uint16UgTables)
@@ -737,34 +744,45 @@ namespace ImpostersOrdeal
                     encounter.maxLv = Conform(AbsoluteBoundary.Level, levelDistribution.Next(encounter.maxLv));
 
                     if (encounter.minLv > encounter.maxLv)
-                    {
                         (encounter.maxLv, encounter.minLv) = (encounter.minLv, encounter.maxLv);
+
+                    if (evolveLogic)
+                    {
+                        if (randomizeFormIDs)
+                        {
+                            Pokemon p = FindStage(gameData.GetPokemon((ushort)encounter.dexID, encounter.dexID >> 16), (int)encounter.GetAvgLevel(), true);
+                            encounter.dexID = p.dexID + (p.formID << 16);
+                        }
+                        else
+                            encounter.dexID = FindStage(gameData.personalEntries[(ushort)encounter.dexID], (int)encounter.GetAvgLevel(), true).dexID;
                     }
                 }
 
                 if (randomizeSpecies)
                 {
+                    bool acceptLegendary = !legendLogic || P(encounter.GetAvgLevel());
                     encounter.dexID = speciesDistribution.Next((ushort)encounter.dexID);
                     if (randomizeFormIDs)
-                        encounter.dexID += rng.Next(gameData.dexEntries[(ushort)encounter.dexID].forms.Count) << 16;
-                    if (legendLogic && !P(encounter.GetAvgLevel()))
-                        while (legendaryDexIDs.Contains((ushort)encounter.dexID))
-                        {
-                            encounter.dexID = speciesDistribution.Next((ushort)encounter.dexID);
-                            if (randomizeFormIDs)
-                                encounter.dexID += rng.Next(gameData.dexEntries[(ushort)encounter.dexID].forms.Count) << 16;
-                        }
-                }
-
-                if (evolveLogic)
-                {
-                    if (randomizeFormIDs)
                     {
+                        encounter.dexID += rng.Next(gameData.dexEntries[(ushort)encounter.dexID].forms.Count) << 16;
                         Pokemon p = FindStage(gameData.GetPokemon((ushort)encounter.dexID, encounter.dexID >> 16), (int)encounter.GetAvgLevel(), true);
                         encounter.dexID = p.dexID + (p.formID << 16);
                     }
                     else
                         encounter.dexID = FindStage(gameData.personalEntries[(ushort)encounter.dexID], (int)encounter.GetAvgLevel(), true).dexID;
+                    while (!gameData.GetPokemon((ushort)encounter.dexID, encounter.dexID >> 16).IsValid() ||
+                        !acceptLegendary && legendaryDexIDs.Contains((ushort)encounter.dexID))
+                    {
+                        encounter.dexID = speciesDistribution.Next((ushort)encounter.dexID);
+                        if (randomizeFormIDs)
+                        {
+                            encounter.dexID += rng.Next(gameData.dexEntries[(ushort)encounter.dexID].forms.Count) << 16;
+                            Pokemon p = FindStage(gameData.GetPokemon((ushort)encounter.dexID, encounter.dexID >> 16), (int)encounter.GetAvgLevel(), true);
+                            encounter.dexID = p.dexID + (p.formID << 16);
+                        }
+                        else
+                            encounter.dexID = FindStage(gameData.personalEntries[(ushort)encounter.dexID], (int)encounter.GetAvgLevel(), true).dexID;
+                    }
                 }
             }
         }
@@ -1383,7 +1401,7 @@ namespace ImpostersOrdeal
                     do
                     {
                         dest = gameData.personalEntries[distribution.Next(gameData.GetPokemon(evolution.destDexID, evolution.destFormID).personalID)];
-                    } while (bstLogic && dest.GetBST() <= pokemon.GetBST());
+                    } while (!dest.IsValid() || bstLogic && dest.GetBST() <= pokemon.GetBST());
                     evolution.destDexID = dest.dexID;
                     evolution.destFormID = (ushort)dest.formID;
                 }
