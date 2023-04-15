@@ -358,6 +358,8 @@ namespace ImpostersOrdeal
 
         private (List<GameDataTypes.Pokemon>, List<GameDataTypes.DexEntry>) ParsePokemonSructs(List<JsonConverterStructs.Pokemon> data, List<GameDataTypes.Pokemon> oldEntries)
         {
+            if (data.Count == 0)
+                throw new ArgumentException("You sure this was the right JSON? This one didn't have any of the data I expected...");
             if (data.Count != oldEntries.Count)
                 throw new ArgumentException("Incorrect number of Pokémon in the json, friend.");
             List<GameDataTypes.Pokemon> personalEntries = new();
@@ -468,6 +470,8 @@ namespace ImpostersOrdeal
 
         private List<GameDataTypes.Trainer> ParseTrainerStructs(List<JsonConverterStructs.Trainer> data, List<GameDataTypes.Trainer> oldEntries)
         {
+            if (data.Count == 0)
+                throw new ArgumentException("You sure this was the right JSON? This one didn't have any of the data I expected...");
             if (data.Count != oldEntries.Count)
                 throw new ArgumentException("Incorrect number of trainers in the json, friend.");
             List<GameDataTypes.Trainer> trainers = new();
@@ -516,7 +520,7 @@ namespace ImpostersOrdeal
                 };
 
                 if (jt.useItems.Count > 4)
-                    throw new ArgumentException("Invalid input. You gave " + gt.name + " " + jt.useItems.Count + " items, mate.");
+                    throw new ArgumentException("Invalid input. You gave trainerID " + gt.trainerID + " " + jt.useItems.Count + " items, mate.");
                 gt.SetItems(jt.useItems.Select(s => GetIndex(items, s)).ToList());
 
                 gt.SetAIFlags(new bool[]
@@ -539,10 +543,10 @@ namespace ImpostersOrdeal
                     JsonConverterStructs.TrainerPokemon jtp = jt.party[tpIdx];
                     GameDataTypes.TrainerPokemon gtp = gt.trainerPokemon[tpIdx];
                     if (jtp.moveset.Count > 4)
-                        throw new ArgumentException("Invalid input. You gave a pokémon of " + gt.name + " " + jtp.moveset.Count + " moves, buddy.");
+                        throw new ArgumentException("Invalid input. You gave a pokémon of trainer ID " + gt.trainerID + " " + jtp.moveset.Count + " moves, buddy.");
                     gtp.SetMoves(jt.party[tpIdx].moveset.Select(s => (ushort)GetIndex(moves, s)).ToList());
                     if (jtp.formID >= gameData.dexEntries[gtp.dexID].forms.Count)
-                        throw new ArgumentException("Invalid input. You gave a " + jtp.species + " of " + gt.name + " a formID of " + jtp.formID + ", chompsky honk.");
+                        throw new ArgumentException("Invalid input. You gave a " + jtp.species + " of trainer ID " + gt.trainerID + " a formID of " + jtp.formID + ", chompsky honk.");
                 }
 
                 trainers.Add(gt);
@@ -552,6 +556,8 @@ namespace ImpostersOrdeal
 
         private static List<GameDataTypes.MessageFileSet> ParseTextStructs(List<JsonConverterStructs.MessageFileSet> data, List<GameDataTypes.MessageFileSet> oldEntries)
         {
+            if (data.Count == 0)
+                throw new ArgumentException("You sure this was the right JSON? This one didn't have any of the data I expected...");
             if (data.Count != oldEntries.Count)
                 throw new ArgumentException("Incorrect number of languages in the json, friend.");
             for (int languageIdx = 0; languageIdx < oldEntries.Count; languageIdx++)
