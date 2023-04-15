@@ -1,14 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static ImpostersOrdeal.GlobalData;
 
@@ -540,9 +536,13 @@ namespace ImpostersOrdeal
 
                 for (int tpIdx = 0; tpIdx < jt.party.Count; tpIdx++)
                 {
-                    if (jt.party[tpIdx].moveset.Count > 4)
-                        throw new ArgumentException("Invalid input. You gave a pokémon of " + gt.name + " " + jt.party[tpIdx].moveset.Count + " moves, buddy.");
-                    gt.trainerPokemon[tpIdx].SetMoves(jt.party[tpIdx].moveset.Select(s => (ushort)GetIndex(moves, s)).ToList());
+                    JsonConverterStructs.TrainerPokemon jtp = jt.party[tpIdx];
+                    GameDataTypes.TrainerPokemon gtp = gt.trainerPokemon[tpIdx];
+                    if (jtp.moveset.Count > 4)
+                        throw new ArgumentException("Invalid input. You gave a pokémon of " + gt.name + " " + jtp.moveset.Count + " moves, buddy.");
+                    gtp.SetMoves(jt.party[tpIdx].moveset.Select(s => (ushort)GetIndex(moves, s)).ToList());
+                    if (jtp.formID >= gameData.dexEntries[gtp.dexID].forms.Count)
+                        throw new ArgumentException("Invalid input. You gave a " + jtp.species + " of " + gt.name + " a formID of " + jtp.formID + ", chompsky honk.");
                 }
 
                 trainers.Add(gt);
