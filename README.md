@@ -1,6 +1,9 @@
 # Imposter's Ordeal
 A Randomizer and editor software for Pokémon Brilliant Diamond and Shining Pearl offering some rather extensive control over randomization, which also just so happens to be capable of merging together yuzu mods.
 
+# Prerequisites
+- .NET 5 desktop runtime: https://dotnet.microsoft.com/en-us/download/dotnet/5.0
+
 # How to use
 1. Aquire a dump of either Brilliant Diamond or Shining Pearl (v1.1.3 or later).
 2. Launch the application's executable and input said dump when prompted.
