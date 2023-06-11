@@ -32,7 +32,7 @@ namespace ImpostersOrdeal
         public readonly string[] eggGroups = new string[]
             {
                 "", "Monster", "Water 1", "Bug", "Flying", "Field", "Fairy", "Grass",
-                "Human-Like", "Water 2", "Mineral", "Amorphous", "Water 2", "Ditto", "Dragon", "Undiscovered"
+                "Human-Like", "Water 3", "Mineral", "Amorphous", "Water 2", "Ditto", "Dragon", "Undiscovered"
             };
 
         public PokemonEditorForm()
