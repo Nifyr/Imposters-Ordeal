@@ -756,7 +756,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "BattleTowerPokemonForm";
-            Text = "TrainerPokemonEditorForm";
+            Text = "Battle Tower PokemonEditorForm";
             FormClosed += OnClosed;
             Load += OnLoad;
             groupBox1.ResumeLayout(false);

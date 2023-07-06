@@ -53,17 +53,18 @@ namespace ImpostersOrdeal.Forms
             natures = gameData.natures.Select(n => n.GetName()).ToList();
             abilities = gameData.abilities.Select(a => a.GetName()).ToList();
             moves = gameData.moves.Select(m => m.GetName()).ToList();
-            tp = gameData.battleTowerTrainerPokemons[1];
-       //     gameData.battleTowerTrainerPokemons[1].dexID = 2;
+            items = gameData.items.Select(m => m.GetName()).ToList();
+            tp = gameData.battleTowerTrainerPokemons[0];
+            //     gameData.battleTowerTrainerPokemons[1].dexID = 2;
 
             InitializeComponent();
             pokemonName = gameData.dexEntries[2].GetName();
-            Debug.WriteLine(pokemonName);
+            Debug.WriteLine(tp.itemID);
             speciesComboBox.DataSource = dexEntries.ToArray();
             comboBox3.DataSource = genders.ToArray();
             comboBox4.DataSource = natures.ToArray();
             comboBox5.DataSource = abilities.ToArray();
-            //comboBox6.DataSource = tef.items.ToArray();
+            comboBox6.DataSource = items.ToArray();
             comboBox7.DataSource = moves.ToArray();
             comboBox8.DataSource = moves.ToArray();
             comboBox9.DataSource = moves.ToArray();
@@ -77,51 +78,8 @@ namespace ImpostersOrdeal.Forms
             battleTowerTrainerPokemons.Sort(sortComparisons[sortByComboBox.SelectedIndex]);
             PopulateListBox();
 
-            /*  //Trainer part
-              trainerTypeLabels = new();
-              trainerTypeNames = new();
-              trainerTypeToCC = new();
-              trainerTypeLabels.Add(-1, "None");
-              trainerTypeNames.Add(-1, "None");
-              trainerTypeToCC.Add(-1, 0);
-              for (int i = 0; i < gameData.trainerTypes.Count; i++)
-              {
-                  TrainerType tt = gameData.trainerTypes[i];
-                  trainerTypeLabels.Add(tt.GetID(), tt.label);
-                  trainerTypeNames.Add(tt.GetID(), tt.GetName());
-                  trainerTypeToCC.Add(tt.GetID(), i + 1);
-              }
-              labelToTrainerName = gameData.trainerNames;
-              //  items = gameData.items.Select(o => o.GetName()).ToList();
-
-              InitializeComponent();
-              //   tpef = new(this);
-              //     tsef = new(this);
-
-              battleTowertrainers = new();
-              battleTowertrainers.AddRange(gameData.battleTowerTrainers);
-
-              sortByComboBox.DataSource = sortNames;
-              sortByComboBox.SelectedIndex = 0;
-              battleTowertrainers.Sort(sortComparisons[sortByComboBox.SelectedIndex]);
-
-              PopulateListBox();
-              t = battleTowertrainers[0];
-
-              // trainerTypeComboBox.DataSource = trainerTypeLabels.Values.ToArray();
-              // trainerNameComboBox.DataSource = labelToTrainerName.Values.ToArray();
-              RefreshTrainerDisplay();
-              ActivateControls();*/
-            
-          
         }
 
-      /*  public void SetTP(Trainer t, int tpIdx)
-        {
-            tp = t.trainerPokemon[tpIdx];
-            Text = "Trainer Pokémon Editor: " + tef.trainerTypeNames[t.trainerTypeID] +
-                " " + t.GetName() + " Pokémon " + (tpIdx + 1);
-        }*/
 
         private void OnLoad(object sender, EventArgs e)
         {
@@ -150,8 +108,7 @@ namespace ImpostersOrdeal.Forms
             comboBox3.SelectedIndex = tp.sex;
             comboBox4.SelectedIndex = tp.natureID;
             comboBox5.SelectedIndex = tp.abilityID;
-       //     comboBox6.SelectedIndex = tp.itemID;
-
+            comboBox6.SelectedIndex = tp.itemID;
             comboBox7.SelectedIndex = tp.moveID1;
             comboBox8.SelectedIndex = tp.moveID2;
             comboBox9.SelectedIndex = tp.moveID3;
@@ -232,15 +189,15 @@ namespace ImpostersOrdeal.Forms
             comboBox3.SelectedIndex = tp.sex;
             comboBox4.SelectedIndex = tp.natureID;
             comboBox5.SelectedIndex = tp.abilityID;
-            //     comboBox6.SelectedIndex = tp.itemID;
+            comboBox6.SelectedIndex = tp.itemID;
 
             comboBox7.SelectedIndex = tp.moveID1;
             comboBox8.SelectedIndex = tp.moveID2;
             comboBox9.SelectedIndex = tp.moveID3;
             comboBox10.SelectedIndex = tp.moveID4;
-            
 
-           // ActivateControls();
+
+            // ActivateControls();
         }
 
         private void CommitEdit(object sender, EventArgs e)
@@ -275,11 +232,11 @@ namespace ImpostersOrdeal.Forms
             tp.moveID2 = (ushort)(comboBox8.SelectedIndex == -1 ? 0 : comboBox8.SelectedIndex);
             tp.moveID3 = (ushort)(comboBox9.SelectedIndex == -1 ? 0 : comboBox9.SelectedIndex);
             tp.moveID4 = (ushort)(comboBox10.SelectedIndex == -1 ? 0 : comboBox10.SelectedIndex);
-         //   DeactivateControls();
-         //   PopulateListBox();
-          //  RefreshTextBoxDisplay();
+            //   DeactivateControls();
+            //   PopulateListBox();
+            //  RefreshTextBoxDisplay();
 
-           // ActivateControls();
+            // ActivateControls();
         }
 
         private void ActivateControls()
@@ -315,7 +272,7 @@ namespace ImpostersOrdeal.Forms
             comboBox8.SelectedIndexChanged += CommitEdit;
             comboBox9.SelectedIndexChanged += CommitEdit;
             comboBox10.SelectedIndexChanged += CommitEdit;
-          //  sortByComboBox.SelectedIndexChanged += SortChanged;
+            //  sortByComboBox.SelectedIndexChanged += SortChanged;
             listBox.SelectedIndexChanged += PokemonChanged;
 
             /*  trainerTypeComboBox.SelectedIndexChanged += CommitEdit;
@@ -323,7 +280,7 @@ namespace ImpostersOrdeal.Forms
               arenaIDNumericUpDown.ValueChanged += CommitEdit;
               effectIDNumericUpDown.ValueChanged += CommitEdit;*/
 
-          //  partyDataGridView.CellContentClick += ConfigureTP;
+            //  partyDataGridView.CellContentClick += ConfigureTP;
         }
 
         private void DeactivateControls()
@@ -366,7 +323,7 @@ namespace ImpostersOrdeal.Forms
         {
             formComboBox.SelectedIndex = -1;
             formComboBox.DataSource = gameData.dexEntries[tp.dexID].forms.Select((p, i) => i.ToString()).ToArray();
-         //   formComboBox.SelectedIndex = tp.formID;
+            //   formComboBox.SelectedIndex = tp.formID;
         }
 
         private void PopulateListBox()
@@ -374,7 +331,7 @@ namespace ImpostersOrdeal.Forms
             int index = listBox.SelectedIndex;
             if (index < 0)
                 index = 0;
-              listBox.DataSource = battleTowerTrainerPokemons.Select(o => o.GetID() + " - " + o.GetName()).ToArray();
+            listBox.DataSource = battleTowerTrainerPokemons.Select(o => o.GetID() + " - " + o.GetName()).ToArray();
             listBox.SelectedIndex = index;
         }
     }
