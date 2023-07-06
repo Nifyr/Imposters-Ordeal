@@ -349,6 +349,249 @@ namespace ImpostersOrdeal
             }
         }
 
+        public class BattleTowerTrainerPokemon
+        {
+            public uint pokemonID;
+            public int dexID;
+            public uint formID;
+            public byte isRare;
+            public byte level;
+            public byte sex;
+            public int natureID;
+            public int abilityID;
+            public int moveID1;
+            public int moveID2;
+            public int moveID3;
+            public int moveID4;
+            public ushort itemID;
+            public byte ballID;
+            public int seal;
+            public byte hpIV;
+            public byte atkIV;
+            public byte defIV;
+            public byte spAtkIV;
+            public byte spDefIV;
+            public byte spdIV;
+            public byte hpEV;
+            public byte atkEV;
+            public byte defEV;
+            public byte spAtkEV;
+            public byte spDefEV;
+            public byte spdEV;
+
+            public BattleTowerTrainerPokemon() { }
+
+            public BattleTowerTrainerPokemon(BattleTowerTrainerPokemon tp)
+            {
+                dexID = tp.dexID;
+                formID = tp.formID;
+                isRare = tp.isRare;
+                level = tp.level;
+                sex = tp.sex;
+                natureID = tp.natureID;
+                abilityID = tp.abilityID;
+                moveID1 = tp.moveID1;
+                moveID2 = tp.moveID2;
+                moveID3 = tp.moveID3;
+                moveID4 = tp.moveID4;
+                itemID = tp.itemID;
+                ballID = tp.ballID;
+                seal = tp.seal;
+                hpIV = tp.hpIV;
+                atkIV = tp.atkIV;
+                defIV = tp.defIV;
+                spdIV = tp.spdIV;
+                spAtkIV = tp.spAtkIV;
+                spDefIV = tp.spDefIV;
+                hpEV = tp.hpEV;
+                atkEV = tp.atkEV;
+                defEV = tp.defEV;
+                spdEV = tp.spdEV;
+                spAtkEV = tp.spAtkEV;
+                spDefEV = tp.spDefEV;
+            }
+
+            public List<int> GetMoves()
+            {
+                List<int> moves = new();
+                if (moveID1 > 0)
+                    moves.Add(moveID1);
+                if (moveID2 > 0)
+                    moves.Add(moveID2);
+                if (moveID3 > 0)
+                    moves.Add(moveID3);
+                if (moveID4 > 0)
+                    moves.Add(moveID4);
+                return moves;
+            }
+
+            public void SetMoves(List<ushort> moves)
+            {
+                moveID1 = (ushort)(moves.Count > 0 ? moves[0] : 0);
+                moveID2 = (ushort)(moves.Count > 1 ? moves[1] : 0);
+                moveID3 = (ushort)(moves.Count > 2 ? moves[2] : 0);
+                moveID4 = (ushort)(moves.Count > 3 ? moves[3] : 0);
+            }
+
+            public int[] GetIVs()
+            {
+                return new int[]
+                {
+                    hpIV,
+                    atkIV,
+                    defIV,
+                    spAtkIV,
+                    spDefIV,
+                    spdIV
+                };
+            }
+
+            public int[] GetEVs()
+            {
+                return new int[]
+                {
+                    hpEV,
+                    atkEV,
+                    defEV,
+                    spAtkEV,
+                    spDefEV,
+                    spdEV
+                };
+            }
+
+            public void SetEVs(int[] evs)
+            {
+                hpEV = (byte)evs[0];
+                atkEV = (byte)evs[1];
+                defEV = (byte)evs[2];
+                spAtkEV = (byte)evs[3];
+                spDefEV = (byte)evs[4];
+                spdEV = (byte)evs[5];
+            }
+        }
+
+        public class BattleTowerTrainer : INamedEntity
+        {
+            public uint trainerID2;
+            public int trainerTypeID;
+            //public Array trainerPokemon;
+            public uint battleTowerPokemonID1;
+            public uint battleTowerPokemonID2;
+            public uint battleTowerPokemonID3;
+            public string battleBGM;
+            public string winBGM;
+
+            //Readonly
+            public int trainerID;
+            public string name;
+
+            public BattleTowerTrainer() { }
+
+            public BattleTowerTrainer(BattleTowerTrainer t)
+            {
+                SetAll(t);
+            }
+
+            public void SetAll(BattleTowerTrainer t)
+            {
+                trainerID2 = t.trainerID2;
+                trainerTypeID = t.trainerTypeID;
+              /*  trainerPokemon = new();
+                foreach (TrainerPokemon tp in t.trainerPokemon)
+                    trainerPokemon.Add(new(tp));*/
+                battleTowerPokemonID1 = t.battleTowerPokemonID1;    
+                battleTowerPokemonID2 = t.battleTowerPokemonID2;    
+                battleTowerPokemonID3 = t.battleTowerPokemonID3;    
+                battleBGM = t.battleBGM;
+                winBGM = t.winBGM;
+              //  name = t.name;
+            }
+
+       /*     public List<int> GetItems()
+            {
+                List<int> items = new();
+                if (useItem1 > 0)
+                    items.Add(useItem1);
+                if (useItem2 > 0)
+                    items.Add(useItem2);
+                if (useItem3 > 0)
+                    items.Add(useItem3);
+                if (useItem4 > 0)
+                    items.Add(useItem4);
+                return items;
+            }
+
+            public void SetItems(List<int> items)
+            {
+                useItem1 = (ushort)(items.Count > 0 ? items[0] : 0);
+                useItem2 = (ushort)(items.Count > 1 ? items[1] : 0);
+                useItem3 = (ushort)(items.Count > 2 ? items[2] : 0);
+                useItem4 = (ushort)(items.Count > 3 ? items[3] : 0);
+            }
+
+            public void SetItemFlag()
+            {
+                aiBit |= 1 << 5;
+            }
+
+            public int GetTypeTheme()
+            {
+                return trainerTypeID switch
+                {
+                    80 => 1,
+                    69 => 4,
+                    65 => 5,
+                    68 => 6,
+                    81 => 7,
+                    67 => 8,
+                    70 => 9,
+                    79 => 10,
+                    78 => 11,
+                    83 => 12,
+                    71 => 13,
+                    82 => 14,
+                    _ => -1,
+                };
+            }*/
+
+         /*   public double GetAvgLevel()
+            {
+                if (trainerPokemon.Count == 0)
+                    return 0;
+                return trainerPokemon.Select(p => (int)p.level).Average();
+            }*/
+
+       /*     public bool[] GetAIFlags()
+            {
+                bool[] flags = new bool[32];
+                for (int i = 0; i < 32; i++)
+                    flags[i] = (aiBit & ((uint)1 << i)) != 0;
+                return flags;
+            }
+
+            public void SetAIFlags(bool[] flagArray)
+            {
+                aiBit = 0;
+                for (int i = 0; i < 32; i++)
+                    aiBit |= flagArray[i] ? (uint)1 << i : 0;
+            }*/
+
+            public int GetID()
+            {
+                return trainerTypeID;
+            }
+
+            public string GetName()
+            {
+                return trainerID2.ToString();
+            }
+
+            public bool IsValid()
+            {
+                return true;
+            }
+        }
+
         public class TrainerType : INamedEntity
         {
             public int trainerTypeID;

@@ -30,2648 +30,2931 @@ namespace ImpostersOrdeal
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.groupBox1 = new ImpostersOrdeal.MainForm.NumericDistributionControl();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button2 = new ImpostersOrdeal.MainForm.ItemDistributionControl();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.button31 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.groupBox12 = new System.Windows.Forms.GroupBox();
-            this.numericDistributionControl2 = new ImpostersOrdeal.MainForm.NumericDistributionControl();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.button7 = new System.Windows.Forms.Button();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.numericDistributionControl4 = new ImpostersOrdeal.MainForm.NumericDistributionControl();
-            this.checkBox11 = new System.Windows.Forms.CheckBox();
-            this.button9 = new System.Windows.Forms.Button();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.numericDistributionControl3 = new ImpostersOrdeal.MainForm.NumericDistributionControl();
-            this.checkBox9 = new System.Windows.Forms.CheckBox();
-            this.button8 = new System.Windows.Forms.Button();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.numericDistributionControl5 = new ImpostersOrdeal.MainForm.NumericDistributionControl();
-            this.checkBox14 = new System.Windows.Forms.CheckBox();
-            this.button10 = new System.Windows.Forms.Button();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.groupBox11 = new System.Windows.Forms.GroupBox();
-            this.itemDistributionControl7 = new ImpostersOrdeal.MainForm.ItemDistributionControl();
-            this.label5 = new System.Windows.Forms.Label();
-            this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
-            this.numericDistributionControl9 = new ImpostersOrdeal.MainForm.NumericDistributionControl();
-            this.checkBox23 = new System.Windows.Forms.CheckBox();
-            this.button14 = new System.Windows.Forms.Button();
-            this.textBox10 = new System.Windows.Forms.TextBox();
-            this.checkBox24 = new System.Windows.Forms.CheckBox();
-            this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.numericDistributionControl7 = new ImpostersOrdeal.MainForm.NumericDistributionControl();
-            this.checkBox20 = new System.Windows.Forms.CheckBox();
-            this.button12 = new System.Windows.Forms.Button();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.itemDistributionControl6 = new ImpostersOrdeal.MainForm.ItemDistributionControl();
-            this.checkBox18 = new System.Windows.Forms.CheckBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
-            this.numericDistributionControl6 = new ImpostersOrdeal.MainForm.NumericDistributionControl();
-            this.checkBox19 = new System.Windows.Forms.CheckBox();
-            this.button11 = new System.Windows.Forms.Button();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.checkBox17 = new System.Windows.Forms.CheckBox();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.checkBox16 = new System.Windows.Forms.CheckBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
-            this.checkBox15 = new System.Windows.Forms.CheckBox();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.itemDistributionControl4 = new ImpostersOrdeal.MainForm.ItemDistributionControl();
-            this.checkBox13 = new System.Windows.Forms.CheckBox();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.itemDistributionControl3 = new ImpostersOrdeal.MainForm.ItemDistributionControl();
-            this.checkBox12 = new System.Windows.Forms.CheckBox();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.itemDistributionControl2 = new ImpostersOrdeal.MainForm.ItemDistributionControl();
-            this.checkBox10 = new System.Windows.Forms.CheckBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.checkBox61 = new System.Windows.Forms.CheckBox();
-            this.itemDistributionControl1 = new ImpostersOrdeal.MainForm.ItemDistributionControl();
-            this.label1 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.checkBox8 = new System.Windows.Forms.CheckBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.numericDistributionControl1 = new ImpostersOrdeal.MainForm.NumericDistributionControl();
-            this.checkBox7 = new System.Windows.Forms.CheckBox();
-            this.button6 = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.checkBox6 = new System.Windows.Forms.CheckBox();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.groupBox26 = new System.Windows.Forms.GroupBox();
-            this.checkBox52 = new System.Windows.Forms.CheckBox();
-            this.itemDistributionControl19 = new ImpostersOrdeal.MainForm.ItemDistributionControl();
-            this.checkBox51 = new System.Windows.Forms.CheckBox();
-            this.groupBox25 = new System.Windows.Forms.GroupBox();
-            this.itemDistributionControl18 = new ImpostersOrdeal.MainForm.ItemDistributionControl();
-            this.checkBox50 = new System.Windows.Forms.CheckBox();
-            this.groupBox23 = new System.Windows.Forms.GroupBox();
-            this.itemDistributionControl16 = new ImpostersOrdeal.MainForm.ItemDistributionControl();
-            this.checkBox47 = new System.Windows.Forms.CheckBox();
-            this.numericDistributionControl18 = new ImpostersOrdeal.MainForm.NumericDistributionControl();
-            this.checkBox46 = new System.Windows.Forms.CheckBox();
-            this.button22 = new System.Windows.Forms.Button();
-            this.textBox19 = new System.Windows.Forms.TextBox();
-            this.numericDistributionControl11 = new ImpostersOrdeal.MainForm.NumericDistributionControl();
-            this.checkBox27 = new System.Windows.Forms.CheckBox();
-            this.button16 = new System.Windows.Forms.Button();
-            this.textBox12 = new System.Windows.Forms.TextBox();
-            this.numericDistributionControl10 = new ImpostersOrdeal.MainForm.NumericDistributionControl();
-            this.checkBox26 = new System.Windows.Forms.CheckBox();
-            this.button15 = new System.Windows.Forms.Button();
-            this.textBox11 = new System.Windows.Forms.TextBox();
-            this.numericDistributionControl8 = new ImpostersOrdeal.MainForm.NumericDistributionControl();
-            this.checkBox25 = new System.Windows.Forms.CheckBox();
-            this.button13 = new System.Windows.Forms.Button();
-            this.textBox9 = new System.Windows.Forms.TextBox();
-            this.groupBox14 = new System.Windows.Forms.GroupBox();
-            this.itemDistributionControl9 = new ImpostersOrdeal.MainForm.ItemDistributionControl();
-            this.checkBox22 = new System.Windows.Forms.CheckBox();
-            this.groupBox13 = new System.Windows.Forms.GroupBox();
-            this.itemDistributionControl8 = new ImpostersOrdeal.MainForm.ItemDistributionControl();
-            this.checkBox21 = new System.Windows.Forms.CheckBox();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.groupBox18 = new System.Windows.Forms.GroupBox();
-            this.groupBox24 = new System.Windows.Forms.GroupBox();
-            this.checkBox49 = new System.Windows.Forms.CheckBox();
-            this.itemDistributionControl17 = new ImpostersOrdeal.MainForm.ItemDistributionControl();
-            this.checkBox48 = new System.Windows.Forms.CheckBox();
-            this.numericDistributionControl17 = new ImpostersOrdeal.MainForm.NumericDistributionControl();
-            this.checkBox45 = new System.Windows.Forms.CheckBox();
-            this.button21 = new System.Windows.Forms.Button();
-            this.textBox18 = new System.Windows.Forms.TextBox();
-            this.numericDistributionControl16 = new ImpostersOrdeal.MainForm.NumericDistributionControl();
-            this.checkBox44 = new System.Windows.Forms.CheckBox();
-            this.button20 = new System.Windows.Forms.Button();
-            this.textBox17 = new System.Windows.Forms.TextBox();
-            this.groupBox22 = new System.Windows.Forms.GroupBox();
-            this.checkBox43 = new System.Windows.Forms.CheckBox();
-            this.itemDistributionControl15 = new ImpostersOrdeal.MainForm.ItemDistributionControl();
-            this.checkBox42 = new System.Windows.Forms.CheckBox();
-            this.groupBox21 = new System.Windows.Forms.GroupBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.numericUpDown7 = new System.Windows.Forms.NumericUpDown();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.itemDistributionControl14 = new ImpostersOrdeal.MainForm.ItemDistributionControl();
-            this.groupBox20 = new System.Windows.Forms.GroupBox();
-            this.itemDistributionControl13 = new ImpostersOrdeal.MainForm.ItemDistributionControl();
-            this.checkBox41 = new System.Windows.Forms.CheckBox();
-            this.numericDistributionControl15 = new ImpostersOrdeal.MainForm.NumericDistributionControl();
-            this.checkBox40 = new System.Windows.Forms.CheckBox();
-            this.button19 = new System.Windows.Forms.Button();
-            this.textBox16 = new System.Windows.Forms.TextBox();
-            this.groupBox19 = new System.Windows.Forms.GroupBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
-            this.checkBox39 = new System.Windows.Forms.CheckBox();
-            this.groupBox17 = new System.Windows.Forms.GroupBox();
-            this.checkBox38 = new System.Windows.Forms.CheckBox();
-            this.checkBox34 = new System.Windows.Forms.CheckBox();
-            this.checkBox35 = new System.Windows.Forms.CheckBox();
-            this.itemDistributionControl12 = new ImpostersOrdeal.MainForm.ItemDistributionControl();
-            this.checkBox37 = new System.Windows.Forms.CheckBox();
-            this.numericDistributionControl14 = new ImpostersOrdeal.MainForm.NumericDistributionControl();
-            this.checkBox36 = new System.Windows.Forms.CheckBox();
-            this.button18 = new System.Windows.Forms.Button();
-            this.textBox15 = new System.Windows.Forms.TextBox();
-            this.groupBox16 = new System.Windows.Forms.GroupBox();
-            this.numericDistributionControl13 = new ImpostersOrdeal.MainForm.NumericDistributionControl();
-            this.checkBox33 = new System.Windows.Forms.CheckBox();
-            this.button4 = new System.Windows.Forms.Button();
-            this.textBox14 = new System.Windows.Forms.TextBox();
-            this.itemDistributionControl11 = new ImpostersOrdeal.MainForm.ItemDistributionControl();
-            this.checkBox32 = new System.Windows.Forms.CheckBox();
-            this.groupBox15 = new System.Windows.Forms.GroupBox();
-            this.checkBox31 = new System.Windows.Forms.CheckBox();
-            this.checkBox30 = new System.Windows.Forms.CheckBox();
-            this.numericDistributionControl12 = new ImpostersOrdeal.MainForm.NumericDistributionControl();
-            this.checkBox28 = new System.Windows.Forms.CheckBox();
-            this.button17 = new System.Windows.Forms.Button();
-            this.textBox13 = new System.Windows.Forms.TextBox();
-            this.itemDistributionControl10 = new ImpostersOrdeal.MainForm.ItemDistributionControl();
-            this.checkBox29 = new System.Windows.Forms.CheckBox();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.groupBox33 = new System.Windows.Forms.GroupBox();
-            this.itemDistributionControl5 = new ImpostersOrdeal.MainForm.ItemDistributionControl();
-            this.checkBox63 = new System.Windows.Forms.CheckBox();
-            this.groupBox31 = new System.Windows.Forms.GroupBox();
-            this.absoluteBoundaryDataGridView = new System.Windows.Forms.DataGridView();
-            this.groupBox30 = new System.Windows.Forms.GroupBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.numericUpDown8 = new System.Windows.Forms.NumericUpDown();
-            this.checkBox60 = new System.Windows.Forms.CheckBox();
-            this.checkBox59 = new System.Windows.Forms.CheckBox();
-            this.checkBox58 = new System.Windows.Forms.CheckBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.checkBox57 = new System.Windows.Forms.CheckBox();
-            this.groupBox29 = new System.Windows.Forms.GroupBox();
-            this.checkBox62 = new System.Windows.Forms.CheckBox();
-            this.checkBox56 = new System.Windows.Forms.CheckBox();
-            this.checkBox55 = new System.Windows.Forms.CheckBox();
-            this.groupBox27 = new System.Windows.Forms.GroupBox();
-            this.itemDistributionControl21 = new ImpostersOrdeal.MainForm.ItemDistributionControl();
-            this.checkBox54 = new System.Windows.Forms.CheckBox();
-            this.itemDistributionControl20 = new ImpostersOrdeal.MainForm.ItemDistributionControl();
-            this.checkBox53 = new System.Windows.Forms.CheckBox();
-            this.groupBox28 = new System.Windows.Forms.GroupBox();
-            this.pokemonEditorButton = new System.Windows.Forms.Button();
-            this.button24 = new System.Windows.Forms.Button();
-            this.button25 = new System.Windows.Forms.Button();
-            this.button26 = new System.Windows.Forms.Button();
-            this.button27 = new System.Windows.Forms.Button();
-            this.button28 = new System.Windows.Forms.Button();
-            this.wildEncButton = new System.Windows.Forms.Button();
-            this.button30 = new System.Windows.Forms.Button();
-            this.groupBox32 = new System.Windows.Forms.GroupBox();
-            this.button23 = new System.Windows.Forms.Button();
-            this.button32 = new System.Windows.Forms.Button();
-            this.groupBox34 = new System.Windows.Forms.GroupBox();
-            this.button29 = new System.Windows.Forms.Button();
-            this.button33 = new System.Windows.Forms.Button();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.groupBox12.SuspendLayout();
-            this.numericDistributionControl2.SuspendLayout();
-            this.numericDistributionControl4.SuspendLayout();
-            this.numericDistributionControl3.SuspendLayout();
-            this.numericDistributionControl5.SuspendLayout();
-            this.groupBox11.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
-            this.numericDistributionControl9.SuspendLayout();
-            this.groupBox10.SuspendLayout();
-            this.numericDistributionControl7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
-            this.numericDistributionControl6.SuspendLayout();
-            this.groupBox9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
-            this.groupBox8.SuspendLayout();
-            this.groupBox7.SuspendLayout();
-            this.groupBox6.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            this.groupBox4.SuspendLayout();
-            this.numericDistributionControl1.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.groupBox26.SuspendLayout();
-            this.groupBox25.SuspendLayout();
-            this.groupBox23.SuspendLayout();
-            this.numericDistributionControl18.SuspendLayout();
-            this.numericDistributionControl11.SuspendLayout();
-            this.numericDistributionControl10.SuspendLayout();
-            this.numericDistributionControl8.SuspendLayout();
-            this.groupBox14.SuspendLayout();
-            this.groupBox13.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            this.groupBox18.SuspendLayout();
-            this.groupBox24.SuspendLayout();
-            this.numericDistributionControl17.SuspendLayout();
-            this.numericDistributionControl16.SuspendLayout();
-            this.groupBox22.SuspendLayout();
-            this.groupBox21.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).BeginInit();
-            this.groupBox20.SuspendLayout();
-            this.numericDistributionControl15.SuspendLayout();
-            this.groupBox19.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
-            this.groupBox17.SuspendLayout();
-            this.numericDistributionControl14.SuspendLayout();
-            this.groupBox16.SuspendLayout();
-            this.numericDistributionControl13.SuspendLayout();
-            this.groupBox15.SuspendLayout();
-            this.numericDistributionControl12.SuspendLayout();
-            this.tabPage4.SuspendLayout();
-            this.groupBox33.SuspendLayout();
-            this.groupBox31.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.absoluteBoundaryDataGridView)).BeginInit();
-            this.groupBox30.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown8)).BeginInit();
-            this.groupBox29.SuspendLayout();
-            this.groupBox27.SuspendLayout();
-            this.groupBox32.SuspendLayout();
-            this.groupBox34.SuspendLayout();
-            this.SuspendLayout();
+            groupBox1 = new NumericDistributionControl();
+            checkBox2 = new System.Windows.Forms.CheckBox();
+            button1 = new System.Windows.Forms.Button();
+            textBox1 = new System.Windows.Forms.TextBox();
+            button2 = new ItemDistributionControl();
+            groupBox2 = new System.Windows.Forms.GroupBox();
+            button31 = new System.Windows.Forms.Button();
+            button5 = new System.Windows.Forms.Button();
+            button3 = new System.Windows.Forms.Button();
+            tabControl1 = new System.Windows.Forms.TabControl();
+            tabPage1 = new System.Windows.Forms.TabPage();
+            groupBox12 = new System.Windows.Forms.GroupBox();
+            numericDistributionControl2 = new NumericDistributionControl();
+            checkBox4 = new System.Windows.Forms.CheckBox();
+            button7 = new System.Windows.Forms.Button();
+            textBox3 = new System.Windows.Forms.TextBox();
+            numericDistributionControl4 = new NumericDistributionControl();
+            checkBox11 = new System.Windows.Forms.CheckBox();
+            button9 = new System.Windows.Forms.Button();
+            textBox5 = new System.Windows.Forms.TextBox();
+            numericDistributionControl3 = new NumericDistributionControl();
+            checkBox9 = new System.Windows.Forms.CheckBox();
+            button8 = new System.Windows.Forms.Button();
+            textBox4 = new System.Windows.Forms.TextBox();
+            numericDistributionControl5 = new NumericDistributionControl();
+            checkBox14 = new System.Windows.Forms.CheckBox();
+            button10 = new System.Windows.Forms.Button();
+            textBox6 = new System.Windows.Forms.TextBox();
+            groupBox11 = new System.Windows.Forms.GroupBox();
+            itemDistributionControl7 = new ItemDistributionControl();
+            label5 = new System.Windows.Forms.Label();
+            numericUpDown5 = new System.Windows.Forms.NumericUpDown();
+            numericDistributionControl9 = new NumericDistributionControl();
+            checkBox23 = new System.Windows.Forms.CheckBox();
+            button14 = new System.Windows.Forms.Button();
+            textBox10 = new System.Windows.Forms.TextBox();
+            checkBox24 = new System.Windows.Forms.CheckBox();
+            groupBox10 = new System.Windows.Forms.GroupBox();
+            numericDistributionControl7 = new NumericDistributionControl();
+            checkBox20 = new System.Windows.Forms.CheckBox();
+            button12 = new System.Windows.Forms.Button();
+            textBox8 = new System.Windows.Forms.TextBox();
+            itemDistributionControl6 = new ItemDistributionControl();
+            checkBox18 = new System.Windows.Forms.CheckBox();
+            label4 = new System.Windows.Forms.Label();
+            numericUpDown4 = new System.Windows.Forms.NumericUpDown();
+            numericDistributionControl6 = new NumericDistributionControl();
+            checkBox19 = new System.Windows.Forms.CheckBox();
+            button11 = new System.Windows.Forms.Button();
+            textBox7 = new System.Windows.Forms.TextBox();
+            checkBox17 = new System.Windows.Forms.CheckBox();
+            groupBox9 = new System.Windows.Forms.GroupBox();
+            label2 = new System.Windows.Forms.Label();
+            numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            checkBox16 = new System.Windows.Forms.CheckBox();
+            label3 = new System.Windows.Forms.Label();
+            numericUpDown3 = new System.Windows.Forms.NumericUpDown();
+            checkBox15 = new System.Windows.Forms.CheckBox();
+            groupBox8 = new System.Windows.Forms.GroupBox();
+            itemDistributionControl4 = new ItemDistributionControl();
+            checkBox13 = new System.Windows.Forms.CheckBox();
+            groupBox7 = new System.Windows.Forms.GroupBox();
+            itemDistributionControl3 = new ItemDistributionControl();
+            checkBox12 = new System.Windows.Forms.CheckBox();
+            groupBox6 = new System.Windows.Forms.GroupBox();
+            itemDistributionControl2 = new ItemDistributionControl();
+            checkBox10 = new System.Windows.Forms.CheckBox();
+            groupBox5 = new System.Windows.Forms.GroupBox();
+            checkBox61 = new System.Windows.Forms.CheckBox();
+            itemDistributionControl1 = new ItemDistributionControl();
+            label1 = new System.Windows.Forms.Label();
+            numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            checkBox8 = new System.Windows.Forms.CheckBox();
+            groupBox4 = new System.Windows.Forms.GroupBox();
+            numericDistributionControl1 = new NumericDistributionControl();
+            checkBox7 = new System.Windows.Forms.CheckBox();
+            button6 = new System.Windows.Forms.Button();
+            textBox2 = new System.Windows.Forms.TextBox();
+            checkBox6 = new System.Windows.Forms.CheckBox();
+            checkBox5 = new System.Windows.Forms.CheckBox();
+            groupBox3 = new System.Windows.Forms.GroupBox();
+            checkBox3 = new System.Windows.Forms.CheckBox();
+            checkBox1 = new System.Windows.Forms.CheckBox();
+            tabPage2 = new System.Windows.Forms.TabPage();
+            groupBox26 = new System.Windows.Forms.GroupBox();
+            checkBox52 = new System.Windows.Forms.CheckBox();
+            itemDistributionControl19 = new ItemDistributionControl();
+            checkBox51 = new System.Windows.Forms.CheckBox();
+            groupBox25 = new System.Windows.Forms.GroupBox();
+            itemDistributionControl18 = new ItemDistributionControl();
+            checkBox50 = new System.Windows.Forms.CheckBox();
+            groupBox23 = new System.Windows.Forms.GroupBox();
+            itemDistributionControl16 = new ItemDistributionControl();
+            checkBox47 = new System.Windows.Forms.CheckBox();
+            numericDistributionControl18 = new NumericDistributionControl();
+            checkBox46 = new System.Windows.Forms.CheckBox();
+            button22 = new System.Windows.Forms.Button();
+            textBox19 = new System.Windows.Forms.TextBox();
+            numericDistributionControl11 = new NumericDistributionControl();
+            checkBox27 = new System.Windows.Forms.CheckBox();
+            button16 = new System.Windows.Forms.Button();
+            textBox12 = new System.Windows.Forms.TextBox();
+            numericDistributionControl10 = new NumericDistributionControl();
+            checkBox26 = new System.Windows.Forms.CheckBox();
+            button15 = new System.Windows.Forms.Button();
+            textBox11 = new System.Windows.Forms.TextBox();
+            numericDistributionControl8 = new NumericDistributionControl();
+            checkBox25 = new System.Windows.Forms.CheckBox();
+            button13 = new System.Windows.Forms.Button();
+            textBox9 = new System.Windows.Forms.TextBox();
+            groupBox14 = new System.Windows.Forms.GroupBox();
+            itemDistributionControl9 = new ItemDistributionControl();
+            checkBox22 = new System.Windows.Forms.CheckBox();
+            groupBox13 = new System.Windows.Forms.GroupBox();
+            itemDistributionControl8 = new ItemDistributionControl();
+            checkBox21 = new System.Windows.Forms.CheckBox();
+            tabPage3 = new System.Windows.Forms.TabPage();
+            groupBox18 = new System.Windows.Forms.GroupBox();
+            groupBox24 = new System.Windows.Forms.GroupBox();
+            checkBox49 = new System.Windows.Forms.CheckBox();
+            itemDistributionControl17 = new ItemDistributionControl();
+            checkBox48 = new System.Windows.Forms.CheckBox();
+            numericDistributionControl17 = new NumericDistributionControl();
+            checkBox45 = new System.Windows.Forms.CheckBox();
+            button21 = new System.Windows.Forms.Button();
+            textBox18 = new System.Windows.Forms.TextBox();
+            numericDistributionControl16 = new NumericDistributionControl();
+            checkBox44 = new System.Windows.Forms.CheckBox();
+            button20 = new System.Windows.Forms.Button();
+            textBox17 = new System.Windows.Forms.TextBox();
+            groupBox22 = new System.Windows.Forms.GroupBox();
+            checkBox43 = new System.Windows.Forms.CheckBox();
+            itemDistributionControl15 = new ItemDistributionControl();
+            checkBox42 = new System.Windows.Forms.CheckBox();
+            groupBox21 = new System.Windows.Forms.GroupBox();
+            label7 = new System.Windows.Forms.Label();
+            numericUpDown7 = new System.Windows.Forms.NumericUpDown();
+            comboBox1 = new System.Windows.Forms.ComboBox();
+            itemDistributionControl14 = new ItemDistributionControl();
+            groupBox20 = new System.Windows.Forms.GroupBox();
+            itemDistributionControl13 = new ItemDistributionControl();
+            checkBox41 = new System.Windows.Forms.CheckBox();
+            numericDistributionControl15 = new NumericDistributionControl();
+            checkBox40 = new System.Windows.Forms.CheckBox();
+            button19 = new System.Windows.Forms.Button();
+            textBox16 = new System.Windows.Forms.TextBox();
+            groupBox19 = new System.Windows.Forms.GroupBox();
+            label6 = new System.Windows.Forms.Label();
+            numericUpDown6 = new System.Windows.Forms.NumericUpDown();
+            checkBox39 = new System.Windows.Forms.CheckBox();
+            groupBox17 = new System.Windows.Forms.GroupBox();
+            checkBox38 = new System.Windows.Forms.CheckBox();
+            checkBox34 = new System.Windows.Forms.CheckBox();
+            checkBox35 = new System.Windows.Forms.CheckBox();
+            itemDistributionControl12 = new ItemDistributionControl();
+            checkBox37 = new System.Windows.Forms.CheckBox();
+            numericDistributionControl14 = new NumericDistributionControl();
+            checkBox36 = new System.Windows.Forms.CheckBox();
+            button18 = new System.Windows.Forms.Button();
+            textBox15 = new System.Windows.Forms.TextBox();
+            groupBox16 = new System.Windows.Forms.GroupBox();
+            numericDistributionControl13 = new NumericDistributionControl();
+            checkBox33 = new System.Windows.Forms.CheckBox();
+            button4 = new System.Windows.Forms.Button();
+            textBox14 = new System.Windows.Forms.TextBox();
+            itemDistributionControl11 = new ItemDistributionControl();
+            checkBox32 = new System.Windows.Forms.CheckBox();
+            groupBox15 = new System.Windows.Forms.GroupBox();
+            checkBox31 = new System.Windows.Forms.CheckBox();
+            checkBox30 = new System.Windows.Forms.CheckBox();
+            numericDistributionControl12 = new NumericDistributionControl();
+            checkBox28 = new System.Windows.Forms.CheckBox();
+            button17 = new System.Windows.Forms.Button();
+            textBox13 = new System.Windows.Forms.TextBox();
+            itemDistributionControl10 = new ItemDistributionControl();
+            checkBox29 = new System.Windows.Forms.CheckBox();
+            tabPage4 = new System.Windows.Forms.TabPage();
+            groupBox33 = new System.Windows.Forms.GroupBox();
+            itemDistributionControl5 = new ItemDistributionControl();
+            checkBox63 = new System.Windows.Forms.CheckBox();
+            groupBox31 = new System.Windows.Forms.GroupBox();
+            absoluteBoundaryDataGridView = new System.Windows.Forms.DataGridView();
+            groupBox30 = new System.Windows.Forms.GroupBox();
+            label9 = new System.Windows.Forms.Label();
+            numericUpDown8 = new System.Windows.Forms.NumericUpDown();
+            checkBox60 = new System.Windows.Forms.CheckBox();
+            checkBox59 = new System.Windows.Forms.CheckBox();
+            checkBox58 = new System.Windows.Forms.CheckBox();
+            label8 = new System.Windows.Forms.Label();
+            checkBox57 = new System.Windows.Forms.CheckBox();
+            groupBox29 = new System.Windows.Forms.GroupBox();
+            checkBox62 = new System.Windows.Forms.CheckBox();
+            checkBox56 = new System.Windows.Forms.CheckBox();
+            checkBox55 = new System.Windows.Forms.CheckBox();
+            groupBox27 = new System.Windows.Forms.GroupBox();
+            itemDistributionControl21 = new ItemDistributionControl();
+            checkBox54 = new System.Windows.Forms.CheckBox();
+            itemDistributionControl20 = new ItemDistributionControl();
+            checkBox53 = new System.Windows.Forms.CheckBox();
+            groupBox28 = new System.Windows.Forms.GroupBox();
+            pokemonEditorButton = new System.Windows.Forms.Button();
+            button24 = new System.Windows.Forms.Button();
+            button25 = new System.Windows.Forms.Button();
+            button26 = new System.Windows.Forms.Button();
+            button27 = new System.Windows.Forms.Button();
+            button28 = new System.Windows.Forms.Button();
+            wildEncButton = new System.Windows.Forms.Button();
+            button30 = new System.Windows.Forms.Button();
+            buttonBattleTower = new System.Windows.Forms.Button();
+            groupBox32 = new System.Windows.Forms.GroupBox();
+            button35 = new System.Windows.Forms.Button();
+            button23 = new System.Windows.Forms.Button();
+            button32 = new System.Windows.Forms.Button();
+            groupBox34 = new System.Windows.Forms.GroupBox();
+            button33 = new System.Windows.Forms.Button();
+            button29 = new System.Windows.Forms.Button();
+            button34 = new System.Windows.Forms.Button();
+            groupBox1.SuspendLayout();
+            groupBox2.SuspendLayout();
+            tabControl1.SuspendLayout();
+            tabPage1.SuspendLayout();
+            groupBox12.SuspendLayout();
+            numericDistributionControl2.SuspendLayout();
+            numericDistributionControl4.SuspendLayout();
+            numericDistributionControl3.SuspendLayout();
+            numericDistributionControl5.SuspendLayout();
+            groupBox11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown5).BeginInit();
+            numericDistributionControl9.SuspendLayout();
+            groupBox10.SuspendLayout();
+            numericDistributionControl7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown4).BeginInit();
+            numericDistributionControl6.SuspendLayout();
+            groupBox9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown3).BeginInit();
+            groupBox8.SuspendLayout();
+            groupBox7.SuspendLayout();
+            groupBox6.SuspendLayout();
+            groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            groupBox4.SuspendLayout();
+            numericDistributionControl1.SuspendLayout();
+            groupBox3.SuspendLayout();
+            tabPage2.SuspendLayout();
+            groupBox26.SuspendLayout();
+            groupBox25.SuspendLayout();
+            groupBox23.SuspendLayout();
+            numericDistributionControl18.SuspendLayout();
+            numericDistributionControl11.SuspendLayout();
+            numericDistributionControl10.SuspendLayout();
+            numericDistributionControl8.SuspendLayout();
+            groupBox14.SuspendLayout();
+            groupBox13.SuspendLayout();
+            tabPage3.SuspendLayout();
+            groupBox18.SuspendLayout();
+            groupBox24.SuspendLayout();
+            numericDistributionControl17.SuspendLayout();
+            numericDistributionControl16.SuspendLayout();
+            groupBox22.SuspendLayout();
+            groupBox21.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown7).BeginInit();
+            groupBox20.SuspendLayout();
+            numericDistributionControl15.SuspendLayout();
+            groupBox19.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown6).BeginInit();
+            groupBox17.SuspendLayout();
+            numericDistributionControl14.SuspendLayout();
+            groupBox16.SuspendLayout();
+            numericDistributionControl13.SuspendLayout();
+            groupBox15.SuspendLayout();
+            numericDistributionControl12.SuspendLayout();
+            tabPage4.SuspendLayout();
+            groupBox33.SuspendLayout();
+            groupBox31.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)absoluteBoundaryDataGridView).BeginInit();
+            groupBox30.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown8).BeginInit();
+            groupBox29.SuspendLayout();
+            groupBox27.SuspendLayout();
+            groupBox32.SuspendLayout();
+            groupBox34.SuspendLayout();
+            SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.checkBox2);
-            this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Controls.Add(this.textBox1);
-            this.groupBox1.Location = new System.Drawing.Point(6, 116);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(173, 90);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Evolution Levels";
+            groupBox1.Controls.Add(checkBox2);
+            groupBox1.Controls.Add(button1);
+            groupBox1.Controls.Add(textBox1);
+            groupBox1.Location = new System.Drawing.Point(5, 87);
+            groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox1.Size = new System.Drawing.Size(151, 68);
+            groupBox1.TabIndex = 0;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Evolution Levels";
             // 
             // checkBox2
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(6, 26);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(106, 24);
-            this.checkBox2.TabIndex = 3;
-            this.checkBox2.Text = "Randomize";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            checkBox2.AutoSize = true;
+            checkBox2.Location = new System.Drawing.Point(5, 20);
+            checkBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new System.Drawing.Size(85, 19);
+            checkBox2.TabIndex = 3;
+            checkBox2.Text = "Randomize";
+            checkBox2.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(137, 55);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(29, 29);
-            this.button1.TabIndex = 1;
-            this.button1.Text = ">";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.OpenNumericDistributionForm);
+            button1.Location = new System.Drawing.Point(120, 41);
+            button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button1.Name = "button1";
+            button1.Size = new System.Drawing.Size(25, 22);
+            button1.TabIndex = 1;
+            button1.Text = ">";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += OpenNumericDistributionForm;
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(6, 56);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(125, 27);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.Leave += new System.EventHandler(this.NumericDistributionTextBoxChanged);
+            textBox1.Location = new System.Drawing.Point(5, 42);
+            textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new System.Drawing.Size(110, 23);
+            textBox1.TabIndex = 0;
+            textBox1.Leave += NumericDistributionTextBoxChanged;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(6, 83);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(173, 29);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Destination Pokémon";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.OpenItemDistributionForm);
+            button2.Location = new System.Drawing.Point(5, 62);
+            button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button2.Name = "button2";
+            button2.Size = new System.Drawing.Size(151, 22);
+            button2.TabIndex = 2;
+            button2.Text = "Destination Pokémon";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += OpenItemDistributionForm;
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.button31);
-            this.groupBox2.Controls.Add(this.button5);
-            this.groupBox2.Controls.Add(this.button3);
-            this.groupBox2.Location = new System.Drawing.Point(12, 12);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(185, 140);
-            this.groupBox2.TabIndex = 3;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Main";
+            groupBox2.Controls.Add(button31);
+            groupBox2.Controls.Add(button5);
+            groupBox2.Controls.Add(button3);
+            groupBox2.Location = new System.Drawing.Point(10, 9);
+            groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox2.Size = new System.Drawing.Size(162, 105);
+            groupBox2.TabIndex = 3;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Main";
             // 
             // button31
             // 
-            this.button31.Location = new System.Drawing.Point(6, 96);
-            this.button31.Name = "button31";
-            this.button31.Size = new System.Drawing.Size(173, 29);
-            this.button31.TabIndex = 11;
-            this.button31.Text = "Export and Exit";
-            this.button31.UseVisualStyleBackColor = true;
-            this.button31.Click += new System.EventHandler(this.Export);
+            button31.Location = new System.Drawing.Point(5, 72);
+            button31.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button31.Name = "button31";
+            button31.Size = new System.Drawing.Size(151, 22);
+            button31.TabIndex = 11;
+            button31.Text = "Export and Exit";
+            button31.UseVisualStyleBackColor = true;
+            button31.Click += Export;
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(6, 61);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(173, 29);
-            this.button5.TabIndex = 2;
-            this.button5.Text = "Randomize";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.Randomize);
+            button5.Location = new System.Drawing.Point(5, 46);
+            button5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button5.Name = "button5";
+            button5.Size = new System.Drawing.Size(151, 22);
+            button5.TabIndex = 2;
+            button5.Text = "Randomize";
+            button5.UseVisualStyleBackColor = true;
+            button5.Click += Randomize;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(6, 26);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(173, 29);
-            this.button3.TabIndex = 0;
-            this.button3.Text = "Add Mod";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.AddMod);
+            button3.Location = new System.Drawing.Point(5, 20);
+            button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button3.Name = "button3";
+            button3.Size = new System.Drawing.Size(151, 22);
+            button3.TabIndex = 0;
+            button3.Text = "Add Mod";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += AddMod;
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Location = new System.Drawing.Point(203, 12);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1047, 649);
-            this.tabControl1.TabIndex = 4;
+            tabControl1.Controls.Add(tabPage1);
+            tabControl1.Controls.Add(tabPage2);
+            tabControl1.Controls.Add(tabPage3);
+            tabControl1.Controls.Add(tabPage4);
+            tabControl1.Location = new System.Drawing.Point(178, 9);
+            tabControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new System.Drawing.Size(916, 487);
+            tabControl1.TabIndex = 4;
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.groupBox12);
-            this.tabPage1.Controls.Add(this.groupBox11);
-            this.tabPage1.Controls.Add(this.groupBox10);
-            this.tabPage1.Controls.Add(this.groupBox9);
-            this.tabPage1.Controls.Add(this.groupBox8);
-            this.tabPage1.Controls.Add(this.groupBox7);
-            this.tabPage1.Controls.Add(this.groupBox6);
-            this.tabPage1.Controls.Add(this.groupBox5);
-            this.tabPage1.Controls.Add(this.groupBox4);
-            this.tabPage1.Controls.Add(this.groupBox3);
-            this.tabPage1.Location = new System.Drawing.Point(4, 29);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1039, 616);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Pokémon";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            tabPage1.Controls.Add(groupBox12);
+            tabPage1.Controls.Add(groupBox11);
+            tabPage1.Controls.Add(groupBox10);
+            tabPage1.Controls.Add(groupBox9);
+            tabPage1.Controls.Add(groupBox8);
+            tabPage1.Controls.Add(groupBox7);
+            tabPage1.Controls.Add(groupBox6);
+            tabPage1.Controls.Add(groupBox5);
+            tabPage1.Controls.Add(groupBox4);
+            tabPage1.Controls.Add(groupBox3);
+            tabPage1.Location = new System.Drawing.Point(4, 24);
+            tabPage1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            tabPage1.Size = new System.Drawing.Size(908, 459);
+            tabPage1.TabIndex = 0;
+            tabPage1.Text = "Pokémon";
+            tabPage1.UseVisualStyleBackColor = true;
             // 
             // groupBox12
             // 
-            this.groupBox12.Controls.Add(this.numericDistributionControl2);
-            this.groupBox12.Controls.Add(this.numericDistributionControl4);
-            this.groupBox12.Controls.Add(this.numericDistributionControl3);
-            this.groupBox12.Controls.Add(this.numericDistributionControl5);
-            this.groupBox12.Location = new System.Drawing.Point(148, 324);
-            this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(376, 270);
-            this.groupBox12.TabIndex = 13;
-            this.groupBox12.TabStop = false;
-            this.groupBox12.Text = "Misc";
+            groupBox12.Controls.Add(numericDistributionControl2);
+            groupBox12.Controls.Add(numericDistributionControl4);
+            groupBox12.Controls.Add(numericDistributionControl3);
+            groupBox12.Controls.Add(numericDistributionControl5);
+            groupBox12.Location = new System.Drawing.Point(130, 243);
+            groupBox12.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox12.Name = "groupBox12";
+            groupBox12.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox12.Size = new System.Drawing.Size(329, 202);
+            groupBox12.TabIndex = 13;
+            groupBox12.TabStop = false;
+            groupBox12.Text = "Misc";
             // 
             // numericDistributionControl2
             // 
-            this.numericDistributionControl2.Controls.Add(this.checkBox4);
-            this.numericDistributionControl2.Controls.Add(this.button7);
-            this.numericDistributionControl2.Controls.Add(this.textBox3);
-            this.numericDistributionControl2.Location = new System.Drawing.Point(6, 26);
-            this.numericDistributionControl2.Name = "numericDistributionControl2";
-            this.numericDistributionControl2.Size = new System.Drawing.Size(173, 90);
-            this.numericDistributionControl2.TabIndex = 4;
-            this.numericDistributionControl2.TabStop = false;
-            this.numericDistributionControl2.Text = "Catch Rate";
+            numericDistributionControl2.Controls.Add(checkBox4);
+            numericDistributionControl2.Controls.Add(button7);
+            numericDistributionControl2.Controls.Add(textBox3);
+            numericDistributionControl2.Location = new System.Drawing.Point(5, 20);
+            numericDistributionControl2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl2.Name = "numericDistributionControl2";
+            numericDistributionControl2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl2.Size = new System.Drawing.Size(151, 68);
+            numericDistributionControl2.TabIndex = 4;
+            numericDistributionControl2.TabStop = false;
+            numericDistributionControl2.Text = "Catch Rate";
             // 
             // checkBox4
             // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(6, 26);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(106, 24);
-            this.checkBox4.TabIndex = 3;
-            this.checkBox4.Text = "Randomize";
-            this.checkBox4.UseVisualStyleBackColor = true;
+            checkBox4.AutoSize = true;
+            checkBox4.Location = new System.Drawing.Point(5, 20);
+            checkBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox4.Name = "checkBox4";
+            checkBox4.Size = new System.Drawing.Size(85, 19);
+            checkBox4.TabIndex = 3;
+            checkBox4.Text = "Randomize";
+            checkBox4.UseVisualStyleBackColor = true;
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(137, 55);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(29, 29);
-            this.button7.TabIndex = 1;
-            this.button7.Text = ">";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.OpenNumericDistributionForm);
+            button7.Location = new System.Drawing.Point(120, 41);
+            button7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button7.Name = "button7";
+            button7.Size = new System.Drawing.Size(25, 22);
+            button7.TabIndex = 1;
+            button7.Text = ">";
+            button7.UseVisualStyleBackColor = true;
+            button7.Click += OpenNumericDistributionForm;
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(6, 56);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(125, 27);
-            this.textBox3.TabIndex = 0;
+            textBox3.Location = new System.Drawing.Point(5, 42);
+            textBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            textBox3.Name = "textBox3";
+            textBox3.Size = new System.Drawing.Size(110, 23);
+            textBox3.TabIndex = 0;
             // 
             // numericDistributionControl4
             // 
-            this.numericDistributionControl4.Controls.Add(this.checkBox11);
-            this.numericDistributionControl4.Controls.Add(this.button9);
-            this.numericDistributionControl4.Controls.Add(this.textBox5);
-            this.numericDistributionControl4.Location = new System.Drawing.Point(6, 122);
-            this.numericDistributionControl4.Name = "numericDistributionControl4";
-            this.numericDistributionControl4.Size = new System.Drawing.Size(173, 90);
-            this.numericDistributionControl4.TabIndex = 7;
-            this.numericDistributionControl4.TabStop = false;
-            this.numericDistributionControl4.Text = "Initial Friendship";
+            numericDistributionControl4.Controls.Add(checkBox11);
+            numericDistributionControl4.Controls.Add(button9);
+            numericDistributionControl4.Controls.Add(textBox5);
+            numericDistributionControl4.Location = new System.Drawing.Point(5, 92);
+            numericDistributionControl4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl4.Name = "numericDistributionControl4";
+            numericDistributionControl4.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl4.Size = new System.Drawing.Size(151, 68);
+            numericDistributionControl4.TabIndex = 7;
+            numericDistributionControl4.TabStop = false;
+            numericDistributionControl4.Text = "Initial Friendship";
             // 
             // checkBox11
             // 
-            this.checkBox11.AutoSize = true;
-            this.checkBox11.Location = new System.Drawing.Point(6, 26);
-            this.checkBox11.Name = "checkBox11";
-            this.checkBox11.Size = new System.Drawing.Size(106, 24);
-            this.checkBox11.TabIndex = 3;
-            this.checkBox11.Text = "Randomize";
-            this.checkBox11.UseVisualStyleBackColor = true;
+            checkBox11.AutoSize = true;
+            checkBox11.Location = new System.Drawing.Point(5, 20);
+            checkBox11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox11.Name = "checkBox11";
+            checkBox11.Size = new System.Drawing.Size(85, 19);
+            checkBox11.TabIndex = 3;
+            checkBox11.Text = "Randomize";
+            checkBox11.UseVisualStyleBackColor = true;
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(137, 55);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(29, 29);
-            this.button9.TabIndex = 1;
-            this.button9.Text = ">";
-            this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.OpenNumericDistributionForm);
+            button9.Location = new System.Drawing.Point(120, 41);
+            button9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button9.Name = "button9";
+            button9.Size = new System.Drawing.Size(25, 22);
+            button9.TabIndex = 1;
+            button9.Text = ">";
+            button9.UseVisualStyleBackColor = true;
+            button9.Click += OpenNumericDistributionForm;
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(6, 56);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(125, 27);
-            this.textBox5.TabIndex = 0;
+            textBox5.Location = new System.Drawing.Point(5, 42);
+            textBox5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            textBox5.Name = "textBox5";
+            textBox5.Size = new System.Drawing.Size(110, 23);
+            textBox5.TabIndex = 0;
             // 
             // numericDistributionControl3
             // 
-            this.numericDistributionControl3.Controls.Add(this.checkBox9);
-            this.numericDistributionControl3.Controls.Add(this.button8);
-            this.numericDistributionControl3.Controls.Add(this.textBox4);
-            this.numericDistributionControl3.Location = new System.Drawing.Point(197, 26);
-            this.numericDistributionControl3.Name = "numericDistributionControl3";
-            this.numericDistributionControl3.Size = new System.Drawing.Size(173, 90);
-            this.numericDistributionControl3.TabIndex = 5;
-            this.numericDistributionControl3.TabStop = false;
-            this.numericDistributionControl3.Text = "EV Yield";
+            numericDistributionControl3.Controls.Add(checkBox9);
+            numericDistributionControl3.Controls.Add(button8);
+            numericDistributionControl3.Controls.Add(textBox4);
+            numericDistributionControl3.Location = new System.Drawing.Point(172, 20);
+            numericDistributionControl3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl3.Name = "numericDistributionControl3";
+            numericDistributionControl3.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl3.Size = new System.Drawing.Size(151, 68);
+            numericDistributionControl3.TabIndex = 5;
+            numericDistributionControl3.TabStop = false;
+            numericDistributionControl3.Text = "EV Yield";
             // 
             // checkBox9
             // 
-            this.checkBox9.AutoSize = true;
-            this.checkBox9.Location = new System.Drawing.Point(6, 26);
-            this.checkBox9.Name = "checkBox9";
-            this.checkBox9.Size = new System.Drawing.Size(106, 24);
-            this.checkBox9.TabIndex = 3;
-            this.checkBox9.Text = "Randomize";
-            this.checkBox9.UseVisualStyleBackColor = true;
+            checkBox9.AutoSize = true;
+            checkBox9.Location = new System.Drawing.Point(5, 20);
+            checkBox9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox9.Name = "checkBox9";
+            checkBox9.Size = new System.Drawing.Size(85, 19);
+            checkBox9.TabIndex = 3;
+            checkBox9.Text = "Randomize";
+            checkBox9.UseVisualStyleBackColor = true;
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(137, 55);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(29, 29);
-            this.button8.TabIndex = 1;
-            this.button8.Text = ">";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.OpenNumericDistributionForm);
+            button8.Location = new System.Drawing.Point(120, 41);
+            button8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button8.Name = "button8";
+            button8.Size = new System.Drawing.Size(25, 22);
+            button8.TabIndex = 1;
+            button8.Text = ">";
+            button8.UseVisualStyleBackColor = true;
+            button8.Click += OpenNumericDistributionForm;
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(6, 56);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(125, 27);
-            this.textBox4.TabIndex = 0;
+            textBox4.Location = new System.Drawing.Point(5, 42);
+            textBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            textBox4.Name = "textBox4";
+            textBox4.Size = new System.Drawing.Size(110, 23);
+            textBox4.TabIndex = 0;
             // 
             // numericDistributionControl5
             // 
-            this.numericDistributionControl5.Controls.Add(this.checkBox14);
-            this.numericDistributionControl5.Controls.Add(this.button10);
-            this.numericDistributionControl5.Controls.Add(this.textBox6);
-            this.numericDistributionControl5.Location = new System.Drawing.Point(197, 122);
-            this.numericDistributionControl5.Name = "numericDistributionControl5";
-            this.numericDistributionControl5.Size = new System.Drawing.Size(173, 90);
-            this.numericDistributionControl5.TabIndex = 6;
-            this.numericDistributionControl5.TabStop = false;
-            this.numericDistributionControl5.Text = "Exp Yield";
+            numericDistributionControl5.Controls.Add(checkBox14);
+            numericDistributionControl5.Controls.Add(button10);
+            numericDistributionControl5.Controls.Add(textBox6);
+            numericDistributionControl5.Location = new System.Drawing.Point(172, 92);
+            numericDistributionControl5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl5.Name = "numericDistributionControl5";
+            numericDistributionControl5.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl5.Size = new System.Drawing.Size(151, 68);
+            numericDistributionControl5.TabIndex = 6;
+            numericDistributionControl5.TabStop = false;
+            numericDistributionControl5.Text = "Exp Yield";
             // 
             // checkBox14
             // 
-            this.checkBox14.AutoSize = true;
-            this.checkBox14.Location = new System.Drawing.Point(6, 26);
-            this.checkBox14.Name = "checkBox14";
-            this.checkBox14.Size = new System.Drawing.Size(106, 24);
-            this.checkBox14.TabIndex = 3;
-            this.checkBox14.Text = "Randomize";
-            this.checkBox14.UseVisualStyleBackColor = true;
+            checkBox14.AutoSize = true;
+            checkBox14.Location = new System.Drawing.Point(5, 20);
+            checkBox14.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox14.Name = "checkBox14";
+            checkBox14.Size = new System.Drawing.Size(85, 19);
+            checkBox14.TabIndex = 3;
+            checkBox14.Text = "Randomize";
+            checkBox14.UseVisualStyleBackColor = true;
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(137, 55);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(29, 29);
-            this.button10.TabIndex = 1;
-            this.button10.Text = ">";
-            this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.OpenNumericDistributionForm);
+            button10.Location = new System.Drawing.Point(120, 41);
+            button10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button10.Name = "button10";
+            button10.Size = new System.Drawing.Size(25, 22);
+            button10.TabIndex = 1;
+            button10.Text = ">";
+            button10.UseVisualStyleBackColor = true;
+            button10.Click += OpenNumericDistributionForm;
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(6, 56);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(125, 27);
-            this.textBox6.TabIndex = 0;
+            textBox6.Location = new System.Drawing.Point(5, 42);
+            textBox6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            textBox6.Name = "textBox6";
+            textBox6.Size = new System.Drawing.Size(110, 23);
+            textBox6.TabIndex = 0;
             // 
             // groupBox11
             // 
-            this.groupBox11.Controls.Add(this.itemDistributionControl7);
-            this.groupBox11.Controls.Add(this.label5);
-            this.groupBox11.Controls.Add(this.numericUpDown5);
-            this.groupBox11.Controls.Add(this.numericDistributionControl9);
-            this.groupBox11.Controls.Add(this.checkBox24);
-            this.groupBox11.Location = new System.Drawing.Point(530, 324);
-            this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(185, 270);
-            this.groupBox11.TabIndex = 12;
-            this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "Egg Moves";
+            groupBox11.Controls.Add(itemDistributionControl7);
+            groupBox11.Controls.Add(label5);
+            groupBox11.Controls.Add(numericUpDown5);
+            groupBox11.Controls.Add(numericDistributionControl9);
+            groupBox11.Controls.Add(checkBox24);
+            groupBox11.Location = new System.Drawing.Point(464, 243);
+            groupBox11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox11.Name = "groupBox11";
+            groupBox11.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox11.Size = new System.Drawing.Size(162, 202);
+            groupBox11.TabIndex = 12;
+            groupBox11.TabStop = false;
+            groupBox11.Text = "Egg Moves";
             // 
             // itemDistributionControl7
             // 
-            this.itemDistributionControl7.Location = new System.Drawing.Point(6, 53);
-            this.itemDistributionControl7.Name = "itemDistributionControl7";
-            this.itemDistributionControl7.Size = new System.Drawing.Size(173, 29);
-            this.itemDistributionControl7.TabIndex = 11;
-            this.itemDistributionControl7.Text = "Egg Moves";
-            this.itemDistributionControl7.UseVisualStyleBackColor = true;
-            this.itemDistributionControl7.Click += new System.EventHandler(this.OpenItemDistributionForm);
+            itemDistributionControl7.Location = new System.Drawing.Point(5, 40);
+            itemDistributionControl7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            itemDistributionControl7.Name = "itemDistributionControl7";
+            itemDistributionControl7.Size = new System.Drawing.Size(151, 22);
+            itemDistributionControl7.TabIndex = 11;
+            itemDistributionControl7.Text = "Egg Moves";
+            itemDistributionControl7.UseVisualStyleBackColor = true;
+            itemDistributionControl7.Click += OpenItemDistributionForm;
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 85);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(87, 20);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "Type Bias %";
+            label5.AutoSize = true;
+            label5.Location = new System.Drawing.Point(5, 64);
+            label5.Name = "label5";
+            label5.Size = new System.Drawing.Size(68, 15);
+            label5.TabIndex = 9;
+            label5.Text = "Type Bias %";
             // 
             // numericUpDown5
             // 
-            this.numericUpDown5.DecimalPlaces = 3;
-            this.numericUpDown5.Location = new System.Drawing.Point(6, 108);
-            this.numericUpDown5.Name = "numericUpDown5";
-            this.numericUpDown5.Size = new System.Drawing.Size(173, 27);
-            this.numericUpDown5.TabIndex = 8;
+            numericUpDown5.DecimalPlaces = 3;
+            numericUpDown5.Location = new System.Drawing.Point(5, 81);
+            numericUpDown5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericUpDown5.Name = "numericUpDown5";
+            numericUpDown5.Size = new System.Drawing.Size(151, 23);
+            numericUpDown5.TabIndex = 8;
             // 
             // numericDistributionControl9
             // 
-            this.numericDistributionControl9.Controls.Add(this.checkBox23);
-            this.numericDistributionControl9.Controls.Add(this.button14);
-            this.numericDistributionControl9.Controls.Add(this.textBox10);
-            this.numericDistributionControl9.Location = new System.Drawing.Point(6, 170);
-            this.numericDistributionControl9.Name = "numericDistributionControl9";
-            this.numericDistributionControl9.Size = new System.Drawing.Size(173, 90);
-            this.numericDistributionControl9.TabIndex = 7;
-            this.numericDistributionControl9.TabStop = false;
-            this.numericDistributionControl9.Text = "Move Count";
+            numericDistributionControl9.Controls.Add(checkBox23);
+            numericDistributionControl9.Controls.Add(button14);
+            numericDistributionControl9.Controls.Add(textBox10);
+            numericDistributionControl9.Location = new System.Drawing.Point(5, 128);
+            numericDistributionControl9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl9.Name = "numericDistributionControl9";
+            numericDistributionControl9.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl9.Size = new System.Drawing.Size(151, 68);
+            numericDistributionControl9.TabIndex = 7;
+            numericDistributionControl9.TabStop = false;
+            numericDistributionControl9.Text = "Move Count";
             // 
             // checkBox23
             // 
-            this.checkBox23.AutoSize = true;
-            this.checkBox23.Location = new System.Drawing.Point(6, 26);
-            this.checkBox23.Name = "checkBox23";
-            this.checkBox23.Size = new System.Drawing.Size(106, 24);
-            this.checkBox23.TabIndex = 3;
-            this.checkBox23.Text = "Randomize";
-            this.checkBox23.UseVisualStyleBackColor = true;
+            checkBox23.AutoSize = true;
+            checkBox23.Location = new System.Drawing.Point(5, 20);
+            checkBox23.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox23.Name = "checkBox23";
+            checkBox23.Size = new System.Drawing.Size(85, 19);
+            checkBox23.TabIndex = 3;
+            checkBox23.Text = "Randomize";
+            checkBox23.UseVisualStyleBackColor = true;
             // 
             // button14
             // 
-            this.button14.Location = new System.Drawing.Point(137, 55);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(29, 29);
-            this.button14.TabIndex = 1;
-            this.button14.Text = ">";
-            this.button14.UseVisualStyleBackColor = true;
-            this.button14.Click += new System.EventHandler(this.OpenNumericDistributionForm);
+            button14.Location = new System.Drawing.Point(120, 41);
+            button14.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button14.Name = "button14";
+            button14.Size = new System.Drawing.Size(25, 22);
+            button14.TabIndex = 1;
+            button14.Text = ">";
+            button14.UseVisualStyleBackColor = true;
+            button14.Click += OpenNumericDistributionForm;
             // 
             // textBox10
             // 
-            this.textBox10.Location = new System.Drawing.Point(6, 56);
-            this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(125, 27);
-            this.textBox10.TabIndex = 0;
+            textBox10.Location = new System.Drawing.Point(5, 42);
+            textBox10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            textBox10.Name = "textBox10";
+            textBox10.Size = new System.Drawing.Size(110, 23);
+            textBox10.TabIndex = 0;
             // 
             // checkBox24
             // 
-            this.checkBox24.AutoSize = true;
-            this.checkBox24.Location = new System.Drawing.Point(6, 26);
-            this.checkBox24.Name = "checkBox24";
-            this.checkBox24.Size = new System.Drawing.Size(106, 24);
-            this.checkBox24.TabIndex = 2;
-            this.checkBox24.Text = "Randomize";
-            this.checkBox24.UseVisualStyleBackColor = true;
+            checkBox24.AutoSize = true;
+            checkBox24.Location = new System.Drawing.Point(5, 20);
+            checkBox24.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox24.Name = "checkBox24";
+            checkBox24.Size = new System.Drawing.Size(85, 19);
+            checkBox24.TabIndex = 2;
+            checkBox24.Text = "Randomize";
+            checkBox24.UseVisualStyleBackColor = true;
             // 
             // groupBox10
             // 
-            this.groupBox10.Controls.Add(this.numericDistributionControl7);
-            this.groupBox10.Controls.Add(this.itemDistributionControl6);
-            this.groupBox10.Controls.Add(this.checkBox18);
-            this.groupBox10.Controls.Add(this.label4);
-            this.groupBox10.Controls.Add(this.numericUpDown4);
-            this.groupBox10.Controls.Add(this.numericDistributionControl6);
-            this.groupBox10.Controls.Add(this.checkBox17);
-            this.groupBox10.Location = new System.Drawing.Point(721, 224);
-            this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(185, 370);
-            this.groupBox10.TabIndex = 11;
-            this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "Level Up Moves";
+            groupBox10.Controls.Add(numericDistributionControl7);
+            groupBox10.Controls.Add(itemDistributionControl6);
+            groupBox10.Controls.Add(checkBox18);
+            groupBox10.Controls.Add(label4);
+            groupBox10.Controls.Add(numericUpDown4);
+            groupBox10.Controls.Add(numericDistributionControl6);
+            groupBox10.Controls.Add(checkBox17);
+            groupBox10.Location = new System.Drawing.Point(631, 168);
+            groupBox10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox10.Name = "groupBox10";
+            groupBox10.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox10.Size = new System.Drawing.Size(162, 278);
+            groupBox10.TabIndex = 11;
+            groupBox10.TabStop = false;
+            groupBox10.Text = "Level Up Moves";
             // 
             // numericDistributionControl7
             // 
-            this.numericDistributionControl7.Controls.Add(this.checkBox20);
-            this.numericDistributionControl7.Controls.Add(this.button12);
-            this.numericDistributionControl7.Controls.Add(this.textBox8);
-            this.numericDistributionControl7.Location = new System.Drawing.Point(6, 174);
-            this.numericDistributionControl7.Name = "numericDistributionControl7";
-            this.numericDistributionControl7.Size = new System.Drawing.Size(173, 90);
-            this.numericDistributionControl7.TabIndex = 12;
-            this.numericDistributionControl7.TabStop = false;
-            this.numericDistributionControl7.Text = "Learn Levels";
+            numericDistributionControl7.Controls.Add(checkBox20);
+            numericDistributionControl7.Controls.Add(button12);
+            numericDistributionControl7.Controls.Add(textBox8);
+            numericDistributionControl7.Location = new System.Drawing.Point(5, 130);
+            numericDistributionControl7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl7.Name = "numericDistributionControl7";
+            numericDistributionControl7.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl7.Size = new System.Drawing.Size(151, 68);
+            numericDistributionControl7.TabIndex = 12;
+            numericDistributionControl7.TabStop = false;
+            numericDistributionControl7.Text = "Learn Levels";
             // 
             // checkBox20
             // 
-            this.checkBox20.AutoSize = true;
-            this.checkBox20.Location = new System.Drawing.Point(6, 26);
-            this.checkBox20.Name = "checkBox20";
-            this.checkBox20.Size = new System.Drawing.Size(106, 24);
-            this.checkBox20.TabIndex = 3;
-            this.checkBox20.Text = "Randomize";
-            this.checkBox20.UseVisualStyleBackColor = true;
+            checkBox20.AutoSize = true;
+            checkBox20.Location = new System.Drawing.Point(5, 20);
+            checkBox20.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox20.Name = "checkBox20";
+            checkBox20.Size = new System.Drawing.Size(85, 19);
+            checkBox20.TabIndex = 3;
+            checkBox20.Text = "Randomize";
+            checkBox20.UseVisualStyleBackColor = true;
             // 
             // button12
             // 
-            this.button12.Location = new System.Drawing.Point(137, 55);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(29, 29);
-            this.button12.TabIndex = 1;
-            this.button12.Text = ">";
-            this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.OpenNumericDistributionForm);
+            button12.Location = new System.Drawing.Point(120, 41);
+            button12.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button12.Name = "button12";
+            button12.Size = new System.Drawing.Size(25, 22);
+            button12.TabIndex = 1;
+            button12.Text = ">";
+            button12.UseVisualStyleBackColor = true;
+            button12.Click += OpenNumericDistributionForm;
             // 
             // textBox8
             // 
-            this.textBox8.Location = new System.Drawing.Point(6, 56);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(125, 27);
-            this.textBox8.TabIndex = 0;
+            textBox8.Location = new System.Drawing.Point(5, 42);
+            textBox8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            textBox8.Name = "textBox8";
+            textBox8.Size = new System.Drawing.Size(110, 23);
+            textBox8.TabIndex = 0;
             // 
             // itemDistributionControl6
             // 
-            this.itemDistributionControl6.Location = new System.Drawing.Point(6, 86);
-            this.itemDistributionControl6.Name = "itemDistributionControl6";
-            this.itemDistributionControl6.Size = new System.Drawing.Size(173, 29);
-            this.itemDistributionControl6.TabIndex = 11;
-            this.itemDistributionControl6.Text = "Level Up Moves";
-            this.itemDistributionControl6.UseVisualStyleBackColor = true;
-            this.itemDistributionControl6.Click += new System.EventHandler(this.OpenItemDistributionForm);
+            itemDistributionControl6.Location = new System.Drawing.Point(5, 64);
+            itemDistributionControl6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            itemDistributionControl6.Name = "itemDistributionControl6";
+            itemDistributionControl6.Size = new System.Drawing.Size(151, 22);
+            itemDistributionControl6.TabIndex = 11;
+            itemDistributionControl6.Text = "Level Up Moves";
+            itemDistributionControl6.UseVisualStyleBackColor = true;
+            itemDistributionControl6.Click += OpenItemDistributionForm;
             // 
             // checkBox18
             // 
-            this.checkBox18.AutoSize = true;
-            this.checkBox18.Location = new System.Drawing.Point(6, 56);
-            this.checkBox18.Name = "checkBox18";
-            this.checkBox18.Size = new System.Drawing.Size(122, 24);
-            this.checkBox18.TabIndex = 10;
-            this.checkBox18.Text = "Sort By Power";
-            this.checkBox18.UseVisualStyleBackColor = true;
+            checkBox18.AutoSize = true;
+            checkBox18.Location = new System.Drawing.Point(5, 42);
+            checkBox18.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox18.Name = "checkBox18";
+            checkBox18.Size = new System.Drawing.Size(99, 19);
+            checkBox18.TabIndex = 10;
+            checkBox18.Text = "Sort By Power";
+            checkBox18.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 118);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(87, 20);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "Type Bias %";
+            label4.AutoSize = true;
+            label4.Location = new System.Drawing.Point(5, 88);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(68, 15);
+            label4.TabIndex = 9;
+            label4.Text = "Type Bias %";
             // 
             // numericUpDown4
             // 
-            this.numericUpDown4.DecimalPlaces = 3;
-            this.numericUpDown4.Location = new System.Drawing.Point(6, 141);
-            this.numericUpDown4.Name = "numericUpDown4";
-            this.numericUpDown4.Size = new System.Drawing.Size(173, 27);
-            this.numericUpDown4.TabIndex = 8;
+            numericUpDown4.DecimalPlaces = 3;
+            numericUpDown4.Location = new System.Drawing.Point(5, 106);
+            numericUpDown4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericUpDown4.Name = "numericUpDown4";
+            numericUpDown4.Size = new System.Drawing.Size(151, 23);
+            numericUpDown4.TabIndex = 8;
             // 
             // numericDistributionControl6
             // 
-            this.numericDistributionControl6.Controls.Add(this.checkBox19);
-            this.numericDistributionControl6.Controls.Add(this.button11);
-            this.numericDistributionControl6.Controls.Add(this.textBox7);
-            this.numericDistributionControl6.Location = new System.Drawing.Point(6, 270);
-            this.numericDistributionControl6.Name = "numericDistributionControl6";
-            this.numericDistributionControl6.Size = new System.Drawing.Size(173, 90);
-            this.numericDistributionControl6.TabIndex = 7;
-            this.numericDistributionControl6.TabStop = false;
-            this.numericDistributionControl6.Text = "Move Count";
+            numericDistributionControl6.Controls.Add(checkBox19);
+            numericDistributionControl6.Controls.Add(button11);
+            numericDistributionControl6.Controls.Add(textBox7);
+            numericDistributionControl6.Location = new System.Drawing.Point(5, 202);
+            numericDistributionControl6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl6.Name = "numericDistributionControl6";
+            numericDistributionControl6.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl6.Size = new System.Drawing.Size(151, 68);
+            numericDistributionControl6.TabIndex = 7;
+            numericDistributionControl6.TabStop = false;
+            numericDistributionControl6.Text = "Move Count";
             // 
             // checkBox19
             // 
-            this.checkBox19.AutoSize = true;
-            this.checkBox19.Location = new System.Drawing.Point(6, 26);
-            this.checkBox19.Name = "checkBox19";
-            this.checkBox19.Size = new System.Drawing.Size(106, 24);
-            this.checkBox19.TabIndex = 3;
-            this.checkBox19.Text = "Randomize";
-            this.checkBox19.UseVisualStyleBackColor = true;
+            checkBox19.AutoSize = true;
+            checkBox19.Location = new System.Drawing.Point(5, 20);
+            checkBox19.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox19.Name = "checkBox19";
+            checkBox19.Size = new System.Drawing.Size(85, 19);
+            checkBox19.TabIndex = 3;
+            checkBox19.Text = "Randomize";
+            checkBox19.UseVisualStyleBackColor = true;
             // 
             // button11
             // 
-            this.button11.Location = new System.Drawing.Point(137, 55);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(29, 29);
-            this.button11.TabIndex = 1;
-            this.button11.Text = ">";
-            this.button11.UseVisualStyleBackColor = true;
-            this.button11.Click += new System.EventHandler(this.OpenNumericDistributionForm);
+            button11.Location = new System.Drawing.Point(120, 41);
+            button11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button11.Name = "button11";
+            button11.Size = new System.Drawing.Size(25, 22);
+            button11.TabIndex = 1;
+            button11.Text = ">";
+            button11.UseVisualStyleBackColor = true;
+            button11.Click += OpenNumericDistributionForm;
             // 
             // textBox7
             // 
-            this.textBox7.Location = new System.Drawing.Point(6, 56);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(125, 27);
-            this.textBox7.TabIndex = 0;
+            textBox7.Location = new System.Drawing.Point(5, 42);
+            textBox7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            textBox7.Name = "textBox7";
+            textBox7.Size = new System.Drawing.Size(110, 23);
+            textBox7.TabIndex = 0;
             // 
             // checkBox17
             // 
-            this.checkBox17.AutoSize = true;
-            this.checkBox17.Location = new System.Drawing.Point(6, 26);
-            this.checkBox17.Name = "checkBox17";
-            this.checkBox17.Size = new System.Drawing.Size(106, 24);
-            this.checkBox17.TabIndex = 2;
-            this.checkBox17.Text = "Randomize";
-            this.checkBox17.UseVisualStyleBackColor = true;
+            checkBox17.AutoSize = true;
+            checkBox17.Location = new System.Drawing.Point(5, 20);
+            checkBox17.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox17.Name = "checkBox17";
+            checkBox17.Size = new System.Drawing.Size(85, 19);
+            checkBox17.TabIndex = 2;
+            checkBox17.Text = "Randomize";
+            checkBox17.UseVisualStyleBackColor = true;
             // 
             // groupBox9
             // 
-            this.groupBox9.Controls.Add(this.label2);
-            this.groupBox9.Controls.Add(this.numericUpDown2);
-            this.groupBox9.Controls.Add(this.checkBox16);
-            this.groupBox9.Controls.Add(this.label3);
-            this.groupBox9.Controls.Add(this.numericUpDown3);
-            this.groupBox9.Controls.Add(this.checkBox15);
-            this.groupBox9.Location = new System.Drawing.Point(721, 3);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(185, 215);
-            this.groupBox9.TabIndex = 10;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "TM Compatibility";
+            groupBox9.Controls.Add(label2);
+            groupBox9.Controls.Add(numericUpDown2);
+            groupBox9.Controls.Add(checkBox16);
+            groupBox9.Controls.Add(label3);
+            groupBox9.Controls.Add(numericUpDown3);
+            groupBox9.Controls.Add(checkBox15);
+            groupBox9.Location = new System.Drawing.Point(631, 2);
+            groupBox9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox9.Name = "groupBox9";
+            groupBox9.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox9.Size = new System.Drawing.Size(162, 161);
+            groupBox9.TabIndex = 10;
+            groupBox9.TabStop = false;
+            groupBox9.Text = "TM Compatibility";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 83);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(140, 20);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "TM Compatibility %";
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(5, 62);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(112, 15);
+            label2.TabIndex = 8;
+            label2.Text = "TM Compatibility %";
             // 
             // numericUpDown2
             // 
-            this.numericUpDown2.DecimalPlaces = 3;
-            this.numericUpDown2.Location = new System.Drawing.Point(6, 106);
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(173, 27);
-            this.numericUpDown2.TabIndex = 7;
+            numericUpDown2.DecimalPlaces = 3;
+            numericUpDown2.Location = new System.Drawing.Point(5, 80);
+            numericUpDown2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericUpDown2.Name = "numericUpDown2";
+            numericUpDown2.Size = new System.Drawing.Size(151, 23);
+            numericUpDown2.TabIndex = 7;
             // 
             // checkBox16
             // 
-            this.checkBox16.AutoSize = true;
-            this.checkBox16.Location = new System.Drawing.Point(6, 56);
-            this.checkBox16.Name = "checkBox16";
-            this.checkBox16.Size = new System.Drawing.Size(133, 24);
-            this.checkBox16.TabIndex = 6;
-            this.checkBox16.Text = "Evolution Logic";
-            this.checkBox16.UseVisualStyleBackColor = true;
+            checkBox16.AutoSize = true;
+            checkBox16.Location = new System.Drawing.Point(5, 42);
+            checkBox16.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox16.Name = "checkBox16";
+            checkBox16.Size = new System.Drawing.Size(108, 19);
+            checkBox16.TabIndex = 6;
+            checkBox16.Text = "Evolution Logic";
+            checkBox16.UseVisualStyleBackColor = true;
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 136);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(87, 20);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Type Bias %";
+            label3.AutoSize = true;
+            label3.Location = new System.Drawing.Point(5, 102);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(68, 15);
+            label3.TabIndex = 4;
+            label3.Text = "Type Bias %";
             // 
             // numericUpDown3
             // 
-            this.numericUpDown3.DecimalPlaces = 3;
-            this.numericUpDown3.Location = new System.Drawing.Point(6, 159);
-            this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(173, 27);
-            this.numericUpDown3.TabIndex = 3;
+            numericUpDown3.DecimalPlaces = 3;
+            numericUpDown3.Location = new System.Drawing.Point(5, 119);
+            numericUpDown3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericUpDown3.Name = "numericUpDown3";
+            numericUpDown3.Size = new System.Drawing.Size(151, 23);
+            numericUpDown3.TabIndex = 3;
             // 
             // checkBox15
             // 
-            this.checkBox15.AutoSize = true;
-            this.checkBox15.Location = new System.Drawing.Point(6, 26);
-            this.checkBox15.Name = "checkBox15";
-            this.checkBox15.Size = new System.Drawing.Size(106, 24);
-            this.checkBox15.TabIndex = 1;
-            this.checkBox15.Text = "Randomize";
-            this.checkBox15.UseVisualStyleBackColor = true;
+            checkBox15.AutoSize = true;
+            checkBox15.Location = new System.Drawing.Point(5, 20);
+            checkBox15.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox15.Name = "checkBox15";
+            checkBox15.Size = new System.Drawing.Size(85, 19);
+            checkBox15.TabIndex = 1;
+            checkBox15.Text = "Randomize";
+            checkBox15.UseVisualStyleBackColor = true;
             // 
             // groupBox8
             // 
-            this.groupBox8.Controls.Add(this.itemDistributionControl4);
-            this.groupBox8.Controls.Add(this.checkBox13);
-            this.groupBox8.Location = new System.Drawing.Point(530, 224);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(185, 94);
-            this.groupBox8.TabIndex = 9;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Abilities";
+            groupBox8.Controls.Add(itemDistributionControl4);
+            groupBox8.Controls.Add(checkBox13);
+            groupBox8.Location = new System.Drawing.Point(464, 168);
+            groupBox8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox8.Name = "groupBox8";
+            groupBox8.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox8.Size = new System.Drawing.Size(162, 70);
+            groupBox8.TabIndex = 9;
+            groupBox8.TabStop = false;
+            groupBox8.Text = "Abilities";
             // 
             // itemDistributionControl4
             // 
-            this.itemDistributionControl4.Location = new System.Drawing.Point(6, 53);
-            this.itemDistributionControl4.Name = "itemDistributionControl4";
-            this.itemDistributionControl4.Size = new System.Drawing.Size(173, 29);
-            this.itemDistributionControl4.TabIndex = 4;
-            this.itemDistributionControl4.Text = "Abilities";
-            this.itemDistributionControl4.UseVisualStyleBackColor = true;
-            this.itemDistributionControl4.Click += new System.EventHandler(this.OpenItemDistributionForm);
+            itemDistributionControl4.Location = new System.Drawing.Point(5, 40);
+            itemDistributionControl4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            itemDistributionControl4.Name = "itemDistributionControl4";
+            itemDistributionControl4.Size = new System.Drawing.Size(151, 22);
+            itemDistributionControl4.TabIndex = 4;
+            itemDistributionControl4.Text = "Abilities";
+            itemDistributionControl4.UseVisualStyleBackColor = true;
+            itemDistributionControl4.Click += OpenItemDistributionForm;
             // 
             // checkBox13
             // 
-            this.checkBox13.AutoSize = true;
-            this.checkBox13.Location = new System.Drawing.Point(6, 26);
-            this.checkBox13.Name = "checkBox13";
-            this.checkBox13.Size = new System.Drawing.Size(106, 24);
-            this.checkBox13.TabIndex = 1;
-            this.checkBox13.Text = "Randomize";
-            this.checkBox13.UseVisualStyleBackColor = true;
+            checkBox13.AutoSize = true;
+            checkBox13.Location = new System.Drawing.Point(5, 20);
+            checkBox13.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox13.Name = "checkBox13";
+            checkBox13.Size = new System.Drawing.Size(85, 19);
+            checkBox13.TabIndex = 1;
+            checkBox13.Text = "Randomize";
+            checkBox13.UseVisualStyleBackColor = true;
             // 
             // groupBox7
             // 
-            this.groupBox7.Controls.Add(this.itemDistributionControl3);
-            this.groupBox7.Controls.Add(this.checkBox12);
-            this.groupBox7.Location = new System.Drawing.Point(339, 224);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(185, 94);
-            this.groupBox7.TabIndex = 8;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Growth Rate";
+            groupBox7.Controls.Add(itemDistributionControl3);
+            groupBox7.Controls.Add(checkBox12);
+            groupBox7.Location = new System.Drawing.Point(297, 168);
+            groupBox7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox7.Name = "groupBox7";
+            groupBox7.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox7.Size = new System.Drawing.Size(162, 70);
+            groupBox7.TabIndex = 8;
+            groupBox7.TabStop = false;
+            groupBox7.Text = "Growth Rate";
             // 
             // itemDistributionControl3
             // 
-            this.itemDistributionControl3.Location = new System.Drawing.Point(6, 53);
-            this.itemDistributionControl3.Name = "itemDistributionControl3";
-            this.itemDistributionControl3.Size = new System.Drawing.Size(173, 29);
-            this.itemDistributionControl3.TabIndex = 4;
-            this.itemDistributionControl3.Text = "Growth Rate";
-            this.itemDistributionControl3.UseVisualStyleBackColor = true;
-            this.itemDistributionControl3.Click += new System.EventHandler(this.OpenItemDistributionForm);
+            itemDistributionControl3.Location = new System.Drawing.Point(5, 40);
+            itemDistributionControl3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            itemDistributionControl3.Name = "itemDistributionControl3";
+            itemDistributionControl3.Size = new System.Drawing.Size(151, 22);
+            itemDistributionControl3.TabIndex = 4;
+            itemDistributionControl3.Text = "Growth Rate";
+            itemDistributionControl3.UseVisualStyleBackColor = true;
+            itemDistributionControl3.Click += OpenItemDistributionForm;
             // 
             // checkBox12
             // 
-            this.checkBox12.AutoSize = true;
-            this.checkBox12.Location = new System.Drawing.Point(6, 26);
-            this.checkBox12.Name = "checkBox12";
-            this.checkBox12.Size = new System.Drawing.Size(106, 24);
-            this.checkBox12.TabIndex = 1;
-            this.checkBox12.Text = "Randomize";
-            this.checkBox12.UseVisualStyleBackColor = true;
+            checkBox12.AutoSize = true;
+            checkBox12.Location = new System.Drawing.Point(5, 20);
+            checkBox12.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox12.Name = "checkBox12";
+            checkBox12.Size = new System.Drawing.Size(85, 19);
+            checkBox12.TabIndex = 1;
+            checkBox12.Text = "Randomize";
+            checkBox12.UseVisualStyleBackColor = true;
             // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.itemDistributionControl2);
-            this.groupBox6.Controls.Add(this.checkBox10);
-            this.groupBox6.Location = new System.Drawing.Point(148, 224);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(185, 94);
-            this.groupBox6.TabIndex = 6;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Wild Held Items";
+            groupBox6.Controls.Add(itemDistributionControl2);
+            groupBox6.Controls.Add(checkBox10);
+            groupBox6.Location = new System.Drawing.Point(130, 168);
+            groupBox6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox6.Name = "groupBox6";
+            groupBox6.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox6.Size = new System.Drawing.Size(162, 70);
+            groupBox6.TabIndex = 6;
+            groupBox6.TabStop = false;
+            groupBox6.Text = "Wild Held Items";
             // 
             // itemDistributionControl2
             // 
-            this.itemDistributionControl2.Location = new System.Drawing.Point(6, 53);
-            this.itemDistributionControl2.Name = "itemDistributionControl2";
-            this.itemDistributionControl2.Size = new System.Drawing.Size(173, 29);
-            this.itemDistributionControl2.TabIndex = 4;
-            this.itemDistributionControl2.Text = "Wild Held Items";
-            this.itemDistributionControl2.UseVisualStyleBackColor = true;
-            this.itemDistributionControl2.Click += new System.EventHandler(this.OpenItemDistributionForm);
+            itemDistributionControl2.Location = new System.Drawing.Point(5, 40);
+            itemDistributionControl2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            itemDistributionControl2.Name = "itemDistributionControl2";
+            itemDistributionControl2.Size = new System.Drawing.Size(151, 22);
+            itemDistributionControl2.TabIndex = 4;
+            itemDistributionControl2.Text = "Wild Held Items";
+            itemDistributionControl2.UseVisualStyleBackColor = true;
+            itemDistributionControl2.Click += OpenItemDistributionForm;
             // 
             // checkBox10
             // 
-            this.checkBox10.AutoSize = true;
-            this.checkBox10.Location = new System.Drawing.Point(6, 26);
-            this.checkBox10.Name = "checkBox10";
-            this.checkBox10.Size = new System.Drawing.Size(106, 24);
-            this.checkBox10.TabIndex = 1;
-            this.checkBox10.Text = "Randomize";
-            this.checkBox10.UseVisualStyleBackColor = true;
+            checkBox10.AutoSize = true;
+            checkBox10.Location = new System.Drawing.Point(5, 20);
+            checkBox10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox10.Name = "checkBox10";
+            checkBox10.Size = new System.Drawing.Size(85, 19);
+            checkBox10.TabIndex = 1;
+            checkBox10.Text = "Randomize";
+            checkBox10.UseVisualStyleBackColor = true;
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.checkBox61);
-            this.groupBox5.Controls.Add(this.itemDistributionControl1);
-            this.groupBox5.Controls.Add(this.label1);
-            this.groupBox5.Controls.Add(this.numericUpDown1);
-            this.groupBox5.Controls.Add(this.checkBox8);
-            this.groupBox5.Location = new System.Drawing.Point(530, 3);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(185, 215);
-            this.groupBox5.TabIndex = 2;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Typing";
+            groupBox5.Controls.Add(checkBox61);
+            groupBox5.Controls.Add(itemDistributionControl1);
+            groupBox5.Controls.Add(label1);
+            groupBox5.Controls.Add(numericUpDown1);
+            groupBox5.Controls.Add(checkBox8);
+            groupBox5.Location = new System.Drawing.Point(464, 2);
+            groupBox5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox5.Name = "groupBox5";
+            groupBox5.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox5.Size = new System.Drawing.Size(162, 161);
+            groupBox5.TabIndex = 2;
+            groupBox5.TabStop = false;
+            groupBox5.Text = "Typing";
             // 
             // checkBox61
             // 
-            this.checkBox61.AutoSize = true;
-            this.checkBox61.Location = new System.Drawing.Point(6, 56);
-            this.checkBox61.Name = "checkBox61";
-            this.checkBox61.Size = new System.Drawing.Size(133, 24);
-            this.checkBox61.TabIndex = 4;
-            this.checkBox61.Text = "Evolution Logic";
-            this.checkBox61.UseVisualStyleBackColor = true;
+            checkBox61.AutoSize = true;
+            checkBox61.Location = new System.Drawing.Point(5, 42);
+            checkBox61.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox61.Name = "checkBox61";
+            checkBox61.Size = new System.Drawing.Size(108, 19);
+            checkBox61.TabIndex = 4;
+            checkBox61.Text = "Evolution Logic";
+            checkBox61.UseVisualStyleBackColor = true;
             // 
             // itemDistributionControl1
             // 
-            this.itemDistributionControl1.Location = new System.Drawing.Point(6, 83);
-            this.itemDistributionControl1.Name = "itemDistributionControl1";
-            this.itemDistributionControl1.Size = new System.Drawing.Size(173, 29);
-            this.itemDistributionControl1.TabIndex = 3;
-            this.itemDistributionControl1.Text = "Typing";
-            this.itemDistributionControl1.UseVisualStyleBackColor = true;
-            this.itemDistributionControl1.Click += new System.EventHandler(this.OpenItemDistributionForm);
+            itemDistributionControl1.Location = new System.Drawing.Point(5, 62);
+            itemDistributionControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            itemDistributionControl1.Name = "itemDistributionControl1";
+            itemDistributionControl1.Size = new System.Drawing.Size(151, 22);
+            itemDistributionControl1.TabIndex = 3;
+            itemDistributionControl1.Text = "Typing";
+            itemDistributionControl1.UseVisualStyleBackColor = true;
+            itemDistributionControl1.Click += OpenItemDistributionForm;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 115);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(122, 20);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Double Typing %";
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(5, 86);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(96, 15);
+            label1.TabIndex = 2;
+            label1.Text = "Double Typing %";
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.DecimalPlaces = 3;
-            this.numericUpDown1.Location = new System.Drawing.Point(6, 138);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(173, 27);
-            this.numericUpDown1.TabIndex = 1;
+            numericUpDown1.DecimalPlaces = 3;
+            numericUpDown1.Location = new System.Drawing.Point(5, 104);
+            numericUpDown1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericUpDown1.Name = "numericUpDown1";
+            numericUpDown1.Size = new System.Drawing.Size(151, 23);
+            numericUpDown1.TabIndex = 1;
             // 
             // checkBox8
             // 
-            this.checkBox8.AutoSize = true;
-            this.checkBox8.Location = new System.Drawing.Point(6, 26);
-            this.checkBox8.Name = "checkBox8";
-            this.checkBox8.Size = new System.Drawing.Size(106, 24);
-            this.checkBox8.TabIndex = 0;
-            this.checkBox8.Text = "Randomize";
-            this.checkBox8.UseVisualStyleBackColor = true;
+            checkBox8.AutoSize = true;
+            checkBox8.Location = new System.Drawing.Point(5, 20);
+            checkBox8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox8.Name = "checkBox8";
+            checkBox8.Size = new System.Drawing.Size(85, 19);
+            checkBox8.TabIndex = 0;
+            checkBox8.Text = "Randomize";
+            checkBox8.UseVisualStyleBackColor = true;
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.numericDistributionControl1);
-            this.groupBox4.Controls.Add(this.checkBox6);
-            this.groupBox4.Controls.Add(this.checkBox5);
-            this.groupBox4.Location = new System.Drawing.Point(339, 3);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(185, 215);
-            this.groupBox4.TabIndex = 1;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Base Stats";
+            groupBox4.Controls.Add(numericDistributionControl1);
+            groupBox4.Controls.Add(checkBox6);
+            groupBox4.Controls.Add(checkBox5);
+            groupBox4.Location = new System.Drawing.Point(297, 2);
+            groupBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox4.Name = "groupBox4";
+            groupBox4.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox4.Size = new System.Drawing.Size(162, 161);
+            groupBox4.TabIndex = 1;
+            groupBox4.TabStop = false;
+            groupBox4.Text = "Base Stats";
             // 
             // numericDistributionControl1
             // 
-            this.numericDistributionControl1.Controls.Add(this.checkBox7);
-            this.numericDistributionControl1.Controls.Add(this.button6);
-            this.numericDistributionControl1.Controls.Add(this.textBox2);
-            this.numericDistributionControl1.Location = new System.Drawing.Point(6, 116);
-            this.numericDistributionControl1.Name = "numericDistributionControl1";
-            this.numericDistributionControl1.Size = new System.Drawing.Size(173, 90);
-            this.numericDistributionControl1.TabIndex = 3;
-            this.numericDistributionControl1.TabStop = false;
-            this.numericDistributionControl1.Text = "Base Stats";
+            numericDistributionControl1.Controls.Add(checkBox7);
+            numericDistributionControl1.Controls.Add(button6);
+            numericDistributionControl1.Controls.Add(textBox2);
+            numericDistributionControl1.Location = new System.Drawing.Point(5, 87);
+            numericDistributionControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl1.Name = "numericDistributionControl1";
+            numericDistributionControl1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl1.Size = new System.Drawing.Size(151, 68);
+            numericDistributionControl1.TabIndex = 3;
+            numericDistributionControl1.TabStop = false;
+            numericDistributionControl1.Text = "Base Stats";
             // 
             // checkBox7
             // 
-            this.checkBox7.AutoSize = true;
-            this.checkBox7.Location = new System.Drawing.Point(6, 26);
-            this.checkBox7.Name = "checkBox7";
-            this.checkBox7.Size = new System.Drawing.Size(106, 24);
-            this.checkBox7.TabIndex = 3;
-            this.checkBox7.Text = "Randomize";
-            this.checkBox7.UseVisualStyleBackColor = true;
+            checkBox7.AutoSize = true;
+            checkBox7.Location = new System.Drawing.Point(5, 20);
+            checkBox7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox7.Name = "checkBox7";
+            checkBox7.Size = new System.Drawing.Size(85, 19);
+            checkBox7.TabIndex = 3;
+            checkBox7.Text = "Randomize";
+            checkBox7.UseVisualStyleBackColor = true;
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(137, 55);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(29, 29);
-            this.button6.TabIndex = 1;
-            this.button6.Text = ">";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.OpenNumericDistributionForm);
+            button6.Location = new System.Drawing.Point(120, 41);
+            button6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button6.Name = "button6";
+            button6.Size = new System.Drawing.Size(25, 22);
+            button6.TabIndex = 1;
+            button6.Text = ">";
+            button6.UseVisualStyleBackColor = true;
+            button6.Click += OpenNumericDistributionForm;
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(6, 56);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(125, 27);
-            this.textBox2.TabIndex = 0;
+            textBox2.Location = new System.Drawing.Point(5, 42);
+            textBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new System.Drawing.Size(110, 23);
+            textBox2.TabIndex = 0;
             // 
             // checkBox6
             // 
-            this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(6, 56);
-            this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(96, 24);
-            this.checkBox6.TabIndex = 2;
-            this.checkBox6.Text = "BST Logic";
-            this.checkBox6.UseVisualStyleBackColor = true;
+            checkBox6.AutoSize = true;
+            checkBox6.Location = new System.Drawing.Point(5, 42);
+            checkBox6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox6.Name = "checkBox6";
+            checkBox6.Size = new System.Drawing.Size(77, 19);
+            checkBox6.TabIndex = 2;
+            checkBox6.Text = "BST Logic";
+            checkBox6.UseVisualStyleBackColor = true;
             // 
             // checkBox5
             // 
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(6, 26);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(77, 24);
-            this.checkBox5.TabIndex = 1;
-            this.checkBox5.Text = "Shuffle";
-            this.checkBox5.UseVisualStyleBackColor = true;
+            checkBox5.AutoSize = true;
+            checkBox5.Location = new System.Drawing.Point(5, 20);
+            checkBox5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox5.Name = "checkBox5";
+            checkBox5.Size = new System.Drawing.Size(63, 19);
+            checkBox5.TabIndex = 1;
+            checkBox5.Text = "Shuffle";
+            checkBox5.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.checkBox3);
-            this.groupBox3.Controls.Add(this.checkBox1);
-            this.groupBox3.Controls.Add(this.groupBox1);
-            this.groupBox3.Controls.Add(this.button2);
-            this.groupBox3.Location = new System.Drawing.Point(148, 3);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(185, 215);
-            this.groupBox3.TabIndex = 0;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Evolution";
+            groupBox3.Controls.Add(checkBox3);
+            groupBox3.Controls.Add(checkBox1);
+            groupBox3.Controls.Add(groupBox1);
+            groupBox3.Controls.Add(button2);
+            groupBox3.Location = new System.Drawing.Point(130, 2);
+            groupBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox3.Size = new System.Drawing.Size(162, 161);
+            groupBox3.TabIndex = 0;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Evolution";
             // 
             // checkBox3
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(6, 56);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(96, 24);
-            this.checkBox3.TabIndex = 3;
-            this.checkBox3.Text = "BST Logic";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            checkBox3.AutoSize = true;
+            checkBox3.Location = new System.Drawing.Point(5, 42);
+            checkBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox3.Name = "checkBox3";
+            checkBox3.Size = new System.Drawing.Size(77, 19);
+            checkBox3.TabIndex = 3;
+            checkBox3.Text = "BST Logic";
+            checkBox3.UseVisualStyleBackColor = true;
             // 
             // checkBox1
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(6, 26);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(173, 24);
-            this.checkBox1.TabIndex = 0;
-            this.checkBox1.Text = "Random Destinations";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            checkBox1.AutoSize = true;
+            checkBox1.Location = new System.Drawing.Point(5, 20);
+            checkBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new System.Drawing.Size(139, 19);
+            checkBox1.TabIndex = 0;
+            checkBox1.Text = "Random Destinations";
+            checkBox1.UseVisualStyleBackColor = true;
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.groupBox26);
-            this.tabPage2.Controls.Add(this.groupBox25);
-            this.tabPage2.Controls.Add(this.groupBox23);
-            this.tabPage2.Controls.Add(this.numericDistributionControl18);
-            this.tabPage2.Controls.Add(this.numericDistributionControl11);
-            this.tabPage2.Controls.Add(this.numericDistributionControl10);
-            this.tabPage2.Controls.Add(this.numericDistributionControl8);
-            this.tabPage2.Controls.Add(this.groupBox14);
-            this.tabPage2.Controls.Add(this.groupBox13);
-            this.tabPage2.Location = new System.Drawing.Point(4, 29);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1039, 616);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Moves and Items";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            tabPage2.Controls.Add(groupBox26);
+            tabPage2.Controls.Add(groupBox25);
+            tabPage2.Controls.Add(groupBox23);
+            tabPage2.Controls.Add(numericDistributionControl18);
+            tabPage2.Controls.Add(numericDistributionControl11);
+            tabPage2.Controls.Add(numericDistributionControl10);
+            tabPage2.Controls.Add(numericDistributionControl8);
+            tabPage2.Controls.Add(groupBox14);
+            tabPage2.Controls.Add(groupBox13);
+            tabPage2.Location = new System.Drawing.Point(4, 24);
+            tabPage2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            tabPage2.Size = new System.Drawing.Size(908, 459);
+            tabPage2.TabIndex = 1;
+            tabPage2.Text = "Moves and Items";
+            tabPage2.UseVisualStyleBackColor = true;
             // 
             // groupBox26
             // 
-            this.groupBox26.Controls.Add(this.checkBox52);
-            this.groupBox26.Controls.Add(this.itemDistributionControl19);
-            this.groupBox26.Controls.Add(this.checkBox51);
-            this.groupBox26.Location = new System.Drawing.Point(732, 250);
-            this.groupBox26.Name = "groupBox26";
-            this.groupBox26.Size = new System.Drawing.Size(185, 125);
-            this.groupBox26.TabIndex = 14;
-            this.groupBox26.TabStop = false;
-            this.groupBox26.Text = "Shop Items";
+            groupBox26.Controls.Add(checkBox52);
+            groupBox26.Controls.Add(itemDistributionControl19);
+            groupBox26.Controls.Add(checkBox51);
+            groupBox26.Location = new System.Drawing.Point(640, 188);
+            groupBox26.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox26.Name = "groupBox26";
+            groupBox26.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox26.Size = new System.Drawing.Size(162, 94);
+            groupBox26.TabIndex = 14;
+            groupBox26.TabStop = false;
+            groupBox26.Text = "Shop Items";
             // 
             // checkBox52
             // 
-            this.checkBox52.AutoSize = true;
-            this.checkBox52.Location = new System.Drawing.Point(6, 56);
-            this.checkBox52.Name = "checkBox52";
-            this.checkBox52.Size = new System.Drawing.Size(176, 24);
-            this.checkBox52.TabIndex = 5;
-            this.checkBox52.Text = "Preserve Regular Mart";
-            this.checkBox52.UseVisualStyleBackColor = true;
+            checkBox52.AutoSize = true;
+            checkBox52.Location = new System.Drawing.Point(5, 42);
+            checkBox52.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox52.Name = "checkBox52";
+            checkBox52.Size = new System.Drawing.Size(141, 19);
+            checkBox52.TabIndex = 5;
+            checkBox52.Text = "Preserve Regular Mart";
+            checkBox52.UseVisualStyleBackColor = true;
             // 
             // itemDistributionControl19
             // 
-            this.itemDistributionControl19.Location = new System.Drawing.Point(6, 86);
-            this.itemDistributionControl19.Name = "itemDistributionControl19";
-            this.itemDistributionControl19.Size = new System.Drawing.Size(173, 29);
-            this.itemDistributionControl19.TabIndex = 4;
-            this.itemDistributionControl19.Text = "Shop Items";
-            this.itemDistributionControl19.UseVisualStyleBackColor = true;
-            this.itemDistributionControl19.Click += new System.EventHandler(this.OpenItemDistributionForm);
+            itemDistributionControl19.Location = new System.Drawing.Point(5, 64);
+            itemDistributionControl19.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            itemDistributionControl19.Name = "itemDistributionControl19";
+            itemDistributionControl19.Size = new System.Drawing.Size(151, 22);
+            itemDistributionControl19.TabIndex = 4;
+            itemDistributionControl19.Text = "Shop Items";
+            itemDistributionControl19.UseVisualStyleBackColor = true;
+            itemDistributionControl19.Click += OpenItemDistributionForm;
             // 
             // checkBox51
             // 
-            this.checkBox51.AutoSize = true;
-            this.checkBox51.Location = new System.Drawing.Point(6, 26);
-            this.checkBox51.Name = "checkBox51";
-            this.checkBox51.Size = new System.Drawing.Size(106, 24);
-            this.checkBox51.TabIndex = 1;
-            this.checkBox51.Text = "Randomize";
-            this.checkBox51.UseVisualStyleBackColor = true;
+            checkBox51.AutoSize = true;
+            checkBox51.Location = new System.Drawing.Point(5, 20);
+            checkBox51.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox51.Name = "checkBox51";
+            checkBox51.Size = new System.Drawing.Size(85, 19);
+            checkBox51.TabIndex = 1;
+            checkBox51.Text = "Randomize";
+            checkBox51.UseVisualStyleBackColor = true;
             // 
             // groupBox25
             // 
-            this.groupBox25.Controls.Add(this.itemDistributionControl18);
-            this.groupBox25.Controls.Add(this.checkBox50);
-            this.groupBox25.Location = new System.Drawing.Point(112, 346);
-            this.groupBox25.Name = "groupBox25";
-            this.groupBox25.Size = new System.Drawing.Size(185, 90);
-            this.groupBox25.TabIndex = 9;
-            this.groupBox25.TabStop = false;
-            this.groupBox25.Text = "TM Moves";
+            groupBox25.Controls.Add(itemDistributionControl18);
+            groupBox25.Controls.Add(checkBox50);
+            groupBox25.Location = new System.Drawing.Point(98, 260);
+            groupBox25.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox25.Name = "groupBox25";
+            groupBox25.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox25.Size = new System.Drawing.Size(162, 68);
+            groupBox25.TabIndex = 9;
+            groupBox25.TabStop = false;
+            groupBox25.Text = "TM Moves";
             // 
             // itemDistributionControl18
             // 
-            this.itemDistributionControl18.Location = new System.Drawing.Point(6, 53);
-            this.itemDistributionControl18.Name = "itemDistributionControl18";
-            this.itemDistributionControl18.Size = new System.Drawing.Size(173, 29);
-            this.itemDistributionControl18.TabIndex = 4;
-            this.itemDistributionControl18.Text = "TM Moves";
-            this.itemDistributionControl18.UseVisualStyleBackColor = true;
-            this.itemDistributionControl18.Click += new System.EventHandler(this.OpenItemDistributionForm);
+            itemDistributionControl18.Location = new System.Drawing.Point(5, 40);
+            itemDistributionControl18.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            itemDistributionControl18.Name = "itemDistributionControl18";
+            itemDistributionControl18.Size = new System.Drawing.Size(151, 22);
+            itemDistributionControl18.TabIndex = 4;
+            itemDistributionControl18.Text = "TM Moves";
+            itemDistributionControl18.UseVisualStyleBackColor = true;
+            itemDistributionControl18.Click += OpenItemDistributionForm;
             // 
             // checkBox50
             // 
-            this.checkBox50.AutoSize = true;
-            this.checkBox50.Location = new System.Drawing.Point(6, 26);
-            this.checkBox50.Name = "checkBox50";
-            this.checkBox50.Size = new System.Drawing.Size(106, 24);
-            this.checkBox50.TabIndex = 1;
-            this.checkBox50.Text = "Randomize";
-            this.checkBox50.UseVisualStyleBackColor = true;
+            checkBox50.AutoSize = true;
+            checkBox50.Location = new System.Drawing.Point(5, 20);
+            checkBox50.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox50.Name = "checkBox50";
+            checkBox50.Size = new System.Drawing.Size(85, 19);
+            checkBox50.TabIndex = 1;
+            checkBox50.Text = "Randomize";
+            checkBox50.UseVisualStyleBackColor = true;
             // 
             // groupBox23
             // 
-            this.groupBox23.Controls.Add(this.itemDistributionControl16);
-            this.groupBox23.Controls.Add(this.checkBox47);
-            this.groupBox23.Location = new System.Drawing.Point(732, 154);
-            this.groupBox23.Name = "groupBox23";
-            this.groupBox23.Size = new System.Drawing.Size(185, 90);
-            this.groupBox23.TabIndex = 13;
-            this.groupBox23.TabStop = false;
-            this.groupBox23.Text = "Pickup Items";
+            groupBox23.Controls.Add(itemDistributionControl16);
+            groupBox23.Controls.Add(checkBox47);
+            groupBox23.Location = new System.Drawing.Point(640, 116);
+            groupBox23.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox23.Name = "groupBox23";
+            groupBox23.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox23.Size = new System.Drawing.Size(162, 68);
+            groupBox23.TabIndex = 13;
+            groupBox23.TabStop = false;
+            groupBox23.Text = "Pickup Items";
             // 
             // itemDistributionControl16
             // 
-            this.itemDistributionControl16.Location = new System.Drawing.Point(6, 53);
-            this.itemDistributionControl16.Name = "itemDistributionControl16";
-            this.itemDistributionControl16.Size = new System.Drawing.Size(173, 29);
-            this.itemDistributionControl16.TabIndex = 4;
-            this.itemDistributionControl16.Text = "Pickup Items";
-            this.itemDistributionControl16.UseVisualStyleBackColor = true;
-            this.itemDistributionControl16.Click += new System.EventHandler(this.OpenItemDistributionForm);
+            itemDistributionControl16.Location = new System.Drawing.Point(5, 40);
+            itemDistributionControl16.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            itemDistributionControl16.Name = "itemDistributionControl16";
+            itemDistributionControl16.Size = new System.Drawing.Size(151, 22);
+            itemDistributionControl16.TabIndex = 4;
+            itemDistributionControl16.Text = "Pickup Items";
+            itemDistributionControl16.UseVisualStyleBackColor = true;
+            itemDistributionControl16.Click += OpenItemDistributionForm;
             // 
             // checkBox47
             // 
-            this.checkBox47.AutoSize = true;
-            this.checkBox47.Location = new System.Drawing.Point(6, 26);
-            this.checkBox47.Name = "checkBox47";
-            this.checkBox47.Size = new System.Drawing.Size(106, 24);
-            this.checkBox47.TabIndex = 1;
-            this.checkBox47.Text = "Randomize";
-            this.checkBox47.UseVisualStyleBackColor = true;
+            checkBox47.AutoSize = true;
+            checkBox47.Location = new System.Drawing.Point(5, 20);
+            checkBox47.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox47.Name = "checkBox47";
+            checkBox47.Size = new System.Drawing.Size(85, 19);
+            checkBox47.TabIndex = 1;
+            checkBox47.Text = "Randomize";
+            checkBox47.UseVisualStyleBackColor = true;
             // 
             // numericDistributionControl18
             // 
-            this.numericDistributionControl18.Controls.Add(this.checkBox46);
-            this.numericDistributionControl18.Controls.Add(this.button22);
-            this.numericDistributionControl18.Controls.Add(this.textBox19);
-            this.numericDistributionControl18.Location = new System.Drawing.Point(553, 154);
-            this.numericDistributionControl18.Name = "numericDistributionControl18";
-            this.numericDistributionControl18.Size = new System.Drawing.Size(173, 90);
-            this.numericDistributionControl18.TabIndex = 12;
-            this.numericDistributionControl18.TabStop = false;
-            this.numericDistributionControl18.Text = "Item Prices";
+            numericDistributionControl18.Controls.Add(checkBox46);
+            numericDistributionControl18.Controls.Add(button22);
+            numericDistributionControl18.Controls.Add(textBox19);
+            numericDistributionControl18.Location = new System.Drawing.Point(484, 116);
+            numericDistributionControl18.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl18.Name = "numericDistributionControl18";
+            numericDistributionControl18.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl18.Size = new System.Drawing.Size(151, 68);
+            numericDistributionControl18.TabIndex = 12;
+            numericDistributionControl18.TabStop = false;
+            numericDistributionControl18.Text = "Item Prices";
             // 
             // checkBox46
             // 
-            this.checkBox46.AutoSize = true;
-            this.checkBox46.Location = new System.Drawing.Point(6, 26);
-            this.checkBox46.Name = "checkBox46";
-            this.checkBox46.Size = new System.Drawing.Size(106, 24);
-            this.checkBox46.TabIndex = 3;
-            this.checkBox46.Text = "Randomize";
-            this.checkBox46.UseVisualStyleBackColor = true;
+            checkBox46.AutoSize = true;
+            checkBox46.Location = new System.Drawing.Point(5, 20);
+            checkBox46.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox46.Name = "checkBox46";
+            checkBox46.Size = new System.Drawing.Size(85, 19);
+            checkBox46.TabIndex = 3;
+            checkBox46.Text = "Randomize";
+            checkBox46.UseVisualStyleBackColor = true;
             // 
             // button22
             // 
-            this.button22.Location = new System.Drawing.Point(137, 55);
-            this.button22.Name = "button22";
-            this.button22.Size = new System.Drawing.Size(29, 29);
-            this.button22.TabIndex = 1;
-            this.button22.Text = ">";
-            this.button22.UseVisualStyleBackColor = true;
-            this.button22.Click += new System.EventHandler(this.OpenNumericDistributionForm);
+            button22.Location = new System.Drawing.Point(120, 41);
+            button22.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button22.Name = "button22";
+            button22.Size = new System.Drawing.Size(25, 22);
+            button22.TabIndex = 1;
+            button22.Text = ">";
+            button22.UseVisualStyleBackColor = true;
+            button22.Click += OpenNumericDistributionForm;
             // 
             // textBox19
             // 
-            this.textBox19.Location = new System.Drawing.Point(6, 56);
-            this.textBox19.Name = "textBox19";
-            this.textBox19.Size = new System.Drawing.Size(125, 27);
-            this.textBox19.TabIndex = 0;
+            textBox19.Location = new System.Drawing.Point(5, 42);
+            textBox19.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            textBox19.Name = "textBox19";
+            textBox19.Size = new System.Drawing.Size(110, 23);
+            textBox19.TabIndex = 0;
             // 
             // numericDistributionControl11
             // 
-            this.numericDistributionControl11.Controls.Add(this.checkBox27);
-            this.numericDistributionControl11.Controls.Add(this.button16);
-            this.numericDistributionControl11.Controls.Add(this.textBox12);
-            this.numericDistributionControl11.Location = new System.Drawing.Point(303, 346);
-            this.numericDistributionControl11.Name = "numericDistributionControl11";
-            this.numericDistributionControl11.Size = new System.Drawing.Size(173, 90);
-            this.numericDistributionControl11.TabIndex = 11;
-            this.numericDistributionControl11.TabStop = false;
-            this.numericDistributionControl11.Text = "PP";
+            numericDistributionControl11.Controls.Add(checkBox27);
+            numericDistributionControl11.Controls.Add(button16);
+            numericDistributionControl11.Controls.Add(textBox12);
+            numericDistributionControl11.Location = new System.Drawing.Point(265, 260);
+            numericDistributionControl11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl11.Name = "numericDistributionControl11";
+            numericDistributionControl11.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl11.Size = new System.Drawing.Size(151, 68);
+            numericDistributionControl11.TabIndex = 11;
+            numericDistributionControl11.TabStop = false;
+            numericDistributionControl11.Text = "PP";
             // 
             // checkBox27
             // 
-            this.checkBox27.AutoSize = true;
-            this.checkBox27.Location = new System.Drawing.Point(6, 26);
-            this.checkBox27.Name = "checkBox27";
-            this.checkBox27.Size = new System.Drawing.Size(106, 24);
-            this.checkBox27.TabIndex = 3;
-            this.checkBox27.Text = "Randomize";
-            this.checkBox27.UseVisualStyleBackColor = true;
+            checkBox27.AutoSize = true;
+            checkBox27.Location = new System.Drawing.Point(5, 20);
+            checkBox27.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox27.Name = "checkBox27";
+            checkBox27.Size = new System.Drawing.Size(85, 19);
+            checkBox27.TabIndex = 3;
+            checkBox27.Text = "Randomize";
+            checkBox27.UseVisualStyleBackColor = true;
             // 
             // button16
             // 
-            this.button16.Location = new System.Drawing.Point(137, 55);
-            this.button16.Name = "button16";
-            this.button16.Size = new System.Drawing.Size(29, 29);
-            this.button16.TabIndex = 1;
-            this.button16.Text = ">";
-            this.button16.UseVisualStyleBackColor = true;
-            this.button16.Click += new System.EventHandler(this.OpenNumericDistributionForm);
+            button16.Location = new System.Drawing.Point(120, 41);
+            button16.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button16.Name = "button16";
+            button16.Size = new System.Drawing.Size(25, 22);
+            button16.TabIndex = 1;
+            button16.Text = ">";
+            button16.UseVisualStyleBackColor = true;
+            button16.Click += OpenNumericDistributionForm;
             // 
             // textBox12
             // 
-            this.textBox12.Location = new System.Drawing.Point(6, 56);
-            this.textBox12.Name = "textBox12";
-            this.textBox12.Size = new System.Drawing.Size(125, 27);
-            this.textBox12.TabIndex = 0;
+            textBox12.Location = new System.Drawing.Point(5, 42);
+            textBox12.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            textBox12.Name = "textBox12";
+            textBox12.Size = new System.Drawing.Size(110, 23);
+            textBox12.TabIndex = 0;
             // 
             // numericDistributionControl10
             // 
-            this.numericDistributionControl10.Controls.Add(this.checkBox26);
-            this.numericDistributionControl10.Controls.Add(this.button15);
-            this.numericDistributionControl10.Controls.Add(this.textBox11);
-            this.numericDistributionControl10.Location = new System.Drawing.Point(303, 250);
-            this.numericDistributionControl10.Name = "numericDistributionControl10";
-            this.numericDistributionControl10.Size = new System.Drawing.Size(173, 90);
-            this.numericDistributionControl10.TabIndex = 10;
-            this.numericDistributionControl10.TabStop = false;
-            this.numericDistributionControl10.Text = "Accuracy";
+            numericDistributionControl10.Controls.Add(checkBox26);
+            numericDistributionControl10.Controls.Add(button15);
+            numericDistributionControl10.Controls.Add(textBox11);
+            numericDistributionControl10.Location = new System.Drawing.Point(265, 188);
+            numericDistributionControl10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl10.Name = "numericDistributionControl10";
+            numericDistributionControl10.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl10.Size = new System.Drawing.Size(151, 68);
+            numericDistributionControl10.TabIndex = 10;
+            numericDistributionControl10.TabStop = false;
+            numericDistributionControl10.Text = "Accuracy";
             // 
             // checkBox26
             // 
-            this.checkBox26.AutoSize = true;
-            this.checkBox26.Location = new System.Drawing.Point(6, 26);
-            this.checkBox26.Name = "checkBox26";
-            this.checkBox26.Size = new System.Drawing.Size(106, 24);
-            this.checkBox26.TabIndex = 3;
-            this.checkBox26.Text = "Randomize";
-            this.checkBox26.UseVisualStyleBackColor = true;
+            checkBox26.AutoSize = true;
+            checkBox26.Location = new System.Drawing.Point(5, 20);
+            checkBox26.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox26.Name = "checkBox26";
+            checkBox26.Size = new System.Drawing.Size(85, 19);
+            checkBox26.TabIndex = 3;
+            checkBox26.Text = "Randomize";
+            checkBox26.UseVisualStyleBackColor = true;
             // 
             // button15
             // 
-            this.button15.Location = new System.Drawing.Point(137, 55);
-            this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(29, 29);
-            this.button15.TabIndex = 1;
-            this.button15.Text = ">";
-            this.button15.UseVisualStyleBackColor = true;
-            this.button15.Click += new System.EventHandler(this.OpenNumericDistributionForm);
+            button15.Location = new System.Drawing.Point(120, 41);
+            button15.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button15.Name = "button15";
+            button15.Size = new System.Drawing.Size(25, 22);
+            button15.TabIndex = 1;
+            button15.Text = ">";
+            button15.UseVisualStyleBackColor = true;
+            button15.Click += OpenNumericDistributionForm;
             // 
             // textBox11
             // 
-            this.textBox11.Location = new System.Drawing.Point(6, 56);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(125, 27);
-            this.textBox11.TabIndex = 0;
+            textBox11.Location = new System.Drawing.Point(5, 42);
+            textBox11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            textBox11.Name = "textBox11";
+            textBox11.Size = new System.Drawing.Size(110, 23);
+            textBox11.TabIndex = 0;
             // 
             // numericDistributionControl8
             // 
-            this.numericDistributionControl8.Controls.Add(this.checkBox25);
-            this.numericDistributionControl8.Controls.Add(this.button13);
-            this.numericDistributionControl8.Controls.Add(this.textBox9);
-            this.numericDistributionControl8.Location = new System.Drawing.Point(303, 154);
-            this.numericDistributionControl8.Name = "numericDistributionControl8";
-            this.numericDistributionControl8.Size = new System.Drawing.Size(173, 90);
-            this.numericDistributionControl8.TabIndex = 9;
-            this.numericDistributionControl8.TabStop = false;
-            this.numericDistributionControl8.Text = "Power";
+            numericDistributionControl8.Controls.Add(checkBox25);
+            numericDistributionControl8.Controls.Add(button13);
+            numericDistributionControl8.Controls.Add(textBox9);
+            numericDistributionControl8.Location = new System.Drawing.Point(265, 116);
+            numericDistributionControl8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl8.Name = "numericDistributionControl8";
+            numericDistributionControl8.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl8.Size = new System.Drawing.Size(151, 68);
+            numericDistributionControl8.TabIndex = 9;
+            numericDistributionControl8.TabStop = false;
+            numericDistributionControl8.Text = "Power";
             // 
             // checkBox25
             // 
-            this.checkBox25.AutoSize = true;
-            this.checkBox25.Location = new System.Drawing.Point(6, 26);
-            this.checkBox25.Name = "checkBox25";
-            this.checkBox25.Size = new System.Drawing.Size(106, 24);
-            this.checkBox25.TabIndex = 3;
-            this.checkBox25.Text = "Randomize";
-            this.checkBox25.UseVisualStyleBackColor = true;
+            checkBox25.AutoSize = true;
+            checkBox25.Location = new System.Drawing.Point(5, 20);
+            checkBox25.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox25.Name = "checkBox25";
+            checkBox25.Size = new System.Drawing.Size(85, 19);
+            checkBox25.TabIndex = 3;
+            checkBox25.Text = "Randomize";
+            checkBox25.UseVisualStyleBackColor = true;
             // 
             // button13
             // 
-            this.button13.Location = new System.Drawing.Point(137, 55);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(29, 29);
-            this.button13.TabIndex = 1;
-            this.button13.Text = ">";
-            this.button13.UseVisualStyleBackColor = true;
-            this.button13.Click += new System.EventHandler(this.OpenNumericDistributionForm);
+            button13.Location = new System.Drawing.Point(120, 41);
+            button13.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button13.Name = "button13";
+            button13.Size = new System.Drawing.Size(25, 22);
+            button13.TabIndex = 1;
+            button13.Text = ">";
+            button13.UseVisualStyleBackColor = true;
+            button13.Click += OpenNumericDistributionForm;
             // 
             // textBox9
             // 
-            this.textBox9.Location = new System.Drawing.Point(6, 56);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(125, 27);
-            this.textBox9.TabIndex = 0;
+            textBox9.Location = new System.Drawing.Point(5, 42);
+            textBox9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            textBox9.Name = "textBox9";
+            textBox9.Size = new System.Drawing.Size(110, 23);
+            textBox9.TabIndex = 0;
             // 
             // groupBox14
             // 
-            this.groupBox14.Controls.Add(this.itemDistributionControl9);
-            this.groupBox14.Controls.Add(this.checkBox22);
-            this.groupBox14.Location = new System.Drawing.Point(112, 250);
-            this.groupBox14.Name = "groupBox14";
-            this.groupBox14.Size = new System.Drawing.Size(185, 90);
-            this.groupBox14.TabIndex = 8;
-            this.groupBox14.TabStop = false;
-            this.groupBox14.Text = "Damage Category";
+            groupBox14.Controls.Add(itemDistributionControl9);
+            groupBox14.Controls.Add(checkBox22);
+            groupBox14.Location = new System.Drawing.Point(98, 188);
+            groupBox14.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox14.Name = "groupBox14";
+            groupBox14.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox14.Size = new System.Drawing.Size(162, 68);
+            groupBox14.TabIndex = 8;
+            groupBox14.TabStop = false;
+            groupBox14.Text = "Damage Category";
             // 
             // itemDistributionControl9
             // 
-            this.itemDistributionControl9.Location = new System.Drawing.Point(6, 53);
-            this.itemDistributionControl9.Name = "itemDistributionControl9";
-            this.itemDistributionControl9.Size = new System.Drawing.Size(173, 29);
-            this.itemDistributionControl9.TabIndex = 4;
-            this.itemDistributionControl9.Text = "Damage Category";
-            this.itemDistributionControl9.UseVisualStyleBackColor = true;
-            this.itemDistributionControl9.Click += new System.EventHandler(this.OpenItemDistributionForm);
+            itemDistributionControl9.Location = new System.Drawing.Point(5, 40);
+            itemDistributionControl9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            itemDistributionControl9.Name = "itemDistributionControl9";
+            itemDistributionControl9.Size = new System.Drawing.Size(151, 22);
+            itemDistributionControl9.TabIndex = 4;
+            itemDistributionControl9.Text = "Damage Category";
+            itemDistributionControl9.UseVisualStyleBackColor = true;
+            itemDistributionControl9.Click += OpenItemDistributionForm;
             // 
             // checkBox22
             // 
-            this.checkBox22.AutoSize = true;
-            this.checkBox22.Location = new System.Drawing.Point(6, 26);
-            this.checkBox22.Name = "checkBox22";
-            this.checkBox22.Size = new System.Drawing.Size(106, 24);
-            this.checkBox22.TabIndex = 1;
-            this.checkBox22.Text = "Randomize";
-            this.checkBox22.UseVisualStyleBackColor = true;
+            checkBox22.AutoSize = true;
+            checkBox22.Location = new System.Drawing.Point(5, 20);
+            checkBox22.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox22.Name = "checkBox22";
+            checkBox22.Size = new System.Drawing.Size(85, 19);
+            checkBox22.TabIndex = 1;
+            checkBox22.Text = "Randomize";
+            checkBox22.UseVisualStyleBackColor = true;
             // 
             // groupBox13
             // 
-            this.groupBox13.Controls.Add(this.itemDistributionControl8);
-            this.groupBox13.Controls.Add(this.checkBox21);
-            this.groupBox13.Location = new System.Drawing.Point(112, 154);
-            this.groupBox13.Name = "groupBox13";
-            this.groupBox13.Size = new System.Drawing.Size(185, 90);
-            this.groupBox13.TabIndex = 7;
-            this.groupBox13.TabStop = false;
-            this.groupBox13.Text = "Move Typing";
+            groupBox13.Controls.Add(itemDistributionControl8);
+            groupBox13.Controls.Add(checkBox21);
+            groupBox13.Location = new System.Drawing.Point(98, 116);
+            groupBox13.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox13.Name = "groupBox13";
+            groupBox13.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox13.Size = new System.Drawing.Size(162, 68);
+            groupBox13.TabIndex = 7;
+            groupBox13.TabStop = false;
+            groupBox13.Text = "Move Typing";
             // 
             // itemDistributionControl8
             // 
-            this.itemDistributionControl8.Location = new System.Drawing.Point(6, 53);
-            this.itemDistributionControl8.Name = "itemDistributionControl8";
-            this.itemDistributionControl8.Size = new System.Drawing.Size(173, 29);
-            this.itemDistributionControl8.TabIndex = 4;
-            this.itemDistributionControl8.Text = "Typing";
-            this.itemDistributionControl8.UseVisualStyleBackColor = true;
-            this.itemDistributionControl8.Click += new System.EventHandler(this.OpenItemDistributionForm);
+            itemDistributionControl8.Location = new System.Drawing.Point(5, 40);
+            itemDistributionControl8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            itemDistributionControl8.Name = "itemDistributionControl8";
+            itemDistributionControl8.Size = new System.Drawing.Size(151, 22);
+            itemDistributionControl8.TabIndex = 4;
+            itemDistributionControl8.Text = "Typing";
+            itemDistributionControl8.UseVisualStyleBackColor = true;
+            itemDistributionControl8.Click += OpenItemDistributionForm;
             // 
             // checkBox21
             // 
-            this.checkBox21.AutoSize = true;
-            this.checkBox21.Location = new System.Drawing.Point(6, 26);
-            this.checkBox21.Name = "checkBox21";
-            this.checkBox21.Size = new System.Drawing.Size(106, 24);
-            this.checkBox21.TabIndex = 1;
-            this.checkBox21.Text = "Randomize";
-            this.checkBox21.UseVisualStyleBackColor = true;
+            checkBox21.AutoSize = true;
+            checkBox21.Location = new System.Drawing.Point(5, 20);
+            checkBox21.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox21.Name = "checkBox21";
+            checkBox21.Size = new System.Drawing.Size(85, 19);
+            checkBox21.TabIndex = 1;
+            checkBox21.Text = "Randomize";
+            checkBox21.UseVisualStyleBackColor = true;
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.groupBox18);
-            this.tabPage3.Controls.Add(this.groupBox16);
-            this.tabPage3.Controls.Add(this.groupBox15);
-            this.tabPage3.Location = new System.Drawing.Point(4, 29);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1039, 616);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Encounters";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            tabPage3.Controls.Add(groupBox18);
+            tabPage3.Controls.Add(groupBox16);
+            tabPage3.Controls.Add(groupBox15);
+            tabPage3.Location = new System.Drawing.Point(4, 24);
+            tabPage3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            tabPage3.Name = "tabPage3";
+            tabPage3.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            tabPage3.Size = new System.Drawing.Size(908, 459);
+            tabPage3.TabIndex = 2;
+            tabPage3.Text = "Encounters";
+            tabPage3.UseVisualStyleBackColor = true;
             // 
             // groupBox18
             // 
-            this.groupBox18.Controls.Add(this.groupBox24);
-            this.groupBox18.Controls.Add(this.numericDistributionControl17);
-            this.groupBox18.Controls.Add(this.numericDistributionControl16);
-            this.groupBox18.Controls.Add(this.groupBox22);
-            this.groupBox18.Controls.Add(this.groupBox21);
-            this.groupBox18.Controls.Add(this.groupBox20);
-            this.groupBox18.Controls.Add(this.numericDistributionControl15);
-            this.groupBox18.Controls.Add(this.groupBox19);
-            this.groupBox18.Controls.Add(this.groupBox17);
-            this.groupBox18.Controls.Add(this.numericDistributionControl14);
-            this.groupBox18.Location = new System.Drawing.Point(334, 46);
-            this.groupBox18.Name = "groupBox18";
-            this.groupBox18.Size = new System.Drawing.Size(570, 516);
-            this.groupBox18.TabIndex = 13;
-            this.groupBox18.TabStop = false;
-            this.groupBox18.Text = "Trainer Pokémon";
+            groupBox18.Controls.Add(groupBox24);
+            groupBox18.Controls.Add(numericDistributionControl17);
+            groupBox18.Controls.Add(numericDistributionControl16);
+            groupBox18.Controls.Add(groupBox22);
+            groupBox18.Controls.Add(groupBox21);
+            groupBox18.Controls.Add(groupBox20);
+            groupBox18.Controls.Add(numericDistributionControl15);
+            groupBox18.Controls.Add(groupBox19);
+            groupBox18.Controls.Add(groupBox17);
+            groupBox18.Controls.Add(numericDistributionControl14);
+            groupBox18.Location = new System.Drawing.Point(292, 34);
+            groupBox18.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox18.Name = "groupBox18";
+            groupBox18.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox18.Size = new System.Drawing.Size(499, 387);
+            groupBox18.TabIndex = 13;
+            groupBox18.TabStop = false;
+            groupBox18.Text = "Trainer Pokémon";
             // 
             // groupBox24
             // 
-            this.groupBox24.Controls.Add(this.checkBox49);
-            this.groupBox24.Controls.Add(this.itemDistributionControl17);
-            this.groupBox24.Controls.Add(this.checkBox48);
-            this.groupBox24.Location = new System.Drawing.Point(197, 353);
-            this.groupBox24.Name = "groupBox24";
-            this.groupBox24.Size = new System.Drawing.Size(185, 125);
-            this.groupBox24.TabIndex = 24;
-            this.groupBox24.TabStop = false;
-            this.groupBox24.Text = "Abilities";
+            groupBox24.Controls.Add(checkBox49);
+            groupBox24.Controls.Add(itemDistributionControl17);
+            groupBox24.Controls.Add(checkBox48);
+            groupBox24.Location = new System.Drawing.Point(172, 265);
+            groupBox24.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox24.Name = "groupBox24";
+            groupBox24.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox24.Size = new System.Drawing.Size(162, 94);
+            groupBox24.TabIndex = 24;
+            groupBox24.TabStop = false;
+            groupBox24.Text = "Abilities";
             // 
             // checkBox49
             // 
-            this.checkBox49.AutoSize = true;
-            this.checkBox49.Location = new System.Drawing.Point(6, 56);
-            this.checkBox49.Name = "checkBox49";
-            this.checkBox49.Size = new System.Drawing.Size(173, 24);
-            this.checkBox49.TabIndex = 5;
-            this.checkBox49.Text = "Include Unobtainable";
-            this.checkBox49.UseVisualStyleBackColor = true;
+            checkBox49.AutoSize = true;
+            checkBox49.Location = new System.Drawing.Point(5, 42);
+            checkBox49.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox49.Name = "checkBox49";
+            checkBox49.Size = new System.Drawing.Size(139, 19);
+            checkBox49.TabIndex = 5;
+            checkBox49.Text = "Include Unobtainable";
+            checkBox49.UseVisualStyleBackColor = true;
             // 
             // itemDistributionControl17
             // 
-            this.itemDistributionControl17.Location = new System.Drawing.Point(6, 86);
-            this.itemDistributionControl17.Name = "itemDistributionControl17";
-            this.itemDistributionControl17.Size = new System.Drawing.Size(173, 29);
-            this.itemDistributionControl17.TabIndex = 4;
-            this.itemDistributionControl17.Text = "Abilities";
-            this.itemDistributionControl17.UseVisualStyleBackColor = true;
-            this.itemDistributionControl17.Click += new System.EventHandler(this.OpenItemDistributionForm);
+            itemDistributionControl17.Location = new System.Drawing.Point(5, 64);
+            itemDistributionControl17.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            itemDistributionControl17.Name = "itemDistributionControl17";
+            itemDistributionControl17.Size = new System.Drawing.Size(151, 22);
+            itemDistributionControl17.TabIndex = 4;
+            itemDistributionControl17.Text = "Abilities";
+            itemDistributionControl17.UseVisualStyleBackColor = true;
+            itemDistributionControl17.Click += OpenItemDistributionForm;
             // 
             // checkBox48
             // 
-            this.checkBox48.AutoSize = true;
-            this.checkBox48.Location = new System.Drawing.Point(6, 26);
-            this.checkBox48.Name = "checkBox48";
-            this.checkBox48.Size = new System.Drawing.Size(106, 24);
-            this.checkBox48.TabIndex = 1;
-            this.checkBox48.Text = "Randomize";
-            this.checkBox48.UseVisualStyleBackColor = true;
+            checkBox48.AutoSize = true;
+            checkBox48.Location = new System.Drawing.Point(5, 20);
+            checkBox48.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox48.Name = "checkBox48";
+            checkBox48.Size = new System.Drawing.Size(85, 19);
+            checkBox48.TabIndex = 1;
+            checkBox48.Text = "Randomize";
+            checkBox48.UseVisualStyleBackColor = true;
             // 
             // numericDistributionControl17
             // 
-            this.numericDistributionControl17.Controls.Add(this.checkBox45);
-            this.numericDistributionControl17.Controls.Add(this.button21);
-            this.numericDistributionControl17.Controls.Add(this.textBox18);
-            this.numericDistributionControl17.Location = new System.Drawing.Point(388, 318);
-            this.numericDistributionControl17.Name = "numericDistributionControl17";
-            this.numericDistributionControl17.Size = new System.Drawing.Size(173, 90);
-            this.numericDistributionControl17.TabIndex = 23;
-            this.numericDistributionControl17.TabStop = false;
-            this.numericDistributionControl17.Text = "EVs";
+            numericDistributionControl17.Controls.Add(checkBox45);
+            numericDistributionControl17.Controls.Add(button21);
+            numericDistributionControl17.Controls.Add(textBox18);
+            numericDistributionControl17.Location = new System.Drawing.Point(340, 238);
+            numericDistributionControl17.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl17.Name = "numericDistributionControl17";
+            numericDistributionControl17.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl17.Size = new System.Drawing.Size(151, 68);
+            numericDistributionControl17.TabIndex = 23;
+            numericDistributionControl17.TabStop = false;
+            numericDistributionControl17.Text = "EVs";
             // 
             // checkBox45
             // 
-            this.checkBox45.AutoSize = true;
-            this.checkBox45.Location = new System.Drawing.Point(6, 26);
-            this.checkBox45.Name = "checkBox45";
-            this.checkBox45.Size = new System.Drawing.Size(106, 24);
-            this.checkBox45.TabIndex = 3;
-            this.checkBox45.Text = "Randomize";
-            this.checkBox45.UseVisualStyleBackColor = true;
+            checkBox45.AutoSize = true;
+            checkBox45.Location = new System.Drawing.Point(5, 20);
+            checkBox45.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox45.Name = "checkBox45";
+            checkBox45.Size = new System.Drawing.Size(85, 19);
+            checkBox45.TabIndex = 3;
+            checkBox45.Text = "Randomize";
+            checkBox45.UseVisualStyleBackColor = true;
             // 
             // button21
             // 
-            this.button21.Location = new System.Drawing.Point(137, 55);
-            this.button21.Name = "button21";
-            this.button21.Size = new System.Drawing.Size(29, 29);
-            this.button21.TabIndex = 1;
-            this.button21.Text = ">";
-            this.button21.UseVisualStyleBackColor = true;
-            this.button21.Click += new System.EventHandler(this.OpenNumericDistributionForm);
+            button21.Location = new System.Drawing.Point(120, 41);
+            button21.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button21.Name = "button21";
+            button21.Size = new System.Drawing.Size(25, 22);
+            button21.TabIndex = 1;
+            button21.Text = ">";
+            button21.UseVisualStyleBackColor = true;
+            button21.Click += OpenNumericDistributionForm;
             // 
             // textBox18
             // 
-            this.textBox18.Location = new System.Drawing.Point(6, 56);
-            this.textBox18.Name = "textBox18";
-            this.textBox18.Size = new System.Drawing.Size(125, 27);
-            this.textBox18.TabIndex = 0;
+            textBox18.Location = new System.Drawing.Point(5, 42);
+            textBox18.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            textBox18.Name = "textBox18";
+            textBox18.Size = new System.Drawing.Size(110, 23);
+            textBox18.TabIndex = 0;
             // 
             // numericDistributionControl16
             // 
-            this.numericDistributionControl16.Controls.Add(this.checkBox44);
-            this.numericDistributionControl16.Controls.Add(this.button20);
-            this.numericDistributionControl16.Controls.Add(this.textBox17);
-            this.numericDistributionControl16.Location = new System.Drawing.Point(387, 222);
-            this.numericDistributionControl16.Name = "numericDistributionControl16";
-            this.numericDistributionControl16.Size = new System.Drawing.Size(173, 90);
-            this.numericDistributionControl16.TabIndex = 22;
-            this.numericDistributionControl16.TabStop = false;
-            this.numericDistributionControl16.Text = "IVs";
+            numericDistributionControl16.Controls.Add(checkBox44);
+            numericDistributionControl16.Controls.Add(button20);
+            numericDistributionControl16.Controls.Add(textBox17);
+            numericDistributionControl16.Location = new System.Drawing.Point(339, 166);
+            numericDistributionControl16.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl16.Name = "numericDistributionControl16";
+            numericDistributionControl16.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl16.Size = new System.Drawing.Size(151, 68);
+            numericDistributionControl16.TabIndex = 22;
+            numericDistributionControl16.TabStop = false;
+            numericDistributionControl16.Text = "IVs";
             // 
             // checkBox44
             // 
-            this.checkBox44.AutoSize = true;
-            this.checkBox44.Location = new System.Drawing.Point(6, 26);
-            this.checkBox44.Name = "checkBox44";
-            this.checkBox44.Size = new System.Drawing.Size(106, 24);
-            this.checkBox44.TabIndex = 3;
-            this.checkBox44.Text = "Randomize";
-            this.checkBox44.UseVisualStyleBackColor = true;
+            checkBox44.AutoSize = true;
+            checkBox44.Location = new System.Drawing.Point(5, 20);
+            checkBox44.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox44.Name = "checkBox44";
+            checkBox44.Size = new System.Drawing.Size(85, 19);
+            checkBox44.TabIndex = 3;
+            checkBox44.Text = "Randomize";
+            checkBox44.UseVisualStyleBackColor = true;
             // 
             // button20
             // 
-            this.button20.Location = new System.Drawing.Point(137, 55);
-            this.button20.Name = "button20";
-            this.button20.Size = new System.Drawing.Size(29, 29);
-            this.button20.TabIndex = 1;
-            this.button20.Text = ">";
-            this.button20.UseVisualStyleBackColor = true;
-            this.button20.Click += new System.EventHandler(this.OpenNumericDistributionForm);
+            button20.Location = new System.Drawing.Point(120, 41);
+            button20.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button20.Name = "button20";
+            button20.Size = new System.Drawing.Size(25, 22);
+            button20.TabIndex = 1;
+            button20.Text = ">";
+            button20.UseVisualStyleBackColor = true;
+            button20.Click += OpenNumericDistributionForm;
             // 
             // textBox17
             // 
-            this.textBox17.Location = new System.Drawing.Point(6, 56);
-            this.textBox17.Name = "textBox17";
-            this.textBox17.Size = new System.Drawing.Size(125, 27);
-            this.textBox17.TabIndex = 0;
+            textBox17.Location = new System.Drawing.Point(5, 42);
+            textBox17.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            textBox17.Name = "textBox17";
+            textBox17.Size = new System.Drawing.Size(110, 23);
+            textBox17.TabIndex = 0;
             // 
             // groupBox22
             // 
-            this.groupBox22.Controls.Add(this.checkBox43);
-            this.groupBox22.Controls.Add(this.itemDistributionControl15);
-            this.groupBox22.Controls.Add(this.checkBox42);
-            this.groupBox22.Location = new System.Drawing.Point(6, 222);
-            this.groupBox22.Name = "groupBox22";
-            this.groupBox22.Size = new System.Drawing.Size(185, 125);
-            this.groupBox22.TabIndex = 21;
-            this.groupBox22.TabStop = false;
-            this.groupBox22.Text = "Held Items";
+            groupBox22.Controls.Add(checkBox43);
+            groupBox22.Controls.Add(itemDistributionControl15);
+            groupBox22.Controls.Add(checkBox42);
+            groupBox22.Location = new System.Drawing.Point(5, 166);
+            groupBox22.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox22.Name = "groupBox22";
+            groupBox22.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox22.Size = new System.Drawing.Size(162, 94);
+            groupBox22.TabIndex = 21;
+            groupBox22.TabStop = false;
+            groupBox22.Text = "Held Items";
             // 
             // checkBox43
             // 
-            this.checkBox43.AutoSize = true;
-            this.checkBox43.Location = new System.Drawing.Point(6, 56);
-            this.checkBox43.Name = "checkBox43";
-            this.checkBox43.Size = new System.Drawing.Size(177, 24);
-            this.checkBox43.TabIndex = 5;
-            this.checkBox43.Text = "High Level Held Items";
-            this.checkBox43.UseVisualStyleBackColor = true;
+            checkBox43.AutoSize = true;
+            checkBox43.Location = new System.Drawing.Point(5, 42);
+            checkBox43.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox43.Name = "checkBox43";
+            checkBox43.Size = new System.Drawing.Size(142, 19);
+            checkBox43.TabIndex = 5;
+            checkBox43.Text = "High Level Held Items";
+            checkBox43.UseVisualStyleBackColor = true;
             // 
             // itemDistributionControl15
             // 
-            this.itemDistributionControl15.Location = new System.Drawing.Point(6, 86);
-            this.itemDistributionControl15.Name = "itemDistributionControl15";
-            this.itemDistributionControl15.Size = new System.Drawing.Size(173, 29);
-            this.itemDistributionControl15.TabIndex = 4;
-            this.itemDistributionControl15.Text = "Held Items";
-            this.itemDistributionControl15.UseVisualStyleBackColor = true;
-            this.itemDistributionControl15.Click += new System.EventHandler(this.OpenItemDistributionForm);
+            itemDistributionControl15.Location = new System.Drawing.Point(5, 64);
+            itemDistributionControl15.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            itemDistributionControl15.Name = "itemDistributionControl15";
+            itemDistributionControl15.Size = new System.Drawing.Size(151, 22);
+            itemDistributionControl15.TabIndex = 4;
+            itemDistributionControl15.Text = "Held Items";
+            itemDistributionControl15.UseVisualStyleBackColor = true;
+            itemDistributionControl15.Click += OpenItemDistributionForm;
             // 
             // checkBox42
             // 
-            this.checkBox42.AutoSize = true;
-            this.checkBox42.Location = new System.Drawing.Point(6, 26);
-            this.checkBox42.Name = "checkBox42";
-            this.checkBox42.Size = new System.Drawing.Size(106, 24);
-            this.checkBox42.TabIndex = 1;
-            this.checkBox42.Text = "Randomize";
-            this.checkBox42.UseVisualStyleBackColor = true;
+            checkBox42.AutoSize = true;
+            checkBox42.Location = new System.Drawing.Point(5, 20);
+            checkBox42.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox42.Name = "checkBox42";
+            checkBox42.Size = new System.Drawing.Size(85, 19);
+            checkBox42.TabIndex = 1;
+            checkBox42.Text = "Randomize";
+            checkBox42.UseVisualStyleBackColor = true;
             // 
             // groupBox21
             // 
-            this.groupBox21.Controls.Add(this.label7);
-            this.groupBox21.Controls.Add(this.numericUpDown7);
-            this.groupBox21.Controls.Add(this.comboBox1);
-            this.groupBox21.Controls.Add(this.itemDistributionControl14);
-            this.groupBox21.Location = new System.Drawing.Point(197, 26);
-            this.groupBox21.Name = "groupBox21";
-            this.groupBox21.Size = new System.Drawing.Size(185, 190);
-            this.groupBox21.TabIndex = 20;
-            this.groupBox21.TabStop = false;
-            this.groupBox21.Text = "Moves";
+            groupBox21.Controls.Add(label7);
+            groupBox21.Controls.Add(numericUpDown7);
+            groupBox21.Controls.Add(comboBox1);
+            groupBox21.Controls.Add(itemDistributionControl14);
+            groupBox21.Location = new System.Drawing.Point(172, 20);
+            groupBox21.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox21.Name = "groupBox21";
+            groupBox21.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox21.Size = new System.Drawing.Size(162, 142);
+            groupBox21.TabIndex = 20;
+            groupBox21.TabStop = false;
+            groupBox21.Text = "Moves";
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 92);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(87, 20);
-            this.label7.TabIndex = 11;
-            this.label7.Text = "Type Bias %";
+            label7.AutoSize = true;
+            label7.Location = new System.Drawing.Point(5, 69);
+            label7.Name = "label7";
+            label7.Size = new System.Drawing.Size(68, 15);
+            label7.TabIndex = 11;
+            label7.Text = "Type Bias %";
             // 
             // numericUpDown7
             // 
-            this.numericUpDown7.DecimalPlaces = 3;
-            this.numericUpDown7.Location = new System.Drawing.Point(6, 115);
-            this.numericUpDown7.Name = "numericUpDown7";
-            this.numericUpDown7.Size = new System.Drawing.Size(173, 27);
-            this.numericUpDown7.TabIndex = 10;
+            numericUpDown7.DecimalPlaces = 3;
+            numericUpDown7.Location = new System.Drawing.Point(5, 86);
+            numericUpDown7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericUpDown7.Name = "numericUpDown7";
+            numericUpDown7.Size = new System.Drawing.Size(151, 23);
+            numericUpDown7.TabIndex = 10;
             // 
             // comboBox1
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Unchanged",
-            "Last Level Up Moves",
-            "Random"});
-            this.comboBox1.Location = new System.Drawing.Point(6, 24);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(173, 28);
-            this.comboBox1.TabIndex = 5;
+            comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "Unchanged", "Last Level Up Moves", "Random" });
+            comboBox1.Location = new System.Drawing.Point(5, 18);
+            comboBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new System.Drawing.Size(152, 23);
+            comboBox1.TabIndex = 5;
             // 
             // itemDistributionControl14
             // 
-            this.itemDistributionControl14.Location = new System.Drawing.Point(6, 150);
-            this.itemDistributionControl14.Name = "itemDistributionControl14";
-            this.itemDistributionControl14.Size = new System.Drawing.Size(173, 29);
-            this.itemDistributionControl14.TabIndex = 4;
-            this.itemDistributionControl14.Text = "Moves";
-            this.itemDistributionControl14.UseVisualStyleBackColor = true;
-            this.itemDistributionControl14.Click += new System.EventHandler(this.OpenItemDistributionForm);
+            itemDistributionControl14.Location = new System.Drawing.Point(5, 112);
+            itemDistributionControl14.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            itemDistributionControl14.Name = "itemDistributionControl14";
+            itemDistributionControl14.Size = new System.Drawing.Size(151, 22);
+            itemDistributionControl14.TabIndex = 4;
+            itemDistributionControl14.Text = "Moves";
+            itemDistributionControl14.UseVisualStyleBackColor = true;
+            itemDistributionControl14.Click += OpenItemDistributionForm;
             // 
             // groupBox20
             // 
-            this.groupBox20.Controls.Add(this.itemDistributionControl13);
-            this.groupBox20.Controls.Add(this.checkBox41);
-            this.groupBox20.Location = new System.Drawing.Point(6, 353);
-            this.groupBox20.Name = "groupBox20";
-            this.groupBox20.Size = new System.Drawing.Size(185, 94);
-            this.groupBox20.TabIndex = 19;
-            this.groupBox20.TabStop = false;
-            this.groupBox20.Text = "Natures";
+            groupBox20.Controls.Add(itemDistributionControl13);
+            groupBox20.Controls.Add(checkBox41);
+            groupBox20.Location = new System.Drawing.Point(5, 265);
+            groupBox20.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox20.Name = "groupBox20";
+            groupBox20.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox20.Size = new System.Drawing.Size(162, 70);
+            groupBox20.TabIndex = 19;
+            groupBox20.TabStop = false;
+            groupBox20.Text = "Natures";
             // 
             // itemDistributionControl13
             // 
-            this.itemDistributionControl13.Location = new System.Drawing.Point(6, 53);
-            this.itemDistributionControl13.Name = "itemDistributionControl13";
-            this.itemDistributionControl13.Size = new System.Drawing.Size(173, 29);
-            this.itemDistributionControl13.TabIndex = 4;
-            this.itemDistributionControl13.Text = "Natures";
-            this.itemDistributionControl13.UseVisualStyleBackColor = true;
-            this.itemDistributionControl13.Click += new System.EventHandler(this.OpenItemDistributionForm);
+            itemDistributionControl13.Location = new System.Drawing.Point(5, 40);
+            itemDistributionControl13.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            itemDistributionControl13.Name = "itemDistributionControl13";
+            itemDistributionControl13.Size = new System.Drawing.Size(151, 22);
+            itemDistributionControl13.TabIndex = 4;
+            itemDistributionControl13.Text = "Natures";
+            itemDistributionControl13.UseVisualStyleBackColor = true;
+            itemDistributionControl13.Click += OpenItemDistributionForm;
             // 
             // checkBox41
             // 
-            this.checkBox41.AutoSize = true;
-            this.checkBox41.Location = new System.Drawing.Point(6, 26);
-            this.checkBox41.Name = "checkBox41";
-            this.checkBox41.Size = new System.Drawing.Size(106, 24);
-            this.checkBox41.TabIndex = 1;
-            this.checkBox41.Text = "Randomize";
-            this.checkBox41.UseVisualStyleBackColor = true;
+            checkBox41.AutoSize = true;
+            checkBox41.Location = new System.Drawing.Point(5, 20);
+            checkBox41.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox41.Name = "checkBox41";
+            checkBox41.Size = new System.Drawing.Size(85, 19);
+            checkBox41.TabIndex = 1;
+            checkBox41.Text = "Randomize";
+            checkBox41.UseVisualStyleBackColor = true;
             // 
             // numericDistributionControl15
             // 
-            this.numericDistributionControl15.Controls.Add(this.checkBox40);
-            this.numericDistributionControl15.Controls.Add(this.button19);
-            this.numericDistributionControl15.Controls.Add(this.textBox16);
-            this.numericDistributionControl15.Location = new System.Drawing.Point(388, 126);
-            this.numericDistributionControl15.Name = "numericDistributionControl15";
-            this.numericDistributionControl15.Size = new System.Drawing.Size(173, 90);
-            this.numericDistributionControl15.TabIndex = 18;
-            this.numericDistributionControl15.TabStop = false;
-            this.numericDistributionControl15.Text = "Levels";
+            numericDistributionControl15.Controls.Add(checkBox40);
+            numericDistributionControl15.Controls.Add(button19);
+            numericDistributionControl15.Controls.Add(textBox16);
+            numericDistributionControl15.Location = new System.Drawing.Point(340, 94);
+            numericDistributionControl15.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl15.Name = "numericDistributionControl15";
+            numericDistributionControl15.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl15.Size = new System.Drawing.Size(151, 68);
+            numericDistributionControl15.TabIndex = 18;
+            numericDistributionControl15.TabStop = false;
+            numericDistributionControl15.Text = "Levels";
             // 
             // checkBox40
             // 
-            this.checkBox40.AutoSize = true;
-            this.checkBox40.Location = new System.Drawing.Point(6, 26);
-            this.checkBox40.Name = "checkBox40";
-            this.checkBox40.Size = new System.Drawing.Size(106, 24);
-            this.checkBox40.TabIndex = 3;
-            this.checkBox40.Text = "Randomize";
-            this.checkBox40.UseVisualStyleBackColor = true;
+            checkBox40.AutoSize = true;
+            checkBox40.Location = new System.Drawing.Point(5, 20);
+            checkBox40.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox40.Name = "checkBox40";
+            checkBox40.Size = new System.Drawing.Size(85, 19);
+            checkBox40.TabIndex = 3;
+            checkBox40.Text = "Randomize";
+            checkBox40.UseVisualStyleBackColor = true;
             // 
             // button19
             // 
-            this.button19.Location = new System.Drawing.Point(137, 55);
-            this.button19.Name = "button19";
-            this.button19.Size = new System.Drawing.Size(29, 29);
-            this.button19.TabIndex = 1;
-            this.button19.Text = ">";
-            this.button19.UseVisualStyleBackColor = true;
-            this.button19.Click += new System.EventHandler(this.OpenNumericDistributionForm);
+            button19.Location = new System.Drawing.Point(120, 41);
+            button19.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button19.Name = "button19";
+            button19.Size = new System.Drawing.Size(25, 22);
+            button19.TabIndex = 1;
+            button19.Text = ">";
+            button19.UseVisualStyleBackColor = true;
+            button19.Click += OpenNumericDistributionForm;
             // 
             // textBox16
             // 
-            this.textBox16.Location = new System.Drawing.Point(6, 56);
-            this.textBox16.Name = "textBox16";
-            this.textBox16.Size = new System.Drawing.Size(125, 27);
-            this.textBox16.TabIndex = 0;
+            textBox16.Location = new System.Drawing.Point(5, 42);
+            textBox16.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            textBox16.Name = "textBox16";
+            textBox16.Size = new System.Drawing.Size(110, 23);
+            textBox16.TabIndex = 0;
             // 
             // groupBox19
             // 
-            this.groupBox19.Controls.Add(this.label6);
-            this.groupBox19.Controls.Add(this.numericUpDown6);
-            this.groupBox19.Controls.Add(this.checkBox39);
-            this.groupBox19.Location = new System.Drawing.Point(197, 222);
-            this.groupBox19.Name = "groupBox19";
-            this.groupBox19.Size = new System.Drawing.Size(185, 125);
-            this.groupBox19.TabIndex = 17;
-            this.groupBox19.TabStop = false;
-            this.groupBox19.Text = "Shininess";
+            groupBox19.Controls.Add(label6);
+            groupBox19.Controls.Add(numericUpDown6);
+            groupBox19.Controls.Add(checkBox39);
+            groupBox19.Location = new System.Drawing.Point(172, 166);
+            groupBox19.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox19.Name = "groupBox19";
+            groupBox19.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox19.Size = new System.Drawing.Size(162, 94);
+            groupBox19.TabIndex = 17;
+            groupBox19.TabStop = false;
+            groupBox19.Text = "Shininess";
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 65);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(60, 20);
-            this.label6.TabIndex = 17;
-            this.label6.Text = "Shiny %";
+            label6.AutoSize = true;
+            label6.Location = new System.Drawing.Point(5, 49);
+            label6.Name = "label6";
+            label6.Size = new System.Drawing.Size(49, 15);
+            label6.TabIndex = 17;
+            label6.Text = "Shiny %";
             // 
             // numericUpDown6
             // 
-            this.numericUpDown6.DecimalPlaces = 3;
-            this.numericUpDown6.Location = new System.Drawing.Point(6, 86);
-            this.numericUpDown6.Name = "numericUpDown6";
-            this.numericUpDown6.Size = new System.Drawing.Size(173, 27);
-            this.numericUpDown6.TabIndex = 16;
+            numericUpDown6.DecimalPlaces = 3;
+            numericUpDown6.Location = new System.Drawing.Point(5, 64);
+            numericUpDown6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericUpDown6.Name = "numericUpDown6";
+            numericUpDown6.Size = new System.Drawing.Size(151, 23);
+            numericUpDown6.TabIndex = 16;
             // 
             // checkBox39
             // 
-            this.checkBox39.AutoSize = true;
-            this.checkBox39.Location = new System.Drawing.Point(6, 26);
-            this.checkBox39.Name = "checkBox39";
-            this.checkBox39.Size = new System.Drawing.Size(137, 24);
-            this.checkBox39.TabIndex = 15;
-            this.checkBox39.Text = "Random Shinies";
-            this.checkBox39.UseVisualStyleBackColor = true;
+            checkBox39.AutoSize = true;
+            checkBox39.Location = new System.Drawing.Point(5, 20);
+            checkBox39.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox39.Name = "checkBox39";
+            checkBox39.Size = new System.Drawing.Size(111, 19);
+            checkBox39.TabIndex = 15;
+            checkBox39.Text = "Random Shinies";
+            checkBox39.UseVisualStyleBackColor = true;
             // 
             // groupBox17
             // 
-            this.groupBox17.Controls.Add(this.checkBox38);
-            this.groupBox17.Controls.Add(this.checkBox34);
-            this.groupBox17.Controls.Add(this.checkBox35);
-            this.groupBox17.Controls.Add(this.itemDistributionControl12);
-            this.groupBox17.Controls.Add(this.checkBox37);
-            this.groupBox17.Location = new System.Drawing.Point(6, 26);
-            this.groupBox17.Name = "groupBox17";
-            this.groupBox17.Size = new System.Drawing.Size(185, 190);
-            this.groupBox17.TabIndex = 12;
-            this.groupBox17.TabStop = false;
-            this.groupBox17.Text = "Pokemon Species";
+            groupBox17.Controls.Add(checkBox38);
+            groupBox17.Controls.Add(checkBox34);
+            groupBox17.Controls.Add(checkBox35);
+            groupBox17.Controls.Add(itemDistributionControl12);
+            groupBox17.Controls.Add(checkBox37);
+            groupBox17.Location = new System.Drawing.Point(5, 20);
+            groupBox17.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox17.Name = "groupBox17";
+            groupBox17.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox17.Size = new System.Drawing.Size(162, 142);
+            groupBox17.TabIndex = 12;
+            groupBox17.TabStop = false;
+            groupBox17.Text = "Pokemon Species";
             // 
             // checkBox38
             // 
-            this.checkBox38.AutoSize = true;
-            this.checkBox38.Location = new System.Drawing.Point(6, 86);
-            this.checkBox38.Name = "checkBox38";
-            this.checkBox38.Size = new System.Drawing.Size(117, 24);
-            this.checkBox38.TabIndex = 19;
-            this.checkBox38.Text = "Type Themes";
-            this.checkBox38.UseVisualStyleBackColor = true;
+            checkBox38.AutoSize = true;
+            checkBox38.Location = new System.Drawing.Point(5, 64);
+            checkBox38.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox38.Name = "checkBox38";
+            checkBox38.Size = new System.Drawing.Size(94, 19);
+            checkBox38.TabIndex = 19;
+            checkBox38.Text = "Type Themes";
+            checkBox38.UseVisualStyleBackColor = true;
             // 
             // checkBox34
             // 
-            this.checkBox34.AutoSize = true;
-            this.checkBox34.Location = new System.Drawing.Point(6, 56);
-            this.checkBox34.Name = "checkBox34";
-            this.checkBox34.Size = new System.Drawing.Size(160, 24);
-            this.checkBox34.TabIndex = 18;
-            this.checkBox34.Text = "High Level Legends";
-            this.checkBox34.UseVisualStyleBackColor = true;
+            checkBox34.AutoSize = true;
+            checkBox34.Location = new System.Drawing.Point(5, 42);
+            checkBox34.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox34.Name = "checkBox34";
+            checkBox34.Size = new System.Drawing.Size(129, 19);
+            checkBox34.TabIndex = 18;
+            checkBox34.Text = "High Level Legends";
+            checkBox34.UseVisualStyleBackColor = true;
             // 
             // checkBox35
             // 
-            this.checkBox35.AutoSize = true;
-            this.checkBox35.Location = new System.Drawing.Point(6, 116);
-            this.checkBox35.Name = "checkBox35";
-            this.checkBox35.Size = new System.Drawing.Size(133, 24);
-            this.checkBox35.TabIndex = 17;
-            this.checkBox35.Text = "Evolution Logic";
-            this.checkBox35.UseVisualStyleBackColor = true;
+            checkBox35.AutoSize = true;
+            checkBox35.Location = new System.Drawing.Point(5, 87);
+            checkBox35.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox35.Name = "checkBox35";
+            checkBox35.Size = new System.Drawing.Size(108, 19);
+            checkBox35.TabIndex = 17;
+            checkBox35.Text = "Evolution Logic";
+            checkBox35.UseVisualStyleBackColor = true;
             // 
             // itemDistributionControl12
             // 
-            this.itemDistributionControl12.Location = new System.Drawing.Point(6, 150);
-            this.itemDistributionControl12.Name = "itemDistributionControl12";
-            this.itemDistributionControl12.Size = new System.Drawing.Size(173, 29);
-            this.itemDistributionControl12.TabIndex = 15;
-            this.itemDistributionControl12.Text = "Pokémon";
-            this.itemDistributionControl12.UseVisualStyleBackColor = true;
-            this.itemDistributionControl12.Click += new System.EventHandler(this.OpenItemDistributionForm);
+            itemDistributionControl12.Location = new System.Drawing.Point(5, 112);
+            itemDistributionControl12.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            itemDistributionControl12.Name = "itemDistributionControl12";
+            itemDistributionControl12.Size = new System.Drawing.Size(151, 22);
+            itemDistributionControl12.TabIndex = 15;
+            itemDistributionControl12.Text = "Pokémon";
+            itemDistributionControl12.UseVisualStyleBackColor = true;
+            itemDistributionControl12.Click += OpenItemDistributionForm;
             // 
             // checkBox37
             // 
-            this.checkBox37.AutoSize = true;
-            this.checkBox37.Location = new System.Drawing.Point(6, 26);
-            this.checkBox37.Name = "checkBox37";
-            this.checkBox37.Size = new System.Drawing.Size(152, 24);
-            this.checkBox37.TabIndex = 14;
-            this.checkBox37.Text = "Random Pokémon";
-            this.checkBox37.UseVisualStyleBackColor = true;
+            checkBox37.AutoSize = true;
+            checkBox37.Location = new System.Drawing.Point(5, 20);
+            checkBox37.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox37.Name = "checkBox37";
+            checkBox37.Size = new System.Drawing.Size(125, 19);
+            checkBox37.TabIndex = 14;
+            checkBox37.Text = "Random Pokémon";
+            checkBox37.UseVisualStyleBackColor = true;
             // 
             // numericDistributionControl14
             // 
-            this.numericDistributionControl14.Controls.Add(this.checkBox36);
-            this.numericDistributionControl14.Controls.Add(this.button18);
-            this.numericDistributionControl14.Controls.Add(this.textBox15);
-            this.numericDistributionControl14.Location = new System.Drawing.Point(388, 26);
-            this.numericDistributionControl14.Name = "numericDistributionControl14";
-            this.numericDistributionControl14.Size = new System.Drawing.Size(173, 90);
-            this.numericDistributionControl14.TabIndex = 16;
-            this.numericDistributionControl14.TabStop = false;
-            this.numericDistributionControl14.Text = "Pokémon Count";
+            numericDistributionControl14.Controls.Add(checkBox36);
+            numericDistributionControl14.Controls.Add(button18);
+            numericDistributionControl14.Controls.Add(textBox15);
+            numericDistributionControl14.Location = new System.Drawing.Point(340, 20);
+            numericDistributionControl14.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl14.Name = "numericDistributionControl14";
+            numericDistributionControl14.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl14.Size = new System.Drawing.Size(151, 68);
+            numericDistributionControl14.TabIndex = 16;
+            numericDistributionControl14.TabStop = false;
+            numericDistributionControl14.Text = "Pokémon Count";
             // 
             // checkBox36
             // 
-            this.checkBox36.AutoSize = true;
-            this.checkBox36.Location = new System.Drawing.Point(6, 26);
-            this.checkBox36.Name = "checkBox36";
-            this.checkBox36.Size = new System.Drawing.Size(106, 24);
-            this.checkBox36.TabIndex = 3;
-            this.checkBox36.Text = "Randomize";
-            this.checkBox36.UseVisualStyleBackColor = true;
+            checkBox36.AutoSize = true;
+            checkBox36.Location = new System.Drawing.Point(5, 20);
+            checkBox36.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox36.Name = "checkBox36";
+            checkBox36.Size = new System.Drawing.Size(85, 19);
+            checkBox36.TabIndex = 3;
+            checkBox36.Text = "Randomize";
+            checkBox36.UseVisualStyleBackColor = true;
             // 
             // button18
             // 
-            this.button18.Location = new System.Drawing.Point(137, 55);
-            this.button18.Name = "button18";
-            this.button18.Size = new System.Drawing.Size(29, 29);
-            this.button18.TabIndex = 1;
-            this.button18.Text = ">";
-            this.button18.UseVisualStyleBackColor = true;
-            this.button18.Click += new System.EventHandler(this.OpenNumericDistributionForm);
+            button18.Location = new System.Drawing.Point(120, 41);
+            button18.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button18.Name = "button18";
+            button18.Size = new System.Drawing.Size(25, 22);
+            button18.TabIndex = 1;
+            button18.Text = ">";
+            button18.UseVisualStyleBackColor = true;
+            button18.Click += OpenNumericDistributionForm;
             // 
             // textBox15
             // 
-            this.textBox15.Location = new System.Drawing.Point(6, 56);
-            this.textBox15.Name = "textBox15";
-            this.textBox15.Size = new System.Drawing.Size(125, 27);
-            this.textBox15.TabIndex = 0;
+            textBox15.Location = new System.Drawing.Point(5, 42);
+            textBox15.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            textBox15.Name = "textBox15";
+            textBox15.Size = new System.Drawing.Size(110, 23);
+            textBox15.TabIndex = 0;
             // 
             // groupBox16
             // 
-            this.groupBox16.Controls.Add(this.numericDistributionControl13);
-            this.groupBox16.Controls.Add(this.itemDistributionControl11);
-            this.groupBox16.Controls.Add(this.checkBox32);
-            this.groupBox16.Location = new System.Drawing.Point(143, 307);
-            this.groupBox16.Name = "groupBox16";
-            this.groupBox16.Size = new System.Drawing.Size(185, 255);
-            this.groupBox16.TabIndex = 11;
-            this.groupBox16.TabStop = false;
-            this.groupBox16.Text = "Trainer Items";
+            groupBox16.Controls.Add(numericDistributionControl13);
+            groupBox16.Controls.Add(itemDistributionControl11);
+            groupBox16.Controls.Add(checkBox32);
+            groupBox16.Location = new System.Drawing.Point(125, 230);
+            groupBox16.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox16.Name = "groupBox16";
+            groupBox16.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox16.Size = new System.Drawing.Size(162, 191);
+            groupBox16.TabIndex = 11;
+            groupBox16.TabStop = false;
+            groupBox16.Text = "Trainer Items";
             // 
             // numericDistributionControl13
             // 
-            this.numericDistributionControl13.Controls.Add(this.checkBox33);
-            this.numericDistributionControl13.Controls.Add(this.button4);
-            this.numericDistributionControl13.Controls.Add(this.textBox14);
-            this.numericDistributionControl13.Location = new System.Drawing.Point(6, 153);
-            this.numericDistributionControl13.Name = "numericDistributionControl13";
-            this.numericDistributionControl13.Size = new System.Drawing.Size(173, 90);
-            this.numericDistributionControl13.TabIndex = 13;
-            this.numericDistributionControl13.TabStop = false;
-            this.numericDistributionControl13.Text = "Item Count";
+            numericDistributionControl13.Controls.Add(checkBox33);
+            numericDistributionControl13.Controls.Add(button4);
+            numericDistributionControl13.Controls.Add(textBox14);
+            numericDistributionControl13.Location = new System.Drawing.Point(5, 115);
+            numericDistributionControl13.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl13.Name = "numericDistributionControl13";
+            numericDistributionControl13.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl13.Size = new System.Drawing.Size(151, 68);
+            numericDistributionControl13.TabIndex = 13;
+            numericDistributionControl13.TabStop = false;
+            numericDistributionControl13.Text = "Item Count";
             // 
             // checkBox33
             // 
-            this.checkBox33.AutoSize = true;
-            this.checkBox33.Location = new System.Drawing.Point(6, 26);
-            this.checkBox33.Name = "checkBox33";
-            this.checkBox33.Size = new System.Drawing.Size(106, 24);
-            this.checkBox33.TabIndex = 3;
-            this.checkBox33.Text = "Randomize";
-            this.checkBox33.UseVisualStyleBackColor = true;
+            checkBox33.AutoSize = true;
+            checkBox33.Location = new System.Drawing.Point(5, 20);
+            checkBox33.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox33.Name = "checkBox33";
+            checkBox33.Size = new System.Drawing.Size(85, 19);
+            checkBox33.TabIndex = 3;
+            checkBox33.Text = "Randomize";
+            checkBox33.UseVisualStyleBackColor = true;
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(137, 55);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(29, 29);
-            this.button4.TabIndex = 1;
-            this.button4.Text = ">";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.OpenNumericDistributionForm);
+            button4.Location = new System.Drawing.Point(120, 41);
+            button4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button4.Name = "button4";
+            button4.Size = new System.Drawing.Size(25, 22);
+            button4.TabIndex = 1;
+            button4.Text = ">";
+            button4.UseVisualStyleBackColor = true;
+            button4.Click += OpenNumericDistributionForm;
             // 
             // textBox14
             // 
-            this.textBox14.Location = new System.Drawing.Point(6, 56);
-            this.textBox14.Name = "textBox14";
-            this.textBox14.Size = new System.Drawing.Size(125, 27);
-            this.textBox14.TabIndex = 0;
+            textBox14.Location = new System.Drawing.Point(5, 42);
+            textBox14.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            textBox14.Name = "textBox14";
+            textBox14.Size = new System.Drawing.Size(110, 23);
+            textBox14.TabIndex = 0;
             // 
             // itemDistributionControl11
             // 
-            this.itemDistributionControl11.Location = new System.Drawing.Point(6, 118);
-            this.itemDistributionControl11.Name = "itemDistributionControl11";
-            this.itemDistributionControl11.Size = new System.Drawing.Size(173, 29);
-            this.itemDistributionControl11.TabIndex = 12;
-            this.itemDistributionControl11.Text = "Trainer Items";
-            this.itemDistributionControl11.UseVisualStyleBackColor = true;
-            this.itemDistributionControl11.Click += new System.EventHandler(this.OpenItemDistributionForm);
+            itemDistributionControl11.Location = new System.Drawing.Point(5, 88);
+            itemDistributionControl11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            itemDistributionControl11.Name = "itemDistributionControl11";
+            itemDistributionControl11.Size = new System.Drawing.Size(151, 22);
+            itemDistributionControl11.TabIndex = 12;
+            itemDistributionControl11.Text = "Trainer Items";
+            itemDistributionControl11.UseVisualStyleBackColor = true;
+            itemDistributionControl11.Click += OpenItemDistributionForm;
             // 
             // checkBox32
             // 
-            this.checkBox32.AutoSize = true;
-            this.checkBox32.Location = new System.Drawing.Point(6, 26);
-            this.checkBox32.Name = "checkBox32";
-            this.checkBox32.Size = new System.Drawing.Size(127, 24);
-            this.checkBox32.TabIndex = 0;
-            this.checkBox32.Text = "Random Items";
-            this.checkBox32.UseVisualStyleBackColor = true;
+            checkBox32.AutoSize = true;
+            checkBox32.Location = new System.Drawing.Point(5, 20);
+            checkBox32.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox32.Name = "checkBox32";
+            checkBox32.Size = new System.Drawing.Size(103, 19);
+            checkBox32.TabIndex = 0;
+            checkBox32.Text = "Random Items";
+            checkBox32.UseVisualStyleBackColor = true;
             // 
             // groupBox15
             // 
-            this.groupBox15.Controls.Add(this.checkBox31);
-            this.groupBox15.Controls.Add(this.checkBox30);
-            this.groupBox15.Controls.Add(this.numericDistributionControl12);
-            this.groupBox15.Controls.Add(this.itemDistributionControl10);
-            this.groupBox15.Controls.Add(this.checkBox29);
-            this.groupBox15.Location = new System.Drawing.Point(143, 46);
-            this.groupBox15.Name = "groupBox15";
-            this.groupBox15.Size = new System.Drawing.Size(185, 255);
-            this.groupBox15.TabIndex = 10;
-            this.groupBox15.TabStop = false;
-            this.groupBox15.Text = "Wild Encounters";
+            groupBox15.Controls.Add(checkBox31);
+            groupBox15.Controls.Add(checkBox30);
+            groupBox15.Controls.Add(numericDistributionControl12);
+            groupBox15.Controls.Add(itemDistributionControl10);
+            groupBox15.Controls.Add(checkBox29);
+            groupBox15.Location = new System.Drawing.Point(125, 34);
+            groupBox15.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox15.Name = "groupBox15";
+            groupBox15.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox15.Size = new System.Drawing.Size(162, 191);
+            groupBox15.TabIndex = 10;
+            groupBox15.TabStop = false;
+            groupBox15.Text = "Wild Encounters";
             // 
             // checkBox31
             // 
-            this.checkBox31.AutoSize = true;
-            this.checkBox31.Location = new System.Drawing.Point(6, 56);
-            this.checkBox31.Name = "checkBox31";
-            this.checkBox31.Size = new System.Drawing.Size(160, 24);
-            this.checkBox31.TabIndex = 13;
-            this.checkBox31.Text = "High Level Legends";
-            this.checkBox31.UseVisualStyleBackColor = true;
+            checkBox31.AutoSize = true;
+            checkBox31.Location = new System.Drawing.Point(5, 42);
+            checkBox31.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox31.Name = "checkBox31";
+            checkBox31.Size = new System.Drawing.Size(129, 19);
+            checkBox31.TabIndex = 13;
+            checkBox31.Text = "High Level Legends";
+            checkBox31.UseVisualStyleBackColor = true;
             // 
             // checkBox30
             // 
-            this.checkBox30.AutoSize = true;
-            this.checkBox30.Location = new System.Drawing.Point(6, 86);
-            this.checkBox30.Name = "checkBox30";
-            this.checkBox30.Size = new System.Drawing.Size(133, 24);
-            this.checkBox30.TabIndex = 12;
-            this.checkBox30.Text = "Evolution Logic";
-            this.checkBox30.UseVisualStyleBackColor = true;
+            checkBox30.AutoSize = true;
+            checkBox30.Location = new System.Drawing.Point(5, 64);
+            checkBox30.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox30.Name = "checkBox30";
+            checkBox30.Size = new System.Drawing.Size(108, 19);
+            checkBox30.TabIndex = 12;
+            checkBox30.Text = "Evolution Logic";
+            checkBox30.UseVisualStyleBackColor = true;
             // 
             // numericDistributionControl12
             // 
-            this.numericDistributionControl12.Controls.Add(this.checkBox28);
-            this.numericDistributionControl12.Controls.Add(this.button17);
-            this.numericDistributionControl12.Controls.Add(this.textBox13);
-            this.numericDistributionControl12.Location = new System.Drawing.Point(6, 153);
-            this.numericDistributionControl12.Name = "numericDistributionControl12";
-            this.numericDistributionControl12.Size = new System.Drawing.Size(173, 90);
-            this.numericDistributionControl12.TabIndex = 11;
-            this.numericDistributionControl12.TabStop = false;
-            this.numericDistributionControl12.Text = "Levels";
+            numericDistributionControl12.Controls.Add(checkBox28);
+            numericDistributionControl12.Controls.Add(button17);
+            numericDistributionControl12.Controls.Add(textBox13);
+            numericDistributionControl12.Location = new System.Drawing.Point(5, 115);
+            numericDistributionControl12.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl12.Name = "numericDistributionControl12";
+            numericDistributionControl12.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericDistributionControl12.Size = new System.Drawing.Size(151, 68);
+            numericDistributionControl12.TabIndex = 11;
+            numericDistributionControl12.TabStop = false;
+            numericDistributionControl12.Text = "Levels";
             // 
             // checkBox28
             // 
-            this.checkBox28.AutoSize = true;
-            this.checkBox28.Location = new System.Drawing.Point(6, 26);
-            this.checkBox28.Name = "checkBox28";
-            this.checkBox28.Size = new System.Drawing.Size(106, 24);
-            this.checkBox28.TabIndex = 3;
-            this.checkBox28.Text = "Randomize";
-            this.checkBox28.UseVisualStyleBackColor = true;
+            checkBox28.AutoSize = true;
+            checkBox28.Location = new System.Drawing.Point(5, 20);
+            checkBox28.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox28.Name = "checkBox28";
+            checkBox28.Size = new System.Drawing.Size(85, 19);
+            checkBox28.TabIndex = 3;
+            checkBox28.Text = "Randomize";
+            checkBox28.UseVisualStyleBackColor = true;
             // 
             // button17
             // 
-            this.button17.Location = new System.Drawing.Point(137, 55);
-            this.button17.Name = "button17";
-            this.button17.Size = new System.Drawing.Size(29, 29);
-            this.button17.TabIndex = 1;
-            this.button17.Text = ">";
-            this.button17.UseVisualStyleBackColor = true;
-            this.button17.Click += new System.EventHandler(this.OpenNumericDistributionForm);
+            button17.Location = new System.Drawing.Point(120, 41);
+            button17.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button17.Name = "button17";
+            button17.Size = new System.Drawing.Size(25, 22);
+            button17.TabIndex = 1;
+            button17.Text = ">";
+            button17.UseVisualStyleBackColor = true;
+            button17.Click += OpenNumericDistributionForm;
             // 
             // textBox13
             // 
-            this.textBox13.Location = new System.Drawing.Point(6, 56);
-            this.textBox13.Name = "textBox13";
-            this.textBox13.Size = new System.Drawing.Size(125, 27);
-            this.textBox13.TabIndex = 0;
+            textBox13.Location = new System.Drawing.Point(5, 42);
+            textBox13.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            textBox13.Name = "textBox13";
+            textBox13.Size = new System.Drawing.Size(110, 23);
+            textBox13.TabIndex = 0;
             // 
             // itemDistributionControl10
             // 
-            this.itemDistributionControl10.Location = new System.Drawing.Point(6, 118);
-            this.itemDistributionControl10.Name = "itemDistributionControl10";
-            this.itemDistributionControl10.Size = new System.Drawing.Size(173, 29);
-            this.itemDistributionControl10.TabIndex = 4;
-            this.itemDistributionControl10.Text = "Wild Encounters";
-            this.itemDistributionControl10.UseVisualStyleBackColor = true;
-            this.itemDistributionControl10.Click += new System.EventHandler(this.OpenItemDistributionForm);
+            itemDistributionControl10.Location = new System.Drawing.Point(5, 88);
+            itemDistributionControl10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            itemDistributionControl10.Name = "itemDistributionControl10";
+            itemDistributionControl10.Size = new System.Drawing.Size(151, 22);
+            itemDistributionControl10.TabIndex = 4;
+            itemDistributionControl10.Text = "Wild Encounters";
+            itemDistributionControl10.UseVisualStyleBackColor = true;
+            itemDistributionControl10.Click += OpenItemDistributionForm;
             // 
             // checkBox29
             // 
-            this.checkBox29.AutoSize = true;
-            this.checkBox29.Location = new System.Drawing.Point(6, 26);
-            this.checkBox29.Name = "checkBox29";
-            this.checkBox29.Size = new System.Drawing.Size(152, 24);
-            this.checkBox29.TabIndex = 1;
-            this.checkBox29.Text = "Random Pokémon";
-            this.checkBox29.UseVisualStyleBackColor = true;
+            checkBox29.AutoSize = true;
+            checkBox29.Location = new System.Drawing.Point(5, 20);
+            checkBox29.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox29.Name = "checkBox29";
+            checkBox29.Size = new System.Drawing.Size(125, 19);
+            checkBox29.TabIndex = 1;
+            checkBox29.Text = "Random Pokémon";
+            checkBox29.UseVisualStyleBackColor = true;
             // 
             // tabPage4
             // 
-            this.tabPage4.Controls.Add(this.groupBox33);
-            this.tabPage4.Controls.Add(this.groupBox31);
-            this.tabPage4.Controls.Add(this.groupBox30);
-            this.tabPage4.Controls.Add(this.groupBox29);
-            this.tabPage4.Controls.Add(this.groupBox27);
-            this.tabPage4.Location = new System.Drawing.Point(4, 29);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(1039, 616);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Misc.";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            tabPage4.Controls.Add(groupBox33);
+            tabPage4.Controls.Add(groupBox31);
+            tabPage4.Controls.Add(groupBox30);
+            tabPage4.Controls.Add(groupBox29);
+            tabPage4.Controls.Add(groupBox27);
+            tabPage4.Location = new System.Drawing.Point(4, 24);
+            tabPage4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            tabPage4.Name = "tabPage4";
+            tabPage4.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            tabPage4.Size = new System.Drawing.Size(908, 459);
+            tabPage4.TabIndex = 3;
+            tabPage4.Text = "Misc.";
+            tabPage4.UseVisualStyleBackColor = true;
             // 
             // groupBox33
             // 
-            this.groupBox33.Controls.Add(this.itemDistributionControl5);
-            this.groupBox33.Controls.Add(this.checkBox63);
-            this.groupBox33.Location = new System.Drawing.Point(133, 53);
-            this.groupBox33.Name = "groupBox33";
-            this.groupBox33.Size = new System.Drawing.Size(185, 120);
-            this.groupBox33.TabIndex = 5;
-            this.groupBox33.TabStop = false;
-            this.groupBox33.Text = "Type Matchups";
+            groupBox33.Controls.Add(itemDistributionControl5);
+            groupBox33.Controls.Add(checkBox63);
+            groupBox33.Location = new System.Drawing.Point(116, 40);
+            groupBox33.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox33.Name = "groupBox33";
+            groupBox33.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox33.Size = new System.Drawing.Size(162, 90);
+            groupBox33.TabIndex = 5;
+            groupBox33.TabStop = false;
+            groupBox33.Text = "Type Matchups";
             // 
             // itemDistributionControl5
             // 
-            this.itemDistributionControl5.Location = new System.Drawing.Point(6, 56);
-            this.itemDistributionControl5.Name = "itemDistributionControl5";
-            this.itemDistributionControl5.Size = new System.Drawing.Size(173, 29);
-            this.itemDistributionControl5.TabIndex = 6;
-            this.itemDistributionControl5.Text = "Type Matchups";
-            this.itemDistributionControl5.UseVisualStyleBackColor = true;
-            this.itemDistributionControl5.Click += new System.EventHandler(this.OpenItemDistributionForm);
+            itemDistributionControl5.Location = new System.Drawing.Point(5, 42);
+            itemDistributionControl5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            itemDistributionControl5.Name = "itemDistributionControl5";
+            itemDistributionControl5.Size = new System.Drawing.Size(151, 22);
+            itemDistributionControl5.TabIndex = 6;
+            itemDistributionControl5.Text = "Type Matchups";
+            itemDistributionControl5.UseVisualStyleBackColor = true;
+            itemDistributionControl5.Click += OpenItemDistributionForm;
             // 
             // checkBox63
             // 
-            this.checkBox63.AutoSize = true;
-            this.checkBox63.Location = new System.Drawing.Point(6, 26);
-            this.checkBox63.Name = "checkBox63";
-            this.checkBox63.Size = new System.Drawing.Size(155, 24);
-            this.checkBox63.TabIndex = 5;
-            this.checkBox63.Text = "Random Matchups";
-            this.checkBox63.UseVisualStyleBackColor = true;
+            checkBox63.AutoSize = true;
+            checkBox63.Location = new System.Drawing.Point(5, 20);
+            checkBox63.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox63.Name = "checkBox63";
+            checkBox63.Size = new System.Drawing.Size(127, 19);
+            checkBox63.TabIndex = 5;
+            checkBox63.Text = "Random Matchups";
+            checkBox63.UseVisualStyleBackColor = true;
             // 
             // groupBox31
             // 
-            this.groupBox31.Controls.Add(this.absoluteBoundaryDataGridView);
-            this.groupBox31.Location = new System.Drawing.Point(515, 53);
-            this.groupBox31.Name = "groupBox31";
-            this.groupBox31.Size = new System.Drawing.Size(376, 532);
-            this.groupBox31.TabIndex = 4;
-            this.groupBox31.TabStop = false;
-            this.groupBox31.Text = "Absolute Boundaries";
+            groupBox31.Controls.Add(absoluteBoundaryDataGridView);
+            groupBox31.Location = new System.Drawing.Point(451, 40);
+            groupBox31.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox31.Name = "groupBox31";
+            groupBox31.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox31.Size = new System.Drawing.Size(329, 399);
+            groupBox31.TabIndex = 4;
+            groupBox31.TabStop = false;
+            groupBox31.Text = "Absolute Boundaries";
             // 
             // absoluteBoundaryDataGridView
             // 
-            this.absoluteBoundaryDataGridView.AllowUserToAddRows = false;
-            this.absoluteBoundaryDataGridView.AllowUserToDeleteRows = false;
-            this.absoluteBoundaryDataGridView.AllowUserToResizeRows = false;
-            this.absoluteBoundaryDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.absoluteBoundaryDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.absoluteBoundaryDataGridView.Location = new System.Drawing.Point(6, 26);
-            this.absoluteBoundaryDataGridView.Name = "absoluteBoundaryDataGridView";
-            this.absoluteBoundaryDataGridView.RowHeadersVisible = false;
-            this.absoluteBoundaryDataGridView.RowHeadersWidth = 51;
-            this.absoluteBoundaryDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.absoluteBoundaryDataGridView.RowTemplate.Height = 29;
-            this.absoluteBoundaryDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.absoluteBoundaryDataGridView.Size = new System.Drawing.Size(364, 499);
-            this.absoluteBoundaryDataGridView.TabIndex = 3;
-            this.absoluteBoundaryDataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.DataError);
+            absoluteBoundaryDataGridView.AllowUserToAddRows = false;
+            absoluteBoundaryDataGridView.AllowUserToDeleteRows = false;
+            absoluteBoundaryDataGridView.AllowUserToResizeRows = false;
+            absoluteBoundaryDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            absoluteBoundaryDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            absoluteBoundaryDataGridView.Location = new System.Drawing.Point(5, 20);
+            absoluteBoundaryDataGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            absoluteBoundaryDataGridView.Name = "absoluteBoundaryDataGridView";
+            absoluteBoundaryDataGridView.RowHeadersVisible = false;
+            absoluteBoundaryDataGridView.RowHeadersWidth = 51;
+            absoluteBoundaryDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            absoluteBoundaryDataGridView.RowTemplate.Height = 29;
+            absoluteBoundaryDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            absoluteBoundaryDataGridView.Size = new System.Drawing.Size(318, 374);
+            absoluteBoundaryDataGridView.TabIndex = 3;
+            absoluteBoundaryDataGridView.DataError += DataError;
             // 
             // groupBox30
             // 
-            this.groupBox30.Controls.Add(this.label9);
-            this.groupBox30.Controls.Add(this.numericUpDown8);
-            this.groupBox30.Controls.Add(this.checkBox60);
-            this.groupBox30.Controls.Add(this.checkBox59);
-            this.groupBox30.Controls.Add(this.checkBox58);
-            this.groupBox30.Controls.Add(this.label8);
-            this.groupBox30.Controls.Add(this.checkBox57);
-            this.groupBox30.Location = new System.Drawing.Point(324, 179);
-            this.groupBox30.Name = "groupBox30";
-            this.groupBox30.Size = new System.Drawing.Size(185, 406);
-            this.groupBox30.TabIndex = 2;
-            this.groupBox30.TabStop = false;
-            this.groupBox30.Text = "Level Multiplier";
+            groupBox30.Controls.Add(label9);
+            groupBox30.Controls.Add(numericUpDown8);
+            groupBox30.Controls.Add(checkBox60);
+            groupBox30.Controls.Add(checkBox59);
+            groupBox30.Controls.Add(checkBox58);
+            groupBox30.Controls.Add(label8);
+            groupBox30.Controls.Add(checkBox57);
+            groupBox30.Location = new System.Drawing.Point(284, 134);
+            groupBox30.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox30.Name = "groupBox30";
+            groupBox30.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox30.Size = new System.Drawing.Size(162, 304);
+            groupBox30.TabIndex = 2;
+            groupBox30.TabStop = false;
+            groupBox30.Text = "Level Multiplier";
             // 
             // label9
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 183);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(119, 20);
-            this.label9.TabIndex = 13;
-            this.label9.Text = "Level Coefficient";
+            label9.AutoSize = true;
+            label9.Location = new System.Drawing.Point(5, 137);
+            label9.Name = "label9";
+            label9.Size = new System.Drawing.Size(95, 15);
+            label9.TabIndex = 13;
+            label9.Text = "Level Coefficient";
             // 
             // numericUpDown8
             // 
-            this.numericUpDown8.DecimalPlaces = 3;
-            this.numericUpDown8.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.numericUpDown8.Location = new System.Drawing.Point(6, 206);
-            this.numericUpDown8.Name = "numericUpDown8";
-            this.numericUpDown8.Size = new System.Drawing.Size(173, 27);
-            this.numericUpDown8.TabIndex = 12;
-            this.numericUpDown8.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            numericUpDown8.DecimalPlaces = 3;
+            numericUpDown8.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
+            numericUpDown8.Location = new System.Drawing.Point(5, 154);
+            numericUpDown8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericUpDown8.Name = "numericUpDown8";
+            numericUpDown8.Size = new System.Drawing.Size(151, 23);
+            numericUpDown8.TabIndex = 12;
+            numericUpDown8.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // checkBox60
             // 
-            this.checkBox60.AutoSize = true;
-            this.checkBox60.Location = new System.Drawing.Point(6, 156);
-            this.checkBox60.Name = "checkBox60";
-            this.checkBox60.Size = new System.Drawing.Size(141, 24);
-            this.checkBox60.TabIndex = 4;
-            this.checkBox60.Text = "Trainer Pokémon";
-            this.checkBox60.UseVisualStyleBackColor = true;
+            checkBox60.AutoSize = true;
+            checkBox60.Location = new System.Drawing.Point(5, 117);
+            checkBox60.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox60.Name = "checkBox60";
+            checkBox60.Size = new System.Drawing.Size(115, 19);
+            checkBox60.TabIndex = 4;
+            checkBox60.Text = "Trainer Pokémon";
+            checkBox60.UseVisualStyleBackColor = true;
             // 
             // checkBox59
             // 
-            this.checkBox59.AutoSize = true;
-            this.checkBox59.Location = new System.Drawing.Point(6, 126);
-            this.checkBox59.Name = "checkBox59";
-            this.checkBox59.Size = new System.Drawing.Size(138, 24);
-            this.checkBox59.TabIndex = 3;
-            this.checkBox59.Text = "Wild Encounters";
-            this.checkBox59.UseVisualStyleBackColor = true;
+            checkBox59.AutoSize = true;
+            checkBox59.Location = new System.Drawing.Point(5, 94);
+            checkBox59.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox59.Name = "checkBox59";
+            checkBox59.Size = new System.Drawing.Size(112, 19);
+            checkBox59.TabIndex = 3;
+            checkBox59.Text = "Wild Encounters";
+            checkBox59.UseVisualStyleBackColor = true;
             // 
             // checkBox58
             // 
-            this.checkBox58.AutoSize = true;
-            this.checkBox58.Location = new System.Drawing.Point(6, 96);
-            this.checkBox58.Name = "checkBox58";
-            this.checkBox58.Size = new System.Drawing.Size(135, 24);
-            this.checkBox58.TabIndex = 2;
-            this.checkBox58.Text = "Level Up Moves";
-            this.checkBox58.UseVisualStyleBackColor = true;
+            checkBox58.AutoSize = true;
+            checkBox58.Location = new System.Drawing.Point(5, 72);
+            checkBox58.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox58.Name = "checkBox58";
+            checkBox58.Size = new System.Drawing.Size(109, 19);
+            checkBox58.TabIndex = 2;
+            checkBox58.Text = "Level Up Moves";
+            checkBox58.UseVisualStyleBackColor = true;
             // 
             // label8
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 23);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(159, 40);
-            this.label8.TabIndex = 1;
-            this.label8.Text = "Takes place before any\r\nrandomizations.";
+            label8.AutoSize = true;
+            label8.Location = new System.Drawing.Point(5, 17);
+            label8.Name = "label8";
+            label8.Size = new System.Drawing.Size(125, 30);
+            label8.TabIndex = 1;
+            label8.Text = "Takes place before any\r\nrandomizations.";
             // 
             // checkBox57
             // 
-            this.checkBox57.AutoSize = true;
-            this.checkBox57.Location = new System.Drawing.Point(6, 66);
-            this.checkBox57.Name = "checkBox57";
-            this.checkBox57.Size = new System.Drawing.Size(137, 24);
-            this.checkBox57.TabIndex = 0;
-            this.checkBox57.Text = "Evolution Levels";
-            this.checkBox57.UseVisualStyleBackColor = true;
+            checkBox57.AutoSize = true;
+            checkBox57.Location = new System.Drawing.Point(5, 50);
+            checkBox57.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox57.Name = "checkBox57";
+            checkBox57.Size = new System.Drawing.Size(111, 19);
+            checkBox57.TabIndex = 0;
+            checkBox57.Text = "Evolution Levels";
+            checkBox57.UseVisualStyleBackColor = true;
             // 
             // groupBox29
             // 
-            this.groupBox29.Controls.Add(this.checkBox62);
-            this.groupBox29.Controls.Add(this.checkBox56);
-            this.groupBox29.Controls.Add(this.checkBox55);
-            this.groupBox29.Location = new System.Drawing.Point(324, 53);
-            this.groupBox29.Name = "groupBox29";
-            this.groupBox29.Size = new System.Drawing.Size(185, 120);
-            this.groupBox29.TabIndex = 1;
-            this.groupBox29.TabStop = false;
-            this.groupBox29.Text = "Text and Music";
+            groupBox29.Controls.Add(checkBox62);
+            groupBox29.Controls.Add(checkBox56);
+            groupBox29.Controls.Add(checkBox55);
+            groupBox29.Location = new System.Drawing.Point(284, 40);
+            groupBox29.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox29.Name = "groupBox29";
+            groupBox29.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox29.Size = new System.Drawing.Size(162, 90);
+            groupBox29.TabIndex = 1;
+            groupBox29.TabStop = false;
+            groupBox29.Text = "Text and Music";
             // 
             // checkBox62
             // 
-            this.checkBox62.AutoSize = true;
-            this.checkBox62.Location = new System.Drawing.Point(6, 86);
-            this.checkBox62.Name = "checkBox62";
-            this.checkBox62.Size = new System.Drawing.Size(113, 24);
-            this.checkBox62.TabIndex = 2;
-            this.checkBox62.Text = "Shuffle BGM";
-            this.checkBox62.UseVisualStyleBackColor = true;
+            checkBox62.AutoSize = true;
+            checkBox62.Location = new System.Drawing.Point(5, 64);
+            checkBox62.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox62.Name = "checkBox62";
+            checkBox62.Size = new System.Drawing.Size(92, 19);
+            checkBox62.TabIndex = 2;
+            checkBox62.Text = "Shuffle BGM";
+            checkBox62.UseVisualStyleBackColor = true;
             // 
             // checkBox56
             // 
-            this.checkBox56.AutoSize = true;
-            this.checkBox56.Location = new System.Drawing.Point(6, 56);
-            this.checkBox56.Name = "checkBox56";
-            this.checkBox56.Size = new System.Drawing.Size(178, 24);
-            this.checkBox56.TabIndex = 1;
-            this.checkBox56.Text = "Preserve String Length";
-            this.checkBox56.UseVisualStyleBackColor = true;
+            checkBox56.AutoSize = true;
+            checkBox56.Location = new System.Drawing.Point(5, 42);
+            checkBox56.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox56.Name = "checkBox56";
+            checkBox56.Size = new System.Drawing.Size(144, 19);
+            checkBox56.TabIndex = 1;
+            checkBox56.Text = "Preserve String Length";
+            checkBox56.UseVisualStyleBackColor = true;
             // 
             // checkBox55
             // 
-            this.checkBox55.AutoSize = true;
-            this.checkBox55.Location = new System.Drawing.Point(6, 26);
-            this.checkBox55.Name = "checkBox55";
-            this.checkBox55.Size = new System.Drawing.Size(108, 24);
-            this.checkBox55.TabIndex = 0;
-            this.checkBox55.Text = "Shuffle Text";
-            this.checkBox55.UseVisualStyleBackColor = true;
+            checkBox55.AutoSize = true;
+            checkBox55.Location = new System.Drawing.Point(5, 20);
+            checkBox55.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox55.Name = "checkBox55";
+            checkBox55.Size = new System.Drawing.Size(87, 19);
+            checkBox55.TabIndex = 0;
+            checkBox55.Text = "Shuffle Text";
+            checkBox55.UseVisualStyleBackColor = true;
             // 
             // groupBox27
             // 
-            this.groupBox27.Controls.Add(this.itemDistributionControl21);
-            this.groupBox27.Controls.Add(this.checkBox54);
-            this.groupBox27.Controls.Add(this.itemDistributionControl20);
-            this.groupBox27.Controls.Add(this.checkBox53);
-            this.groupBox27.Location = new System.Drawing.Point(133, 179);
-            this.groupBox27.Name = "groupBox27";
-            this.groupBox27.Size = new System.Drawing.Size(185, 406);
-            this.groupBox27.TabIndex = 0;
-            this.groupBox27.TabStop = false;
-            this.groupBox27.Text = "Scripts";
+            groupBox27.Controls.Add(itemDistributionControl21);
+            groupBox27.Controls.Add(checkBox54);
+            groupBox27.Controls.Add(itemDistributionControl20);
+            groupBox27.Controls.Add(checkBox53);
+            groupBox27.Location = new System.Drawing.Point(116, 134);
+            groupBox27.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox27.Name = "groupBox27";
+            groupBox27.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox27.Size = new System.Drawing.Size(162, 304);
+            groupBox27.TabIndex = 0;
+            groupBox27.TabStop = false;
+            groupBox27.Text = "Scripts";
             // 
             // itemDistributionControl21
             // 
-            this.itemDistributionControl21.Location = new System.Drawing.Point(6, 121);
-            this.itemDistributionControl21.Name = "itemDistributionControl21";
-            this.itemDistributionControl21.Size = new System.Drawing.Size(173, 29);
-            this.itemDistributionControl21.TabIndex = 6;
-            this.itemDistributionControl21.Text = "Scripted Items";
-            this.itemDistributionControl21.UseVisualStyleBackColor = true;
-            this.itemDistributionControl21.Click += new System.EventHandler(this.OpenItemDistributionForm);
+            itemDistributionControl21.Location = new System.Drawing.Point(5, 91);
+            itemDistributionControl21.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            itemDistributionControl21.Name = "itemDistributionControl21";
+            itemDistributionControl21.Size = new System.Drawing.Size(151, 22);
+            itemDistributionControl21.TabIndex = 6;
+            itemDistributionControl21.Text = "Scripted Items";
+            itemDistributionControl21.UseVisualStyleBackColor = true;
+            itemDistributionControl21.Click += OpenItemDistributionForm;
             // 
             // checkBox54
             // 
-            this.checkBox54.AutoSize = true;
-            this.checkBox54.Location = new System.Drawing.Point(6, 91);
-            this.checkBox54.Name = "checkBox54";
-            this.checkBox54.Size = new System.Drawing.Size(127, 24);
-            this.checkBox54.TabIndex = 5;
-            this.checkBox54.Text = "Random Items";
-            this.checkBox54.UseVisualStyleBackColor = true;
+            checkBox54.AutoSize = true;
+            checkBox54.Location = new System.Drawing.Point(5, 68);
+            checkBox54.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox54.Name = "checkBox54";
+            checkBox54.Size = new System.Drawing.Size(103, 19);
+            checkBox54.TabIndex = 5;
+            checkBox54.Text = "Random Items";
+            checkBox54.UseVisualStyleBackColor = true;
             // 
             // itemDistributionControl20
             // 
-            this.itemDistributionControl20.Location = new System.Drawing.Point(6, 56);
-            this.itemDistributionControl20.Name = "itemDistributionControl20";
-            this.itemDistributionControl20.Size = new System.Drawing.Size(173, 29);
-            this.itemDistributionControl20.TabIndex = 4;
-            this.itemDistributionControl20.Text = "Scripted Pokémon";
-            this.itemDistributionControl20.UseVisualStyleBackColor = true;
-            this.itemDistributionControl20.Click += new System.EventHandler(this.OpenItemDistributionForm);
+            itemDistributionControl20.Location = new System.Drawing.Point(5, 42);
+            itemDistributionControl20.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            itemDistributionControl20.Name = "itemDistributionControl20";
+            itemDistributionControl20.Size = new System.Drawing.Size(151, 22);
+            itemDistributionControl20.TabIndex = 4;
+            itemDistributionControl20.Text = "Scripted Pokémon";
+            itemDistributionControl20.UseVisualStyleBackColor = true;
+            itemDistributionControl20.Click += OpenItemDistributionForm;
             // 
             // checkBox53
             // 
-            this.checkBox53.AutoSize = true;
-            this.checkBox53.Location = new System.Drawing.Point(6, 26);
-            this.checkBox53.Name = "checkBox53";
-            this.checkBox53.Size = new System.Drawing.Size(152, 24);
-            this.checkBox53.TabIndex = 1;
-            this.checkBox53.Text = "Random Pokémon";
-            this.checkBox53.UseVisualStyleBackColor = true;
+            checkBox53.AutoSize = true;
+            checkBox53.Location = new System.Drawing.Point(5, 20);
+            checkBox53.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox53.Name = "checkBox53";
+            checkBox53.Size = new System.Drawing.Size(125, 19);
+            checkBox53.TabIndex = 1;
+            checkBox53.Text = "Random Pokémon";
+            checkBox53.UseVisualStyleBackColor = true;
             // 
             // groupBox28
             // 
-            this.groupBox28.Location = new System.Drawing.Point(0, 0);
-            this.groupBox28.Name = "groupBox28";
-            this.groupBox28.Size = new System.Drawing.Size(200, 100);
-            this.groupBox28.TabIndex = 0;
-            this.groupBox28.TabStop = false;
+            groupBox28.Location = new System.Drawing.Point(0, 0);
+            groupBox28.Name = "groupBox28";
+            groupBox28.Size = new System.Drawing.Size(200, 100);
+            groupBox28.TabIndex = 0;
+            groupBox28.TabStop = false;
             // 
             // pokemonEditorButton
             // 
-            this.pokemonEditorButton.Location = new System.Drawing.Point(6, 26);
-            this.pokemonEditorButton.Name = "pokemonEditorButton";
-            this.pokemonEditorButton.Size = new System.Drawing.Size(173, 29);
-            this.pokemonEditorButton.TabIndex = 3;
-            this.pokemonEditorButton.Text = "Pokémon Editor";
-            this.pokemonEditorButton.UseVisualStyleBackColor = true;
-            this.pokemonEditorButton.Click += new System.EventHandler(this.OpenPokemonEditor);
+            pokemonEditorButton.Location = new System.Drawing.Point(5, 20);
+            pokemonEditorButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            pokemonEditorButton.Name = "pokemonEditorButton";
+            pokemonEditorButton.Size = new System.Drawing.Size(151, 22);
+            pokemonEditorButton.TabIndex = 3;
+            pokemonEditorButton.Text = "Pokémon Editor";
+            pokemonEditorButton.UseVisualStyleBackColor = true;
+            pokemonEditorButton.Click += OpenPokemonEditor;
             // 
             // button24
             // 
-            this.button24.Location = new System.Drawing.Point(6, 61);
-            this.button24.Name = "button24";
-            this.button24.Size = new System.Drawing.Size(173, 29);
-            this.button24.TabIndex = 4;
-            this.button24.Text = "Move Editor";
-            this.button24.UseVisualStyleBackColor = true;
-            this.button24.Click += new System.EventHandler(this.OpenMoveEditor);
+            button24.Location = new System.Drawing.Point(5, 46);
+            button24.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button24.Name = "button24";
+            button24.Size = new System.Drawing.Size(151, 22);
+            button24.TabIndex = 4;
+            button24.Text = "Move Editor";
+            button24.UseVisualStyleBackColor = true;
+            button24.Click += OpenMoveEditor;
             // 
             // button25
             // 
-            this.button25.Location = new System.Drawing.Point(6, 96);
-            this.button25.Name = "button25";
-            this.button25.Size = new System.Drawing.Size(173, 29);
-            this.button25.TabIndex = 5;
-            this.button25.Text = "TM Editor";
-            this.button25.UseVisualStyleBackColor = true;
-            this.button25.Click += new System.EventHandler(this.OpenTMEditor);
+            button25.Location = new System.Drawing.Point(5, 72);
+            button25.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button25.Name = "button25";
+            button25.Size = new System.Drawing.Size(151, 22);
+            button25.TabIndex = 5;
+            button25.Text = "TM Editor";
+            button25.UseVisualStyleBackColor = true;
+            button25.Click += OpenTMEditor;
             // 
             // button26
             // 
-            this.button26.Location = new System.Drawing.Point(6, 131);
-            this.button26.Name = "button26";
-            this.button26.Size = new System.Drawing.Size(173, 29);
-            this.button26.TabIndex = 6;
-            this.button26.Text = "Item Editor";
-            this.button26.UseVisualStyleBackColor = true;
-            this.button26.Click += new System.EventHandler(this.OpenItemEditor);
+            button26.Location = new System.Drawing.Point(5, 98);
+            button26.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button26.Name = "button26";
+            button26.Size = new System.Drawing.Size(151, 22);
+            button26.TabIndex = 6;
+            button26.Text = "Item Editor";
+            button26.UseVisualStyleBackColor = true;
+            button26.Click += OpenItemEditor;
             // 
             // button27
             // 
-            this.button27.Location = new System.Drawing.Point(6, 166);
-            this.button27.Name = "button27";
-            this.button27.Size = new System.Drawing.Size(173, 29);
-            this.button27.TabIndex = 7;
-            this.button27.Text = "Pickup Table Editor";
-            this.button27.UseVisualStyleBackColor = true;
-            this.button27.Click += new System.EventHandler(this.OpenPickupEditor);
+            button27.Location = new System.Drawing.Point(5, 124);
+            button27.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button27.Name = "button27";
+            button27.Size = new System.Drawing.Size(151, 22);
+            button27.TabIndex = 7;
+            button27.Text = "Pickup Table Editor";
+            button27.UseVisualStyleBackColor = true;
+            button27.Click += OpenPickupEditor;
             // 
             // button28
             // 
-            this.button28.Location = new System.Drawing.Point(6, 201);
-            this.button28.Name = "button28";
-            this.button28.Size = new System.Drawing.Size(173, 29);
-            this.button28.TabIndex = 8;
-            this.button28.Text = "Shop Editor";
-            this.button28.UseVisualStyleBackColor = true;
-            this.button28.Click += new System.EventHandler(this.OpenShopEditor);
+            button28.Location = new System.Drawing.Point(5, 151);
+            button28.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button28.Name = "button28";
+            button28.Size = new System.Drawing.Size(151, 22);
+            button28.TabIndex = 8;
+            button28.Text = "Shop Editor";
+            button28.UseVisualStyleBackColor = true;
+            button28.Click += OpenShopEditor;
             // 
             // wildEncButton
             // 
-            this.wildEncButton.Location = new System.Drawing.Point(6, 236);
-            this.wildEncButton.Name = "wildEncButton";
-            this.wildEncButton.Size = new System.Drawing.Size(173, 29);
-            this.wildEncButton.TabIndex = 9;
-            this.wildEncButton.Text = "Wild Encounter Editor";
-            this.wildEncButton.UseVisualStyleBackColor = true;
-            this.wildEncButton.Click += new System.EventHandler(this.OpenWildEncounterEditors);
+            wildEncButton.Location = new System.Drawing.Point(5, 177);
+            wildEncButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            wildEncButton.Name = "wildEncButton";
+            wildEncButton.Size = new System.Drawing.Size(151, 22);
+            wildEncButton.TabIndex = 9;
+            wildEncButton.Text = "Wild Encounter Editor";
+            wildEncButton.UseVisualStyleBackColor = true;
+            wildEncButton.Click += OpenWildEncounterEditors;
             // 
             // button30
             // 
-            this.button30.Location = new System.Drawing.Point(6, 271);
-            this.button30.Name = "button30";
-            this.button30.Size = new System.Drawing.Size(173, 29);
-            this.button30.TabIndex = 10;
-            this.button30.Text = "Trainer Editor";
-            this.button30.UseVisualStyleBackColor = true;
-            this.button30.Click += new System.EventHandler(this.OpenTrainerEditor);
+            button30.Location = new System.Drawing.Point(5, 203);
+            button30.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button30.Name = "button30";
+            button30.Size = new System.Drawing.Size(151, 22);
+            button30.TabIndex = 10;
+            button30.Text = "Trainer Editor";
+            button30.UseVisualStyleBackColor = true;
+            button30.Click += OpenTrainerEditor;
+            // 
+            // buttonBattleTower
+            // 
+            buttonBattleTower.Location = new System.Drawing.Point(5, 203);
+            buttonBattleTower.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            buttonBattleTower.Name = "buttonBattleTower";
+            buttonBattleTower.Size = new System.Drawing.Size(151, 22);
+            buttonBattleTower.TabIndex = 10;
+            buttonBattleTower.Text = "Battle Tower Trainer Editor";
+            buttonBattleTower.UseVisualStyleBackColor = true;
+            buttonBattleTower.Click += OpenTrainerEditor;
             // 
             // groupBox32
             // 
-            this.groupBox32.Controls.Add(this.button23);
-            this.groupBox32.Controls.Add(this.button32);
-            this.groupBox32.Controls.Add(this.pokemonEditorButton);
-            this.groupBox32.Controls.Add(this.button30);
-            this.groupBox32.Controls.Add(this.button24);
-            this.groupBox32.Controls.Add(this.wildEncButton);
-            this.groupBox32.Controls.Add(this.button25);
-            this.groupBox32.Controls.Add(this.button28);
-            this.groupBox32.Controls.Add(this.button26);
-            this.groupBox32.Controls.Add(this.button27);
-            this.groupBox32.Location = new System.Drawing.Point(12, 158);
-            this.groupBox32.Name = "groupBox32";
-            this.groupBox32.Size = new System.Drawing.Size(185, 380);
-            this.groupBox32.TabIndex = 5;
-            this.groupBox32.TabStop = false;
-            this.groupBox32.Text = "Editors";
+            groupBox32.Controls.Add(button35);
+            groupBox32.Controls.Add(button23);
+            groupBox32.Controls.Add(button32);
+            groupBox32.Controls.Add(pokemonEditorButton);
+            groupBox32.Controls.Add(button30);
+            groupBox32.Controls.Add(buttonBattleTower);
+            groupBox32.Controls.Add(button24);
+            groupBox32.Controls.Add(wildEncButton);
+            groupBox32.Controls.Add(button25);
+            groupBox32.Controls.Add(button28);
+            groupBox32.Controls.Add(button26);
+            groupBox32.Controls.Add(button27);
+            groupBox32.Location = new System.Drawing.Point(10, 118);
+            groupBox32.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox32.Name = "groupBox32";
+            groupBox32.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox32.Size = new System.Drawing.Size(162, 348);
+            groupBox32.TabIndex = 5;
+            groupBox32.TabStop = false;
+            groupBox32.Text = "Editors";
+            // 
+            // button35
+            // 
+            button35.Location = new System.Drawing.Point(5, 308);
+            button35.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button35.Name = "button35";
+            button35.Size = new System.Drawing.Size(151, 22);
+            button35.TabIndex = 13;
+            button35.Text = "Battle Tower Poke Editor";
+            button35.UseVisualStyleBackColor = true;
+            button35.Click += button35_Click_1;
             // 
             // button23
             // 
-            this.button23.Location = new System.Drawing.Point(6, 341);
-            this.button23.Name = "button23";
-            this.button23.Size = new System.Drawing.Size(173, 29);
-            this.button23.TabIndex = 12;
-            this.button23.Text = "Global Metadata Editor";
-            this.button23.UseVisualStyleBackColor = true;
-            this.button23.Click += new System.EventHandler(this.OpenGlobalMetadataEditor);
+            button23.Location = new System.Drawing.Point(5, 256);
+            button23.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button23.Name = "button23";
+            button23.Size = new System.Drawing.Size(151, 22);
+            button23.TabIndex = 12;
+            button23.Text = "Global Metadata Editor";
+            button23.UseVisualStyleBackColor = true;
+            button23.Click += OpenGlobalMetadataEditor;
             // 
             // button32
             // 
-            this.button32.Location = new System.Drawing.Point(6, 306);
-            this.button32.Name = "button32";
-            this.button32.Size = new System.Drawing.Size(173, 29);
-            this.button32.TabIndex = 11;
-            this.button32.Text = "Type Matchup Editor";
-            this.button32.UseVisualStyleBackColor = true;
-            this.button32.Click += new System.EventHandler(this.OpenTypeMatchupEditor);
+            button32.Location = new System.Drawing.Point(5, 230);
+            button32.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button32.Name = "button32";
+            button32.Size = new System.Drawing.Size(151, 22);
+            button32.TabIndex = 11;
+            button32.Text = "Type Matchup Editor";
+            button32.UseVisualStyleBackColor = true;
+            button32.Click += OpenTypeMatchupEditor;
             // 
             // groupBox34
             // 
-            this.groupBox34.Controls.Add(this.button33);
-            this.groupBox34.Controls.Add(this.button29);
-            this.groupBox34.Location = new System.Drawing.Point(12, 544);
-            this.groupBox34.Name = "groupBox34";
-            this.groupBox34.Size = new System.Drawing.Size(185, 117);
-            this.groupBox34.TabIndex = 6;
-            this.groupBox34.TabStop = false;
-            this.groupBox34.Text = "Other Tools";
-            // 
-            // button29
-            // 
-            this.button29.Location = new System.Drawing.Point(6, 26);
-            this.button29.Name = "button29";
-            this.button29.Size = new System.Drawing.Size(173, 29);
-            this.button29.TabIndex = 13;
-            this.button29.Text = "Pokémon Inserter";
-            this.button29.UseVisualStyleBackColor = true;
-            this.button29.Click += new System.EventHandler(this.OpenPokemonInserter);
+            groupBox34.Controls.Add(button33);
+            groupBox34.Controls.Add(button29);
+            groupBox34.Location = new System.Drawing.Point(10, 470);
+            groupBox34.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox34.Name = "groupBox34";
+            groupBox34.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox34.Size = new System.Drawing.Size(162, 88);
+            groupBox34.TabIndex = 6;
+            groupBox34.TabStop = false;
+            groupBox34.Text = "Other Tools";
             // 
             // button33
             // 
-            this.button33.Location = new System.Drawing.Point(6, 61);
-            this.button33.Name = "button33";
-            this.button33.Size = new System.Drawing.Size(173, 29);
-            this.button33.TabIndex = 14;
-            this.button33.Text = "JSON Converter";
-            this.button33.UseVisualStyleBackColor = true;
-            this.button33.Click += new System.EventHandler(this.OpenJsonConverter);
+            button33.Location = new System.Drawing.Point(5, 49);
+            button33.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button33.Name = "button33";
+            button33.Size = new System.Drawing.Size(151, 22);
+            button33.TabIndex = 14;
+            button33.Text = "JSON Converter";
+            button33.UseVisualStyleBackColor = true;
+            button33.Click += OpenJsonConverter;
+            // 
+            // button29
+            // 
+            button29.Location = new System.Drawing.Point(5, 20);
+            button29.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button29.Name = "button29";
+            button29.Size = new System.Drawing.Size(151, 22);
+            button29.TabIndex = 13;
+            button29.Text = "Pokémon Inserter";
+            button29.UseVisualStyleBackColor = true;
+            button29.Click += OpenPokemonInserter;
+            // 
+            // button34
+            // 
+            button34.Location = new System.Drawing.Point(15, 400);
+            button34.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button34.Name = "button34";
+            button34.Size = new System.Drawing.Size(151, 22);
+            button34.TabIndex = 11;
+            button34.Text = "Battle Tower Trainer Editor";
+            button34.UseVisualStyleBackColor = true;
+            button34.Click += button34_Click;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1262, 673);
-            this.Controls.Add(this.groupBox34);
-            this.Controls.Add(this.groupBox32);
-            this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.groupBox2);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
-            this.Name = "MainForm";
-            this.Text = "Imposter\'s Ordeal";
-            this.Load += new System.EventHandler(this.MainForm_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.groupBox12.ResumeLayout(false);
-            this.numericDistributionControl2.ResumeLayout(false);
-            this.numericDistributionControl2.PerformLayout();
-            this.numericDistributionControl4.ResumeLayout(false);
-            this.numericDistributionControl4.PerformLayout();
-            this.numericDistributionControl3.ResumeLayout(false);
-            this.numericDistributionControl3.PerformLayout();
-            this.numericDistributionControl5.ResumeLayout(false);
-            this.numericDistributionControl5.PerformLayout();
-            this.groupBox11.ResumeLayout(false);
-            this.groupBox11.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
-            this.numericDistributionControl9.ResumeLayout(false);
-            this.numericDistributionControl9.PerformLayout();
-            this.groupBox10.ResumeLayout(false);
-            this.groupBox10.PerformLayout();
-            this.numericDistributionControl7.ResumeLayout(false);
-            this.numericDistributionControl7.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
-            this.numericDistributionControl6.ResumeLayout(false);
-            this.numericDistributionControl6.PerformLayout();
-            this.groupBox9.ResumeLayout(false);
-            this.groupBox9.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            this.numericDistributionControl1.ResumeLayout(false);
-            this.numericDistributionControl1.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.groupBox26.ResumeLayout(false);
-            this.groupBox26.PerformLayout();
-            this.groupBox25.ResumeLayout(false);
-            this.groupBox25.PerformLayout();
-            this.groupBox23.ResumeLayout(false);
-            this.groupBox23.PerformLayout();
-            this.numericDistributionControl18.ResumeLayout(false);
-            this.numericDistributionControl18.PerformLayout();
-            this.numericDistributionControl11.ResumeLayout(false);
-            this.numericDistributionControl11.PerformLayout();
-            this.numericDistributionControl10.ResumeLayout(false);
-            this.numericDistributionControl10.PerformLayout();
-            this.numericDistributionControl8.ResumeLayout(false);
-            this.numericDistributionControl8.PerformLayout();
-            this.groupBox14.ResumeLayout(false);
-            this.groupBox14.PerformLayout();
-            this.groupBox13.ResumeLayout(false);
-            this.groupBox13.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
-            this.groupBox18.ResumeLayout(false);
-            this.groupBox24.ResumeLayout(false);
-            this.groupBox24.PerformLayout();
-            this.numericDistributionControl17.ResumeLayout(false);
-            this.numericDistributionControl17.PerformLayout();
-            this.numericDistributionControl16.ResumeLayout(false);
-            this.numericDistributionControl16.PerformLayout();
-            this.groupBox22.ResumeLayout(false);
-            this.groupBox22.PerformLayout();
-            this.groupBox21.ResumeLayout(false);
-            this.groupBox21.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).EndInit();
-            this.groupBox20.ResumeLayout(false);
-            this.groupBox20.PerformLayout();
-            this.numericDistributionControl15.ResumeLayout(false);
-            this.numericDistributionControl15.PerformLayout();
-            this.groupBox19.ResumeLayout(false);
-            this.groupBox19.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
-            this.groupBox17.ResumeLayout(false);
-            this.groupBox17.PerformLayout();
-            this.numericDistributionControl14.ResumeLayout(false);
-            this.numericDistributionControl14.PerformLayout();
-            this.groupBox16.ResumeLayout(false);
-            this.groupBox16.PerformLayout();
-            this.numericDistributionControl13.ResumeLayout(false);
-            this.numericDistributionControl13.PerformLayout();
-            this.groupBox15.ResumeLayout(false);
-            this.groupBox15.PerformLayout();
-            this.numericDistributionControl12.ResumeLayout(false);
-            this.numericDistributionControl12.PerformLayout();
-            this.tabPage4.ResumeLayout(false);
-            this.groupBox33.ResumeLayout(false);
-            this.groupBox33.PerformLayout();
-            this.groupBox31.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.absoluteBoundaryDataGridView)).EndInit();
-            this.groupBox30.ResumeLayout(false);
-            this.groupBox30.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown8)).EndInit();
-            this.groupBox29.ResumeLayout(false);
-            this.groupBox29.PerformLayout();
-            this.groupBox27.ResumeLayout(false);
-            this.groupBox27.PerformLayout();
-            this.groupBox32.ResumeLayout(false);
-            this.groupBox34.ResumeLayout(false);
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(1104, 675);
+            Controls.Add(button34);
+            Controls.Add(groupBox34);
+            Controls.Add(groupBox32);
+            Controls.Add(tabControl1);
+            Controls.Add(groupBox2);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+            Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            MaximizeBox = false;
+            Name = "MainForm";
+            Text = "Imposter's Ordeal";
+            Load += MainForm_Load;
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            tabControl1.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
+            groupBox12.ResumeLayout(false);
+            numericDistributionControl2.ResumeLayout(false);
+            numericDistributionControl2.PerformLayout();
+            numericDistributionControl4.ResumeLayout(false);
+            numericDistributionControl4.PerformLayout();
+            numericDistributionControl3.ResumeLayout(false);
+            numericDistributionControl3.PerformLayout();
+            numericDistributionControl5.ResumeLayout(false);
+            numericDistributionControl5.PerformLayout();
+            groupBox11.ResumeLayout(false);
+            groupBox11.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown5).EndInit();
+            numericDistributionControl9.ResumeLayout(false);
+            numericDistributionControl9.PerformLayout();
+            groupBox10.ResumeLayout(false);
+            groupBox10.PerformLayout();
+            numericDistributionControl7.ResumeLayout(false);
+            numericDistributionControl7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown4).EndInit();
+            numericDistributionControl6.ResumeLayout(false);
+            numericDistributionControl6.PerformLayout();
+            groupBox9.ResumeLayout(false);
+            groupBox9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown3).EndInit();
+            groupBox8.ResumeLayout(false);
+            groupBox8.PerformLayout();
+            groupBox7.ResumeLayout(false);
+            groupBox7.PerformLayout();
+            groupBox6.ResumeLayout(false);
+            groupBox6.PerformLayout();
+            groupBox5.ResumeLayout(false);
+            groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            groupBox4.ResumeLayout(false);
+            groupBox4.PerformLayout();
+            numericDistributionControl1.ResumeLayout(false);
+            numericDistributionControl1.PerformLayout();
+            groupBox3.ResumeLayout(false);
+            groupBox3.PerformLayout();
+            tabPage2.ResumeLayout(false);
+            groupBox26.ResumeLayout(false);
+            groupBox26.PerformLayout();
+            groupBox25.ResumeLayout(false);
+            groupBox25.PerformLayout();
+            groupBox23.ResumeLayout(false);
+            groupBox23.PerformLayout();
+            numericDistributionControl18.ResumeLayout(false);
+            numericDistributionControl18.PerformLayout();
+            numericDistributionControl11.ResumeLayout(false);
+            numericDistributionControl11.PerformLayout();
+            numericDistributionControl10.ResumeLayout(false);
+            numericDistributionControl10.PerformLayout();
+            numericDistributionControl8.ResumeLayout(false);
+            numericDistributionControl8.PerformLayout();
+            groupBox14.ResumeLayout(false);
+            groupBox14.PerformLayout();
+            groupBox13.ResumeLayout(false);
+            groupBox13.PerformLayout();
+            tabPage3.ResumeLayout(false);
+            groupBox18.ResumeLayout(false);
+            groupBox24.ResumeLayout(false);
+            groupBox24.PerformLayout();
+            numericDistributionControl17.ResumeLayout(false);
+            numericDistributionControl17.PerformLayout();
+            numericDistributionControl16.ResumeLayout(false);
+            numericDistributionControl16.PerformLayout();
+            groupBox22.ResumeLayout(false);
+            groupBox22.PerformLayout();
+            groupBox21.ResumeLayout(false);
+            groupBox21.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown7).EndInit();
+            groupBox20.ResumeLayout(false);
+            groupBox20.PerformLayout();
+            numericDistributionControl15.ResumeLayout(false);
+            numericDistributionControl15.PerformLayout();
+            groupBox19.ResumeLayout(false);
+            groupBox19.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown6).EndInit();
+            groupBox17.ResumeLayout(false);
+            groupBox17.PerformLayout();
+            numericDistributionControl14.ResumeLayout(false);
+            numericDistributionControl14.PerformLayout();
+            groupBox16.ResumeLayout(false);
+            groupBox16.PerformLayout();
+            numericDistributionControl13.ResumeLayout(false);
+            numericDistributionControl13.PerformLayout();
+            groupBox15.ResumeLayout(false);
+            groupBox15.PerformLayout();
+            numericDistributionControl12.ResumeLayout(false);
+            numericDistributionControl12.PerformLayout();
+            tabPage4.ResumeLayout(false);
+            groupBox33.ResumeLayout(false);
+            groupBox33.PerformLayout();
+            groupBox31.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)absoluteBoundaryDataGridView).EndInit();
+            groupBox30.ResumeLayout(false);
+            groupBox30.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown8).EndInit();
+            groupBox29.ResumeLayout(false);
+            groupBox29.PerformLayout();
+            groupBox27.ResumeLayout(false);
+            groupBox27.PerformLayout();
+            groupBox32.ResumeLayout(false);
+            groupBox34.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion
@@ -2880,6 +3163,7 @@ namespace ImpostersOrdeal
         public System.Windows.Forms.Button button28;
         public System.Windows.Forms.Button wildEncButton;
         public System.Windows.Forms.Button button30;
+        public System.Windows.Forms.Button buttonBattleTower;
         private System.Windows.Forms.GroupBox groupBox32;
         public System.Windows.Forms.Button button32;
         public System.Windows.Forms.CheckBox checkBox62;
@@ -2890,5 +3174,7 @@ namespace ImpostersOrdeal
         private System.Windows.Forms.GroupBox groupBox34;
         public System.Windows.Forms.Button button29;
         public System.Windows.Forms.Button button33;
+        public System.Windows.Forms.Button button34;
+        public System.Windows.Forms.Button button35;
     }
 }

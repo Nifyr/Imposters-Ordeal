@@ -21,6 +21,8 @@ namespace ImpostersOrdeal
             public List<PickupItem> pickupItems;
             public ShopTables shopTables;
             public List<Trainer> trainers;
+            public List<BattleTowerTrainer> battleTowerTrainers;
+            public List<BattleTowerTrainerPokemon> battleTowerTrainerPokemons;
             public EncounterTableFile[] encounterTableFiles;
             public MessageFileSet[] messageFileSets;
             public List<GrowthRate> growthRates;
@@ -66,6 +68,8 @@ namespace ImpostersOrdeal
                 PickupItems,
                 ShopTables,
                 Trainers,
+                BattleTowerTrainers,
+                battleTowerTrainerPokemons,
                 EncounterTableFiles,
                 MessageFileSets,
                 GrowthRates,

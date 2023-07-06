@@ -329,10 +329,5 @@ namespace ImpostersOrdeal
             listBox.DataSource = trainers.Select(o => o.GetID() + " - " + o.GetName()).ToArray();
             listBox.SelectedIndex = index;
         }
-
-        private void partyDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
     }
 }
