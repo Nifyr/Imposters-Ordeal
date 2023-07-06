@@ -468,6 +468,15 @@ namespace ImpostersOrdeal
                 spDefEV = (byte)evs[4];
                 spdEV = (byte)evs[5];
             }
+            public uint GetID()
+            {
+                return pokemonID;
+            }
+
+            public int GetName()
+            {   
+                return dexID;
+            }
         }
 
         public class BattleTowerTrainer : INamedEntity
