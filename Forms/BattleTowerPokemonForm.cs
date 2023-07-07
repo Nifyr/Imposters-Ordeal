@@ -31,7 +31,7 @@ namespace ImpostersOrdeal.Forms
         {
             "Sort by ID",
             "Sort by pokedex order",
-            "Sort by species"
+            "Sort by species name"
         };
 
         private readonly Comparison<BattleTowerTrainerPokemon>[] sortComparisons = new Comparison<BattleTowerTrainerPokemon>[]
