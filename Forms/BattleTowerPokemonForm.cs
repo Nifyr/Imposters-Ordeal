@@ -38,9 +38,7 @@ namespace ImpostersOrdeal.Forms
         {
             (t1, t2) => t1.GetID().CompareTo(t2.GetID()),
             (t1, t2) => t1.GetName().CompareTo(t2.GetName()),
-            //(t1, t2) => t1.GetName().CompareTo(t2.GetName()),
-           (t1, t2) => String.Compare(gameData.dexEntries[t1.dexID].GetName(), gameData.dexEntries[t2.dexID].GetName(), StringComparison.Ordinal),
-        //    (t1, t2) => t1.GetAvgLevel().CompareTo(t2.GetAvgLevel())
+            (t1, t2) => String.Compare(gameData.dexEntries[t1.dexID].GetName(), gameData.dexEntries[t2.dexID].GetName(), StringComparison.Ordinal),
         };
 
         private readonly string[] genders = new string[]
@@ -278,13 +276,6 @@ namespace ImpostersOrdeal.Forms
             comboBox10.SelectedIndexChanged += CommitEdit;
             sortByComboBox.SelectedIndexChanged += SortChanged;
             listBox.SelectedIndexChanged += PokemonChanged;
-
-            /*  trainerTypeComboBox.SelectedIndexChanged += CommitEdit;
-              trainerNameComboBox.SelectedIndexChanged += CommitNameEdit;
-              arenaIDNumericUpDown.ValueChanged += CommitEdit;
-              effectIDNumericUpDown.ValueChanged += CommitEdit;*/
-
-            //  partyDataGridView.CellContentClick += ConfigureTP;
         }
 
         private void DeactivateControls()
@@ -321,6 +312,7 @@ namespace ImpostersOrdeal.Forms
             comboBox9.SelectedIndexChanged -= CommitEdit;
             comboBox10.SelectedIndexChanged -= CommitEdit;
             listBox.SelectedIndexChanged -= PokemonChanged;
+            sortByComboBox.SelectedIndexChanged -= SortChanged;
         }
 
         private void ResetFormComboBox()
