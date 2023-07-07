@@ -154,7 +154,9 @@ namespace ImpostersOrdeal.Forms
 
         private void RefreshTextBoxDisplay()
         {
-            //    trainerDisplayTextBox.Text = t.GetID() + " - " + trainerTypeNames[t.trainerTypeID] + " " + t.GetName();
+            string nameDisplay = pokemonName = gameData.dexEntries[tp.dexID].GetName(); ;
+           // trainerDisplayTextBox.Text = t.GetID() + " - " + trainerTypeNames[t.trainerTypeID] + " " + t.GetName();
+            trainerDisplayTextBox.Text = tp.GetID() + " - " + " " + nameDisplay;
         }
 
         private void PopulatePartyDataGridView()
@@ -331,7 +333,7 @@ namespace ImpostersOrdeal.Forms
             int index = listBox.SelectedIndex;
             if (index < 0)
                 index = 0;
-            listBox.DataSource = battleTowerTrainerPokemons.Select(o => o.GetID() + " - " + o.GetName()).ToArray();
+            listBox.DataSource = battleTowerTrainerPokemons.Select(o => o.GetID() + " - " + String.Join(", ", gameData.dexEntries[o.dexID].GetName())).ToArray();
             listBox.SelectedIndex = index;
         }
     }
