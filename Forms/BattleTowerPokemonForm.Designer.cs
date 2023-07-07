@@ -154,6 +154,7 @@
             label2.Size = new System.Drawing.Size(35, 15);
             label2.TabIndex = 3;
             label2.Text = "Form";
+            label2.Click += label2_Click;
             // 
             // formComboBox
             // 

@@ -127,7 +127,7 @@ namespace ImpostersOrdeal.Forms
             DeactivateControls();
 
             tp.dexID = (ushort)(speciesComboBox.SelectedIndex == -1 ? 0 : speciesComboBox.SelectedIndex);
-            tp.formID = 0;
+            // tp.formID = 0;
             ResetFormComboBox();
             PopulateListBox();
             CommitEdit(sender, e);
@@ -148,14 +148,13 @@ namespace ImpostersOrdeal.Forms
             RefreshTextBoxDisplay();
 
             PopulatePartyDataGridView();
-            
+
             //OnLoad();
         }
 
         private void RefreshTextBoxDisplay()
         {
             string nameDisplay = pokemonName = gameData.dexEntries[tp.dexID].GetName(); ;
-           // trainerDisplayTextBox.Text = t.GetID() + " - " + trainerTypeNames[t.trainerTypeID] + " " + t.GetName();
             trainerDisplayTextBox.Text = tp.GetID() + " - " + " " + nameDisplay;
         }
 
@@ -319,7 +318,8 @@ namespace ImpostersOrdeal.Forms
         {
             formComboBox.SelectedIndex = -1;
             formComboBox.DataSource = gameData.dexEntries[tp.dexID].forms.Select((p, i) => i.ToString()).ToArray();
-            //   formComboBox.SelectedIndex = tp.formID;
+            int convertedFormID = (int)tp.formID;
+            formComboBox.SelectedIndex = convertedFormID;
         }
 
         private void PopulateListBox()
@@ -339,6 +339,11 @@ namespace ImpostersOrdeal.Forms
             listBox.SelectedIndex = battleTowerTrainerPokemons.IndexOf(t);
 
             ActivateControls();
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

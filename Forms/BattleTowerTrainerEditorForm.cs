@@ -30,7 +30,7 @@ namespace ImpostersOrdeal.Forms
         {
             "Sort by ID",
             "Sort by name",
-            "Sort by level"
+           // "Sort by level"
         };
 
         private readonly Comparison<BattleTowerTrainer>[] sortComparisons = new Comparison<BattleTowerTrainer>[]
