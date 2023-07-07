@@ -30,14 +30,16 @@ namespace ImpostersOrdeal.Forms
         private readonly string[] sortNames = new string[]
         {
             "Sort by ID",
-            "Sort by species",
+            "Sort by pokedex order",
+            "Sort by species"
         };
 
         private readonly Comparison<BattleTowerTrainerPokemon>[] sortComparisons = new Comparison<BattleTowerTrainerPokemon>[]
         {
             (t1, t2) => t1.GetID().CompareTo(t2.GetID()),
             (t1, t2) => t1.GetName().CompareTo(t2.GetName()),
-         //   (t1, t2) => gameData.dexEntries[t1.GetName()].CompareTo(gameData.dexEntries[t2.GetName()]),
+            //(t1, t2) => t1.GetName().CompareTo(t2.GetName()),
+           (t1, t2) => String.Compare(gameData.dexEntries[t1.dexID].GetName(), gameData.dexEntries[t2.dexID].GetName(), StringComparison.Ordinal),
         //    (t1, t2) => t1.GetAvgLevel().CompareTo(t2.GetAvgLevel())
         };
 
@@ -113,7 +115,7 @@ namespace ImpostersOrdeal.Forms
             comboBox8.SelectedIndex = tp.moveID2;
             comboBox9.SelectedIndex = tp.moveID3;
             comboBox10.SelectedIndex = tp.moveID4;
-
+            RefreshTextBoxDisplay();
             ActivateControls();
         }
 
@@ -129,7 +131,7 @@ namespace ImpostersOrdeal.Forms
             tp.dexID = (ushort)(speciesComboBox.SelectedIndex == -1 ? 0 : speciesComboBox.SelectedIndex);
             tp.formID = 0;
             ResetFormComboBox();
-
+            PopulateListBox();
             CommitEdit(sender, e);
             ActivateControls();
         }
@@ -140,7 +142,6 @@ namespace ImpostersOrdeal.Forms
 
             tp = battleTowerTrainerPokemons[listBox.SelectedIndex];
             RefreshPokemonDisplay();
-
             ActivateControls();
         }
 
@@ -149,6 +150,7 @@ namespace ImpostersOrdeal.Forms
             RefreshTextBoxDisplay();
 
             PopulatePartyDataGridView();
+            
             //OnLoad();
         }
 
@@ -274,7 +276,7 @@ namespace ImpostersOrdeal.Forms
             comboBox8.SelectedIndexChanged += CommitEdit;
             comboBox9.SelectedIndexChanged += CommitEdit;
             comboBox10.SelectedIndexChanged += CommitEdit;
-            //  sortByComboBox.SelectedIndexChanged += SortChanged;
+            sortByComboBox.SelectedIndexChanged += SortChanged;
             listBox.SelectedIndexChanged += PokemonChanged;
 
             /*  trainerTypeComboBox.SelectedIndexChanged += CommitEdit;
@@ -335,6 +337,16 @@ namespace ImpostersOrdeal.Forms
                 index = 0;
             listBox.DataSource = battleTowerTrainerPokemons.Select(o => o.GetID() + " - " + String.Join(", ", gameData.dexEntries[o.dexID].GetName())).ToArray();
             listBox.SelectedIndex = index;
+        }
+        private void SortChanged(object sender, EventArgs e)
+        {
+            DeactivateControls();
+
+            battleTowerTrainerPokemons.Sort(sortComparisons[sortByComboBox.SelectedIndex]);
+            PopulateListBox();
+            listBox.SelectedIndex = battleTowerTrainerPokemons.IndexOf(t);
+
+            ActivateControls();
         }
     }
 }
