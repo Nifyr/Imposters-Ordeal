@@ -1888,6 +1888,7 @@ CommitShopTables();
 if (gameData.IsModified(GameDataSet.DataField.Trainers))
 CommitTrainers();
 CommitBattleTowerPokemon();
+CommitBattleTowerTrainers();
 if (gameData.IsModified(GameDataSet.DataField.battleTowerTrainerPokemons))
 CommitBattleTowerPokemon();
 if (gameData.IsModified(GameDataSet.DataField.EncounterTableFiles))
@@ -3135,67 +3136,20 @@ fileManager.WriteMonoBehaviour(PathEnum.DprMasterdatas, monoBehaviour);
 /// </summary>
 private static void CommitBattleTowerTrainers()
 {
-AssetTypeValueField monoBehaviour = fileManager.GetMonoBehaviours(PathEnum.DprMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "TrainerTable");
+AssetTypeValueField monoBehaviour = fileManager.GetMonoBehaviours(PathEnum.DprMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "TowerSingleStockTable");
 
-AssetTypeValueField[] trainerFields = monoBehaviour.children[5].children[0].children;
-for (int trainerIdx = 0; trainerIdx < gameData.trainers.Count; trainerIdx++)
+AssetTypeValueField[] trainerFields = monoBehaviour.children[4].children[0].children;
+for (int trainerIdx = 0; trainerIdx < trainerFields.Length; trainerIdx++)
 {
-Trainer trainer = gameData.trainers[trainerIdx];
-trainerFields[trainerIdx].children[0].GetValue().Set(trainer.trainerTypeID);
-trainerFields[trainerIdx].children[1].GetValue().Set(trainer.colorID);
-trainerFields[trainerIdx].children[2].GetValue().Set(trainer.fightType);
-trainerFields[trainerIdx].children[3].GetValue().Set(trainer.arenaID);
-trainerFields[trainerIdx].children[4].GetValue().Set(trainer.effectID);
-trainerFields[trainerIdx].children[5].GetValue().Set(trainer.gold);
-trainerFields[trainerIdx].children[6].GetValue().Set(trainer.useItem1);
-trainerFields[trainerIdx].children[7].GetValue().Set(trainer.useItem2);
-trainerFields[trainerIdx].children[8].GetValue().Set(trainer.useItem3);
-trainerFields[trainerIdx].children[9].GetValue().Set(trainer.useItem4);
-trainerFields[trainerIdx].children[10].GetValue().Set(trainer.hpRecoverFlag);
-trainerFields[trainerIdx].children[11].GetValue().Set(trainer.giftItem);
-trainerFields[trainerIdx].children[12].GetValue().Set(trainer.nameLabel);
-trainerFields[trainerIdx].children[19].GetValue().Set(trainer.aiBit);
-
-//Write trainer pokemon
-List<List<AssetTypeValue>> tranierPokemons = new();
-List<AssetTypeValue> atvs = new();
-atvs.Add(monoBehaviour.children[6].children[0].children[trainerIdx].children[0].GetValue());
-for (int trainerPokemonIdx = 0; trainerPokemonIdx < (int)GetBoundaries(AbsoluteBoundary.TrainerPokemonCount)[2]; trainerPokemonIdx++)
-{
-    TrainerPokemon trainerPokemon = new();
-    if (gameData.trainers[trainerIdx].trainerPokemon.Count > trainerPokemonIdx)
-        trainerPokemon = gameData.trainers[trainerIdx].trainerPokemon[trainerPokemonIdx];
-    atvs.Add(new AssetTypeValue(EnumValueTypes.UInt16, trainerPokemon.dexID));
-    atvs.Add(new AssetTypeValue(EnumValueTypes.UInt16, trainerPokemon.formID));
-    atvs.Add(new AssetTypeValue(EnumValueTypes.UInt8, trainerPokemon.isRare));
-    atvs.Add(new AssetTypeValue(EnumValueTypes.UInt8, trainerPokemon.level));
-    atvs.Add(new AssetTypeValue(EnumValueTypes.UInt8, trainerPokemon.sex));
-    atvs.Add(new AssetTypeValue(EnumValueTypes.UInt8, trainerPokemon.natureID));
-    atvs.Add(new AssetTypeValue(EnumValueTypes.UInt16, trainerPokemon.abilityID));
-    atvs.Add(new AssetTypeValue(EnumValueTypes.UInt16, trainerPokemon.moveID1));
-    atvs.Add(new AssetTypeValue(EnumValueTypes.UInt16, trainerPokemon.moveID2));
-    atvs.Add(new AssetTypeValue(EnumValueTypes.UInt16, trainerPokemon.moveID3));
-    atvs.Add(new AssetTypeValue(EnumValueTypes.UInt16, trainerPokemon.moveID4));
-    atvs.Add(new AssetTypeValue(EnumValueTypes.UInt16, trainerPokemon.itemID));
-    atvs.Add(new AssetTypeValue(EnumValueTypes.UInt8, trainerPokemon.ballID));
-    atvs.Add(new AssetTypeValue(EnumValueTypes.Int32, trainerPokemon.seal));
-    atvs.Add(new AssetTypeValue(EnumValueTypes.UInt8, trainerPokemon.hpIV));
-    atvs.Add(new AssetTypeValue(EnumValueTypes.UInt8, trainerPokemon.atkIV));
-    atvs.Add(new AssetTypeValue(EnumValueTypes.UInt8, trainerPokemon.defIV));
-    atvs.Add(new AssetTypeValue(EnumValueTypes.UInt8, trainerPokemon.spAtkIV));
-    atvs.Add(new AssetTypeValue(EnumValueTypes.UInt8, trainerPokemon.spDefIV));
-    atvs.Add(new AssetTypeValue(EnumValueTypes.UInt8, trainerPokemon.spdIV));
-    atvs.Add(new AssetTypeValue(EnumValueTypes.UInt8, trainerPokemon.hpEV));
-    atvs.Add(new AssetTypeValue(EnumValueTypes.UInt8, trainerPokemon.atkEV));
-    atvs.Add(new AssetTypeValue(EnumValueTypes.UInt8, trainerPokemon.defEV));
-    atvs.Add(new AssetTypeValue(EnumValueTypes.UInt8, trainerPokemon.spAtkEV));
-    atvs.Add(new AssetTypeValue(EnumValueTypes.UInt8, trainerPokemon.spDefEV));
-    atvs.Add(new AssetTypeValue(EnumValueTypes.UInt8, trainerPokemon.spdEV));
-}
-tranierPokemons.Add(atvs);
-AssetTypeValueField trainerPokemonsReference = monoBehaviour.children[6].children[0].children[trainerIdx];
-monoBehaviour.children[6].children[0].children[trainerIdx] = GetATVFs(trainerPokemonsReference, tranierPokemons)[0];
-}
+BattleTowerTrainer trainer = gameData.battleTowerTrainers[trainerIdx];
+trainerFields[trainerIdx].children[0].GetValue().Set(trainer.trainerID2);
+trainerFields[trainerIdx].children[1].GetValue().Set(trainer.trainerTypeID);
+trainerFields[trainerIdx].children[2].children[0].children[0].GetValue().Set(trainer.battleTowerPokemonID1);
+trainerFields[trainerIdx].children[2].children[0].children[1].GetValue().Set(trainer.battleTowerPokemonID2);
+trainerFields[trainerIdx].children[2].children[0].children[2].GetValue().Set(trainer.battleTowerPokemonID3);
+trainerFields[trainerIdx].children[3].GetValue().Set(trainer.battleBGM);
+trainerFields[trainerIdx].children[4].GetValue().Set(trainer.winBGM);
+            }
 
 fileManager.WriteMonoBehaviour(PathEnum.DprMasterdatas, monoBehaviour);
 }

@@ -31,15 +31,13 @@
             listBox = new System.Windows.Forms.ListBox();
             trainerDisplayTextBox = new System.Windows.Forms.TextBox();
             groupBox4 = new System.Windows.Forms.GroupBox();
-            ShowdownButton = new System.Windows.Forms.Button();
-            pasteButton = new System.Windows.Forms.Button();
-            copyButton = new System.Windows.Forms.Button();
             partyDataGridView = new System.Windows.Forms.DataGridView();
             tpDisplayColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            tpButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
+            pokemonSelector = new System.Windows.Forms.DataGridViewComboBoxColumn();
             button1 = new System.Windows.Forms.Button();
             sortByComboBox = new System.Windows.Forms.ComboBox();
             button2 = new System.Windows.Forms.Button();
+            Column1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)partyDataGridView).BeginInit();
             SuspendLayout();
@@ -65,55 +63,28 @@
             // 
             // groupBox4
             // 
-            groupBox4.Controls.Add(ShowdownButton);
-            groupBox4.Controls.Add(pasteButton);
-            groupBox4.Controls.Add(copyButton);
             groupBox4.Controls.Add(partyDataGridView);
-            groupBox4.Location = new System.Drawing.Point(352, 126);
+            groupBox4.Location = new System.Drawing.Point(182, 36);
             groupBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             groupBox4.Name = "groupBox4";
             groupBox4.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            groupBox4.Size = new System.Drawing.Size(336, 264);
+            groupBox4.Size = new System.Drawing.Size(659, 264);
             groupBox4.TabIndex = 7;
             groupBox4.TabStop = false;
             groupBox4.Text = "Party";
-            // 
-            // ShowdownButton
-            // 
-            ShowdownButton.Location = new System.Drawing.Point(0, 0);
-            ShowdownButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            ShowdownButton.Name = "ShowdownButton";
-            ShowdownButton.Size = new System.Drawing.Size(66, 17);
-            ShowdownButton.TabIndex = 0;
-            // 
-            // pasteButton
-            // 
-            pasteButton.Location = new System.Drawing.Point(0, 0);
-            pasteButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            pasteButton.Name = "pasteButton";
-            pasteButton.Size = new System.Drawing.Size(66, 17);
-            pasteButton.TabIndex = 1;
-            // 
-            // copyButton
-            // 
-            copyButton.Location = new System.Drawing.Point(0, 0);
-            copyButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            copyButton.Name = "copyButton";
-            copyButton.Size = new System.Drawing.Size(66, 17);
-            copyButton.TabIndex = 2;
             // 
             // partyDataGridView
             // 
             partyDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             partyDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             partyDataGridView.ColumnHeadersVisible = false;
-            partyDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { tpDisplayColumn, tpButtonColumn });
+            partyDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { tpDisplayColumn, pokemonSelector });
             partyDataGridView.Location = new System.Drawing.Point(5, 20);
             partyDataGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             partyDataGridView.Name = "partyDataGridView";
             partyDataGridView.RowHeadersWidth = 20;
             partyDataGridView.RowTemplate.Height = 29;
-            partyDataGridView.Size = new System.Drawing.Size(326, 214);
+            partyDataGridView.Size = new System.Drawing.Size(648, 214);
             partyDataGridView.TabIndex = 0;
             partyDataGridView.CellContentClick += partyDataGridView_CellContentClick;
             // 
@@ -125,14 +96,13 @@
             tpDisplayColumn.Name = "tpDisplayColumn";
             tpDisplayColumn.ReadOnly = true;
             // 
-            // tpButtonColumn
+            // pokemonSelector
             // 
-            tpButtonColumn.HeaderText = "TPButton";
-            tpButtonColumn.MinimumWidth = 6;
-            tpButtonColumn.Name = "tpButtonColumn";
-            tpButtonColumn.ReadOnly = true;
-            tpButtonColumn.Text = "Configure";
-            tpButtonColumn.UseColumnTextForButtonValue = true;
+            pokemonSelector.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            pokemonSelector.FillWeight = 200F;
+            pokemonSelector.HeaderText = "Column3";
+            pokemonSelector.Name = "pokemonSelector";
+            pokemonSelector.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // button1
             // 
@@ -164,11 +134,18 @@
             button2.Text = "Copy Trainer";
             button2.UseVisualStyleBackColor = true;
             // 
+            // Column1
+            // 
+            Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            Column1.FillWeight = 200F;
+            Column1.HeaderText = "Change Pokemon";
+            Column1.Name = "Column1";
+            // 
             // BattleTowerTrainerEditorForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(698, 398);
+            ClientSize = new System.Drawing.Size(846, 565);
             Controls.Add(sortByComboBox);
             Controls.Add(button1);
             Controls.Add(button2);
@@ -194,13 +171,14 @@
         private System.Windows.Forms.TextBox trainerDisplayTextBox;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.DataGridView partyDataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tpDisplayColumn;
-        private System.Windows.Forms.DataGridViewButtonColumn tpButtonColumn;
-        private System.Windows.Forms.Button pasteButton;
-        private System.Windows.Forms.Button copyButton;
-        private System.Windows.Forms.Button ShowdownButton;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ComboBox sortByComboBox;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.DataGridViewButtonColumn tpButtonColumn;
+        private System.Windows.Forms.DataGridViewComboBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewButtonColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tpDisplayColumn;
+        private System.Windows.Forms.DataGridViewComboBoxColumn pokemonSelector;
     }
 }

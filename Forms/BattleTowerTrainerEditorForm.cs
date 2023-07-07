@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static ImpostersOrdeal.GameDataTypes;
@@ -25,6 +27,12 @@ namespace ImpostersOrdeal.Forms
         //   private TrainerShowdownEditorForm tsef;
         private BattleTowerTrainer trainerClipboard;
         private List<TrainerPokemon> tpClipboard;
+        private BattleTowerTrainerPokemon tp;
+        public List<BattleTowerTrainerPokemon> battleTowerTrainerPokemons;
+        private BattleTowerTrainerPokemon trainerPokemon1;
+        private BattleTowerTrainerPokemon trainerPokemon2;
+        private BattleTowerTrainerPokemon trainerPokemon3;
+        private int mostRecentModifiedRowIndex = -1;
 
         private readonly string[] sortNames = new string[]
         {
@@ -33,6 +41,12 @@ namespace ImpostersOrdeal.Forms
            // "Sort by level"
         };
 
+        private readonly string[] pokemonNames = new string[]
+       {
+            "Sort by ID",
+            "Sort by pokedex order",
+            "Sort by species name"
+       };
         private readonly Comparison<BattleTowerTrainer>[] sortComparisons = new Comparison<BattleTowerTrainer>[]
         {
             (t1, t2) => t1.GetID().CompareTo(t2.GetID()),
@@ -67,10 +81,15 @@ namespace ImpostersOrdeal.Forms
 
             sortByComboBox.DataSource = sortNames;
             sortByComboBox.SelectedIndex = 0;
-            battleTowertrainers.Sort(sortComparisons[sortByComboBox.SelectedIndex]);
+            pokemonSelector.DataSource = gameData.battleTowerTrainerPokemons.Select(o => o.GetID() + " - " + String.Join(", ", gameData.dexEntries[o.dexID].GetName())).ToArray();
 
+
+            battleTowertrainers.Sort(sortComparisons[sortByComboBox.SelectedIndex]);
+            partyDataGridView.AllowUserToAddRows = false;
+            partyDataGridView.EditMode = DataGridViewEditMode.EditOnKeystrokeOrF2;
             PopulateListBox();
             t = battleTowertrainers[0];
+
 
             // trainerTypeComboBox.DataSource = trainerTypeLabels.Values.ToArray();
             // trainerNameComboBox.DataSource = labelToTrainerName.Values.ToArray();
@@ -110,7 +129,33 @@ namespace ImpostersOrdeal.Forms
         private void CommitEdit(object sender, EventArgs e)
         {
             //   t.trainerTypeID = trainerTypeNames.Keys.ToArray()[trainerTypeComboBox.SelectedIndex];
+            //Get the values needed
+            int rowIndex = mostRecentModifiedRowIndex; ;
+            int columnIndex = partyDataGridView.Columns["pokemonSelector"].Index;
+            DataGridViewComboBoxCell comboBoxCell1 = (DataGridViewComboBoxCell)partyDataGridView.Rows[rowIndex].Cells[columnIndex];
+            string selectedValue = comboBoxCell1.Value.ToString();
+            string numericValue = Regex.Replace(selectedValue, @"[^0-9]", "");
+            int pokemonNumber = int.Parse(numericValue);
+            Debug.WriteLine(numericValue + pokemonNumber);
+            switch (rowIndex)
+            {
+                case 0:
+                    t.battleTowerPokemonID1 = (uint)pokemonNumber;
+                    Debug.WriteLine(t.battleTowerPokemonID1);
+                    break;
+                case 1:
+                    t.battleTowerPokemonID2 = (uint)pokemonNumber;
+                    break;
+                case 2:
+                    t.battleTowerPokemonID3 = (uint)pokemonNumber;
+                    break;
+            }
             RefreshTextBoxDisplay();
+            PopulatePartyDataGridView();
+        }
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            mostRecentModifiedRowIndex = e.RowIndex;
         }
 
         private void CommitNameEdit(object sender, EventArgs e)
@@ -136,12 +181,17 @@ namespace ImpostersOrdeal.Forms
               effectIDNumericUpDown.ValueChanged += CommitEdit;*/
 
             partyDataGridView.CellContentClick += ConfigureTP;
+            partyDataGridView.CellValueChanged += dataGridView1_CellValueChanged;
+            partyDataGridView.CellValueChanged += CommitEdit;
+
         }
 
         private void DeactivateControls()
         {
             sortByComboBox.SelectedIndexChanged -= SortChanged;
             listBox.SelectedIndexChanged -= TrainerChanged;
+            partyDataGridView.CellValueChanged -= dataGridView1_CellValueChanged;
+            partyDataGridView.CellValueChanged -= CommitEdit;
 
             /*        trainerTypeComboBox.SelectedIndexChanged -= CommitEdit;
                     trainerNameComboBox.SelectedIndexChanged -= CommitNameEdit;
@@ -158,19 +208,21 @@ namespace ImpostersOrdeal.Forms
         private void PopulatePartyDataGridView()
         {
             partyDataGridView.Rows.Clear();
-            /*  foreach (TrainerPokemon tp in t.trainerPokemon)
-             
-              {
-                  partyDataGridView.Rows.Add(new object[] { gameData.GetTPDisplayName(tp), "Configure" });
-              }*/
-            partyDataGridView.Rows.Add(new object[] { t.battleTowerPokemonID1, "Configure" });
-            partyDataGridView.Rows.Add(new object[] { t.battleTowerPokemonID2, "Configure" });
-            partyDataGridView.Rows.Add(new object[] { t.battleTowerPokemonID3, "Configure" });
+
+            trainerPokemon1 = gameData.battleTowerTrainerPokemons.FirstOrDefault(t1 => t1.pokemonID == t.battleTowerPokemonID1);
+            trainerPokemon2 = gameData.battleTowerTrainerPokemons.FirstOrDefault(t1 => t1.pokemonID == t.battleTowerPokemonID2);
+            trainerPokemon3 = gameData.battleTowerTrainerPokemons.FirstOrDefault(t1 => t1.pokemonID == t.battleTowerPokemonID3);
+            string nameTrainerPokemon1 = gameData.dexEntries[trainerPokemon1.dexID].GetName();
+            string nameTrainerPokemon2 = gameData.dexEntries[trainerPokemon2.dexID].GetName();
+            string nameTrainerPokemon3 = gameData.dexEntries[trainerPokemon3.dexID].GetName();
+            partyDataGridView.Rows.Add(new object[] { t.battleTowerPokemonID1 + " - " + nameTrainerPokemon1 });
+            partyDataGridView.Rows.Add(new object[] { t.battleTowerPokemonID2 + " - " + nameTrainerPokemon2 });
+            partyDataGridView.Rows.Add(new object[] { t.battleTowerPokemonID3 + " - " + nameTrainerPokemon3 });
         }
 
         private void ConfigureTP(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridView senderGrid = (DataGridView)sender;
+            // DataGridView senderGrid = (DataGridView)sender;
 
             /*  if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
               {
@@ -262,6 +314,7 @@ namespace ImpostersOrdeal.Forms
         {
 
         }
+
 
         private void BattleTowerTrainerEditorForm_Load(object sender, EventArgs e)
         {

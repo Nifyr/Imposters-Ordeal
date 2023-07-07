@@ -154,7 +154,7 @@ namespace ImpostersOrdeal.Forms
 
         private void RefreshTextBoxDisplay()
         {
-            string nameDisplay = pokemonName = gameData.dexEntries[tp.dexID].GetName(); ;
+            string nameDisplay = pokemonName = gameData.dexEntries[tp.dexID].GetName(); 
             trainerDisplayTextBox.Text = tp.GetID() + " - " + " " + nameDisplay;
         }
 
