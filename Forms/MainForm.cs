@@ -1,7 +1,9 @@
-﻿using System;
+﻿using ImpostersOrdeal.Forms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -85,7 +87,7 @@ namespace ImpostersOrdeal
         public class NumericDistributionControl : GroupBox
         {
             public IDistribution[] distributions = new IDistribution[]
-            { 
+            {
                 new UniformConstant(100, 0, 100),
                 new UniformRelative(100, -25, 25),
                 new UniformProportional(100, 0.5, 1.5),
@@ -357,7 +359,7 @@ namespace ImpostersOrdeal
                 "Randomize again anyway?",
                    "Again?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
                 return;
-            
+
             loadingForm = new("Makin' a mess...", flavor.GetThought());
             loadingDisplay = new(StartLoadingDisplay);
             loadingDisplay.Start();
@@ -456,6 +458,8 @@ namespace ImpostersOrdeal
             gameData.SetModified(GameDataSet.DataField.Trainers);
         }
 
+
+
         private void OpenTypeMatchupEditor(object sender, EventArgs e)
         {
             TypeMatchupEditorForm tmef = new();
@@ -480,6 +484,28 @@ namespace ImpostersOrdeal
         {
             JsonConverterForm jcf = new();
             jcf.Show();
+        }
+
+        //Battle Tower Trainer Button
+        private void Button34_Click(object sender, EventArgs e)
+        {
+            BattleTowerTrainerEditorForm tef = new();
+            tef.Show();
+            gameData.SetModified(GameDataSet.DataField.Trainers);
+        }
+        //Battle Tower Pokemon Button
+        /*   private void button35_Click(object sender, EventArgs e)
+           {
+               BattleTowerPokemonForm tef = new();
+               tef.Show();
+               gameData.SetModified(GameDataSet.DataField.Trainers);
+           }*/
+
+        private void Button35_Click_1(object sender, EventArgs e)
+        {
+            BattleTowerPokemonForm tef = new();
+            tef.Show();
+            gameData.SetModified(GameDataSet.DataField.Trainers);
         }
     }
 }

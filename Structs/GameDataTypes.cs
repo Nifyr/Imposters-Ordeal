@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -346,6 +347,215 @@ namespace ImpostersOrdeal
                 spAtkEV = (byte)evs[3];
                 spDefEV = (byte)evs[4];
                 spdEV = (byte)evs[5];
+            }
+        }
+
+        public class BattleTowerTrainerPokemon
+        {
+            public uint pokemonID;
+            public int dexID;
+            public uint formID;
+            public byte isRare;
+            public byte level;
+            public byte sex;
+            public int natureID;
+            public int abilityID;
+            public int moveID1;
+            public int moveID2;
+            public int moveID3;
+            public int moveID4;
+            public ushort itemID;
+            public byte ballID;
+            public int seal;
+            public byte hpIV;
+            public byte atkIV;
+            public byte defIV;
+            public byte spAtkIV;
+            public byte spDefIV;
+            public byte spdIV;
+            public byte hpEV;
+            public byte atkEV;
+            public byte defEV;
+            public byte spAtkEV;
+            public byte spDefEV;
+            public byte spdEV;
+            
+
+            public BattleTowerTrainerPokemon() { }
+
+            public BattleTowerTrainerPokemon(BattleTowerTrainerPokemon tp)
+            {
+                dexID = tp.dexID;
+                formID = tp.formID;
+                isRare = tp.isRare;
+                level = tp.level;
+                sex = tp.sex;
+                natureID = tp.natureID;
+                abilityID = tp.abilityID;
+                moveID1 = tp.moveID1;
+                moveID2 = tp.moveID2;
+                moveID3 = tp.moveID3;
+                moveID4 = tp.moveID4;
+                itemID = tp.itemID;
+                ballID = tp.ballID;
+                seal = tp.seal;
+                hpIV = tp.hpIV;
+                atkIV = tp.atkIV;
+                defIV = tp.defIV;
+                spdIV = tp.spdIV;
+                spAtkIV = tp.spAtkIV;
+                spDefIV = tp.spDefIV;
+                hpEV = tp.hpEV;
+                atkEV = tp.atkEV;
+                defEV = tp.defEV;
+                spdEV = tp.spdEV;
+                spAtkEV = tp.spAtkEV;
+                spDefEV = tp.spDefEV;
+               
+            }
+
+            public List<int> GetMoves()
+            {
+                List<int> moves = new();
+                if (moveID1 > 0)
+                    moves.Add(moveID1);
+                if (moveID2 > 0)
+                    moves.Add(moveID2);
+                if (moveID3 > 0)
+                    moves.Add(moveID3);
+                if (moveID4 > 0)
+                    moves.Add(moveID4);
+                return moves;
+            }
+
+            public void SetMoves(List<ushort> moves)
+            {
+                moveID1 = (ushort)(moves.Count > 0 ? moves[0] : 0);
+                moveID2 = (ushort)(moves.Count > 1 ? moves[1] : 0);
+                moveID3 = (ushort)(moves.Count > 2 ? moves[2] : 0);
+                moveID4 = (ushort)(moves.Count > 3 ? moves[3] : 0);
+            }
+
+            public int[] GetIVs()
+            {
+                return new int[]
+                {
+                    hpIV,
+                    atkIV,
+                    defIV,
+                    spAtkIV,
+                    spDefIV,
+                    spdIV
+                };
+            }
+
+            public int[] GetEVs()
+            {
+                return new int[]
+                {
+                    hpEV,
+                    atkEV,
+                    defEV,
+                    spAtkEV,
+                    spDefEV,
+                    spdEV
+                };
+            }
+
+            public void SetEVs(int[] evs)
+            {
+                hpEV = (byte)evs[0];
+                atkEV = (byte)evs[1];
+                defEV = (byte)evs[2];
+                spAtkEV = (byte)evs[3];
+                spDefEV = (byte)evs[4];
+                spdEV = (byte)evs[5];
+            }
+            public uint GetID()
+            {
+                return pokemonID;
+            }
+
+            public int GetName()
+            {   
+                return dexID;
+            }
+        }
+
+        public class BattleTowerTrainer : INamedEntity
+        {
+            public uint trainerID2;
+            public int trainerTypeID;
+            public int trainerTypeID2;
+            public uint battleTowerPokemonID1;
+            public uint battleTowerPokemonID2;
+            public uint battleTowerPokemonID3;
+            public uint battleTowerPokemonID4 = 0;
+            public string battleBGM;
+            public string winBGM;
+            public bool isDouble;
+            public string nameLabel;
+            public string nameLabel2;
+            public bool wasCalled = false;
+
+            //Readonly
+            public int trainerID;
+            public string name;
+            public string name2;
+            public BattleTowerTrainer() { }
+
+            public BattleTowerTrainer(BattleTowerTrainer t)
+            {
+                SetAll(t);
+            }
+
+            public void SetAll(BattleTowerTrainer t)
+            {
+                trainerID2 = t.trainerID2;
+                trainerTypeID = t.trainerTypeID;
+                if (t.trainerTypeID2 != -1)
+                {
+                    trainerTypeID2 = t.trainerTypeID2;
+                }
+                battleTowerPokemonID1 = t.battleTowerPokemonID1;    
+                battleTowerPokemonID2 = t.battleTowerPokemonID2;    
+                battleTowerPokemonID3 = t.battleTowerPokemonID3;  
+                if(t.battleTowerPokemonID4 != 0)
+                {
+                    battleTowerPokemonID4 = t.battleTowerPokemonID4;
+                }
+                battleBGM = t.battleBGM;
+                winBGM = t.winBGM;
+                name = t.name;
+              //  name2 = t.name2;
+            }
+
+            public int GetID()
+            {
+                return trainerTypeID;
+            }
+
+            public string GetInternalID()
+            {
+                return trainerID2.ToString();
+            }
+
+            public string GetName()
+            {
+                if (name2 == null)
+                {
+                }
+                else if(wasCalled == false)
+                {
+                    name = name + " & " + name2;
+                    wasCalled = true;
+                }
+                return name.ToString();
+            }
+
+            public bool IsValid()
+            {
+                return true;
             }
         }
 
