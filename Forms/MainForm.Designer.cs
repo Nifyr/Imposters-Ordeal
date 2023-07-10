@@ -240,13 +240,14 @@ namespace ImpostersOrdeal
             button30 = new System.Windows.Forms.Button();
             buttonBattleTower = new System.Windows.Forms.Button();
             groupBox32 = new System.Windows.Forms.GroupBox();
-            button35 = new System.Windows.Forms.Button();
-            button23 = new System.Windows.Forms.Button();
+            flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             button32 = new System.Windows.Forms.Button();
+            button23 = new System.Windows.Forms.Button();
+            button34 = new System.Windows.Forms.Button();
+            button35 = new System.Windows.Forms.Button();
             groupBox34 = new System.Windows.Forms.GroupBox();
             button33 = new System.Windows.Forms.Button();
             button29 = new System.Windows.Forms.Button();
-            button34 = new System.Windows.Forms.Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             tabControl1.SuspendLayout();
@@ -311,6 +312,7 @@ namespace ImpostersOrdeal
             groupBox29.SuspendLayout();
             groupBox27.SuspendLayout();
             groupBox32.SuspendLayout();
+            flowLayoutPanel1.SuspendLayout();
             groupBox34.SuspendLayout();
             SuspendLayout();
             // 
@@ -373,7 +375,7 @@ namespace ImpostersOrdeal
             groupBox2.Controls.Add(button3);
             groupBox2.Location = new System.Drawing.Point(12, 12);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new System.Drawing.Size(185, 151);
+            groupBox2.Size = new System.Drawing.Size(206, 151);
             groupBox2.TabIndex = 3;
             groupBox2.TabStop = false;
             groupBox2.Text = "Main";
@@ -382,7 +384,7 @@ namespace ImpostersOrdeal
             // 
             button31.Location = new System.Drawing.Point(6, 96);
             button31.Name = "button31";
-            button31.Size = new System.Drawing.Size(173, 29);
+            button31.Size = new System.Drawing.Size(194, 29);
             button31.TabIndex = 11;
             button31.Text = "Export and Exit";
             button31.UseVisualStyleBackColor = true;
@@ -392,7 +394,7 @@ namespace ImpostersOrdeal
             // 
             button5.Location = new System.Drawing.Point(6, 61);
             button5.Name = "button5";
-            button5.Size = new System.Drawing.Size(173, 29);
+            button5.Size = new System.Drawing.Size(194, 29);
             button5.TabIndex = 2;
             button5.Text = "Randomize";
             button5.UseVisualStyleBackColor = true;
@@ -402,7 +404,7 @@ namespace ImpostersOrdeal
             // 
             button3.Location = new System.Drawing.Point(6, 27);
             button3.Name = "button3";
-            button3.Size = new System.Drawing.Size(173, 29);
+            button3.Size = new System.Drawing.Size(194, 29);
             button3.TabIndex = 0;
             button3.Text = "Add Mod";
             button3.UseVisualStyleBackColor = true;
@@ -414,10 +416,10 @@ namespace ImpostersOrdeal
             tabControl1.Controls.Add(tabPage2);
             tabControl1.Controls.Add(tabPage3);
             tabControl1.Controls.Add(tabPage4);
-            tabControl1.Location = new System.Drawing.Point(203, 12);
+            tabControl1.Location = new System.Drawing.Point(224, 12);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new System.Drawing.Size(1047, 649);
+            tabControl1.Size = new System.Drawing.Size(1026, 649);
             tabControl1.TabIndex = 4;
             // 
             // tabPage1
@@ -434,8 +436,8 @@ namespace ImpostersOrdeal
             tabPage1.Controls.Add(groupBox3);
             tabPage1.Location = new System.Drawing.Point(4, 29);
             tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            tabPage1.Size = new System.Drawing.Size(1039, 616);
+            tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            tabPage1.Size = new System.Drawing.Size(1018, 616);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Pokémon";
             tabPage1.UseVisualStyleBackColor = true;
@@ -446,7 +448,7 @@ namespace ImpostersOrdeal
             groupBox12.Controls.Add(numericDistributionControl4);
             groupBox12.Controls.Add(numericDistributionControl3);
             groupBox12.Controls.Add(numericDistributionControl5);
-            groupBox12.Location = new System.Drawing.Point(149, 324);
+            groupBox12.Location = new System.Drawing.Point(144, 327);
             groupBox12.Name = "groupBox12";
             groupBox12.Size = new System.Drawing.Size(376, 269);
             groupBox12.TabIndex = 13;
@@ -616,7 +618,7 @@ namespace ImpostersOrdeal
             groupBox11.Controls.Add(numericUpDown5);
             groupBox11.Controls.Add(numericDistributionControl9);
             groupBox11.Controls.Add(checkBox24);
-            groupBox11.Location = new System.Drawing.Point(530, 324);
+            groupBox11.Location = new System.Drawing.Point(525, 327);
             groupBox11.Name = "groupBox11";
             groupBox11.Size = new System.Drawing.Size(185, 269);
             groupBox11.TabIndex = 12;
@@ -708,7 +710,7 @@ namespace ImpostersOrdeal
             groupBox10.Controls.Add(numericUpDown4);
             groupBox10.Controls.Add(numericDistributionControl6);
             groupBox10.Controls.Add(checkBox17);
-            groupBox10.Location = new System.Drawing.Point(721, 224);
+            groupBox10.Location = new System.Drawing.Point(716, 227);
             groupBox10.Name = "groupBox10";
             groupBox10.Size = new System.Drawing.Size(185, 371);
             groupBox10.TabIndex = 11;
@@ -848,7 +850,7 @@ namespace ImpostersOrdeal
             groupBox9.Controls.Add(label3);
             groupBox9.Controls.Add(numericUpDown3);
             groupBox9.Controls.Add(checkBox15);
-            groupBox9.Location = new System.Drawing.Point(721, 3);
+            groupBox9.Location = new System.Drawing.Point(716, 6);
             groupBox9.Name = "groupBox9";
             groupBox9.Size = new System.Drawing.Size(185, 215);
             groupBox9.TabIndex = 10;
@@ -913,7 +915,7 @@ namespace ImpostersOrdeal
             // 
             groupBox8.Controls.Add(itemDistributionControl4);
             groupBox8.Controls.Add(checkBox13);
-            groupBox8.Location = new System.Drawing.Point(530, 224);
+            groupBox8.Location = new System.Drawing.Point(525, 227);
             groupBox8.Name = "groupBox8";
             groupBox8.Size = new System.Drawing.Size(185, 93);
             groupBox8.TabIndex = 9;
@@ -944,7 +946,7 @@ namespace ImpostersOrdeal
             // 
             groupBox7.Controls.Add(itemDistributionControl3);
             groupBox7.Controls.Add(checkBox12);
-            groupBox7.Location = new System.Drawing.Point(339, 224);
+            groupBox7.Location = new System.Drawing.Point(334, 227);
             groupBox7.Name = "groupBox7";
             groupBox7.Size = new System.Drawing.Size(185, 93);
             groupBox7.TabIndex = 8;
@@ -975,7 +977,7 @@ namespace ImpostersOrdeal
             // 
             groupBox6.Controls.Add(itemDistributionControl2);
             groupBox6.Controls.Add(checkBox10);
-            groupBox6.Location = new System.Drawing.Point(149, 224);
+            groupBox6.Location = new System.Drawing.Point(144, 227);
             groupBox6.Name = "groupBox6";
             groupBox6.Size = new System.Drawing.Size(185, 93);
             groupBox6.TabIndex = 6;
@@ -1009,7 +1011,7 @@ namespace ImpostersOrdeal
             groupBox5.Controls.Add(label1);
             groupBox5.Controls.Add(numericUpDown1);
             groupBox5.Controls.Add(checkBox8);
-            groupBox5.Location = new System.Drawing.Point(530, 3);
+            groupBox5.Location = new System.Drawing.Point(525, 6);
             groupBox5.Name = "groupBox5";
             groupBox5.Size = new System.Drawing.Size(185, 215);
             groupBox5.TabIndex = 2;
@@ -1068,7 +1070,7 @@ namespace ImpostersOrdeal
             groupBox4.Controls.Add(numericDistributionControl1);
             groupBox4.Controls.Add(checkBox6);
             groupBox4.Controls.Add(checkBox5);
-            groupBox4.Location = new System.Drawing.Point(339, 3);
+            groupBox4.Location = new System.Drawing.Point(334, 6);
             groupBox4.Name = "groupBox4";
             groupBox4.Size = new System.Drawing.Size(185, 215);
             groupBox4.TabIndex = 1;
@@ -1140,7 +1142,7 @@ namespace ImpostersOrdeal
             groupBox3.Controls.Add(checkBox1);
             groupBox3.Controls.Add(groupBox1);
             groupBox3.Controls.Add(button2);
-            groupBox3.Location = new System.Drawing.Point(149, 3);
+            groupBox3.Location = new System.Drawing.Point(144, 6);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new System.Drawing.Size(185, 215);
             groupBox3.TabIndex = 0;
@@ -1180,8 +1182,8 @@ namespace ImpostersOrdeal
             tabPage2.Controls.Add(groupBox13);
             tabPage2.Location = new System.Drawing.Point(4, 29);
             tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            tabPage2.Size = new System.Drawing.Size(1039, 616);
+            tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            tabPage2.Size = new System.Drawing.Size(1018, 616);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Moves and Items";
             tabPage2.UseVisualStyleBackColor = true;
@@ -1191,7 +1193,7 @@ namespace ImpostersOrdeal
             groupBox26.Controls.Add(checkBox52);
             groupBox26.Controls.Add(itemDistributionControl19);
             groupBox26.Controls.Add(checkBox51);
-            groupBox26.Location = new System.Drawing.Point(731, 251);
+            groupBox26.Location = new System.Drawing.Point(727, 250);
             groupBox26.Name = "groupBox26";
             groupBox26.Size = new System.Drawing.Size(185, 125);
             groupBox26.TabIndex = 14;
@@ -1232,7 +1234,7 @@ namespace ImpostersOrdeal
             // 
             groupBox25.Controls.Add(itemDistributionControl18);
             groupBox25.Controls.Add(checkBox50);
-            groupBox25.Location = new System.Drawing.Point(112, 347);
+            groupBox25.Location = new System.Drawing.Point(108, 346);
             groupBox25.Name = "groupBox25";
             groupBox25.Size = new System.Drawing.Size(185, 91);
             groupBox25.TabIndex = 9;
@@ -1263,7 +1265,7 @@ namespace ImpostersOrdeal
             // 
             groupBox23.Controls.Add(itemDistributionControl16);
             groupBox23.Controls.Add(checkBox47);
-            groupBox23.Location = new System.Drawing.Point(731, 155);
+            groupBox23.Location = new System.Drawing.Point(727, 154);
             groupBox23.Name = "groupBox23";
             groupBox23.Size = new System.Drawing.Size(185, 91);
             groupBox23.TabIndex = 13;
@@ -1295,7 +1297,7 @@ namespace ImpostersOrdeal
             numericDistributionControl18.Controls.Add(checkBox46);
             numericDistributionControl18.Controls.Add(button22);
             numericDistributionControl18.Controls.Add(textBox19);
-            numericDistributionControl18.Location = new System.Drawing.Point(553, 155);
+            numericDistributionControl18.Location = new System.Drawing.Point(549, 154);
             numericDistributionControl18.Name = "numericDistributionControl18";
             numericDistributionControl18.Size = new System.Drawing.Size(173, 91);
             numericDistributionControl18.TabIndex = 12;
@@ -1334,7 +1336,7 @@ namespace ImpostersOrdeal
             numericDistributionControl11.Controls.Add(checkBox27);
             numericDistributionControl11.Controls.Add(button16);
             numericDistributionControl11.Controls.Add(textBox12);
-            numericDistributionControl11.Location = new System.Drawing.Point(303, 347);
+            numericDistributionControl11.Location = new System.Drawing.Point(299, 346);
             numericDistributionControl11.Name = "numericDistributionControl11";
             numericDistributionControl11.Size = new System.Drawing.Size(173, 91);
             numericDistributionControl11.TabIndex = 11;
@@ -1373,7 +1375,7 @@ namespace ImpostersOrdeal
             numericDistributionControl10.Controls.Add(checkBox26);
             numericDistributionControl10.Controls.Add(button15);
             numericDistributionControl10.Controls.Add(textBox11);
-            numericDistributionControl10.Location = new System.Drawing.Point(303, 251);
+            numericDistributionControl10.Location = new System.Drawing.Point(299, 250);
             numericDistributionControl10.Name = "numericDistributionControl10";
             numericDistributionControl10.Size = new System.Drawing.Size(173, 91);
             numericDistributionControl10.TabIndex = 10;
@@ -1412,7 +1414,7 @@ namespace ImpostersOrdeal
             numericDistributionControl8.Controls.Add(checkBox25);
             numericDistributionControl8.Controls.Add(button13);
             numericDistributionControl8.Controls.Add(textBox9);
-            numericDistributionControl8.Location = new System.Drawing.Point(303, 155);
+            numericDistributionControl8.Location = new System.Drawing.Point(299, 154);
             numericDistributionControl8.Name = "numericDistributionControl8";
             numericDistributionControl8.Size = new System.Drawing.Size(173, 91);
             numericDistributionControl8.TabIndex = 9;
@@ -1450,7 +1452,7 @@ namespace ImpostersOrdeal
             // 
             groupBox14.Controls.Add(itemDistributionControl9);
             groupBox14.Controls.Add(checkBox22);
-            groupBox14.Location = new System.Drawing.Point(112, 251);
+            groupBox14.Location = new System.Drawing.Point(108, 250);
             groupBox14.Name = "groupBox14";
             groupBox14.Size = new System.Drawing.Size(185, 91);
             groupBox14.TabIndex = 8;
@@ -1481,7 +1483,7 @@ namespace ImpostersOrdeal
             // 
             groupBox13.Controls.Add(itemDistributionControl8);
             groupBox13.Controls.Add(checkBox21);
-            groupBox13.Location = new System.Drawing.Point(112, 155);
+            groupBox13.Location = new System.Drawing.Point(108, 154);
             groupBox13.Name = "groupBox13";
             groupBox13.Size = new System.Drawing.Size(185, 91);
             groupBox13.TabIndex = 7;
@@ -1515,8 +1517,8 @@ namespace ImpostersOrdeal
             tabPage3.Controls.Add(groupBox15);
             tabPage3.Location = new System.Drawing.Point(4, 29);
             tabPage3.Name = "tabPage3";
-            tabPage3.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            tabPage3.Size = new System.Drawing.Size(1039, 616);
+            tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            tabPage3.Size = new System.Drawing.Size(1018, 616);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Encounters";
             tabPage3.UseVisualStyleBackColor = true;
@@ -1533,7 +1535,7 @@ namespace ImpostersOrdeal
             groupBox18.Controls.Add(groupBox19);
             groupBox18.Controls.Add(groupBox17);
             groupBox18.Controls.Add(numericDistributionControl14);
-            groupBox18.Location = new System.Drawing.Point(334, 45);
+            groupBox18.Location = new System.Drawing.Point(325, 46);
             groupBox18.Name = "groupBox18";
             groupBox18.Size = new System.Drawing.Size(570, 516);
             groupBox18.TabIndex = 13;
@@ -1969,7 +1971,7 @@ namespace ImpostersOrdeal
             groupBox16.Controls.Add(numericDistributionControl13);
             groupBox16.Controls.Add(itemDistributionControl11);
             groupBox16.Controls.Add(checkBox32);
-            groupBox16.Location = new System.Drawing.Point(143, 307);
+            groupBox16.Location = new System.Drawing.Point(134, 308);
             groupBox16.Name = "groupBox16";
             groupBox16.Size = new System.Drawing.Size(185, 255);
             groupBox16.TabIndex = 11;
@@ -2042,7 +2044,7 @@ namespace ImpostersOrdeal
             groupBox15.Controls.Add(numericDistributionControl12);
             groupBox15.Controls.Add(itemDistributionControl10);
             groupBox15.Controls.Add(checkBox29);
-            groupBox15.Location = new System.Drawing.Point(143, 45);
+            groupBox15.Location = new System.Drawing.Point(134, 46);
             groupBox15.Name = "groupBox15";
             groupBox15.Size = new System.Drawing.Size(185, 255);
             groupBox15.TabIndex = 10;
@@ -2137,8 +2139,8 @@ namespace ImpostersOrdeal
             tabPage4.Controls.Add(groupBox27);
             tabPage4.Location = new System.Drawing.Point(4, 29);
             tabPage4.Name = "tabPage4";
-            tabPage4.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            tabPage4.Size = new System.Drawing.Size(1039, 616);
+            tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            tabPage4.Size = new System.Drawing.Size(1018, 616);
             tabPage4.TabIndex = 3;
             tabPage4.Text = "Misc.";
             tabPage4.UseVisualStyleBackColor = true;
@@ -2147,7 +2149,7 @@ namespace ImpostersOrdeal
             // 
             groupBox33.Controls.Add(itemDistributionControl5);
             groupBox33.Controls.Add(checkBox63);
-            groupBox33.Location = new System.Drawing.Point(133, 53);
+            groupBox33.Location = new System.Drawing.Point(133, 43);
             groupBox33.Name = "groupBox33";
             groupBox33.Size = new System.Drawing.Size(185, 120);
             groupBox33.TabIndex = 5;
@@ -2177,7 +2179,7 @@ namespace ImpostersOrdeal
             // groupBox31
             // 
             groupBox31.Controls.Add(absoluteBoundaryDataGridView);
-            groupBox31.Location = new System.Drawing.Point(515, 53);
+            groupBox31.Location = new System.Drawing.Point(515, 43);
             groupBox31.Name = "groupBox31";
             groupBox31.Size = new System.Drawing.Size(376, 532);
             groupBox31.TabIndex = 4;
@@ -2211,7 +2213,7 @@ namespace ImpostersOrdeal
             groupBox30.Controls.Add(checkBox58);
             groupBox30.Controls.Add(label8);
             groupBox30.Controls.Add(checkBox57);
-            groupBox30.Location = new System.Drawing.Point(325, 179);
+            groupBox30.Location = new System.Drawing.Point(325, 169);
             groupBox30.Name = "groupBox30";
             groupBox30.Size = new System.Drawing.Size(185, 405);
             groupBox30.TabIndex = 2;
@@ -2291,7 +2293,7 @@ namespace ImpostersOrdeal
             groupBox29.Controls.Add(checkBox62);
             groupBox29.Controls.Add(checkBox56);
             groupBox29.Controls.Add(checkBox55);
-            groupBox29.Location = new System.Drawing.Point(325, 53);
+            groupBox29.Location = new System.Drawing.Point(325, 43);
             groupBox29.Name = "groupBox29";
             groupBox29.Size = new System.Drawing.Size(185, 120);
             groupBox29.TabIndex = 1;
@@ -2334,7 +2336,7 @@ namespace ImpostersOrdeal
             groupBox27.Controls.Add(checkBox54);
             groupBox27.Controls.Add(itemDistributionControl20);
             groupBox27.Controls.Add(checkBox53);
-            groupBox27.Location = new System.Drawing.Point(133, 179);
+            groupBox27.Location = new System.Drawing.Point(133, 169);
             groupBox27.Name = "groupBox27";
             groupBox27.Size = new System.Drawing.Size(185, 405);
             groupBox27.TabIndex = 0;
@@ -2391,7 +2393,7 @@ namespace ImpostersOrdeal
             // 
             // pokemonEditorButton
             // 
-            pokemonEditorButton.Location = new System.Drawing.Point(6, 27);
+            pokemonEditorButton.Location = new System.Drawing.Point(3, 3);
             pokemonEditorButton.Name = "pokemonEditorButton";
             pokemonEditorButton.Size = new System.Drawing.Size(173, 29);
             pokemonEditorButton.TabIndex = 3;
@@ -2401,7 +2403,7 @@ namespace ImpostersOrdeal
             // 
             // button24
             // 
-            button24.Location = new System.Drawing.Point(6, 61);
+            button24.Location = new System.Drawing.Point(3, 38);
             button24.Name = "button24";
             button24.Size = new System.Drawing.Size(173, 29);
             button24.TabIndex = 4;
@@ -2411,7 +2413,7 @@ namespace ImpostersOrdeal
             // 
             // button25
             // 
-            button25.Location = new System.Drawing.Point(6, 96);
+            button25.Location = new System.Drawing.Point(3, 73);
             button25.Name = "button25";
             button25.Size = new System.Drawing.Size(173, 29);
             button25.TabIndex = 5;
@@ -2421,7 +2423,7 @@ namespace ImpostersOrdeal
             // 
             // button26
             // 
-            button26.Location = new System.Drawing.Point(6, 131);
+            button26.Location = new System.Drawing.Point(3, 108);
             button26.Name = "button26";
             button26.Size = new System.Drawing.Size(173, 29);
             button26.TabIndex = 6;
@@ -2431,7 +2433,7 @@ namespace ImpostersOrdeal
             // 
             // button27
             // 
-            button27.Location = new System.Drawing.Point(6, 165);
+            button27.Location = new System.Drawing.Point(3, 143);
             button27.Name = "button27";
             button27.Size = new System.Drawing.Size(173, 29);
             button27.TabIndex = 7;
@@ -2441,7 +2443,7 @@ namespace ImpostersOrdeal
             // 
             // button28
             // 
-            button28.Location = new System.Drawing.Point(6, 201);
+            button28.Location = new System.Drawing.Point(3, 178);
             button28.Name = "button28";
             button28.Size = new System.Drawing.Size(173, 29);
             button28.TabIndex = 8;
@@ -2451,7 +2453,7 @@ namespace ImpostersOrdeal
             // 
             // wildEncButton
             // 
-            wildEncButton.Location = new System.Drawing.Point(6, 236);
+            wildEncButton.Location = new System.Drawing.Point(3, 213);
             wildEncButton.Name = "wildEncButton";
             wildEncButton.Size = new System.Drawing.Size(173, 29);
             wildEncButton.TabIndex = 9;
@@ -2461,7 +2463,7 @@ namespace ImpostersOrdeal
             // 
             // button30
             // 
-            button30.Location = new System.Drawing.Point(6, 271);
+            button30.Location = new System.Drawing.Point(3, 248);
             button30.Name = "button30";
             button30.Size = new System.Drawing.Size(173, 29);
             button30.TabIndex = 10;
@@ -2471,61 +2473,49 @@ namespace ImpostersOrdeal
             // 
             // buttonBattleTower
             // 
-            buttonBattleTower.Location = new System.Drawing.Point(6, 271);
+            buttonBattleTower.Location = new System.Drawing.Point(3, 283);
             buttonBattleTower.Name = "buttonBattleTower";
             buttonBattleTower.Size = new System.Drawing.Size(173, 29);
             buttonBattleTower.TabIndex = 10;
-            buttonBattleTower.Text = "Battle Tower Trainer Editor";
+            buttonBattleTower.Text = "BT Trainer Editor";
             buttonBattleTower.UseVisualStyleBackColor = true;
             buttonBattleTower.Click += OpenTrainerEditor;
             // 
             // groupBox32
             // 
-            groupBox32.AutoSize = true;
-            groupBox32.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            groupBox32.Controls.Add(button34);
-            groupBox32.Controls.Add(button35);
-            groupBox32.Controls.Add(button23);
-            groupBox32.Controls.Add(button32);
-            groupBox32.Controls.Add(pokemonEditorButton);
-            groupBox32.Controls.Add(button30);
-            groupBox32.Controls.Add(buttonBattleTower);
-            groupBox32.Controls.Add(button24);
-            groupBox32.Controls.Add(wildEncButton);
-            groupBox32.Controls.Add(button25);
-            groupBox32.Controls.Add(button28);
-            groupBox32.Controls.Add(button26);
-            groupBox32.Controls.Add(button27);
+            groupBox32.Controls.Add(flowLayoutPanel1);
             groupBox32.Location = new System.Drawing.Point(12, 169);
             groupBox32.Name = "groupBox32";
-            groupBox32.Size = new System.Drawing.Size(185, 466);
+            groupBox32.Size = new System.Drawing.Size(206, 366);
             groupBox32.TabIndex = 5;
             groupBox32.TabStop = false;
             groupBox32.Text = "Editors";
             // 
-            // button35
+            // flowLayoutPanel1
             // 
-            button35.Location = new System.Drawing.Point(6, 411);
-            button35.Name = "button35";
-            button35.Size = new System.Drawing.Size(173, 29);
-            button35.TabIndex = 13;
-            button35.Text = "Battle Tower Poke Editor";
-            button35.UseVisualStyleBackColor = true;
-            button35.Click += button35_Click_1;
-            // 
-            // button23
-            // 
-            button23.Location = new System.Drawing.Point(6, 341);
-            button23.Name = "button23";
-            button23.Size = new System.Drawing.Size(173, 29);
-            button23.TabIndex = 12;
-            button23.Text = "Global Metadata Editor";
-            button23.UseVisualStyleBackColor = true;
-            button23.Click += OpenGlobalMetadataEditor;
+            flowLayoutPanel1.AutoScroll = true;
+            flowLayoutPanel1.Controls.Add(pokemonEditorButton);
+            flowLayoutPanel1.Controls.Add(button24);
+            flowLayoutPanel1.Controls.Add(button25);
+            flowLayoutPanel1.Controls.Add(button26);
+            flowLayoutPanel1.Controls.Add(button27);
+            flowLayoutPanel1.Controls.Add(button28);
+            flowLayoutPanel1.Controls.Add(wildEncButton);
+            flowLayoutPanel1.Controls.Add(button30);
+            flowLayoutPanel1.Controls.Add(buttonBattleTower);
+            flowLayoutPanel1.Controls.Add(button32);
+            flowLayoutPanel1.Controls.Add(button23);
+            flowLayoutPanel1.Controls.Add(button34);
+            flowLayoutPanel1.Controls.Add(button35);
+            flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            flowLayoutPanel1.Location = new System.Drawing.Point(3, 23);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new System.Drawing.Size(200, 340);
+            flowLayoutPanel1.TabIndex = 14;
             // 
             // button32
             // 
-            button32.Location = new System.Drawing.Point(6, 307);
+            button32.Location = new System.Drawing.Point(3, 318);
             button32.Name = "button32";
             button32.Size = new System.Drawing.Size(173, 29);
             button32.TabIndex = 11;
@@ -2533,15 +2523,45 @@ namespace ImpostersOrdeal
             button32.UseVisualStyleBackColor = true;
             button32.Click += OpenTypeMatchupEditor;
             // 
+            // button23
+            // 
+            button23.Location = new System.Drawing.Point(3, 353);
+            button23.Name = "button23";
+            button23.Size = new System.Drawing.Size(173, 29);
+            button23.TabIndex = 12;
+            button23.Text = "Global Metadata Editor";
+            button23.UseVisualStyleBackColor = true;
+            button23.Click += OpenGlobalMetadataEditor;
+            // 
+            // button34
+            // 
+            button34.Location = new System.Drawing.Point(3, 388);
+            button34.Name = "button34";
+            button34.Size = new System.Drawing.Size(173, 29);
+            button34.TabIndex = 11;
+            button34.Text = "BT Trainer Editor";
+            button34.UseVisualStyleBackColor = true;
+            button34.Click += button34_Click;
+            // 
+            // button35
+            // 
+            button35.Location = new System.Drawing.Point(3, 423);
+            button35.Name = "button35";
+            button35.Size = new System.Drawing.Size(173, 29);
+            button35.TabIndex = 13;
+            button35.Text = "BT Pokémon Editor";
+            button35.UseVisualStyleBackColor = true;
+            button35.Click += button35_Click_1;
+            // 
             // groupBox34
             // 
             groupBox34.AutoSize = true;
             groupBox34.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             groupBox34.Controls.Add(button33);
             groupBox34.Controls.Add(button29);
-            groupBox34.Location = new System.Drawing.Point(12, 641);
+            groupBox34.Location = new System.Drawing.Point(12, 541);
             groupBox34.Name = "groupBox34";
-            groupBox34.Size = new System.Drawing.Size(185, 120);
+            groupBox34.Size = new System.Drawing.Size(206, 120);
             groupBox34.TabIndex = 6;
             groupBox34.TabStop = false;
             groupBox34.Text = "Other Tools";
@@ -2550,7 +2570,7 @@ namespace ImpostersOrdeal
             // 
             button33.Location = new System.Drawing.Point(6, 65);
             button33.Name = "button33";
-            button33.Size = new System.Drawing.Size(173, 29);
+            button33.Size = new System.Drawing.Size(194, 29);
             button33.TabIndex = 14;
             button33.Text = "JSON Converter";
             button33.UseVisualStyleBackColor = true;
@@ -2560,27 +2580,17 @@ namespace ImpostersOrdeal
             // 
             button29.Location = new System.Drawing.Point(6, 27);
             button29.Name = "button29";
-            button29.Size = new System.Drawing.Size(173, 29);
+            button29.Size = new System.Drawing.Size(194, 29);
             button29.TabIndex = 13;
             button29.Text = "Pokémon Inserter";
             button29.UseVisualStyleBackColor = true;
             button29.Click += OpenPokemonInserter;
             // 
-            // button34
-            // 
-            button34.Location = new System.Drawing.Point(6, 376);
-            button34.Name = "button34";
-            button34.Size = new System.Drawing.Size(173, 29);
-            button34.TabIndex = 11;
-            button34.Text = "Battle Tower Trainer Editor";
-            button34.UseVisualStyleBackColor = true;
-            button34.Click += button34_Click;
-            // 
             // MainForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(1262, 773);
+            ClientSize = new System.Drawing.Size(1262, 673);
             Controls.Add(groupBox34);
             Controls.Add(groupBox32);
             Controls.Add(tabControl1);
@@ -2700,6 +2710,7 @@ namespace ImpostersOrdeal
             groupBox27.ResumeLayout(false);
             groupBox27.PerformLayout();
             groupBox32.ResumeLayout(false);
+            flowLayoutPanel1.ResumeLayout(false);
             groupBox34.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
@@ -2924,5 +2935,6 @@ namespace ImpostersOrdeal
         public System.Windows.Forms.Button button33;
         public System.Windows.Forms.Button button34;
         public System.Windows.Forms.Button button35;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }
