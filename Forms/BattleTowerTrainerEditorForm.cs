@@ -24,7 +24,6 @@ namespace ImpostersOrdeal.Forms
         public List<string> items;
         public BattleTowerTrainer t;
         private BattleTowerTrainerEditorForm tpef;
-        //   private TrainerShowdownEditorForm tsef;
         private BattleTowerTrainer trainerClipboard;
         private List<TrainerPokemon> tpClipboard;
         private BattleTowerTrainerPokemon tp;
@@ -38,7 +37,6 @@ namespace ImpostersOrdeal.Forms
         {
             "Sort by ID",
             "Sort by name",
-           // "Sort by level"
         };
 
         private readonly string[] pokemonNames = new string[]
@@ -51,7 +49,6 @@ namespace ImpostersOrdeal.Forms
         {
             (t1, t2) => t1.GetID().CompareTo(t2.GetID()),
             (t1, t2) => t1.GetName().CompareTo(t2.GetName()),
-        //    (t1, t2) => t1.GetAvgLevel().CompareTo(t2.GetAvgLevel())
         };
 
         public BattleTowerTrainerEditorForm()
@@ -70,12 +67,7 @@ namespace ImpostersOrdeal.Forms
                 trainerTypeToCC.Add(tt.GetID(), i + 1);
             }
             labelToTrainerName = gameData.trainerNames;
-            //  items = gameData.items.Select(o => o.GetName()).ToList();
-
             InitializeComponent();
-            //   tpef = new(this);
-            //     tsef = new(this);
-
             battleTowertrainers = new();
             battleTowertrainers.AddRange(gameData.battleTowerTrainers);
 
@@ -89,10 +81,6 @@ namespace ImpostersOrdeal.Forms
             partyDataGridView.EditMode = DataGridViewEditMode.EditOnKeystrokeOrF2;
             PopulateListBox();
             t = battleTowertrainers[0];
-
-
-            // trainerTypeComboBox.DataSource = trainerTypeLabels.Values.ToArray();
-            // trainerNameComboBox.DataSource = labelToTrainerName.Values.ToArray();
             RefreshTrainerDisplay();
             ActivateControls();
         }
@@ -121,14 +109,11 @@ namespace ImpostersOrdeal.Forms
         private void RefreshTrainerDisplay()
         {
             RefreshTextBoxDisplay();
-
-            //    trainerTypeComboBox.SelectedIndex = trainerTypeToCC[t.trainerTypeID];
             PopulatePartyDataGridView();
         }
 
         private void CommitEdit(object sender, EventArgs e)
         {
-            //   t.trainerTypeID = trainerTypeNames.Keys.ToArray()[trainerTypeComboBox.SelectedIndex];
             //Get the values needed
             int rowIndex = mostRecentModifiedRowIndex; ;
             int columnIndex = partyDataGridView.Columns["pokemonSelector"].Index;
@@ -161,9 +146,6 @@ namespace ImpostersOrdeal.Forms
         private void CommitNameEdit(object sender, EventArgs e)
         {
             DeactivateControls();
-
-            //   t.nameLabel = labelToTrainerName.Keys.ToArray()[trainerNameComboBox.SelectedIndex];
-            //  t.name = (string)trainerNameComboBox.SelectedItem;
             PopulateListBox();
             RefreshTextBoxDisplay();
 
@@ -174,12 +156,6 @@ namespace ImpostersOrdeal.Forms
         {
             sortByComboBox.SelectedIndexChanged += SortChanged;
             listBox.SelectedIndexChanged += TrainerChanged;
-
-            /*  trainerTypeComboBox.SelectedIndexChanged += CommitEdit;
-              trainerNameComboBox.SelectedIndexChanged += CommitNameEdit;
-              arenaIDNumericUpDown.ValueChanged += CommitEdit;
-              effectIDNumericUpDown.ValueChanged += CommitEdit;*/
-
             partyDataGridView.CellContentClick += ConfigureTP;
             partyDataGridView.CellValueChanged += dataGridView1_CellValueChanged;
             partyDataGridView.CellValueChanged += CommitEdit;
@@ -192,17 +168,12 @@ namespace ImpostersOrdeal.Forms
             listBox.SelectedIndexChanged -= TrainerChanged;
             partyDataGridView.CellValueChanged -= dataGridView1_CellValueChanged;
             partyDataGridView.CellValueChanged -= CommitEdit;
-
-            /*        trainerTypeComboBox.SelectedIndexChanged -= CommitEdit;
-                    trainerNameComboBox.SelectedIndexChanged -= CommitNameEdit;
-                    arenaIDNumericUpDown.ValueChanged -= CommitEdit;
-                    effectIDNumericUpDown.ValueChanged -= CommitEdit;*/
             partyDataGridView.CellContentClick -= ConfigureTP;
         }
 
         private void RefreshTextBoxDisplay()
         {
-            //    trainerDisplayTextBox.Text = t.GetID() + " - " + trainerTypeNames[t.trainerTypeID] + " " + t.GetName();
+                trainerDisplayTextBox.Text = t.GetID() + " - " + t.GetName();
         }
 
         private void PopulatePartyDataGridView()
@@ -274,14 +245,8 @@ namespace ImpostersOrdeal.Forms
                PopulatePartyDataGridView();
            }*/
 
-        /*   private void ShowdownButtonClick(object sender, EventArgs e)
-           {
-               tsef.SetTP(t);
-               //tsef.ShowDialog();
-               PopulatePartyDataGridView();
-           }
 
-           private void CopyTrainerButtonClick(object sender, EventArgs e)
+          /* private void CopyTrainerButtonClick(object sender, EventArgs e)
            {
                trainerClipboard = new(t);
            }

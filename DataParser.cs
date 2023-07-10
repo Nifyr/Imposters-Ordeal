@@ -413,6 +413,8 @@ namespace ImpostersOrdeal
                      trainer.winBGM = trainerFields[trainerIdx].children[4].value.value.ToString();
                 gameData.battleTowerTrainers.Add(trainer);
                  }
+            //Parse BattleTowerTrainer Names
+
             //Parse battle tower trainer pokemon
             for (int pokemonIdx = 0; pokemonIdx < pokemonFields.Length && pokemonFields[pokemonIdx].children[0].value.value.asUInt32 != 0; pokemonIdx+=1)
             {
