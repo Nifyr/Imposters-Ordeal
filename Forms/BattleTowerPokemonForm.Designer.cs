@@ -119,11 +119,9 @@
             groupBox1.Controls.Add(formComboBox);
             groupBox1.Controls.Add(label1);
             groupBox1.Controls.Add(speciesComboBox);
-            groupBox1.Location = new System.Drawing.Point(184, 35);
-            groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox1.Location = new System.Drawing.Point(208, 48);
             groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            groupBox1.Size = new System.Drawing.Size(165, 98);
+            groupBox1.Size = new System.Drawing.Size(189, 131);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Main";
@@ -131,27 +129,26 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(74, 72);
+            label3.Location = new System.Drawing.Point(85, 96);
             label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(34, 15);
+            label3.Size = new System.Drawing.Size(43, 20);
             label3.TabIndex = 6;
             label3.Text = "Level";
             // 
             // levelNumericUpDown
             // 
-            levelNumericUpDown.Location = new System.Drawing.Point(116, 70);
-            levelNumericUpDown.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            levelNumericUpDown.Location = new System.Drawing.Point(133, 93);
             levelNumericUpDown.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
             levelNumericUpDown.Name = "levelNumericUpDown";
-            levelNumericUpDown.Size = new System.Drawing.Size(44, 23);
+            levelNumericUpDown.Size = new System.Drawing.Size(50, 27);
             levelNumericUpDown.TabIndex = 5;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(73, 47);
+            label2.Location = new System.Drawing.Point(83, 63);
             label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(35, 15);
+            label2.Size = new System.Drawing.Size(43, 20);
             label2.TabIndex = 3;
             label2.Text = "Form";
             label2.Click += label2_Click;
@@ -160,18 +157,17 @@
             // 
             formComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             formComboBox.FormattingEnabled = true;
-            formComboBox.Location = new System.Drawing.Point(116, 45);
-            formComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            formComboBox.Location = new System.Drawing.Point(133, 60);
             formComboBox.Name = "formComboBox";
-            formComboBox.Size = new System.Drawing.Size(44, 23);
+            formComboBox.Size = new System.Drawing.Size(50, 28);
             formComboBox.TabIndex = 2;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(16, 22);
+            label1.Location = new System.Drawing.Point(18, 29);
             label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(46, 15);
+            label1.Size = new System.Drawing.Size(59, 20);
             label1.TabIndex = 1;
             label1.Text = "Species";
             // 
@@ -180,20 +176,18 @@
             speciesComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             speciesComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             speciesComboBox.FormattingEnabled = true;
-            speciesComboBox.Location = new System.Drawing.Point(73, 20);
-            speciesComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            speciesComboBox.Location = new System.Drawing.Point(83, 27);
             speciesComboBox.Name = "speciesComboBox";
-            speciesComboBox.Size = new System.Drawing.Size(88, 23);
+            speciesComboBox.Size = new System.Drawing.Size(100, 28);
             speciesComboBox.TabIndex = 0;
             // 
             // checkBox1
             // 
             checkBox1.AutoSize = true;
-            checkBox1.Location = new System.Drawing.Point(102, 20);
-            checkBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            checkBox1.Location = new System.Drawing.Point(117, 27);
             checkBox1.Name = "checkBox1";
             checkBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            checkBox1.Size = new System.Drawing.Size(55, 19);
+            checkBox1.Size = new System.Drawing.Size(66, 24);
             checkBox1.TabIndex = 4;
             checkBox1.Text = "Shiny";
             checkBox1.UseVisualStyleBackColor = true;
@@ -201,9 +195,9 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new System.Drawing.Point(18, 22);
+            label4.Location = new System.Drawing.Point(21, 29);
             label4.Name = "label4";
-            label4.Size = new System.Drawing.Size(45, 15);
+            label4.Size = new System.Drawing.Size(57, 20);
             label4.TabIndex = 8;
             label4.Text = "Gender";
             // 
@@ -211,10 +205,9 @@
             // 
             comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             comboBox3.FormattingEnabled = true;
-            comboBox3.Location = new System.Drawing.Point(73, 20);
-            comboBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            comboBox3.Location = new System.Drawing.Point(83, 27);
             comboBox3.Name = "comboBox3";
-            comboBox3.Size = new System.Drawing.Size(88, 23);
+            comboBox3.Size = new System.Drawing.Size(100, 28);
             comboBox3.TabIndex = 7;
             // 
             // groupBox2
@@ -224,11 +217,9 @@
             groupBox2.Controls.Add(label8);
             groupBox2.Controls.Add(numericUpDown2);
             groupBox2.Controls.Add(checkBox1);
-            groupBox2.Location = new System.Drawing.Point(355, 41);
-            groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox2.Location = new System.Drawing.Point(404, 56);
             groupBox2.Name = "groupBox2";
-            groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            groupBox2.Size = new System.Drawing.Size(165, 98);
+            groupBox2.Size = new System.Drawing.Size(189, 131);
             groupBox2.TabIndex = 5;
             groupBox2.TabStop = false;
             groupBox2.Text = "Visuals";
@@ -236,38 +227,36 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new System.Drawing.Point(37, 68);
+            label9.Location = new System.Drawing.Point(42, 91);
             label9.Name = "label9";
-            label9.Size = new System.Drawing.Size(27, 15);
+            label9.Size = new System.Drawing.Size(35, 20);
             label9.TabIndex = 10;
             label9.Text = "seal";
             // 
             // numericUpDown3
             // 
-            numericUpDown3.Location = new System.Drawing.Point(73, 67);
-            numericUpDown3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericUpDown3.Location = new System.Drawing.Point(83, 89);
             numericUpDown3.Maximum = new decimal(new int[] { int.MaxValue, 0, 0, 0 });
             numericUpDown3.Minimum = new decimal(new int[] { int.MinValue, 0, 0, int.MinValue });
             numericUpDown3.Name = "numericUpDown3";
-            numericUpDown3.Size = new System.Drawing.Size(88, 23);
+            numericUpDown3.Size = new System.Drawing.Size(101, 27);
             numericUpDown3.TabIndex = 9;
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new System.Drawing.Point(68, 44);
+            label8.Location = new System.Drawing.Point(78, 59);
             label8.Name = "label8";
-            label8.Size = new System.Drawing.Size(37, 15);
+            label8.Size = new System.Drawing.Size(49, 20);
             label8.TabIndex = 8;
             label8.Text = "ballID";
             // 
             // numericUpDown2
             // 
-            numericUpDown2.Location = new System.Drawing.Point(116, 42);
-            numericUpDown2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericUpDown2.Location = new System.Drawing.Point(133, 56);
             numericUpDown2.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
             numericUpDown2.Name = "numericUpDown2";
-            numericUpDown2.Size = new System.Drawing.Size(44, 23);
+            numericUpDown2.Size = new System.Drawing.Size(50, 27);
             numericUpDown2.TabIndex = 7;
             // 
             // groupBox3
@@ -280,11 +269,9 @@
             groupBox3.Controls.Add(comboBox4);
             groupBox3.Controls.Add(label4);
             groupBox3.Controls.Add(comboBox3);
-            groupBox3.Location = new System.Drawing.Point(526, 41);
-            groupBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox3.Location = new System.Drawing.Point(599, 56);
             groupBox3.Name = "groupBox3";
-            groupBox3.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            groupBox3.Size = new System.Drawing.Size(165, 138);
+            groupBox3.Size = new System.Drawing.Size(189, 184);
             groupBox3.TabIndex = 7;
             groupBox3.TabStop = false;
             groupBox3.Text = "Attributes";
@@ -292,9 +279,9 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new System.Drawing.Point(33, 98);
+            label7.Location = new System.Drawing.Point(38, 131);
             label7.Name = "label7";
-            label7.Size = new System.Drawing.Size(31, 15);
+            label7.Size = new System.Drawing.Size(39, 20);
             label7.TabIndex = 14;
             label7.Text = "Item";
             // 
@@ -303,18 +290,17 @@
             comboBox6.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             comboBox6.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             comboBox6.FormattingEnabled = true;
-            comboBox6.Location = new System.Drawing.Point(73, 96);
-            comboBox6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            comboBox6.Location = new System.Drawing.Point(83, 128);
             comboBox6.Name = "comboBox6";
-            comboBox6.Size = new System.Drawing.Size(88, 23);
+            comboBox6.Size = new System.Drawing.Size(100, 28);
             comboBox6.TabIndex = 13;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new System.Drawing.Point(22, 73);
+            label6.Location = new System.Drawing.Point(25, 97);
             label6.Name = "label6";
-            label6.Size = new System.Drawing.Size(41, 15);
+            label6.Size = new System.Drawing.Size(52, 20);
             label6.TabIndex = 12;
             label6.Text = "Ability";
             // 
@@ -323,18 +309,17 @@
             comboBox5.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             comboBox5.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             comboBox5.FormattingEnabled = true;
-            comboBox5.Location = new System.Drawing.Point(73, 70);
-            comboBox5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            comboBox5.Location = new System.Drawing.Point(83, 93);
             comboBox5.Name = "comboBox5";
-            comboBox5.Size = new System.Drawing.Size(88, 23);
+            comboBox5.Size = new System.Drawing.Size(100, 28);
             comboBox5.TabIndex = 11;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new System.Drawing.Point(20, 47);
+            label5.Location = new System.Drawing.Point(23, 63);
             label5.Name = "label5";
-            label5.Size = new System.Drawing.Size(43, 15);
+            label5.Size = new System.Drawing.Size(54, 20);
             label5.TabIndex = 10;
             label5.Text = "Nature";
             // 
@@ -342,10 +327,9 @@
             // 
             comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             comboBox4.FormattingEnabled = true;
-            comboBox4.Location = new System.Drawing.Point(73, 45);
-            comboBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            comboBox4.Location = new System.Drawing.Point(83, 60);
             comboBox4.Name = "comboBox4";
-            comboBox4.Size = new System.Drawing.Size(88, 23);
+            comboBox4.Size = new System.Drawing.Size(100, 28);
             comboBox4.TabIndex = 9;
             // 
             // groupBox4
@@ -358,11 +342,9 @@
             groupBox4.Controls.Add(comboBox8);
             groupBox4.Controls.Add(label10);
             groupBox4.Controls.Add(comboBox7);
-            groupBox4.Location = new System.Drawing.Point(526, 185);
-            groupBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox4.Location = new System.Drawing.Point(599, 248);
             groupBox4.Name = "groupBox4";
-            groupBox4.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            groupBox4.Size = new System.Drawing.Size(165, 130);
+            groupBox4.Size = new System.Drawing.Size(189, 173);
             groupBox4.TabIndex = 8;
             groupBox4.TabStop = false;
             groupBox4.Text = "Moveset";
@@ -370,27 +352,27 @@
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new System.Drawing.Point(17, 98);
+            label13.Location = new System.Drawing.Point(19, 131);
             label13.Name = "label13";
-            label13.Size = new System.Drawing.Size(46, 15);
+            label13.Size = new System.Drawing.Size(58, 20);
             label13.TabIndex = 23;
             label13.Text = "Move 4";
             // 
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new System.Drawing.Point(17, 73);
+            label12.Location = new System.Drawing.Point(19, 97);
             label12.Name = "label12";
-            label12.Size = new System.Drawing.Size(46, 15);
+            label12.Size = new System.Drawing.Size(58, 20);
             label12.TabIndex = 22;
             label12.Text = "Move 3";
             // 
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new System.Drawing.Point(17, 47);
+            label11.Location = new System.Drawing.Point(19, 63);
             label11.Name = "label11";
-            label11.Size = new System.Drawing.Size(46, 15);
+            label11.Size = new System.Drawing.Size(58, 20);
             label11.TabIndex = 21;
             label11.Text = "Move 2";
             // 
@@ -399,10 +381,9 @@
             comboBox10.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             comboBox10.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             comboBox10.FormattingEnabled = true;
-            comboBox10.Location = new System.Drawing.Point(73, 96);
-            comboBox10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            comboBox10.Location = new System.Drawing.Point(83, 128);
             comboBox10.Name = "comboBox10";
-            comboBox10.Size = new System.Drawing.Size(88, 23);
+            comboBox10.Size = new System.Drawing.Size(100, 28);
             comboBox10.TabIndex = 19;
             // 
             // comboBox9
@@ -410,10 +391,9 @@
             comboBox9.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             comboBox9.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             comboBox9.FormattingEnabled = true;
-            comboBox9.Location = new System.Drawing.Point(73, 70);
-            comboBox9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            comboBox9.Location = new System.Drawing.Point(83, 93);
             comboBox9.Name = "comboBox9";
-            comboBox9.Size = new System.Drawing.Size(88, 23);
+            comboBox9.Size = new System.Drawing.Size(100, 28);
             comboBox9.TabIndex = 17;
             // 
             // comboBox8
@@ -421,18 +401,17 @@
             comboBox8.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             comboBox8.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             comboBox8.FormattingEnabled = true;
-            comboBox8.Location = new System.Drawing.Point(73, 45);
-            comboBox8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            comboBox8.Location = new System.Drawing.Point(83, 60);
             comboBox8.Name = "comboBox8";
-            comboBox8.Size = new System.Drawing.Size(88, 23);
+            comboBox8.Size = new System.Drawing.Size(100, 28);
             comboBox8.TabIndex = 15;
             // 
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new System.Drawing.Point(17, 22);
+            label10.Location = new System.Drawing.Point(19, 29);
             label10.Name = "label10";
-            label10.Size = new System.Drawing.Size(46, 15);
+            label10.Size = new System.Drawing.Size(58, 20);
             label10.TabIndex = 14;
             label10.Text = "Move 1";
             // 
@@ -441,10 +420,9 @@
             comboBox7.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             comboBox7.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             comboBox7.FormattingEnabled = true;
-            comboBox7.Location = new System.Drawing.Point(73, 20);
-            comboBox7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            comboBox7.Location = new System.Drawing.Point(83, 27);
             comboBox7.Name = "comboBox7";
-            comboBox7.Size = new System.Drawing.Size(88, 23);
+            comboBox7.Size = new System.Drawing.Size(100, 28);
             comboBox7.TabIndex = 13;
             // 
             // groupBox5
@@ -461,11 +439,9 @@
             groupBox5.Controls.Add(numericUpDown5);
             groupBox5.Controls.Add(label14);
             groupBox5.Controls.Add(numericUpDown4);
-            groupBox5.Location = new System.Drawing.Point(184, 143);
-            groupBox5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox5.Location = new System.Drawing.Point(208, 192);
             groupBox5.Name = "groupBox5";
-            groupBox5.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            groupBox5.Size = new System.Drawing.Size(165, 172);
+            groupBox5.Size = new System.Drawing.Size(189, 229);
             groupBox5.TabIndex = 4;
             groupBox5.TabStop = false;
             groupBox5.Text = "IVs";
@@ -473,109 +449,103 @@
             // label19
             // 
             label19.AutoSize = true;
-            label19.Location = new System.Drawing.Point(66, 145);
+            label19.Location = new System.Drawing.Point(75, 193);
             label19.Name = "label19";
-            label19.Size = new System.Drawing.Size(39, 15);
+            label19.Size = new System.Drawing.Size(51, 20);
             label19.TabIndex = 18;
             label19.Text = "Speed";
             // 
             // numericUpDown9
             // 
-            numericUpDown9.Location = new System.Drawing.Point(116, 143);
-            numericUpDown9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericUpDown9.Location = new System.Drawing.Point(133, 191);
             numericUpDown9.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
             numericUpDown9.Name = "numericUpDown9";
-            numericUpDown9.Size = new System.Drawing.Size(44, 23);
+            numericUpDown9.Size = new System.Drawing.Size(50, 27);
             numericUpDown9.TabIndex = 17;
             // 
             // label18
             // 
             label18.AutoSize = true;
-            label18.Location = new System.Drawing.Point(35, 120);
+            label18.Location = new System.Drawing.Point(40, 160);
             label18.Name = "label18";
-            label18.Size = new System.Drawing.Size(68, 15);
+            label18.Size = new System.Drawing.Size(87, 20);
             label18.TabIndex = 16;
             label18.Text = "Sp. Defense";
             // 
             // numericUpDown8
             // 
-            numericUpDown8.Location = new System.Drawing.Point(116, 118);
-            numericUpDown8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericUpDown8.Location = new System.Drawing.Point(133, 157);
             numericUpDown8.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
             numericUpDown8.Name = "numericUpDown8";
-            numericUpDown8.Size = new System.Drawing.Size(44, 23);
+            numericUpDown8.Size = new System.Drawing.Size(50, 27);
             numericUpDown8.TabIndex = 15;
             // 
             // label17
             // 
             label17.AutoSize = true;
-            label17.Location = new System.Drawing.Point(46, 95);
+            label17.Location = new System.Drawing.Point(53, 127);
             label17.Name = "label17";
-            label17.Size = new System.Drawing.Size(60, 15);
+            label17.Size = new System.Drawing.Size(75, 20);
             label17.TabIndex = 14;
             label17.Text = "Sp. Attack";
             // 
             // numericUpDown7
             // 
-            numericUpDown7.Location = new System.Drawing.Point(116, 94);
-            numericUpDown7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericUpDown7.Location = new System.Drawing.Point(133, 125);
             numericUpDown7.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
             numericUpDown7.Name = "numericUpDown7";
-            numericUpDown7.Size = new System.Drawing.Size(44, 23);
+            numericUpDown7.Size = new System.Drawing.Size(50, 27);
             numericUpDown7.TabIndex = 13;
             // 
             // label16
             // 
             label16.AutoSize = true;
-            label16.Location = new System.Drawing.Point(56, 70);
+            label16.Location = new System.Drawing.Point(64, 93);
             label16.Name = "label16";
-            label16.Size = new System.Drawing.Size(49, 15);
+            label16.Size = new System.Drawing.Size(63, 20);
             label16.TabIndex = 12;
             label16.Text = "Defense";
             // 
             // numericUpDown6
             // 
-            numericUpDown6.Location = new System.Drawing.Point(116, 69);
-            numericUpDown6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericUpDown6.Location = new System.Drawing.Point(133, 92);
             numericUpDown6.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
             numericUpDown6.Name = "numericUpDown6";
-            numericUpDown6.Size = new System.Drawing.Size(44, 23);
+            numericUpDown6.Size = new System.Drawing.Size(50, 27);
             numericUpDown6.TabIndex = 11;
             // 
             // label15
             // 
             label15.AutoSize = true;
-            label15.Location = new System.Drawing.Point(66, 47);
+            label15.Location = new System.Drawing.Point(75, 63);
             label15.Name = "label15";
-            label15.Size = new System.Drawing.Size(41, 15);
+            label15.Size = new System.Drawing.Size(51, 20);
             label15.TabIndex = 10;
             label15.Text = "Attack";
             // 
             // numericUpDown5
             // 
-            numericUpDown5.Location = new System.Drawing.Point(116, 44);
-            numericUpDown5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericUpDown5.Location = new System.Drawing.Point(133, 59);
             numericUpDown5.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
             numericUpDown5.Name = "numericUpDown5";
-            numericUpDown5.Size = new System.Drawing.Size(44, 23);
+            numericUpDown5.Size = new System.Drawing.Size(50, 27);
             numericUpDown5.TabIndex = 9;
             // 
             // label14
             // 
             label14.AutoSize = true;
-            label14.Location = new System.Drawing.Point(87, 21);
+            label14.Location = new System.Drawing.Point(99, 28);
             label14.Name = "label14";
-            label14.Size = new System.Drawing.Size(23, 15);
+            label14.Size = new System.Drawing.Size(28, 20);
             label14.TabIndex = 8;
             label14.Text = "HP";
             // 
             // numericUpDown4
             // 
-            numericUpDown4.Location = new System.Drawing.Point(116, 20);
-            numericUpDown4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericUpDown4.Location = new System.Drawing.Point(133, 27);
             numericUpDown4.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
             numericUpDown4.Name = "numericUpDown4";
-            numericUpDown4.Size = new System.Drawing.Size(44, 23);
+            numericUpDown4.Size = new System.Drawing.Size(50, 27);
             numericUpDown4.TabIndex = 7;
             // 
             // groupBox6
@@ -592,11 +562,9 @@
             groupBox6.Controls.Add(numericUpDown14);
             groupBox6.Controls.Add(label25);
             groupBox6.Controls.Add(numericUpDown15);
-            groupBox6.Location = new System.Drawing.Point(355, 143);
-            groupBox6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox6.Location = new System.Drawing.Point(404, 192);
             groupBox6.Name = "groupBox6";
-            groupBox6.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            groupBox6.Size = new System.Drawing.Size(165, 172);
+            groupBox6.Size = new System.Drawing.Size(189, 229);
             groupBox6.TabIndex = 6;
             groupBox6.TabStop = false;
             groupBox6.Text = "EVs";
@@ -604,145 +572,136 @@
             // label20
             // 
             label20.AutoSize = true;
-            label20.Location = new System.Drawing.Point(66, 145);
+            label20.Location = new System.Drawing.Point(75, 193);
             label20.Name = "label20";
-            label20.Size = new System.Drawing.Size(39, 15);
+            label20.Size = new System.Drawing.Size(51, 20);
             label20.TabIndex = 30;
             label20.Text = "Speed";
             // 
             // numericUpDown10
             // 
-            numericUpDown10.Location = new System.Drawing.Point(116, 143);
-            numericUpDown10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericUpDown10.Location = new System.Drawing.Point(133, 191);
             numericUpDown10.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
             numericUpDown10.Name = "numericUpDown10";
-            numericUpDown10.Size = new System.Drawing.Size(44, 23);
+            numericUpDown10.Size = new System.Drawing.Size(50, 27);
             numericUpDown10.TabIndex = 29;
             // 
             // label21
             // 
             label21.AutoSize = true;
-            label21.Location = new System.Drawing.Point(35, 120);
+            label21.Location = new System.Drawing.Point(40, 160);
             label21.Name = "label21";
-            label21.Size = new System.Drawing.Size(68, 15);
+            label21.Size = new System.Drawing.Size(87, 20);
             label21.TabIndex = 28;
             label21.Text = "Sp. Defense";
             // 
             // numericUpDown11
             // 
-            numericUpDown11.Location = new System.Drawing.Point(116, 118);
-            numericUpDown11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericUpDown11.Location = new System.Drawing.Point(133, 157);
             numericUpDown11.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
             numericUpDown11.Name = "numericUpDown11";
-            numericUpDown11.Size = new System.Drawing.Size(44, 23);
+            numericUpDown11.Size = new System.Drawing.Size(50, 27);
             numericUpDown11.TabIndex = 27;
             // 
             // label22
             // 
             label22.AutoSize = true;
-            label22.Location = new System.Drawing.Point(46, 95);
+            label22.Location = new System.Drawing.Point(53, 127);
             label22.Name = "label22";
-            label22.Size = new System.Drawing.Size(60, 15);
+            label22.Size = new System.Drawing.Size(75, 20);
             label22.TabIndex = 26;
             label22.Text = "Sp. Attack";
             // 
             // numericUpDown12
             // 
-            numericUpDown12.Location = new System.Drawing.Point(116, 94);
-            numericUpDown12.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericUpDown12.Location = new System.Drawing.Point(133, 125);
             numericUpDown12.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
             numericUpDown12.Name = "numericUpDown12";
-            numericUpDown12.Size = new System.Drawing.Size(44, 23);
+            numericUpDown12.Size = new System.Drawing.Size(50, 27);
             numericUpDown12.TabIndex = 25;
             // 
             // label23
             // 
             label23.AutoSize = true;
-            label23.Location = new System.Drawing.Point(56, 70);
+            label23.Location = new System.Drawing.Point(64, 93);
             label23.Name = "label23";
-            label23.Size = new System.Drawing.Size(49, 15);
+            label23.Size = new System.Drawing.Size(63, 20);
             label23.TabIndex = 24;
             label23.Text = "Defense";
             // 
             // numericUpDown13
             // 
-            numericUpDown13.Location = new System.Drawing.Point(116, 69);
-            numericUpDown13.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericUpDown13.Location = new System.Drawing.Point(133, 92);
             numericUpDown13.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
             numericUpDown13.Name = "numericUpDown13";
-            numericUpDown13.Size = new System.Drawing.Size(44, 23);
+            numericUpDown13.Size = new System.Drawing.Size(50, 27);
             numericUpDown13.TabIndex = 23;
             // 
             // label24
             // 
             label24.AutoSize = true;
-            label24.Location = new System.Drawing.Point(66, 47);
+            label24.Location = new System.Drawing.Point(75, 63);
             label24.Name = "label24";
-            label24.Size = new System.Drawing.Size(41, 15);
+            label24.Size = new System.Drawing.Size(51, 20);
             label24.TabIndex = 22;
             label24.Text = "Attack";
             // 
             // numericUpDown14
             // 
-            numericUpDown14.Location = new System.Drawing.Point(116, 44);
-            numericUpDown14.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericUpDown14.Location = new System.Drawing.Point(133, 59);
             numericUpDown14.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
             numericUpDown14.Name = "numericUpDown14";
-            numericUpDown14.Size = new System.Drawing.Size(44, 23);
+            numericUpDown14.Size = new System.Drawing.Size(50, 27);
             numericUpDown14.TabIndex = 21;
             // 
             // label25
             // 
             label25.AutoSize = true;
-            label25.Location = new System.Drawing.Point(87, 21);
+            label25.Location = new System.Drawing.Point(99, 28);
             label25.Name = "label25";
-            label25.Size = new System.Drawing.Size(23, 15);
+            label25.Size = new System.Drawing.Size(28, 20);
             label25.TabIndex = 20;
             label25.Text = "HP";
             // 
             // numericUpDown15
             // 
-            numericUpDown15.Location = new System.Drawing.Point(116, 20);
-            numericUpDown15.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            numericUpDown15.Location = new System.Drawing.Point(133, 27);
             numericUpDown15.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
             numericUpDown15.Name = "numericUpDown15";
-            numericUpDown15.Size = new System.Drawing.Size(44, 23);
+            numericUpDown15.Size = new System.Drawing.Size(50, 27);
             numericUpDown15.TabIndex = 19;
             // 
             // sortByComboBox
             // 
             sortByComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             sortByComboBox.FormattingEnabled = true;
-            sortByComboBox.Location = new System.Drawing.Point(12, 8);
-            sortByComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            sortByComboBox.Location = new System.Drawing.Point(12, 12);
             sortByComboBox.Name = "sortByComboBox";
-            sortByComboBox.Size = new System.Drawing.Size(166, 23);
+            sortByComboBox.Size = new System.Drawing.Size(189, 28);
             sortByComboBox.TabIndex = 11;
             // 
             // trainerDisplayTextBox
             // 
-            trainerDisplayTextBox.Location = new System.Drawing.Point(183, 8);
-            trainerDisplayTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            trainerDisplayTextBox.Location = new System.Drawing.Point(207, 12);
             trainerDisplayTextBox.Name = "trainerDisplayTextBox";
             trainerDisplayTextBox.ReadOnly = true;
-            trainerDisplayTextBox.Size = new System.Drawing.Size(166, 23);
+            trainerDisplayTextBox.Size = new System.Drawing.Size(189, 27);
             trainerDisplayTextBox.TabIndex = 9;
             // 
             // listBox
             // 
             listBox.FormattingEnabled = true;
-            listBox.ItemHeight = 15;
-            listBox.Location = new System.Drawing.Point(12, 33);
-            listBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            listBox.ItemHeight = 20;
+            listBox.Location = new System.Drawing.Point(12, 46);
             listBox.Name = "listBox";
-            listBox.Size = new System.Drawing.Size(166, 304);
+            listBox.Size = new System.Drawing.Size(189, 404);
             listBox.TabIndex = 10;
             // 
             // BattleTowerPokemonForm
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(1212, 600);
+            ClientSize = new System.Drawing.Size(800, 462);
             Controls.Add(sortByComboBox);
             Controls.Add(trainerDisplayTextBox);
             Controls.Add(listBox);
@@ -753,7 +712,6 @@
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "BattleTowerPokemonForm";
