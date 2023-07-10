@@ -383,36 +383,52 @@ namespace ImpostersOrdeal
         private static async Task ParseBattleTowerTrainers()
         {
             gameData.battleTowerTrainers = new();
+            gameData.battleTowerTrainersDouble = new();
             gameData.battleTowerTrainerPokemons = new();
             AssetTypeValueField monoBehaviour = (await monoBehaviourCollection[PathEnum.DprMasterdatas]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "TowerTrainerTable");
             AssetTypeValueField monoBehaviour2 = (await monoBehaviourCollection[PathEnum.DprMasterdatas]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "TowerSingleStockTable");
+            AssetTypeValueField monoBehaviour3 = (await monoBehaviourCollection[PathEnum.DprMasterdatas]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "TowerDoubleStockTable");
             AssetTypeValueField nameData = (await monoBehaviourCollection[PathEnum.English]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_dp_trainers_name");
 
             AssetTypeValueField[] nameFields = nameData.children[8].children[0].children;
             Dictionary<string, string> trainerNames = new();
             gameData.trainerNames = trainerNames;
-            /*     foreach (AssetTypeValueField label in nameFields)
-                     if (label.children[6].children[0].childrenCount > 0)
-                         trainerNames[label.children[2].GetValue().AsString()] = label.children[6].children[0].children[0].children[4].GetValue().AsString();*/
-
-                 AssetTypeValueField[] trainerFields = monoBehaviour2.children[4].children[0].children;
-                 AssetTypeValueField[] pokemonFields = monoBehaviour.children[5].children[0].children;
-            
-            // int TestString = trainerFields[2].children[0].value.value.asUInt8;
-            //       AssetTypeValueField[] trainerPokemonFields = monoBehaviour.children[6].children[0].children;
-            // for (int trainerIdx = 0; trainerIdx < Math.Min(trainerFields.Length, trainerPokemonFields.Length); trainerIdx++)
+            AssetTypeValueField[] trainerFields = monoBehaviour2.children[4].children[0].children;
+            AssetTypeValueField[] trainerFieldsDouble = monoBehaviour3.children[4].children[0].children;
+            AssetTypeValueField[] pokemonFields = monoBehaviour.children[5].children[0].children;
+            //Single battle parser
             for (int trainerIdx = 0; trainerIdx < trainerFields.Length; trainerIdx++)
                 {
                      BattleTowerTrainer trainer = new();
                      trainer.trainerID2 = trainerFields[trainerIdx].children[0].value.value.asUInt32;
                      trainer.trainerTypeID = trainerFields[trainerIdx].children[1].value.value.asInt32;
+                     trainer.trainerTypeID2 = -1; ;
                      trainer.battleTowerPokemonID1 = trainerFields[trainerIdx].children[2].children[0].children[0].value.value.asUInt32;
                      trainer.battleTowerPokemonID2 = trainerFields[trainerIdx].children[2].children[0].children[1].value.value.asUInt32;
                      trainer.battleTowerPokemonID3 = trainerFields[trainerIdx].children[2].children[0].children[2].value.value.asUInt32;
+                     trainer.battleTowerPokemonID4 = 0;
                      trainer.battleBGM = trainerFields[trainerIdx].children[3].value.value.ToString();
                      trainer.winBGM = trainerFields[trainerIdx].children[4].value.value.ToString();
+                     trainer.isDouble = false;
                 gameData.battleTowerTrainers.Add(trainer);
                  }
+            //Double battle parser
+            for (int trainerIdx = 0; trainerIdx < trainerFieldsDouble.Length; trainerIdx++)
+            {
+                BattleTowerTrainer trainer = new();
+                trainer.trainerID2 = trainerFieldsDouble[trainerIdx].children[0].value.value.asUInt32;
+                trainer.trainerTypeID = trainerFieldsDouble[trainerIdx].children[1].children[0].children[0].value.value.asInt32; ;
+                trainer.trainerTypeID2 = trainerFieldsDouble[trainerIdx].children[1].children[0].children[1].value.value.asInt32; ;
+                trainer.battleTowerPokemonID1 = trainerFieldsDouble[trainerIdx].children[2].children[0].children[0].value.value.asUInt32;
+                trainer.battleTowerPokemonID2 = trainerFieldsDouble[trainerIdx].children[2].children[0].children[1].value.value.asUInt32;
+                trainer.battleTowerPokemonID3 = trainerFieldsDouble[trainerIdx].children[2].children[0].children[2].value.value.asUInt32;
+                trainer.battleTowerPokemonID4 = trainerFieldsDouble[trainerIdx].children[2].children[0].children[3].value.value.asUInt32;
+                trainer.battleBGM = trainerFieldsDouble[trainerIdx].children[3].value.value.ToString();
+                trainer.winBGM = trainerFieldsDouble[trainerIdx].children[4].value.value.ToString();
+                trainer.isDouble = true;
+                // gameData.battleTowerTrainers.Add(trainer);
+                gameData.battleTowerTrainersDouble.Add(trainer);
+            }
             //Parse BattleTowerTrainer Names
 
             //Parse battle tower trainer pokemon
@@ -3139,9 +3155,11 @@ fileManager.WriteMonoBehaviour(PathEnum.DprMasterdatas, monoBehaviour);
 private static void CommitBattleTowerTrainers()
 {
 AssetTypeValueField monoBehaviour = fileManager.GetMonoBehaviours(PathEnum.DprMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "TowerSingleStockTable");
+AssetTypeValueField monoBehaviour2 = fileManager.GetMonoBehaviours(PathEnum.DprMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "TowerDoubleStockTable");
 
-AssetTypeValueField[] trainerFields = monoBehaviour.children[4].children[0].children;
-for (int trainerIdx = 0; trainerIdx < trainerFields.Length; trainerIdx++)
+            AssetTypeValueField[] trainerFields = monoBehaviour.children[4].children[0].children;
+            AssetTypeValueField[] trainerFieldsDouble = monoBehaviour2.children[4].children[0].children;
+            for (int trainerIdx = 0; trainerIdx < trainerFields.Length; trainerIdx++)
 {
 BattleTowerTrainer trainer = gameData.battleTowerTrainers[trainerIdx];
 trainerFields[trainerIdx].children[0].GetValue().Set(trainer.trainerID2);
@@ -3153,8 +3171,23 @@ trainerFields[trainerIdx].children[3].GetValue().Set(trainer.battleBGM);
 trainerFields[trainerIdx].children[4].GetValue().Set(trainer.winBGM);
             }
 
-fileManager.WriteMonoBehaviour(PathEnum.DprMasterdatas, monoBehaviour);
-}
+for (int trainerIdx = 0; trainerIdx < trainerFieldsDouble.Length; trainerIdx++)
+            {
+                BattleTowerTrainer trainer = gameData.battleTowerTrainersDouble[trainerIdx];
+                trainerFieldsDouble[trainerIdx].children[0].GetValue().Set(trainer.trainerID2);
+                trainerFieldsDouble[trainerIdx].children[1].children[0].children[0].GetValue().Set(trainer.trainerTypeID);
+                trainerFieldsDouble[trainerIdx].children[1].children[0].children[1].GetValue().Set(trainer.trainerTypeID2);
+                trainerFieldsDouble[trainerIdx].children[2].children[0].children[0].GetValue().Set(trainer.battleTowerPokemonID1);
+                trainerFieldsDouble[trainerIdx].children[2].children[0].children[1].GetValue().Set(trainer.battleTowerPokemonID2);
+                trainerFieldsDouble[trainerIdx].children[2].children[0].children[2].GetValue().Set(trainer.battleTowerPokemonID3);
+                trainerFieldsDouble[trainerIdx].children[2].children[0].children[3].GetValue().Set(trainer.battleTowerPokemonID4);
+                trainerFieldsDouble[trainerIdx].children[3].GetValue().Set(trainer.battleBGM);
+                trainerFieldsDouble[trainerIdx].children[4].GetValue().Set(trainer.winBGM);
+            }
+
+            fileManager.WriteMonoBehaviour(PathEnum.DprMasterdatas, monoBehaviour);
+            fileManager.WriteMonoBehaviour(PathEnum.DprMasterdatas, monoBehaviour2);
+        }
  private static void CommitBattleTowerPokemon()
         {
             AssetTypeValueField monoBehaviour = fileManager.GetMonoBehaviours(PathEnum.DprMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "TowerTrainerTable");

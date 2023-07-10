@@ -17,6 +17,7 @@ namespace ImpostersOrdeal.Forms
     public partial class BattleTowerTrainerEditorForm : Form
     {
         public List<BattleTowerTrainer> battleTowertrainers;
+        public List<BattleTowerTrainer> battleTowertrainersDoubles;
         private Dictionary<int, string> trainerTypeLabels;
         public Dictionary<int, string> trainerTypeNames;
         private Dictionary<int, int> trainerTypeToCC;
@@ -31,7 +32,9 @@ namespace ImpostersOrdeal.Forms
         private BattleTowerTrainerPokemon trainerPokemon1;
         private BattleTowerTrainerPokemon trainerPokemon2;
         private BattleTowerTrainerPokemon trainerPokemon3;
+        private BattleTowerTrainerPokemon trainerPokemon4;
         private int mostRecentModifiedRowIndex = -1;
+        private bool doubleTrainerMode = false;
 
         private readonly string[] sortNames = new string[]
         {
@@ -70,6 +73,8 @@ namespace ImpostersOrdeal.Forms
             InitializeComponent();
             battleTowertrainers = new();
             battleTowertrainers.AddRange(gameData.battleTowerTrainers);
+            battleTowertrainersDoubles = new();
+            battleTowertrainersDoubles.AddRange(gameData.battleTowerTrainersDouble);
 
             sortByComboBox.DataSource = sortNames;
             sortByComboBox.SelectedIndex = 0;
@@ -77,6 +82,7 @@ namespace ImpostersOrdeal.Forms
 
 
             battleTowertrainers.Sort(sortComparisons[sortByComboBox.SelectedIndex]);
+            battleTowertrainersDoubles.Sort(sortComparisons[sortByComboBox.SelectedIndex]);
             partyDataGridView.AllowUserToAddRows = false;
             partyDataGridView.EditMode = DataGridViewEditMode.EditOnKeystrokeOrF2;
             PopulateListBox();
@@ -88,8 +94,13 @@ namespace ImpostersOrdeal.Forms
         private void TrainerChanged(object sender, EventArgs e)
         {
             DeactivateControls();
-
+            if(doubleTrainerMode == false) { 
             t = battleTowertrainers[listBox.SelectedIndex];
+            }
+            else
+            {
+            t = battleTowertrainersDoubles[listBox.SelectedIndex];
+            }
             RefreshTrainerDisplay();
 
             ActivateControls();
@@ -98,10 +109,18 @@ namespace ImpostersOrdeal.Forms
         private void SortChanged(object sender, EventArgs e)
         {
             DeactivateControls();
-
-            battleTowertrainers.Sort(sortComparisons[sortByComboBox.SelectedIndex]);
-            PopulateListBox();
-            listBox.SelectedIndex = battleTowertrainers.IndexOf(t);
+            if (doubleTrainerMode == false)
+            {
+                battleTowertrainers.Sort(sortComparisons[sortByComboBox.SelectedIndex]);
+                PopulateListBox();
+                listBox.SelectedIndex = battleTowertrainers.IndexOf(t);
+            }
+            else
+            {
+                battleTowertrainersDoubles.Sort(sortComparisons[sortByComboBox.SelectedIndex]);
+                PopulateListBox();
+                listBox.SelectedIndex = battleTowertrainersDoubles.IndexOf(t);
+            }
 
             ActivateControls();
         }
@@ -121,18 +140,20 @@ namespace ImpostersOrdeal.Forms
             string selectedValue = comboBoxCell1.Value.ToString();
             string numericValue = Regex.Replace(selectedValue, @"[^0-9]", "");
             int pokemonNumber = int.Parse(numericValue);
-            Debug.WriteLine(numericValue + pokemonNumber);
+          //  Debug.WriteLine(numericValue + pokemonNumber);
             switch (rowIndex)
             {
                 case 0:
                     t.battleTowerPokemonID1 = (uint)pokemonNumber;
-                    Debug.WriteLine(t.battleTowerPokemonID1);
                     break;
                 case 1:
                     t.battleTowerPokemonID2 = (uint)pokemonNumber;
                     break;
                 case 2:
                     t.battleTowerPokemonID3 = (uint)pokemonNumber;
+                    break;
+                case 3:
+                    t.battleTowerPokemonID4 = (uint)pokemonNumber;
                     break;
             }
             RefreshTextBoxDisplay();
@@ -173,7 +194,8 @@ namespace ImpostersOrdeal.Forms
 
         private void RefreshTextBoxDisplay()
         {
-                trainerDisplayTextBox.Text = t.GetID() + " - " + t.GetName();
+            trainerDisplayTextBox.Text = t.GetID() + " - " + t.GetName();
+            //  PopulateListBox();
         }
 
         private void PopulatePartyDataGridView()
@@ -189,90 +211,34 @@ namespace ImpostersOrdeal.Forms
             partyDataGridView.Rows.Add(new object[] { t.battleTowerPokemonID1 + " - " + nameTrainerPokemon1 });
             partyDataGridView.Rows.Add(new object[] { t.battleTowerPokemonID2 + " - " + nameTrainerPokemon2 });
             partyDataGridView.Rows.Add(new object[] { t.battleTowerPokemonID3 + " - " + nameTrainerPokemon3 });
+            if (t.isDouble == true)
+            {
+                trainerPokemon4 = gameData.battleTowerTrainerPokemons.FirstOrDefault(t1 => t1.pokemonID == t.battleTowerPokemonID4);
+                string nameTrainerPokemon4 = gameData.dexEntries[trainerPokemon4.dexID].GetName();
+                partyDataGridView.Rows.Add(new object[] { t.battleTowerPokemonID4 + " - " + nameTrainerPokemon4 });
+            }
         }
 
         private void ConfigureTP(object sender, DataGridViewCellEventArgs e)
         {
-            // DataGridView senderGrid = (DataGridView)sender;
-
-            /*  if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
-              {
-                  if (e.RowIndex == t.trainerPokemon.Count)
-                      t.trainerPokemon.Add(t.trainerPokemon.Count > 0 ? new(t.trainerPokemon.Last()) : new());
-                  else
-                  {
-                      //       tpef.SetTP(t, e.RowIndex);
-                      tpef.ShowDialog();
-                  }
-
-                  PopulatePartyDataGridView();
-              }*/
         }
-
-        /*   private void UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
-           {
-               t.trainerPokemon.RemoveAt(e.Row.Index);
-           }
-
-           private void CopyTPButtonClick(object sender, EventArgs e)
-           {
-               tpClipboard = new();
-               foreach (DataGridViewRow row in partyDataGridView.SelectedRows)
-                   if (row.Index >= 0 && row.Index < t.trainerPokemon.Count)
-                       tpClipboard.Add(new(t.trainerPokemon[row.Index]));
-           }
-
-           private void PasteTPButtonClick(object sender, EventArgs e)
-           {
-               if (tpClipboard == null)
-                   return;
-
-               List<TrainerPokemon> newParty = new();
-               List<DataGridViewRow> selection = new();
-               foreach (DataGridViewRow row in partyDataGridView.SelectedRows)
-                   selection.Add(row);
-
-               int firstIndex = selection.Count > 0 ? selection.Select(r => r.Index).Min() : t.trainerPokemon.Count;
-               int lastIndex = selection.Count > 0 ? selection.Select(r => r.Index).Max() : t.trainerPokemon.Count;
-               for (int i = 0; i < firstIndex; i++)
-                   newParty.Add(new(t.trainerPokemon[i]));
-               foreach (TrainerPokemon tp in tpClipboard)
-                   newParty.Add(new(tp));
-               for (int i = lastIndex + 1; i < t.trainerPokemon.Count; i++)
-                   newParty.Add(new(t.trainerPokemon[i]));
-               t.trainerPokemon = newParty;
-
-               PopulatePartyDataGridView();
-           }*/
-
-
-          /* private void CopyTrainerButtonClick(object sender, EventArgs e)
-           {
-               trainerClipboard = new(t);
-           }
-
-           private void PasteTrainerButtonClick(object sender, EventArgs e)
-           {
-               if (trainerClipboard != null)
-               {
-                   DeactivateControls();
-                   int id = trainers[listBox.SelectedIndex].trainerID;
-                   trainers[listBox.SelectedIndex].SetAll(trainerClipboard);
-                   trainers[listBox.SelectedIndex].trainerID = id;
-                   PopulateListBox();
-                   ActivateControls();
-
-                   TrainerChanged(null, null);
-               }
-           }*/
 
         private void PopulateListBox()
         {
+          //  listBox.DataSource = null;
+         //   listBox.Items.Clear(); 
             int index = listBox.SelectedIndex;
             if (index < 0)
                 index = 0;
-            listBox.DataSource = battleTowertrainers.Select(o => o.GetID() + " - " + o.GetName()).ToArray();
-            listBox.SelectedIndex = index;
+            if (doubleTrainerMode == false)
+            {   
+                listBox.DataSource = battleTowertrainers.Select(o => o.GetID() + " - " + o.GetName()).ToArray();
+                listBox.SelectedIndex = index;
+            }
+            else {
+                listBox.DataSource = battleTowertrainersDoubles.Select(o => o.GetID() + " - " + o.GetName()).ToArray();
+                listBox.SelectedIndex = index;
+            }
         }
 
         private void partyDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -284,6 +250,26 @@ namespace ImpostersOrdeal.Forms
         private void BattleTowerTrainerEditorForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+           // listBox.DataSource = null;
+           // listBox.Items.Clear();
+            doubleTrainerMode = true;
+            // RefreshTextBoxDisplay();
+            PopulateListBox();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+      //      listBox.DataSource = null;
+       //     listBox.Items.Clear();
+            doubleTrainerMode = false;
+            // RefreshTextBoxDisplay();
+            PopulateListBox();
         }
     }
 }

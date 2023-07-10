@@ -22,6 +22,7 @@ namespace ImpostersOrdeal
             public ShopTables shopTables;
             public List<Trainer> trainers;
             public List<BattleTowerTrainer> battleTowerTrainers;
+            public List<BattleTowerTrainer> battleTowerTrainersDouble;
             public List<BattleTowerTrainerPokemon> battleTowerTrainerPokemons;
             public EncounterTableFile[] encounterTableFiles;
             public MessageFileSet[] messageFileSets;

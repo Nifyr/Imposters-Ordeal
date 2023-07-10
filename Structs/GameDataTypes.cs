@@ -483,12 +483,14 @@ namespace ImpostersOrdeal
         {
             public uint trainerID2;
             public int trainerTypeID;
-            //public Array trainerPokemon;
+            public int trainerTypeID2;
             public uint battleTowerPokemonID1;
             public uint battleTowerPokemonID2;
             public uint battleTowerPokemonID3;
+            public uint battleTowerPokemonID4 = 0;
             public string battleBGM;
             public string winBGM;
+            public bool isDouble;
 
             //Readonly
             public int trainerID;
@@ -505,85 +507,21 @@ namespace ImpostersOrdeal
             {
                 trainerID2 = t.trainerID2;
                 trainerTypeID = t.trainerTypeID;
-              /*  trainerPokemon = new();
-                foreach (TrainerPokemon tp in t.trainerPokemon)
-                    trainerPokemon.Add(new(tp));*/
+                if (t.trainerTypeID2 != -1)
+                {
+                    trainerTypeID2 = t.trainerTypeID2;
+                }
                 battleTowerPokemonID1 = t.battleTowerPokemonID1;    
                 battleTowerPokemonID2 = t.battleTowerPokemonID2;    
-                battleTowerPokemonID3 = t.battleTowerPokemonID3;    
+                battleTowerPokemonID3 = t.battleTowerPokemonID3;  
+                if(t.battleTowerPokemonID4 != 0)
+                {
+                    battleTowerPokemonID4 = t.battleTowerPokemonID4;
+                }
                 battleBGM = t.battleBGM;
                 winBGM = t.winBGM;
               //  name = t.name;
             }
-
-       /*     public List<int> GetItems()
-            {
-                List<int> items = new();
-                if (useItem1 > 0)
-                    items.Add(useItem1);
-                if (useItem2 > 0)
-                    items.Add(useItem2);
-                if (useItem3 > 0)
-                    items.Add(useItem3);
-                if (useItem4 > 0)
-                    items.Add(useItem4);
-                return items;
-            }
-
-            public void SetItems(List<int> items)
-            {
-                useItem1 = (ushort)(items.Count > 0 ? items[0] : 0);
-                useItem2 = (ushort)(items.Count > 1 ? items[1] : 0);
-                useItem3 = (ushort)(items.Count > 2 ? items[2] : 0);
-                useItem4 = (ushort)(items.Count > 3 ? items[3] : 0);
-            }
-
-            public void SetItemFlag()
-            {
-                aiBit |= 1 << 5;
-            }
-
-            public int GetTypeTheme()
-            {
-                return trainerTypeID switch
-                {
-                    80 => 1,
-                    69 => 4,
-                    65 => 5,
-                    68 => 6,
-                    81 => 7,
-                    67 => 8,
-                    70 => 9,
-                    79 => 10,
-                    78 => 11,
-                    83 => 12,
-                    71 => 13,
-                    82 => 14,
-                    _ => -1,
-                };
-            }*/
-
-         /*   public double GetAvgLevel()
-            {
-                if (trainerPokemon.Count == 0)
-                    return 0;
-                return trainerPokemon.Select(p => (int)p.level).Average();
-            }*/
-
-       /*     public bool[] GetAIFlags()
-            {
-                bool[] flags = new bool[32];
-                for (int i = 0; i < 32; i++)
-                    flags[i] = (aiBit & ((uint)1 << i)) != 0;
-                return flags;
-            }
-
-            public void SetAIFlags(bool[] flagArray)
-            {
-                aiBit = 0;
-                for (int i = 0; i < 32; i++)
-                    aiBit |= flagArray[i] ? (uint)1 << i : 0;
-            }*/
 
             public int GetID()
             {
