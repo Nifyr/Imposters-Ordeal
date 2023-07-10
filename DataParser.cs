@@ -307,7 +307,7 @@ namespace ImpostersOrdeal
             AssetTypeValueField[] nameFields = nameData.children[8].children[0].children;
             Dictionary<string, string> trainerNames = new();
             gameData.trainerNames = trainerNames;
-            Debug.WriteLine("Hello");
+            //Debug.WriteLine("Hello");
             foreach (AssetTypeValueField label in nameFields)
                 if (label.children[6].children[0].childrenCount > 0)
                     trainerNames[label.children[2].GetValue().AsString()] = label.children[6].children[0].children[0].children[4].GetValue().AsString();
@@ -333,7 +333,6 @@ namespace ImpostersOrdeal
                 trainer.giftItem = trainerFields[trainerIdx].children[11].value.value.asUInt16;
                 trainer.nameLabel = trainerFields[trainerIdx].children[12].GetValue().AsString();
                 trainer.aiBit = trainerFields[trainerIdx].children[19].value.value.asUInt32;
-
                 trainer.trainerID = trainerIdx;
                 trainer.name = trainerNames[trainer.nameLabel];
 
@@ -393,9 +392,14 @@ namespace ImpostersOrdeal
             AssetTypeValueField[] nameFields = nameData.children[8].children[0].children;
             Dictionary<string, string> trainerNames = new();
             gameData.trainerNames = trainerNames;
+            //Test
+            foreach (AssetTypeValueField label in nameFields)
+                if (label.children[6].children[0].childrenCount > 0)
+                    trainerNames[label.children[2].GetValue().AsString()] = label.children[6].children[0].children[0].children[4].GetValue().AsString();
             AssetTypeValueField[] trainerFields = monoBehaviour2.children[4].children[0].children;
             AssetTypeValueField[] trainerFieldsDouble = monoBehaviour3.children[4].children[0].children;
             AssetTypeValueField[] pokemonFields = monoBehaviour.children[5].children[0].children;
+            AssetTypeValueField[] nameFieldsTower = monoBehaviour.children[4].children[0].children;
             //Single battle parser
             for (int trainerIdx = 0; trainerIdx < trainerFields.Length; trainerIdx++)
                 {
@@ -409,6 +413,10 @@ namespace ImpostersOrdeal
                      trainer.battleTowerPokemonID4 = 0;
                      trainer.battleBGM = trainerFields[trainerIdx].children[3].value.value.ToString();
                      trainer.winBGM = trainerFields[trainerIdx].children[4].value.value.ToString();
+                     trainer.nameLabel = nameFieldsTower[trainer.trainerTypeID].children[1].GetValue().AsString();
+                     trainer.name = trainerNames[trainer.nameLabel];
+                     trainer.nameLabel2 = null;
+                     trainer.name2 = null;
                      trainer.isDouble = false;
                 gameData.battleTowerTrainers.Add(trainer);
                  }
@@ -425,8 +433,18 @@ namespace ImpostersOrdeal
                 trainer.battleTowerPokemonID4 = trainerFieldsDouble[trainerIdx].children[2].children[0].children[3].value.value.asUInt32;
                 trainer.battleBGM = trainerFieldsDouble[trainerIdx].children[3].value.value.ToString();
                 trainer.winBGM = trainerFieldsDouble[trainerIdx].children[4].value.value.ToString();
+                trainer.nameLabel = nameFieldsTower[trainer.trainerTypeID].children[1].GetValue().AsString();
+                trainer.name = trainerNames[trainer.nameLabel];
+                if(trainer.trainerTypeID2 != -1) { 
+                trainer.nameLabel2 = nameFieldsTower[trainer.trainerTypeID2].children[1].GetValue().AsString();
+                trainer.name2 = trainerNames[trainer.nameLabel2];
+                }
+                else
+                {
+                trainer.nameLabel2 = null;
+                trainer.name2 = null;
+                }
                 trainer.isDouble = true;
-                // gameData.battleTowerTrainers.Add(trainer);
                 gameData.battleTowerTrainersDouble.Add(trainer);
             }
             //Parse BattleTowerTrainer Names

@@ -40,6 +40,7 @@ namespace ImpostersOrdeal.Forms
         {
             "Sort by ID",
             "Sort by name",
+         //   "Sort by internal ID"
         };
 
         private readonly string[] pokemonNames = new string[]
@@ -83,9 +84,13 @@ namespace ImpostersOrdeal.Forms
 
             battleTowertrainers.Sort(sortComparisons[sortByComboBox.SelectedIndex]);
             battleTowertrainersDoubles.Sort(sortComparisons[sortByComboBox.SelectedIndex]);
+
+            //  Debug.WriteLine(labelToTrainerName.Values.ToString());
+            // Debug.WriteLine("Name is" + gameData.battleTowerTrainersDouble[991].name2);
+
             partyDataGridView.AllowUserToAddRows = false;
             partyDataGridView.EditMode = DataGridViewEditMode.EditOnKeystrokeOrF2;
-            PopulateListBox();
+            PopulateListBox(false);
             t = battleTowertrainers[0];
             RefreshTrainerDisplay();
             ActivateControls();
@@ -94,12 +99,13 @@ namespace ImpostersOrdeal.Forms
         private void TrainerChanged(object sender, EventArgs e)
         {
             DeactivateControls();
-            if(doubleTrainerMode == false) { 
-            t = battleTowertrainers[listBox.SelectedIndex];
+            if (doubleTrainerMode == false)
+            {
+                t = battleTowertrainers[listBox.SelectedIndex];
             }
             else
             {
-            t = battleTowertrainersDoubles[listBox.SelectedIndex];
+                t = battleTowertrainersDoubles[listBox.SelectedIndex];
             }
             RefreshTrainerDisplay();
 
@@ -112,13 +118,13 @@ namespace ImpostersOrdeal.Forms
             if (doubleTrainerMode == false)
             {
                 battleTowertrainers.Sort(sortComparisons[sortByComboBox.SelectedIndex]);
-                PopulateListBox();
+                PopulateListBox(false);
                 listBox.SelectedIndex = battleTowertrainers.IndexOf(t);
             }
             else
             {
                 battleTowertrainersDoubles.Sort(sortComparisons[sortByComboBox.SelectedIndex]);
-                PopulateListBox();
+                PopulateListBox(false);
                 listBox.SelectedIndex = battleTowertrainersDoubles.IndexOf(t);
             }
 
@@ -140,7 +146,7 @@ namespace ImpostersOrdeal.Forms
             string selectedValue = comboBoxCell1.Value.ToString();
             string numericValue = Regex.Replace(selectedValue, @"[^0-9]", "");
             int pokemonNumber = int.Parse(numericValue);
-          //  Debug.WriteLine(numericValue + pokemonNumber);
+            //  Debug.WriteLine(numericValue + pokemonNumber);
             switch (rowIndex)
             {
                 case 0:
@@ -167,7 +173,7 @@ namespace ImpostersOrdeal.Forms
         private void CommitNameEdit(object sender, EventArgs e)
         {
             DeactivateControls();
-            PopulateListBox();
+            PopulateListBox(false);
             RefreshTextBoxDisplay();
 
             ActivateControls();
@@ -195,7 +201,6 @@ namespace ImpostersOrdeal.Forms
         private void RefreshTextBoxDisplay()
         {
             trainerDisplayTextBox.Text = t.GetID() + " - " + t.GetName();
-            //  PopulateListBox();
         }
 
         private void PopulatePartyDataGridView()
@@ -223,19 +228,22 @@ namespace ImpostersOrdeal.Forms
         {
         }
 
-        private void PopulateListBox()
+        private void PopulateListBox(bool resetIndex)
         {
-          //  listBox.DataSource = null;
-         //   listBox.Items.Clear(); 
-            int index = listBox.SelectedIndex;
+            int index = 0;
+            if (resetIndex == false)
+            {
+                index = listBox.SelectedIndex;
+            }
             if (index < 0)
                 index = 0;
             if (doubleTrainerMode == false)
-            {   
+            {
                 listBox.DataSource = battleTowertrainers.Select(o => o.GetID() + " - " + o.GetName()).ToArray();
                 listBox.SelectedIndex = index;
             }
-            else {
+            else
+            {
                 listBox.DataSource = battleTowertrainersDoubles.Select(o => o.GetID() + " - " + o.GetName()).ToArray();
                 listBox.SelectedIndex = index;
             }
@@ -256,20 +264,20 @@ namespace ImpostersOrdeal.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-           // listBox.DataSource = null;
-           // listBox.Items.Clear();
             doubleTrainerMode = true;
-            // RefreshTextBoxDisplay();
-            PopulateListBox();
+            PopulateListBox(true);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-      //      listBox.DataSource = null;
-       //     listBox.Items.Clear();
+            //      listBox.DataSource = null;
+            //     listBox.Items.Clear();
             doubleTrainerMode = false;
             // RefreshTextBoxDisplay();
-            PopulateListBox();
+            //Todo
+            //Add index to 1 here
+            //Add trainer type to editor
+            PopulateListBox(true);
         }
     }
 }

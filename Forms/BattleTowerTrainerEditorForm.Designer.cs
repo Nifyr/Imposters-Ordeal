@@ -32,12 +32,12 @@
             trainerDisplayTextBox = new System.Windows.Forms.TextBox();
             groupBox4 = new System.Windows.Forms.GroupBox();
             partyDataGridView = new System.Windows.Forms.DataGridView();
-            tpDisplayColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            pokemonSelector = new System.Windows.Forms.DataGridViewComboBoxColumn();
             button1 = new System.Windows.Forms.Button();
             sortByComboBox = new System.Windows.Forms.ComboBox();
             button2 = new System.Windows.Forms.Button();
             Column1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            tpDisplayColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            pokemonSelector = new System.Windows.Forms.DataGridViewComboBoxColumn();
             groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)partyDataGridView).BeginInit();
             SuspendLayout();
@@ -88,22 +88,6 @@
             partyDataGridView.TabIndex = 0;
             partyDataGridView.CellContentClick += partyDataGridView_CellContentClick;
             // 
-            // tpDisplayColumn
-            // 
-            tpDisplayColumn.FillWeight = 300F;
-            tpDisplayColumn.HeaderText = "TPDisplay";
-            tpDisplayColumn.MinimumWidth = 6;
-            tpDisplayColumn.Name = "tpDisplayColumn";
-            tpDisplayColumn.ReadOnly = true;
-            // 
-            // pokemonSelector
-            // 
-            pokemonSelector.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            pokemonSelector.FillWeight = 200F;
-            pokemonSelector.HeaderText = "Column3";
-            pokemonSelector.Name = "pokemonSelector";
-            pokemonSelector.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
             // button1
             // 
             button1.Location = new System.Drawing.Point(10, 368);
@@ -142,6 +126,23 @@
             Column1.FillWeight = 200F;
             Column1.HeaderText = "Change Pokemon";
             Column1.Name = "Column1";
+            // 
+            // tpDisplayColumn
+            // 
+            tpDisplayColumn.FillWeight = 300F;
+            tpDisplayColumn.HeaderText = "TPDisplay";
+            tpDisplayColumn.MinimumWidth = 6;
+            tpDisplayColumn.Name = "tpDisplayColumn";
+            tpDisplayColumn.ReadOnly = true;
+            tpDisplayColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // pokemonSelector
+            // 
+            pokemonSelector.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            pokemonSelector.FillWeight = 200F;
+            pokemonSelector.HeaderText = "Column3";
+            pokemonSelector.Name = "pokemonSelector";
+            pokemonSelector.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // BattleTowerTrainerEditorForm
             // 

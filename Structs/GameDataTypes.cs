@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -378,6 +379,7 @@ namespace ImpostersOrdeal
             public byte spAtkEV;
             public byte spDefEV;
             public byte spdEV;
+            
 
             public BattleTowerTrainerPokemon() { }
 
@@ -409,6 +411,7 @@ namespace ImpostersOrdeal
                 spdEV = tp.spdEV;
                 spAtkEV = tp.spAtkEV;
                 spDefEV = tp.spDefEV;
+               
             }
 
             public List<int> GetMoves()
@@ -491,11 +494,14 @@ namespace ImpostersOrdeal
             public string battleBGM;
             public string winBGM;
             public bool isDouble;
+            public string nameLabel;
+            public string nameLabel2;
+            public bool wasCalled = false;
 
             //Readonly
             public int trainerID;
             public string name;
-
+            public string name2;
             public BattleTowerTrainer() { }
 
             public BattleTowerTrainer(BattleTowerTrainer t)
@@ -520,7 +526,8 @@ namespace ImpostersOrdeal
                 }
                 battleBGM = t.battleBGM;
                 winBGM = t.winBGM;
-              //  name = t.name;
+                name = t.name;
+              //  name2 = t.name2;
             }
 
             public int GetID()
@@ -528,9 +535,22 @@ namespace ImpostersOrdeal
                 return trainerTypeID;
             }
 
-            public string GetName()
+            public string GetInternalID()
             {
                 return trainerID2.ToString();
+            }
+
+            public string GetName()
+            {
+                if (name2 == null)
+                {
+                }
+                else if(wasCalled == false)
+                {
+                    name = name + " & " + name2;
+                    wasCalled = true;
+                }
+                return name.ToString();
             }
 
             public bool IsValid()
