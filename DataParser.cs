@@ -392,7 +392,6 @@ namespace ImpostersOrdeal
             AssetTypeValueField[] nameFields = nameData.children[8].children[0].children;
             Dictionary<string, string> trainerNames = new();
             gameData.trainerNames = trainerNames;
-            //Test
             foreach (AssetTypeValueField label in nameFields)
                 if (label.children[6].children[0].childrenCount > 0)
                     trainerNames[label.children[2].GetValue().AsString()] = label.children[6].children[0].children[0].children[4].GetValue().AsString();
@@ -447,7 +446,6 @@ namespace ImpostersOrdeal
                 trainer.isDouble = true;
                 gameData.battleTowerTrainersDouble.Add(trainer);
             }
-            //Parse BattleTowerTrainer Names
 
             //Parse battle tower trainer pokemon
             for (int pokemonIdx = 0; pokemonIdx < pokemonFields.Length && pokemonFields[pokemonIdx].children[0].value.value.asUInt32 != 0; pokemonIdx+=1)
@@ -455,7 +453,6 @@ namespace ImpostersOrdeal
                 BattleTowerTrainerPokemon pokemon = new();
                 pokemon.pokemonID = pokemonFields[pokemonIdx].children[0].value.value.asUInt32;
                 pokemon.dexID = pokemonFields[pokemonIdx].children[1].value.value.asInt32;
-                //Debug.WriteLine(pokemon.dexID);
                 pokemon.formID = pokemonFields[pokemonIdx].children[2].value.value.asUInt16;
                 pokemon.isRare = pokemonFields[pokemonIdx].children[3].value.value.asUInt8;
                 pokemon.level = pokemonFields[pokemonIdx].children[4].value.value.asUInt8;
@@ -483,7 +480,6 @@ namespace ImpostersOrdeal
                 pokemon.spdEV = pokemonFields[pokemonIdx].children[26].value.value.asUInt8;
                 gameData.battleTowerTrainerPokemons.Add(pokemon);
             }
-            //trainer.trainerPokemon.Add(pokemon);,
             
 }
 

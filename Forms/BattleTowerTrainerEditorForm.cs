@@ -76,18 +76,11 @@ namespace ImpostersOrdeal.Forms
             battleTowertrainers.AddRange(gameData.battleTowerTrainers);
             battleTowertrainersDoubles = new();
             battleTowertrainersDoubles.AddRange(gameData.battleTowerTrainersDouble);
-
             sortByComboBox.DataSource = sortNames;
             sortByComboBox.SelectedIndex = 0;
             pokemonSelector.DataSource = gameData.battleTowerTrainerPokemons.Select(o => o.GetID() + " - " + String.Join(", ", gameData.dexEntries[o.dexID].GetName())).ToArray();
-
-
             battleTowertrainers.Sort(sortComparisons[sortByComboBox.SelectedIndex]);
             battleTowertrainersDoubles.Sort(sortComparisons[sortByComboBox.SelectedIndex]);
-
-            //  Debug.WriteLine(labelToTrainerName.Values.ToString());
-            // Debug.WriteLine("Name is" + gameData.battleTowerTrainersDouble[991].name2);
-
             partyDataGridView.AllowUserToAddRows = false;
             partyDataGridView.EditMode = DataGridViewEditMode.EditOnKeystrokeOrF2;
             PopulateListBox(false);
@@ -146,7 +139,6 @@ namespace ImpostersOrdeal.Forms
             string selectedValue = comboBoxCell1.Value.ToString();
             string numericValue = Regex.Replace(selectedValue, @"[^0-9]", "");
             int pokemonNumber = int.Parse(numericValue);
-            //  Debug.WriteLine(numericValue + pokemonNumber);
             switch (rowIndex)
             {
                 case 0:
@@ -270,12 +262,8 @@ namespace ImpostersOrdeal.Forms
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //      listBox.DataSource = null;
-            //     listBox.Items.Clear();
             doubleTrainerMode = false;
-            // RefreshTextBoxDisplay();
             //Todo
-            //Add index to 1 here
             //Add trainer type to editor
             PopulateListBox(true);
         }

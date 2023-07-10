@@ -55,8 +55,6 @@ namespace ImpostersOrdeal.Forms
             moves = gameData.moves.Select(m => m.GetName()).ToList();
             items = gameData.items.Select(m => m.GetName()).ToList();
             tp = gameData.battleTowerTrainerPokemons[0];
-            //     gameData.battleTowerTrainerPokemons[1].dexID = 2;
-
             InitializeComponent();
             pokemonName = gameData.dexEntries[2].GetName();
             Debug.WriteLine(tp.itemID);
@@ -127,13 +125,11 @@ namespace ImpostersOrdeal.Forms
             DeactivateControls();
 
             tp.dexID = (ushort)(speciesComboBox.SelectedIndex == -1 ? 0 : speciesComboBox.SelectedIndex);
-            // tp.formID = 0;
             ResetFormComboBox();
             PopulateListBox();
             CommitEdit(sender, e);
             ActivateControls();
         }
-        //Updater
         private void PokemonChanged(object sender, EventArgs e)
         {
             DeactivateControls();
@@ -148,8 +144,6 @@ namespace ImpostersOrdeal.Forms
             RefreshTextBoxDisplay();
 
             PopulatePartyDataGridView();
-
-            //OnLoad();
         }
 
         private void RefreshTextBoxDisplay()
@@ -160,11 +154,6 @@ namespace ImpostersOrdeal.Forms
 
         private void PopulatePartyDataGridView()
         {
-            /*partyDataGridView.Rows.Clear();
-    
-            partyDataGridView.Rows.Add(new object[] { t.battleTowerPokemonID1, "Configure" });
-            partyDataGridView.Rows.Add(new object[] { t.battleTowerPokemonID2, "Configure" });
-            partyDataGridView.Rows.Add(new object[] { t.battleTowerPokemonID3, "Configure" });*/
             speciesComboBox.SelectedIndex = tp.dexID;
             ResetFormComboBox();
             levelNumericUpDown.Value = tp.level;
@@ -196,9 +185,6 @@ namespace ImpostersOrdeal.Forms
             comboBox8.SelectedIndex = tp.moveID2;
             comboBox9.SelectedIndex = tp.moveID3;
             comboBox10.SelectedIndex = tp.moveID4;
-
-
-            // ActivateControls();
         }
 
         private void CommitEdit(object sender, EventArgs e)
@@ -233,11 +219,6 @@ namespace ImpostersOrdeal.Forms
             tp.moveID2 = (ushort)(comboBox8.SelectedIndex == -1 ? 0 : comboBox8.SelectedIndex);
             tp.moveID3 = (ushort)(comboBox9.SelectedIndex == -1 ? 0 : comboBox9.SelectedIndex);
             tp.moveID4 = (ushort)(comboBox10.SelectedIndex == -1 ? 0 : comboBox10.SelectedIndex);
-            //   DeactivateControls();
-            //   PopulateListBox();
-            //  RefreshTextBoxDisplay();
-
-            // ActivateControls();
         }
 
         private void ActivateControls()
