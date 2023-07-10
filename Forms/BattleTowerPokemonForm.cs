@@ -48,7 +48,6 @@ namespace ImpostersOrdeal.Forms
 
         public BattleTowerPokemonForm()
         {
-            //this.tef = tef;
             dexEntries = gameData.dexEntries.Select(p => p.GetName()).ToList();
             natures = gameData.natures.Select(n => n.GetName()).ToList();
             abilities = gameData.abilities.Select(a => a.GetName()).ToList();
@@ -57,7 +56,6 @@ namespace ImpostersOrdeal.Forms
             tp = gameData.battleTowerTrainerPokemons[0];
             InitializeComponent();
             pokemonName = gameData.dexEntries[2].GetName();
-            Debug.WriteLine(tp.itemID);
             speciesComboBox.DataSource = dexEntries.ToArray();
             comboBox3.DataSource = genders.ToArray();
             comboBox4.DataSource = natures.ToArray();

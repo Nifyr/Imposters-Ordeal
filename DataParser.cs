@@ -307,15 +307,12 @@ namespace ImpostersOrdeal
             AssetTypeValueField[] nameFields = nameData.children[8].children[0].children;
             Dictionary<string, string> trainerNames = new();
             gameData.trainerNames = trainerNames;
-            //Debug.WriteLine("Hello");
             foreach (AssetTypeValueField label in nameFields)
                 if (label.children[6].children[0].childrenCount > 0)
                     trainerNames[label.children[2].GetValue().AsString()] = label.children[6].children[0].children[0].children[4].GetValue().AsString();
 
             AssetTypeValueField[] trainerFields = monoBehaviour.children[5].children[0].children;
             AssetTypeValueField[] trainerPokemonFields = monoBehaviour.children[6].children[0].children;
-          //  Debug.WriteLine(monoBehaviour.children[2].children[0].value.ToString());
-          //  Debug.WriteLine(trainerFields[6].children[0].value.value.asInt32);
             for (int trainerIdx = 0; trainerIdx < Math.Min(trainerFields.Length, trainerPokemonFields.Length); trainerIdx++)
             {
                 Trainer trainer = new();
@@ -3239,7 +3236,6 @@ for (int trainerIdx = 0; trainerIdx < trainerFieldsDouble.Length; trainerIdx++)
                 pokemonFields[pokemonIdx].children[24].GetValue().Set(pokemon.spAtkEV);
                 pokemonFields[pokemonIdx].children[25].GetValue().Set(pokemon.spDefEV);
                 pokemonFields[pokemonIdx].children[26].GetValue().Set(pokemon.spdEV);
-                //Debug.WriteLine("Written Pokemon");
             }
 
             fileManager.WriteMonoBehaviour(PathEnum.DprMasterdatas, monoBehaviour);
