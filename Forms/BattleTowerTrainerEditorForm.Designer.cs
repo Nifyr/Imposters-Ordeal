@@ -81,7 +81,6 @@
             partyDataGridView.RowTemplate.Height = 29;
             partyDataGridView.Size = new System.Drawing.Size(741, 285);
             partyDataGridView.TabIndex = 0;
-            partyDataGridView.CellContentClick += partyDataGridView_CellContentClick;
             // 
             // tpDisplayColumn
             // 
@@ -155,7 +154,6 @@
             MinimizeBox = false;
             Name = "BattleTowerTrainerEditorForm";
             Text = "Battle Tower Trainer Editor";
-            Load += BattleTowerTrainerEditorForm_Load;
             groupBox4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)partyDataGridView).EndInit();
             ResumeLayout(false);

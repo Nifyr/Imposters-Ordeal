@@ -241,19 +241,6 @@ namespace ImpostersOrdeal.Forms
             }
         }
 
-        private void partyDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-
-        private void BattleTowerTrainerEditorForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-
-
         private void button1_Click(object sender, EventArgs e)
         {
             doubleTrainerMode = true;

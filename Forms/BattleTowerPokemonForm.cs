@@ -319,10 +319,5 @@ namespace ImpostersOrdeal.Forms
 
             ActivateControls();
         }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
