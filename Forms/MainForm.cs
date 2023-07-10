@@ -487,7 +487,7 @@ namespace ImpostersOrdeal
         }
 
         //Battle Tower Trainer Button
-        private void button34_Click(object sender, EventArgs e)
+        private void Button34_Click(object sender, EventArgs e)
         {
             BattleTowerTrainerEditorForm tef = new();
             tef.Show();
@@ -501,7 +501,7 @@ namespace ImpostersOrdeal
                gameData.SetModified(GameDataSet.DataField.Trainers);
            }*/
 
-        private void button35_Click_1(object sender, EventArgs e)
+        private void Button35_Click_1(object sender, EventArgs e)
         {
             BattleTowerPokemonForm tef = new();
             tef.Show();

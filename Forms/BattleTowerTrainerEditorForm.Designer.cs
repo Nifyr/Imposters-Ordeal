@@ -108,7 +108,7 @@
             button1.TabIndex = 3;
             button1.Text = "Double Battle Trainers";
             button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            button1.Click += Button1_Click;
             // 
             // sortByComboBox
             // 
@@ -127,7 +127,7 @@
             button2.TabIndex = 2;
             button2.Text = "Single Battle Trainers";
             button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
+            button2.Click += Button2_Click;
             // 
             // Column1
             // 
@@ -169,10 +169,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ComboBox sortByComboBox;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.DataGridViewButtonColumn tpButtonColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewButtonColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn tpDisplayColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn pokemonSelector;
     }

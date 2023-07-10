@@ -456,11 +456,13 @@ namespace ImpostersOrdeal
                             instances[3]++;
                             break;
                     }
-            List<string> affinities = new List<string>();
-            affinities.Add("0x");
-            affinities.Add("1/2x");
-            affinities.Add("1x");
-            affinities.Add("2x");
+            List<string> affinities = new()
+            {
+                "0x",
+                "1/2x",
+                "1x",
+                "2x"
+            };
             IDistribution[] affinityDistributions = new IDistribution[]
             {
                 new Empirical(100, instances.ToList()),

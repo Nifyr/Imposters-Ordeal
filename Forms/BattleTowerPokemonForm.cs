@@ -15,7 +15,6 @@ namespace ImpostersOrdeal.Forms
 {
     public partial class BattleTowerPokemonForm : Form
     {
-        private TrainerEditorForm tef;
         private List<string> dexEntries;
         private List<string> natures;
         private List<string> abilities;

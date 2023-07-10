@@ -21,13 +21,8 @@ namespace ImpostersOrdeal.Forms
         private Dictionary<int, string> trainerTypeLabels;
         public Dictionary<int, string> trainerTypeNames;
         private Dictionary<int, int> trainerTypeToCC;
-        private Dictionary<string, string> labelToTrainerName;
         public List<string> items;
         public BattleTowerTrainer t;
-        private BattleTowerTrainerEditorForm tpef;
-        private BattleTowerTrainer trainerClipboard;
-        private List<TrainerPokemon> tpClipboard;
-        private BattleTowerTrainerPokemon tp;
         public List<BattleTowerTrainerPokemon> battleTowerTrainerPokemons;
         private BattleTowerTrainerPokemon trainerPokemon1;
         private BattleTowerTrainerPokemon trainerPokemon2;
@@ -43,12 +38,6 @@ namespace ImpostersOrdeal.Forms
          //   "Sort by internal ID"
         };
 
-        private readonly string[] pokemonNames = new string[]
-       {
-            "Sort by ID",
-            "Sort by pokedex order",
-            "Sort by species name"
-       };
         private readonly Comparison<BattleTowerTrainer>[] sortComparisons = new Comparison<BattleTowerTrainer>[]
         {
             (t1, t2) => t1.GetID().CompareTo(t2.GetID()),
@@ -70,7 +59,6 @@ namespace ImpostersOrdeal.Forms
                 trainerTypeNames.Add(tt.GetID(), tt.GetName());
                 trainerTypeToCC.Add(tt.GetID(), i + 1);
             }
-            labelToTrainerName = gameData.trainerNames;
             InitializeComponent();
             battleTowertrainers = new();
             battleTowertrainers.AddRange(gameData.battleTowerTrainers);
@@ -157,7 +145,7 @@ namespace ImpostersOrdeal.Forms
             RefreshTextBoxDisplay();
             PopulatePartyDataGridView();
         }
-        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             mostRecentModifiedRowIndex = e.RowIndex;
         }
@@ -176,7 +164,7 @@ namespace ImpostersOrdeal.Forms
             sortByComboBox.SelectedIndexChanged += SortChanged;
             listBox.SelectedIndexChanged += TrainerChanged;
             partyDataGridView.CellContentClick += ConfigureTP;
-            partyDataGridView.CellValueChanged += dataGridView1_CellValueChanged;
+            partyDataGridView.CellValueChanged += DataGridView1_CellValueChanged;
             partyDataGridView.CellValueChanged += CommitEdit;
 
         }
@@ -185,7 +173,7 @@ namespace ImpostersOrdeal.Forms
         {
             sortByComboBox.SelectedIndexChanged -= SortChanged;
             listBox.SelectedIndexChanged -= TrainerChanged;
-            partyDataGridView.CellValueChanged -= dataGridView1_CellValueChanged;
+            partyDataGridView.CellValueChanged -= DataGridView1_CellValueChanged;
             partyDataGridView.CellValueChanged -= CommitEdit;
             partyDataGridView.CellContentClick -= ConfigureTP;
         }
@@ -241,13 +229,13 @@ namespace ImpostersOrdeal.Forms
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             doubleTrainerMode = true;
             PopulateListBox(true);
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Button2_Click(object sender, EventArgs e)
         {
             doubleTrainerMode = false;
             //Todo

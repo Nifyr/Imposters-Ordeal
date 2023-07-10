@@ -2529,7 +2529,7 @@ namespace ImpostersOrdeal
             button34.TabIndex = 11;
             button34.Text = "BT Trainer Editor";
             button34.UseVisualStyleBackColor = true;
-            button34.Click += button34_Click;
+            button34.Click += Button34_Click;
             // 
             // button35
             // 
@@ -2539,7 +2539,7 @@ namespace ImpostersOrdeal
             button35.TabIndex = 13;
             button35.Text = "BT Pokémon Editor";
             button35.UseVisualStyleBackColor = true;
-            button35.Click += button35_Click_1;
+            button35.Click += Button35_Click_1;
             // 
             // groupBox34
             // 
