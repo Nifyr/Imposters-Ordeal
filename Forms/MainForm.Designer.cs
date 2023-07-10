@@ -238,7 +238,6 @@ namespace ImpostersOrdeal
             button28 = new System.Windows.Forms.Button();
             wildEncButton = new System.Windows.Forms.Button();
             button30 = new System.Windows.Forms.Button();
-            buttonBattleTower = new System.Windows.Forms.Button();
             groupBox32 = new System.Windows.Forms.GroupBox();
             flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             button32 = new System.Windows.Forms.Button();
@@ -2471,16 +2470,6 @@ namespace ImpostersOrdeal
             button30.UseVisualStyleBackColor = true;
             button30.Click += OpenTrainerEditor;
             // 
-            // buttonBattleTower
-            // 
-            buttonBattleTower.Location = new System.Drawing.Point(3, 283);
-            buttonBattleTower.Name = "buttonBattleTower";
-            buttonBattleTower.Size = new System.Drawing.Size(173, 29);
-            buttonBattleTower.TabIndex = 10;
-            buttonBattleTower.Text = "BT Trainer Editor";
-            buttonBattleTower.UseVisualStyleBackColor = true;
-            buttonBattleTower.Click += OpenTrainerEditor;
-            // 
             // groupBox32
             // 
             groupBox32.Controls.Add(flowLayoutPanel1);
@@ -2502,7 +2491,6 @@ namespace ImpostersOrdeal
             flowLayoutPanel1.Controls.Add(button28);
             flowLayoutPanel1.Controls.Add(wildEncButton);
             flowLayoutPanel1.Controls.Add(button30);
-            flowLayoutPanel1.Controls.Add(buttonBattleTower);
             flowLayoutPanel1.Controls.Add(button32);
             flowLayoutPanel1.Controls.Add(button23);
             flowLayoutPanel1.Controls.Add(button34);
@@ -2515,7 +2503,7 @@ namespace ImpostersOrdeal
             // 
             // button32
             // 
-            button32.Location = new System.Drawing.Point(3, 318);
+            button32.Location = new System.Drawing.Point(3, 283);
             button32.Name = "button32";
             button32.Size = new System.Drawing.Size(173, 29);
             button32.TabIndex = 11;
@@ -2525,7 +2513,7 @@ namespace ImpostersOrdeal
             // 
             // button23
             // 
-            button23.Location = new System.Drawing.Point(3, 353);
+            button23.Location = new System.Drawing.Point(3, 318);
             button23.Name = "button23";
             button23.Size = new System.Drawing.Size(173, 29);
             button23.TabIndex = 12;
@@ -2535,7 +2523,7 @@ namespace ImpostersOrdeal
             // 
             // button34
             // 
-            button34.Location = new System.Drawing.Point(3, 388);
+            button34.Location = new System.Drawing.Point(3, 353);
             button34.Name = "button34";
             button34.Size = new System.Drawing.Size(173, 29);
             button34.TabIndex = 11;
@@ -2545,7 +2533,7 @@ namespace ImpostersOrdeal
             // 
             // button35
             // 
-            button35.Location = new System.Drawing.Point(3, 423);
+            button35.Location = new System.Drawing.Point(3, 388);
             button35.Name = "button35";
             button35.Size = new System.Drawing.Size(173, 29);
             button35.TabIndex = 13;
@@ -2922,7 +2910,6 @@ namespace ImpostersOrdeal
         public System.Windows.Forms.Button button28;
         public System.Windows.Forms.Button wildEncButton;
         public System.Windows.Forms.Button button30;
-        public System.Windows.Forms.Button buttonBattleTower;
         private System.Windows.Forms.GroupBox groupBox32;
         public System.Windows.Forms.Button button32;
         public System.Windows.Forms.CheckBox checkBox62;
