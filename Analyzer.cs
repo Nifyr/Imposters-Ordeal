@@ -229,7 +229,7 @@ namespace ImpostersOrdeal
             for (int i = 0; i < gameData.shopTables.fixedShopItems.Count; i++)
                 instances[gameData.shopTables.fixedShopItems[i].itemID]++;
             randomizerSetupConfig.shopItems = ToItemDistributionConfig(instances, entities);
-
+            
             //Wild Pokémon
             instances = new int[gameData.dexEntries.Count];
             entities = gameData.dexEntries.Select(o => (INamedEntity)o).ToList();
@@ -291,7 +291,7 @@ namespace ImpostersOrdeal
                     if (gameData.ugEncounterFiles[file].ugEncounters[i].dexID > 0)
                         instances[gameData.ugEncounterFiles[file].ugEncounters[i].dexID]++;
             randomizerSetupConfig.wildPokemon = ToItemDistributionConfig(instances, entities);
-
+            
             //Wild Pokémon Levels
             observations = new();
             for (int version = 0; version < gameData.encounterTableFiles.Length; version++)
@@ -373,11 +373,11 @@ namespace ImpostersOrdeal
 
             //Trainer Item Count
             randomizerSetupConfig.trainerItemCount = GetNumericDistributionConfig(gameData.trainers, t => t.GetItems().Count);
-
+            
             //Trainer Pokémon
             List<TrainerPokemon> tps = gameData.trainers.SelectMany(t => t.trainerPokemon).ToList();
             randomizerSetupConfig.trainerPokemonSpecies = GetItemDistributionConfig(tps, p => p.dexID, gameData.dexEntries.Select(o =>(INamedEntity)o).ToList());
-
+            
             //Trainer Pokémon Moves
             instances = new int[gameData.moves.Count];
             entities = gameData.moves.Select(o => (INamedEntity)o).ToList();
@@ -388,7 +388,7 @@ namespace ImpostersOrdeal
                     instances[moves[move]]++;
             }
             randomizerSetupConfig.trainerPokemonMoves = ToItemDistributionConfig(instances, entities);
-
+            
             //Trainer Pokémon Move Type Bias
             movePairing = tps.SelectMany(p => p.GetMoves().Select(l => (gameData.GetPokemon(p.dexID, p.formID), gameData.moves[l]))).ToList();
             sameTypePercent = GetOccurrencePercent(movePairing, pm => pm.Item1.GetTyping().Contains(pm.Item2.typingID));
@@ -396,7 +396,7 @@ namespace ImpostersOrdeal
             randomizerSetupConfig.trainerPokemonMoveTypeBiasP = 100 * (sameTypePercent - unbiasedSameTypePercent) / (100 - unbiasedSameTypePercent);
             if (randomizerSetupConfig.trainerPokemonMoveTypeBiasP < 0)
                 randomizerSetupConfig.trainerPokemonMoveTypeBiasP = 0;
-
+            
             //Trainer Pokémon Count
             randomizerSetupConfig.trainerPokemonCount = GetNumericDistributionConfig(gameData.trainers, t => t.trainerPokemon.Count, AbsoluteBoundary.TrainerPokemonCount);
 
@@ -556,7 +556,10 @@ namespace ImpostersOrdeal
         {
             int[] instances = new int[entities.Count];
             for (int item = 0; item < objects.Count; item++)
-                instances[f.Invoke(objects[item])]++;
+            {
+                int instanceID = f.Invoke(objects[item]);
+                instances[instanceID]++;
+            }
             return ToItemDistributionConfig(instances, entities);
         }
 
