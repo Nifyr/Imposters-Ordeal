@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static ImpostersOrdeal.Distributions;
+using static ImpostersOrdeal.ExternalJsonStructs;
 using static ImpostersOrdeal.GameDataTypes;
 using static ImpostersOrdeal.GlobalData;
 
@@ -28,8 +29,6 @@ namespace ImpostersOrdeal
         /// </summary>
         public void Randomize()
         {
-            //FixTPEVIVs();
-
             if (m.checkBox57.Checked)
                 ScaleEvolutionLevels((double)m.numericUpDown8.Value);
             if (m.checkBox58.Checked)
@@ -123,30 +122,6 @@ namespace ImpostersOrdeal
 
             if (m.checkBox62.Checked)
                 RandomizeMusic();
-        }
-
-        // Fix in case an older version of Imposter's Ordeal broke someone's iv and ev spreads.
-        private static void FixTPEVIVs()
-        {
-            foreach (Trainer t in gameData.trainers)
-            {
-                foreach (TrainerPokemon tp in t.trainerPokemon)
-                {
-                    byte spAtkIV = tp.spDefIV;
-                    byte spDefIV = tp.spdIV;
-                    byte spdIV = tp.spAtkIV;
-                    byte spAtkEV = tp.spDefEV;
-                    byte spDefEV = tp.spdEV;
-                    byte spdEV = tp.spAtkEV;
-
-                    tp.spAtkIV = spAtkIV;
-                    tp.spDefIV = spDefIV;
-                    tp.spdIV = spdIV;
-                    tp.spAtkEV = spAtkEV;
-                    tp.spDefEV = spDefEV;
-                    tp.spdEV = spdEV;
-                }
-            }
         }
 
         private void RandomizeTypeMatchups(IDistribution distribution)
@@ -657,6 +632,7 @@ namespace ImpostersOrdeal
             bool ugVersionsUnbounded = gameData.UgVersionsUnbounded();
             bool uint16UgTables = gameData.Uint16UgTables();
             bool randomizeUgEncounterTableFormIDs = ugVersionsUnbounded || uint16UgTables;
+            List<int> legendaryDexIDs = gameData.dexEntries.Where(d => d.forms[0].legendary).Select(d => d.dexID).ToList();
             foreach (EncounterTableFile encounterTableFile in gameData.encounterTableFiles)
             {
                 foreach (EncounterTable encounterTable in encounterTableFile.encounterTables)
@@ -726,6 +702,41 @@ namespace ImpostersOrdeal
             gameData.SetModified(GameDataSet.DataField.UgEncounterFiles);
             gameData.SetModified(GameDataSet.DataField.UgEncounterLevelSets);
             gameData.SetModified(GameDataSet.DataField.UgSpecialEncounters);
+
+            if (gameData.starters != null)
+            {
+                foreach (Starter starter in gameData.starters)
+                {
+                    if (randomizeLevels && IsWithin(AbsoluteBoundary.Level, starter.level))
+                    {
+                        starter.level = Conform(AbsoluteBoundary.Level, levelDistribution.Next(starter.level));
+
+                        if (evolveLogic)
+                        {
+                            Pokemon p = FindStage(gameData.GetPokemon(starter.monsNo, starter.formNo), starter.level, true);
+                            starter.monsNo = p.dexID;
+                            starter.formNo = p.formID;
+                        }
+                    }
+
+                    if (randomizeSpecies)
+                    {
+                        bool acceptLegendary = !legendLogic || P(starter.level);
+                        Func<Pokemon, Pokemon> resolveStage = evolveLogic ? p => FindStage(p, starter.level, true) : p => p;
+
+                        do
+                        {
+                            starter.monsNo = speciesDistribution.Next(starter.monsNo);
+                            starter.formNo = rng.Next(gameData.dexEntries[starter.monsNo].forms.Count);
+                            Pokemon p = resolveStage(gameData.GetPokemon(starter.monsNo, starter.formNo));
+                            starter.monsNo = p.dexID;
+                            starter.formNo = p.formID;
+                        } while (!gameData.GetPokemon(starter.monsNo, starter.formNo).IsValid() ||
+                            !acceptLegendary && legendaryDexIDs.Contains(starter.monsNo));
+                    }
+                }
+                gameData.SetModified(GameDataSet.DataField.ExternalStarters);
+            }
         }
 
         /// <summary>

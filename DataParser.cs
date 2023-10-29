@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static ImpostersOrdeal.GlobalData;
 using static ImpostersOrdeal.GameDataTypes;
+using static ImpostersOrdeal.ExternalJsonStructs;
 using static ImpostersOrdeal.Wwise;
 using AssetsTools.NET.Extra;
 using SmartPoint.AssetAssistant;
@@ -56,7 +57,8 @@ namespace ImpostersOrdeal
                 Task.Run(() => ParseMasterDatas()),
                 Task.Run(() => ParsePersonalMasterDatas()),
                 Task.Run(() => ParseUIMasterDatas()),
-                Task.Run(() => ParseContestMasterDatas())
+                Task.Run(() => ParseContestMasterDatas()),
+                Task.Run(() => TryParseExternalStarters())
             };
             ParseDamagaCategories();
             ParseGlobalMetadata();
@@ -66,6 +68,19 @@ namespace ImpostersOrdeal
             //Hot damn! 4GB?? This has got to go.
             monoBehaviourCollection = null;
             GC.Collect();
+        }
+
+        private static void TryParseExternalStarters()
+        {
+            List<Starter> starters = new();
+            for (int i = 0; i < 3; i++)
+            {
+                Starter starter = fileManager.TryGetExternalJson<Starter>($"Encounters\\Starter\\starter_{i}.json");
+                if (starter == null)
+                    return;
+                starters.Add(starter);
+            }
+            gameData.starters = starters;
         }
 
         private static async Task ParseContestMasterDatas()
@@ -1319,6 +1334,13 @@ namespace ImpostersOrdeal
             AssetTypeValueField[] moveFields = monoBehaviour.children[4].children[0].children;
             AssetTypeValueField[] animationFields = animationData.children[8].children[0].children;
             AssetTypeValueField[] textFields = textData.children[8].children[0].children;
+
+            if (animationFields.Length < moveFields.Length)
+                MainForm.ShowParserError("Oh my, this BattleDataTable is missing some stuff...\n" +
+                    "I don't feel so good...\n" +
+                    "WazaTable entries: " + moveFields.Length + "\n" +
+                    "BattleDataTable entries: " + animationFields.Length + "??");
+
             for (int moveID = 0; moveID < moveFields.Length; moveID++)
             {
                 Move move = new();
@@ -1955,6 +1977,14 @@ namespace ImpostersOrdeal
                 CommitContestMasterDatas();
             if (gameData.IsModified(GameDataSet.DataField.DprBin))
                 CommitDprBin();
+            if (gameData.IsModified(GameDataSet.DataField.ExternalStarters))
+                CommitExternalStarters();
+        }
+
+        private static void CommitExternalStarters()
+        {
+            for (int i = 0; i < gameData.starters.Count; i++)
+                fileManager.CommitExternalJson($"Encounters\\Starter\\starter_{i}.json");
         }
 
         private static void CommitContestMasterDatas()

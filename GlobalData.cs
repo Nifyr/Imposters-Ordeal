@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using static ImpostersOrdeal.GameDataTypes;
+using static ImpostersOrdeal.ExternalJsonStructs;
 using SmartPoint.AssetAssistant;
 
 namespace ImpostersOrdeal
@@ -57,6 +57,8 @@ namespace ImpostersOrdeal
             public List<ResultMotion> contestResultMotion;
             public AssetBundleDownloadManifest dprBin;
 
+            public List<Starter> starters;
+
             public Dictionary<string, string> trainerNames;
             public StringBuilder audioSourceLog;
 
@@ -95,7 +97,8 @@ namespace ImpostersOrdeal
                 MotionTimingData,
                 PokemonInfo,
                 ContestResultMotion,
-                DprBin
+                DprBin,
+                ExternalStarters
             }
 
             public bool IsModified(DataField d)

@@ -9,6 +9,7 @@ using static ImpostersOrdeal.GlobalData;
 using SmartPoint.AssetAssistant;
 using System.Configuration;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace ImpostersOrdeal
 {
@@ -44,10 +45,12 @@ namespace ImpostersOrdeal
         private static readonly string delphisMainPath = "romfs\\Data\\StreamingAssets\\Audio\\GeneratedSoundBanks\\Switch\\Delphis_Main.bnk";
         private static readonly string globalMetadataPath = "romfs\\Data\\Managed\\Metadata\\global-metadata.dat";
         private static readonly string dprBinPath = "romfs\\Data\\StreamingAssets\\AssetAssistant\\Dpr.bin";
+        private static readonly string externalJsonGamePath = "romfs\\Data\\ExtraData";
 
         private string assetAssistantPath;
         private string audioPath;
         private string metadataPath;
+        private string externalJsonPath;
         private Dictionary<string, FileData> fileArchive;
         private AssetsManager am = new();
         private int fileIndex = 0;
@@ -108,6 +111,7 @@ namespace ImpostersOrdeal
             }
             audioPath = Directory.GetParent(assetAssistantPath).FullName + "\\Audio\\GeneratedSoundBanks\\Switch";
             metadataPath = GetDataPath(fbd.SelectedPath) + "\\Managed\\Metadata";
+            externalJsonPath = GetDataPath(fbd.SelectedPath) + "\\ExtraData";
 
 
             //Setup fileArchive
@@ -159,6 +163,7 @@ namespace ImpostersOrdeal
                 return false;
             audioPath = Directory.GetParent(assetAssistantPath).FullName + "\\Audio\\GeneratedSoundBanks\\Switch";
             metadataPath = GetDataPath(dumpPath) + "\\Managed\\Metadata";
+            externalJsonPath = GetDataPath(dumpPath) + "\\ExtraData";
 
 
             //Setup fileArchive
@@ -564,6 +569,19 @@ namespace ImpostersOrdeal
             return new(File.ReadAllText(fileArchive[logPath].fileLocation));
         }
 
+        public T TryGetExternalJson<T>(string externalJsonPath)
+        {
+            string gamePath = externalJsonGamePath + "\\" + externalJsonPath;
+            if (!fileArchive.ContainsKey(gamePath))
+                return default;
+            return JsonConvert.DeserializeObject<T>(File.ReadAllText(fileArchive[gamePath].fileLocation));
+        }
+
+        public void CommitExternalJson(string externalJsonPath)
+        {
+            fileArchive[externalJsonGamePath + "\\" + externalJsonPath].fileSource = FileSource.App;
+        }
+
         public void DuplicateIconBundle(string srcPath, string dstPath)
         {
             FileData fd = new();
@@ -588,6 +606,8 @@ namespace ImpostersOrdeal
 
             if (fd.fileSource == FileSource.App)
             {
+                if (ExportExternalJson(fd, modRoot))
+                    return;
                 byte[] buffer = null;
                 switch (Path.GetFileName(fd.gamePath))
                 {
@@ -628,6 +648,21 @@ namespace ImpostersOrdeal
             fd.bundle.stream.Dispose();
             if (fd.tempLocation)
                 File.Delete(fd.fileLocation);
+        }
+
+        private static bool ExportExternalJson(FileData fd, string modRoot)
+        {
+            if (!fd.gamePath.StartsWith(externalJsonGamePath)) return false;
+            if (!fd.gamePath.EndsWith(".json")) return false;
+            string externalJsonPath = fd.gamePath[(externalJsonGamePath.Length + 1)..];
+            if (externalJsonPath.StartsWith("Encounters\\Starter"))
+            {
+                string fileName = Path.GetFileNameWithoutExtension(externalJsonPath);
+                int starterIndex = int.Parse(fileName.Split('_')[1]);
+                File.WriteAllText(modRoot + "\\" + fd.gamePath, JsonConvert.SerializeObject(gameData.starters[starterIndex], Formatting.Indented));
+                return true;
+            }
+            return false;
         }
 
         public void DeleteTemporaryFiles()
