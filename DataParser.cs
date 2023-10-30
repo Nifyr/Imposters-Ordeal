@@ -75,7 +75,6 @@ namespace ImpostersOrdeal
             List<Starter> starters = new();
             List<(string name, Starter obj)> files = fileManager.TryGetExternalJsons<Starter>($"Encounters\\Starter");
             if (files.Count == 0) return;
-            files.Sort((t0, t1) => t0.name.CompareTo(t1.name));
             foreach ((string _, Starter obj) in files)
                 starters.Add(obj);
             gameData.starters = starters;
