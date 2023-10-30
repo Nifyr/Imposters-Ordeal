@@ -569,9 +569,17 @@ namespace ImpostersOrdeal
             return new(File.ReadAllText(fileArchive[logPath].fileLocation));
         }
 
-        public T TryGetExternalJson<T>(string externalJsonPath)
+        public List<(string, T)> TryGetExternalJsons<T>(string externalJsonDir)
         {
-            string gamePath = externalJsonGamePath + "\\" + externalJsonPath;
+            string gamePath = externalJsonGamePath + "\\" + externalJsonDir;
+            List<(string, T)> result = new();
+            foreach (string path in fileArchive.Keys.Where(s => s.StartsWith(gamePath)))
+                result.Add((Path.GetFileNameWithoutExtension(path), TryGetExternalJson<T>(path)));
+            return result;
+        }
+
+        private T TryGetExternalJson<T>(string gamePath)
+        {
             if (!fileArchive.ContainsKey(gamePath))
                 return default;
             return JsonConvert.DeserializeObject<T>(File.ReadAllText(fileArchive[gamePath].fileLocation));

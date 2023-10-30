@@ -73,13 +73,11 @@ namespace ImpostersOrdeal
         private static void TryParseExternalStarters()
         {
             List<Starter> starters = new();
-            for (int i = 0; i < 3; i++)
-            {
-                Starter starter = fileManager.TryGetExternalJson<Starter>($"Encounters\\Starter\\starter_{i}.json");
-                if (starter == null)
-                    return;
-                starters.Add(starter);
-            }
+            List<(string name, Starter obj)> files = fileManager.TryGetExternalJsons<Starter>($"Encounters\\Starter");
+            if (files.Count == 0) return;
+            files.Sort((t0, t1) => t0.name.CompareTo(t1.name));
+            foreach ((string _, Starter obj) in files)
+                starters.Add(obj);
             gameData.starters = starters;
         }
 
