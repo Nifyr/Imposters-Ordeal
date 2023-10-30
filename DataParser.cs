@@ -58,7 +58,8 @@ namespace ImpostersOrdeal
                 Task.Run(() => ParsePersonalMasterDatas()),
                 Task.Run(() => ParseUIMasterDatas()),
                 Task.Run(() => ParseContestMasterDatas()),
-                Task.Run(() => TryParseExternalStarters())
+                Task.Run(() => TryParseExternalStarters()),
+                Task.Run(() => TryParseExternalHoneyTrees())
             };
             ParseDamagaCategories();
             ParseGlobalMetadata();
@@ -70,14 +71,20 @@ namespace ImpostersOrdeal
             GC.Collect();
         }
 
+        private static void TryParseExternalHoneyTrees()
+        {
+            gameData.externalHoneyTrees = null;
+            List<(string name, HoneyTreeZone obj)> files = fileManager.TryGetExternalJsons<HoneyTreeZone>($"Encounters\\HoneyTrees");
+            if (files.Count == 0) return;
+            gameData.externalHoneyTrees = files;
+        }
+
         private static void TryParseExternalStarters()
         {
-            List<Starter> starters = new();
+            gameData.externalStarters = null;
             List<(string name, Starter obj)> files = fileManager.TryGetExternalJsons<Starter>($"Encounters\\Starter");
             if (files.Count == 0) return;
-            foreach ((string _, Starter obj) in files)
-                starters.Add(obj);
-            gameData.starters = starters;
+            gameData.externalStarters = files;
         }
 
         private static async Task ParseContestMasterDatas()
@@ -1976,12 +1983,20 @@ namespace ImpostersOrdeal
                 CommitDprBin();
             if (gameData.IsModified(GameDataSet.DataField.ExternalStarters))
                 CommitExternalStarters();
+            if (gameData.IsModified(GameDataSet.DataField.ExternalHoneyTrees))
+                CommitExternalHoneyTrees();
+        }
+
+        private static void CommitExternalHoneyTrees()
+        {
+            foreach ((string name, Starter _) in gameData.externalStarters)
+                fileManager.CommitExternalJson($"Encounters\\Starter\\{name}.json");
         }
 
         private static void CommitExternalStarters()
         {
-            for (int i = 0; i < gameData.starters.Count; i++)
-                fileManager.CommitExternalJson($"Encounters\\Starter\\starter_{i}.json");
+            foreach ((string name, HoneyTreeZone _) in gameData.externalHoneyTrees)
+                fileManager.CommitExternalJson($"Encounters\\HoneyTrees\\{name}.json");
         }
 
         private static void CommitContestMasterDatas()

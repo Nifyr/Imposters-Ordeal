@@ -57,7 +57,8 @@ namespace ImpostersOrdeal
             public List<ResultMotion> contestResultMotion;
             public AssetBundleDownloadManifest dprBin;
 
-            public List<Starter> starters;
+            public List<(string name, Starter obj)> externalStarters;
+            public List<(string name, HoneyTreeZone obj)> externalHoneyTrees;
 
             public Dictionary<string, string> trainerNames;
             public StringBuilder audioSourceLog;
@@ -98,7 +99,8 @@ namespace ImpostersOrdeal
                 PokemonInfo,
                 ContestResultMotion,
                 DprBin,
-                ExternalStarters
+                ExternalStarters,
+                ExternalHoneyTrees
             }
 
             public bool IsModified(DataField d)

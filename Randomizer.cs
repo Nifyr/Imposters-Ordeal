@@ -703,9 +703,9 @@ namespace ImpostersOrdeal
             gameData.SetModified(GameDataSet.DataField.UgEncounterLevelSets);
             gameData.SetModified(GameDataSet.DataField.UgSpecialEncounters);
 
-            if (gameData.starters != null)
+            if (gameData.externalStarters != null)
             {
-                foreach (Starter starter in gameData.starters)
+                foreach ((string _, Starter starter) in gameData.externalStarters)
                 {
                     if (randomizeLevels && IsWithin(AbsoluteBoundary.Level, starter.level))
                     {
@@ -736,6 +736,46 @@ namespace ImpostersOrdeal
                     }
                 }
                 gameData.SetModified(GameDataSet.DataField.ExternalStarters);
+            }
+
+            if (gameData.externalHoneyTrees != null)
+            {
+                foreach ((string _, HoneyTreeZone honeyTree) in gameData.externalHoneyTrees)
+                    foreach (HoneyTreeSlot slot in honeyTree.slots)
+                    {
+                        if (randomizeLevels && IsWithin(AbsoluteBoundary.Level, (int)slot.GetAvgLevel()))
+                        {
+                            slot.minlv = Conform(AbsoluteBoundary.Level, levelDistribution.Next(slot.minlv));
+                            slot.maxlv = Conform(AbsoluteBoundary.Level, levelDistribution.Next(slot.maxlv));
+
+                            if (slot.minlv > slot.maxlv)
+                                (slot.maxlv, slot.minlv) = (slot.minlv, slot.maxlv);
+
+                            if (evolveLogic)
+                            {
+                                Pokemon p = FindStage(gameData.GetPokemon(slot.monsNo, slot.formNo), (int)slot.GetAvgLevel(), true);
+                                slot.monsNo = p.dexID;
+                                slot.formNo = p.formID;
+                            }
+                        }
+
+                        if (randomizeSpecies)
+                        {
+                            bool acceptLegendary = !legendLogic || P(slot.GetAvgLevel());
+                            Func<Pokemon, Pokemon> resolveStage = evolveLogic ? p => FindStage(p, (int)slot.GetAvgLevel(), true) : p => p;
+
+                            do
+                            {
+                                slot.monsNo = speciesDistribution.Next(slot.monsNo);
+                                slot.formNo = rng.Next(gameData.dexEntries[slot.monsNo].forms.Count);
+                                Pokemon p = resolveStage(gameData.GetPokemon(slot.monsNo, slot.formNo));
+                                slot.monsNo = p.dexID;
+                                slot.formNo = p.formID;
+                            } while (!gameData.GetPokemon(slot.monsNo, slot.formNo).IsValid() ||
+                                !acceptLegendary && legendaryDexIDs.Contains(slot.monsNo));
+                        }
+                    }
+                gameData.SetModified(GameDataSet.DataField.ExternalHoneyTrees);
             }
         }
 

@@ -663,11 +663,15 @@ namespace ImpostersOrdeal
             if (!fd.gamePath.StartsWith(externalJsonGamePath)) return false;
             if (!fd.gamePath.EndsWith(".json")) return false;
             string externalJsonPath = fd.gamePath[(externalJsonGamePath.Length + 1)..];
+            string fileName = Path.GetFileNameWithoutExtension(externalJsonPath);
             if (externalJsonPath.StartsWith("Encounters\\Starter"))
             {
-                string fileName = Path.GetFileNameWithoutExtension(externalJsonPath);
-                int starterIndex = int.Parse(fileName.Split('_')[1]);
-                File.WriteAllText(modRoot + "\\" + fd.gamePath, JsonConvert.SerializeObject(gameData.starters[starterIndex], Formatting.Indented));
+                File.WriteAllText(modRoot + "\\" + fd.gamePath, JsonConvert.SerializeObject(gameData.externalStarters.First(t => t.name == fileName).obj, Formatting.Indented));
+                return true;
+            }
+            if (externalJsonPath.StartsWith("Encounters\\HoneyTrees"))
+            {
+                File.WriteAllText(modRoot + "\\" + fd.gamePath, JsonConvert.SerializeObject(gameData.externalHoneyTrees.First(t => t.name == fileName).obj, Formatting.Indented));
                 return true;
             }
             return false;
