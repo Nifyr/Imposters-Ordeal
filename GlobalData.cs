@@ -152,6 +152,11 @@ namespace ImpostersOrdeal
                     .First(mf => mf.mName.Contains("dp_pokedex_diamond"))
                     .labelDatas.Count >= personalEntries.Count - 1;
             }
+
+            public int GetTMCompatibilitySetSize()
+            {
+                return personalEntries.First(p => p.IsValid()).GetTMCompatibility().Length;
+            }
         }
 
         public static FileManager fileManager;

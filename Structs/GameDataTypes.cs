@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+using static ImpostersOrdeal.ExternalJsonStructs;
 
 namespace ImpostersOrdeal
 {
@@ -1004,11 +1002,13 @@ namespace ImpostersOrdeal
             public List<ushort> eggMoves;
             public List<EvolutionPath> evolutionPaths;
 
+            public TMLearnset externalTMLearnset;
+
             //Readonly
             public string name;
             public int formID;
-            public (ushort, ushort) pastEvoLvs;
-            public (ushort, ushort) nextEvoLvs;
+            public (ushort wild, ushort trainer) pastEvoLvs;
+            public (ushort wild, ushort trainer) nextEvoLvs;
             public List<Pokemon> pastPokemon;
             public List<Pokemon> nextPokemon;
             public List<Pokemon> inferiorForms;
@@ -1094,6 +1094,8 @@ namespace ImpostersOrdeal
 
             public bool[] GetTMCompatibility()
             {
+                if (externalTMLearnset != null)
+                    return externalTMLearnset.GetTMCompatibility();
                 bool[] tmCompatibility = new bool[128];
                 for (int i = 0; i < 32; i++)
                     tmCompatibility[i] = (machine1 & ((uint)1 << i)) != 0;
@@ -1108,6 +1110,7 @@ namespace ImpostersOrdeal
 
             public void SetTMCompatibility(bool[] tmCompatibility)
             {
+                externalTMLearnset?.SetTMCompatibility(tmCompatibility);
                 machine1 = 0;
                 for (int i = 0; i < 32; i++)
                     machine1 |= tmCompatibility[i] ? (uint)1 << i : 0;
@@ -1383,7 +1386,7 @@ namespace ImpostersOrdeal
             {
                 return GlobalData.gameData.items[itemID].IsActive() &&
                     GlobalData.gameData.items[itemID].fieldFunc == 2 &&
-                    GlobalData.gameData.items[itemID].groupID <= 128 &&
+                    GlobalData.gameData.items[itemID].groupID <= GlobalData.gameData.GetTMCompatibilitySetSize() &&
                     GlobalData.gameData.items[itemID].groupID > 0;
             }
         }

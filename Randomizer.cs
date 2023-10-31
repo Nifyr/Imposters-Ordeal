@@ -1188,6 +1188,12 @@ namespace ImpostersOrdeal
                 bool[] tmCompatibility = pokemon.GetTMCompatibility();
                 for (int i = 0; i < tmCompatibility.Length; i++)
                 {
+                    if (i >= gameData.tms.Count)
+                    {
+                        tmCompatibility[i] = false;
+                        continue;
+                    }
+
                     TM tm = gameData.tms[i];
                     if (!gameData.items[tm.itemID].IsActive())
                     {

@@ -10,9 +10,6 @@ using static ImpostersOrdeal.ExternalJsonStructs;
 using static ImpostersOrdeal.Wwise;
 using AssetsTools.NET.Extra;
 using SmartPoint.AssetAssistant;
-using System.Diagnostics;
-using System.Threading;
-using Newtonsoft.Json.Linq;
 
 namespace ImpostersOrdeal
 {
@@ -744,6 +741,9 @@ namespace ImpostersOrdeal
 
                     pokemon.evolutionPaths.Add(evolution);
                 }
+
+                pokemon.externalTMLearnset = fileManager.TryGetExternalJson<TMLearnset>(
+                    $"MonData\\TMLearnset\\monsno_{pokemon.dexID}_formno_{pokemon.formID}.json");
 
                 gameData.personalEntries.Add(pokemon);
 
@@ -2593,12 +2593,12 @@ distributionTable
             AssetTypeValueField evolveTable = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "EvolveTable");
             AssetTypeValueField personalTable = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "PersonalTable");
             monoBehaviours = new()
-{
-wazaOboeTable,
-tamagoWazaTable,
-evolveTable,
-personalTable
-};
+            {
+                wazaOboeTable,
+                tamagoWazaTable,
+                evolveTable,
+                personalTable
+            };
 
             AssetTypeValueField[] levelUpMoveFields = wazaOboeTable.children[4].children[0].children;
             AssetTypeValueField[] eggMoveFields = tamagoWazaTable.children[4].children[0].children;
@@ -2723,6 +2723,10 @@ personalTable
                 eggMoveField["wazaNo"][0].SetChildrenList(wazaNos.ToArray());
 
                 newEggMoveFields.Add(eggMoveField);
+
+                // External TM Learnsets
+                if (pokemon.externalTMLearnset != null)
+                    fileManager.CommitExternalJson($"MonData\\TMLearnset\\monsno_{pokemon.dexID}_formno_{pokemon.formID}.json");
             }
 
             newPersonalFields.Sort((atvf1, atvf2) => atvf1[1].GetValue().AsUInt().CompareTo(atvf2[1].GetValue().AsUInt()));

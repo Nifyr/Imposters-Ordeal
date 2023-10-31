@@ -574,14 +574,20 @@ namespace ImpostersOrdeal
             string gamePath = externalJsonGamePath + "\\" + externalJsonDir;
             List<(string, T)> result = new();
             foreach (string path in fileArchive.Keys.Where(s => s.StartsWith(gamePath)))
-                result.Add((Path.GetFileNameWithoutExtension(path), TryGetExternalJson<T>(path)));
+                result.Add((Path.GetFileNameWithoutExtension(path), GetExternalJson<T>(path)));
             return result;
         }
 
-        private T TryGetExternalJson<T>(string gamePath)
+        public T TryGetExternalJson<T>(string externalJsonPath)
         {
+            string gamePath = externalJsonGamePath + "\\" + externalJsonPath;
             if (!fileArchive.ContainsKey(gamePath))
                 return default;
+            return GetExternalJson<T>(gamePath);
+        }
+
+        private T GetExternalJson<T>(string gamePath)
+        {
             return JsonConvert.DeserializeObject<T>(File.ReadAllText(fileArchive[gamePath].fileLocation));
         }
 
@@ -672,6 +678,14 @@ namespace ImpostersOrdeal
             if (externalJsonPath.StartsWith("Encounters\\HoneyTrees"))
             {
                 File.WriteAllText(modRoot + "\\" + fd.gamePath, JsonConvert.SerializeObject(gameData.externalHoneyTrees.First(t => t.name == fileName).obj, Formatting.Indented));
+                return true;
+            }
+            if (externalJsonPath.StartsWith("MonData\\TMLearnset"))
+            {
+                string[] segments = fileName.Split('_');
+                int dexID = int.Parse(segments[1]);
+                int formID = int.Parse(segments[3]);
+                File.WriteAllText(modRoot + "\\" + fd.gamePath, JsonConvert.SerializeObject(gameData.GetPokemon(dexID, formID).externalTMLearnset, Formatting.Indented));
                 return true;
             }
             return false;

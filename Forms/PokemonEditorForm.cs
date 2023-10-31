@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static ImpostersOrdeal.GameDataTypes;
 using static ImpostersOrdeal.GlobalData;
@@ -152,8 +148,12 @@ namespace ImpostersOrdeal
             numericUpDown21.Value = p.weight;
 
             bool[] tmCompatibility = p.GetTMCompatibility();
+            int[] tmKeys = tms.Keys.ToArray();
             for (int i = 0; i < tmCompatibilityCheckedListBox.Items.Count; i++)
-                tmCompatibilityCheckedListBox.SetItemChecked(i, tmCompatibility[tms.Keys.ToArray()[i]]);
+                if (tmKeys[i] < tmCompatibility.Length)
+                    tmCompatibilityCheckedListBox.SetItemChecked(i, tmCompatibility[tmKeys[i]]);
+                else
+                    tmCompatibilityCheckedListBox.SetItemChecked(i, false);
 
             levelUpMoveDataGridView.Rows.Clear();
             for (int i = 0; i < p.levelUpMoves.Count; i++)
@@ -209,7 +209,7 @@ namespace ImpostersOrdeal
             p.height = (ushort)numericUpDown20.Value;
             p.weight = (ushort)numericUpDown21.Value;
 
-            bool[] tmCompatibility = new bool[128];
+            bool[] tmCompatibility = new bool[gameData.GetTMCompatibilitySetSize()];
             for (int i = 0; i < tmCompatibilityCheckedListBox.Items.Count; i++)
                 tmCompatibility[tms.Keys.ToArray()[i]] = tmCompatibilityCheckedListBox.GetItemChecked(i);
             p.SetTMCompatibility(tmCompatibility);
