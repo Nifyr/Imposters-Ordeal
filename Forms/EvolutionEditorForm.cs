@@ -53,13 +53,13 @@ namespace ImpostersOrdeal
             EvolutionParamType.None, EvolutionParamType.Typing, EvolutionParamType.None, EvolutionParamType.None,
             EvolutionParamType.None, EvolutionParamType.None, EvolutionParamType.None, EvolutionParamType.None,
             EvolutionParamType.GameVersion, EvolutionParamType.GameVersion, EvolutionParamType.GameVersion, EvolutionParamType.None,
-            EvolutionParamType.None, EvolutionParamType.None, EvolutionParamType.Item, EvolutionParamType.None,
+            EvolutionParamType.None, EvolutionParamType.None, EvolutionParamType.Item, EvolutionParamType.Byte,
             EvolutionParamType.None, EvolutionParamType.None, EvolutionParamType.None, EvolutionParamType.None,
         };
 
         private enum EvolutionParamType
         {
-            None, Item, Move, Pokemon, Typing, GameVersion
+            None, Item, Move, Pokemon, Typing, GameVersion, Byte
         }
 
         public EvolutionEditorForm(PokemonEditorForm pef)
@@ -195,10 +195,18 @@ namespace ImpostersOrdeal
 
                 case EvolutionParamType.GameVersion:
                     label3.Visible = true;
-                    label3.Text = "Game Version (unsupported)";
+                    label3.Text = "Game Version";
                     evoParamComboBox.Visible = true;
-                    evoParamComboBox.DataSource = new string[] { "0" };
-                    evoParamComboBox.SelectedIndex = 0;
+                    evoParamComboBox.DataSource = Enumerable.Range(0, 256).Select(i => i.ToString()).ToArray();
+                    evoParamComboBox.SelectedIndex = m.parameter;
+                    break;
+
+                case EvolutionParamType.Byte:
+                    label3.Visible = true;
+                    label3.Text = "Number";
+                    evoParamComboBox.Visible = true;
+                    evoParamComboBox.DataSource = Enumerable.Range(0, 256).Select(i => i.ToString()).ToArray();
+                    evoParamComboBox.SelectedIndex = m.parameter;
                     break;
             }
         }
