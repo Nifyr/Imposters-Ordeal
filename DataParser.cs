@@ -62,10 +62,16 @@ namespace ImpostersOrdeal
             ParseGlobalMetadata();
             ParseDprBin();
             ParseAudioData();
+            TryParseModArgs();
             Task.WaitAll(tasks.ToArray());
             //Hot damn! 4GB?? This has got to go.
             monoBehaviourCollection = null;
             GC.Collect();
+        }
+
+        private static void TryParseModArgs()
+        {
+            gameData.modArgs = fileManager.TryGetModArgs();
         }
 
         private static void TryParseExternalHoneyTrees()

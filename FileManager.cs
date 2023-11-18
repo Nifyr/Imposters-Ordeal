@@ -46,6 +46,7 @@ namespace ImpostersOrdeal
         private static readonly string globalMetadataPath = "romfs\\Data\\Managed\\Metadata\\global-metadata.dat";
         private static readonly string dprBinPath = "romfs\\Data\\StreamingAssets\\AssetAssistant\\Dpr.bin";
         private static readonly string externalJsonGamePath = "romfs\\Data\\ExtraData";
+        private static readonly string modArgsPath = "ImpostersOrdealArgs.json";
 
         private string assetAssistantPath;
         private string audioPath;
@@ -594,6 +595,13 @@ namespace ImpostersOrdeal
         public void CommitExternalJson(string externalJsonPath)
         {
             fileArchive[externalJsonGamePath + "\\" + externalJsonPath].fileSource = FileSource.App;
+        }
+
+        public ModArgs TryGetModArgs()
+        {
+            if (!fileArchive.ContainsKey(modArgsPath))
+                return null;
+            return JsonConvert.DeserializeObject<ModArgs>(File.ReadAllText(fileArchive[modArgsPath].fileLocation));
         }
 
         public void DuplicateIconBundle(string srcPath, string dstPath)

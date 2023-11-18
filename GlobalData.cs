@@ -62,6 +62,7 @@ namespace ImpostersOrdeal
 
             public Dictionary<string, string> trainerNames;
             public StringBuilder audioSourceLog;
+            public ModArgs modArgs;
 
             private readonly bool[] fieldStates = new bool[Enum.GetNames(typeof(DataField)).Length];
 
@@ -125,21 +126,21 @@ namespace ImpostersOrdeal
 
             public bool UgVersionsUnbounded()
             {
-                return ugEncounterFiles
+                return modArgs != null ? modArgs.ugVersionsUnbounded : ugEncounterFiles
                     .SelectMany(o => o.ugEncounters)
                     .Any(e => e.version < 1 || e.version > 3);
             }
 
             public bool Uint16UgTables()
             {
-                return ugEncounterFiles
+                return modArgs != null ? modArgs.uint16UgTables : ugEncounterFiles
                     .SelectMany(ugef => ugef.ugEncounters)
                     .Any(uge => (uint)uge.dexID > 0xFFFF); 
             }
 
             public bool Uint16EncounterTables()
             {
-                return encounterTableFiles
+                return modArgs != null ? modArgs.uint16EncounterTables : encounterTableFiles
                     .Any(etf => etf.encounterTables
                     .Any(o => o.GetAllTables()
                     .Any(l => l
