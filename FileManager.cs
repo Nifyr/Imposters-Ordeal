@@ -594,7 +594,13 @@ namespace ImpostersOrdeal
 
         public void CommitExternalJson(string externalJsonPath)
         {
-            fileArchive[externalJsonGamePath + "\\" + externalJsonPath].fileSource = FileSource.App;
+            string gamePath = externalJsonGamePath + "\\" + externalJsonPath;
+            if (!fileArchive.ContainsKey(gamePath))
+                fileArchive[gamePath] = new()
+                {
+                    gamePath = gamePath
+                };
+            fileArchive[gamePath].fileSource = FileSource.App;
         }
 
         public ModArgs TryGetModArgs()
