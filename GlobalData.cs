@@ -147,6 +147,14 @@ namespace ImpostersOrdeal
                     .Any(e => (uint)e.dexID > 0xFFFF))));
             }
 
+            public int GetEvolutionMethodCount()
+            {
+                int emCount = modArgs != null ? modArgs.evolutionMethodCount : 0;
+                if (emCount == 0)
+                    emCount = Math.Max(48, (int)personalEntries.SelectMany(p => p.evolutionPaths.Select(em => em.method)).Max());
+                return emCount;
+            }
+
             public bool FormDescriptionsExist()
             {
                 return messageFileSets.SelectMany(mfs => mfs.messageFiles)
