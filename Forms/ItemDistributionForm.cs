@@ -149,30 +149,6 @@ namespace ImpostersOrdeal
             dataGridView1.DataSource = dataTable;
         }
 
-        private void DataGridView1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Space)
-            {
-                e.Handled = true;
-                var i = 0;
-                foreach (var cell in dataGridView1.SelectedCells)
-                {
-                    if (cell is DataGridViewCheckBoxCell checkBoxCell)
-                    {
-                        if (checkBoxCell.Value is bool isChecked)
-                        {
-                            checkBoxCell.Value = !isChecked;
-                        }
-                        else
-                        {
-                            // This cell is null for some reason.
-                            checkBoxCell.Value = true;
-                        }
-                    }
-                }
-            }
-        }
-
         private void DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             MainForm.ShowDataError();
