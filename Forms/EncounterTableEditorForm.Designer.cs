@@ -30,1137 +30,1089 @@ namespace ImpostersOrdeal
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EncounterTableEditorForm));
-            this.groundMonsDataGridView = new System.Windows.Forms.DataGridView();
-            this.monsNoGround = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.min_lvl = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.max_lvl = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.morningRateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.encRateGround = new System.Windows.Forms.NumericUpDown();
-            this.label5 = new System.Windows.Forms.Label();
-            this.encRateSuperRod = new System.Windows.Forms.NumericUpDown();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.encRateGoodRod = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
-            this.encRateWater = new System.Windows.Forms.NumericUpDown();
-            this.encRateOldRod = new System.Windows.Forms.NumericUpDown();
-            this.Species = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.pokeradarDataGridView = new System.Windows.Forms.DataGridView();
-            this.monsNoPokeradar = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pokeradarRateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.waterDataGridView = new System.Windows.Forms.DataGridView();
-            this.monsNoSurf = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.surfRateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.oldRodDataGridView6 = new System.Windows.Forms.DataGridView();
-            this.monsNoOldRod = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.oldRodRateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.goodRodDataGridView7 = new System.Windows.Forms.DataGridView();
-            this.monsNoGoodRod = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.goodRodRateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.superRodDataGridView8 = new System.Windows.Forms.DataGridView();
-            this.monsNoSuperRod = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dataGridViewTextBoxColumn20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn21 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.superRodRateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.versionComboBox = new System.Windows.Forms.ComboBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.formProbNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.unownTableNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.morningDataGridView = new System.Windows.Forms.DataGridView();
-            this.monsNoMorning = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.zoneIDListBox = new System.Windows.Forms.ListBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.swarmDataGridView = new System.Windows.Forms.DataGridView();
-            this.monsNoSwarm = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.dayDataGridView = new System.Windows.Forms.DataGridView();
-            this.monsNoDay = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.nightDataGridView = new System.Windows.Forms.DataGridView();
-            this.monsNoNight = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn22 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.groupBox11 = new System.Windows.Forms.GroupBox();
-            this.groupBox12 = new System.Windows.Forms.GroupBox();
-            this.sortComboBox = new System.Windows.Forms.ComboBox();
-            ((System.ComponentModel.ISupportInitialize)(this.groundMonsDataGridView)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.encRateGround)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.encRateSuperRod)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.encRateGoodRod)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.encRateWater)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.encRateOldRod)).BeginInit();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pokeradarDataGridView)).BeginInit();
-            this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.waterDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.oldRodDataGridView6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.goodRodDataGridView7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.superRodDataGridView8)).BeginInit();
-            this.groupBox4.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.formProbNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unownTableNumericUpDown)).BeginInit();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.groupBox7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.morningDataGridView)).BeginInit();
-            this.groupBox5.SuspendLayout();
-            this.groupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.swarmDataGridView)).BeginInit();
-            this.groupBox8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dayDataGridView)).BeginInit();
-            this.groupBox9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nightDataGridView)).BeginInit();
-            this.groupBox10.SuspendLayout();
-            this.groupBox11.SuspendLayout();
-            this.groupBox12.SuspendLayout();
-            this.SuspendLayout();
+            groundMonsDataGridView = new System.Windows.Forms.DataGridView();
+            monsNoGround = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            min_lvl = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            max_lvl = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            morningRateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            groupBox1 = new System.Windows.Forms.GroupBox();
+            tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            encRateGround = new System.Windows.Forms.NumericUpDown();
+            label5 = new System.Windows.Forms.Label();
+            encRateSuperRod = new System.Windows.Forms.NumericUpDown();
+            label4 = new System.Windows.Forms.Label();
+            label1 = new System.Windows.Forms.Label();
+            label3 = new System.Windows.Forms.Label();
+            encRateGoodRod = new System.Windows.Forms.NumericUpDown();
+            label2 = new System.Windows.Forms.Label();
+            encRateWater = new System.Windows.Forms.NumericUpDown();
+            encRateOldRod = new System.Windows.Forms.NumericUpDown();
+            Species = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            groupBox2 = new System.Windows.Forms.GroupBox();
+            pokeradarDataGridView = new System.Windows.Forms.DataGridView();
+            monsNoPokeradar = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            pokeradarRateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            groupBox3 = new System.Windows.Forms.GroupBox();
+            waterDataGridView = new System.Windows.Forms.DataGridView();
+            monsNoSurf = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            surfRateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            oldRodDataGridView6 = new System.Windows.Forms.DataGridView();
+            monsNoOldRod = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            oldRodRateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            goodRodDataGridView7 = new System.Windows.Forms.DataGridView();
+            monsNoGoodRod = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            goodRodRateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            superRodDataGridView8 = new System.Windows.Forms.DataGridView();
+            monsNoSuperRod = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            dataGridViewTextBoxColumn20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn21 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            superRodRateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            versionComboBox = new System.Windows.Forms.ComboBox();
+            groupBox4 = new System.Windows.Forms.GroupBox();
+            tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            formProbNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            unownTableNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            label6 = new System.Windows.Forms.Label();
+            label7 = new System.Windows.Forms.Label();
+            button1 = new System.Windows.Forms.Button();
+            tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            groupBox7 = new System.Windows.Forms.GroupBox();
+            morningDataGridView = new System.Windows.Forms.DataGridView();
+            monsNoMorning = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            zoneIDListBox = new System.Windows.Forms.ListBox();
+            groupBox5 = new System.Windows.Forms.GroupBox();
+            groupBox6 = new System.Windows.Forms.GroupBox();
+            swarmDataGridView = new System.Windows.Forms.DataGridView();
+            monsNoSwarm = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            groupBox8 = new System.Windows.Forms.GroupBox();
+            dayDataGridView = new System.Windows.Forms.DataGridView();
+            monsNoDay = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            groupBox9 = new System.Windows.Forms.GroupBox();
+            nightDataGridView = new System.Windows.Forms.DataGridView();
+            monsNoNight = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn22 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            groupBox10 = new System.Windows.Forms.GroupBox();
+            groupBox11 = new System.Windows.Forms.GroupBox();
+            groupBox12 = new System.Windows.Forms.GroupBox();
+            sortComboBox = new System.Windows.Forms.ComboBox();
+            ((System.ComponentModel.ISupportInitialize)groundMonsDataGridView).BeginInit();
+            groupBox1.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)encRateGround).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)encRateSuperRod).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)encRateGoodRod).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)encRateWater).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)encRateOldRod).BeginInit();
+            groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pokeradarDataGridView).BeginInit();
+            groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)waterDataGridView).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)oldRodDataGridView6).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)goodRodDataGridView7).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)superRodDataGridView8).BeginInit();
+            groupBox4.SuspendLayout();
+            tableLayoutPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)formProbNumericUpDown).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)unownTableNumericUpDown).BeginInit();
+            tableLayoutPanel1.SuspendLayout();
+            groupBox7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)morningDataGridView).BeginInit();
+            groupBox5.SuspendLayout();
+            groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)swarmDataGridView).BeginInit();
+            groupBox8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dayDataGridView).BeginInit();
+            groupBox9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nightDataGridView).BeginInit();
+            groupBox10.SuspendLayout();
+            groupBox11.SuspendLayout();
+            groupBox12.SuspendLayout();
+            SuspendLayout();
             // 
             // groundMonsDataGridView
             // 
-            this.groundMonsDataGridView.AllowUserToAddRows = false;
-            this.groundMonsDataGridView.AllowUserToDeleteRows = false;
-            this.groundMonsDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.groundMonsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.groundMonsDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.monsNoGround,
-            this.min_lvl,
-            this.max_lvl,
-            this.morningRateColumn});
-            this.groundMonsDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groundMonsDataGridView.Location = new System.Drawing.Point(3, 23);
-            this.groundMonsDataGridView.Name = "groundMonsDataGridView";
-            this.groundMonsDataGridView.RowHeadersVisible = false;
-            this.groundMonsDataGridView.RowHeadersWidth = 51;
-            this.groundMonsDataGridView.RowTemplate.Height = 29;
-            this.groundMonsDataGridView.Size = new System.Drawing.Size(382, 577);
-            this.groundMonsDataGridView.TabIndex = 2;
+            groundMonsDataGridView.AllowUserToAddRows = false;
+            groundMonsDataGridView.AllowUserToDeleteRows = false;
+            groundMonsDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            groundMonsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            groundMonsDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { monsNoGround, min_lvl, max_lvl, morningRateColumn });
+            groundMonsDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            groundMonsDataGridView.Location = new System.Drawing.Point(3, 18);
+            groundMonsDataGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groundMonsDataGridView.Name = "groundMonsDataGridView";
+            groundMonsDataGridView.RowHeadersVisible = false;
+            groundMonsDataGridView.RowHeadersWidth = 51;
+            groundMonsDataGridView.RowTemplate.Height = 29;
+            groundMonsDataGridView.Size = new System.Drawing.Size(332, 429);
+            groundMonsDataGridView.TabIndex = 2;
             // 
             // monsNoGround
             // 
-            this.monsNoGround.DataPropertyName = "monsNoMorning";
-            this.monsNoGround.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.monsNoGround.HeaderText = "Species";
-            this.monsNoGround.MinimumWidth = 6;
-            this.monsNoGround.Name = "monsNoGround";
-            this.monsNoGround.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.monsNoGround.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            monsNoGround.DataPropertyName = "monsNoMorning";
+            monsNoGround.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            monsNoGround.HeaderText = "Species";
+            monsNoGround.MinimumWidth = 6;
+            monsNoGround.Name = "monsNoGround";
+            monsNoGround.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            monsNoGround.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // min_lvl
             // 
-            this.min_lvl.HeaderText = "Min Lvl";
-            this.min_lvl.MinimumWidth = 6;
-            this.min_lvl.Name = "min_lvl";
+            min_lvl.HeaderText = "Min Lvl";
+            min_lvl.MinimumWidth = 6;
+            min_lvl.Name = "min_lvl";
             // 
             // max_lvl
             // 
-            this.max_lvl.HeaderText = "Max Lvl";
-            this.max_lvl.MinimumWidth = 6;
-            this.max_lvl.Name = "max_lvl";
+            max_lvl.HeaderText = "Max Lvl";
+            max_lvl.MinimumWidth = 6;
+            max_lvl.Name = "max_lvl";
             // 
             // morningRateColumn
             // 
-            this.morningRateColumn.HeaderText = "Rate";
-            this.morningRateColumn.MinimumWidth = 6;
-            this.morningRateColumn.Name = "morningRateColumn";
-            this.morningRateColumn.ReadOnly = true;
+            morningRateColumn.HeaderText = "Rate";
+            morningRateColumn.MinimumWidth = 6;
+            morningRateColumn.Name = "morningRateColumn";
+            morningRateColumn.ReadOnly = true;
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.tableLayoutPanel2);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(200, 612);
-            this.groupBox1.Name = "groupBox1";
-            this.tableLayoutPanel1.SetRowSpan(this.groupBox1, 3);
-            this.groupBox1.Size = new System.Drawing.Size(191, 338);
-            this.groupBox1.TabIndex = 4;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Encounter Rates";
+            groupBox1.Controls.Add(tableLayoutPanel2);
+            groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            groupBox1.Location = new System.Drawing.Point(175, 455);
+            groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            tableLayoutPanel1.SetRowSpan(groupBox1, 3);
+            groupBox1.Size = new System.Drawing.Size(166, 258);
+            groupBox1.TabIndex = 4;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Encounter Rates";
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tableLayoutPanel2.Controls.Add(this.encRateGround, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.label5, 0, 4);
-            this.tableLayoutPanel2.Controls.Add(this.encRateSuperRod, 1, 4);
-            this.tableLayoutPanel2.Controls.Add(this.label4, 0, 3);
-            this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.label3, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.encRateGoodRod, 1, 3);
-            this.tableLayoutPanel2.Controls.Add(this.label2, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.encRateWater, 1, 1);
-            this.tableLayoutPanel2.Controls.Add(this.encRateOldRod, 1, 2);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 23);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 6;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(185, 312);
-            this.tableLayoutPanel2.TabIndex = 10;
+            tableLayoutPanel2.ColumnCount = 2;
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 52F));
+            tableLayoutPanel2.Controls.Add(encRateGround, 1, 0);
+            tableLayoutPanel2.Controls.Add(label5, 0, 4);
+            tableLayoutPanel2.Controls.Add(encRateSuperRod, 1, 4);
+            tableLayoutPanel2.Controls.Add(label4, 0, 3);
+            tableLayoutPanel2.Controls.Add(label1, 0, 0);
+            tableLayoutPanel2.Controls.Add(label3, 0, 2);
+            tableLayoutPanel2.Controls.Add(encRateGoodRod, 1, 3);
+            tableLayoutPanel2.Controls.Add(label2, 0, 1);
+            tableLayoutPanel2.Controls.Add(encRateWater, 1, 1);
+            tableLayoutPanel2.Controls.Add(encRateOldRod, 1, 2);
+            tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel2.Location = new System.Drawing.Point(3, 18);
+            tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 6;
+            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel2.Size = new System.Drawing.Size(160, 238);
+            tableLayoutPanel2.TabIndex = 10;
             // 
             // encRateGround
             // 
-            this.encRateGround.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.encRateGround.Location = new System.Drawing.Point(128, 4);
-            this.encRateGround.Maximum = new decimal(new int[] {
-            2147483647,
-            0,
-            0,
-            0});
-            this.encRateGround.Minimum = new decimal(new int[] {
-            -2147483648,
-            0,
-            0,
-            -2147483648});
-            this.encRateGround.Name = "encRateGround";
-            this.encRateGround.Size = new System.Drawing.Size(54, 27);
-            this.encRateGround.TabIndex = 5;
+            encRateGround.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            encRateGround.Location = new System.Drawing.Point(111, 2);
+            encRateGround.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            encRateGround.Maximum = new decimal(new int[] { int.MaxValue, 0, 0, 0 });
+            encRateGround.Minimum = new decimal(new int[] { int.MinValue, 0, 0, int.MinValue });
+            encRateGround.Name = "encRateGround";
+            encRateGround.Size = new System.Drawing.Size(46, 23);
+            encRateGround.TabIndex = 5;
             // 
             // label5
             // 
-            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(44, 147);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(78, 20);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "Super Rod";
+            label5.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            label5.AutoSize = true;
+            label5.Location = new System.Drawing.Point(44, 109);
+            label5.Name = "label5";
+            label5.Size = new System.Drawing.Size(61, 15);
+            label5.TabIndex = 4;
+            label5.Text = "Super Rod";
             // 
             // encRateSuperRod
             // 
-            this.encRateSuperRod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.encRateSuperRod.Location = new System.Drawing.Point(128, 144);
-            this.encRateSuperRod.Maximum = new decimal(new int[] {
-            2147483647,
-            0,
-            0,
-            0});
-            this.encRateSuperRod.Minimum = new decimal(new int[] {
-            -2147483648,
-            0,
-            0,
-            -2147483648});
-            this.encRateSuperRod.Name = "encRateSuperRod";
-            this.encRateSuperRod.Size = new System.Drawing.Size(54, 27);
-            this.encRateSuperRod.TabIndex = 9;
+            encRateSuperRod.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            encRateSuperRod.Location = new System.Drawing.Point(111, 106);
+            encRateSuperRod.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            encRateSuperRod.Maximum = new decimal(new int[] { int.MaxValue, 0, 0, 0 });
+            encRateSuperRod.Minimum = new decimal(new int[] { int.MinValue, 0, 0, int.MinValue });
+            encRateSuperRod.Name = "encRateSuperRod";
+            encRateSuperRod.Size = new System.Drawing.Size(46, 23);
+            encRateSuperRod.TabIndex = 9;
             // 
             // label4
             // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(45, 112);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(77, 20);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Good Rod";
+            label4.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            label4.AutoSize = true;
+            label4.Location = new System.Drawing.Point(45, 83);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(60, 15);
+            label4.TabIndex = 3;
+            label4.Text = "Good Rod";
             // 
             // label1
             // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(64, 7);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(58, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Ground";
+            label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(58, 5);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(47, 15);
+            label1.TabIndex = 0;
+            label1.Text = "Ground";
             // 
             // label3
             // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(58, 77);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(64, 20);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Old Rod";
+            label3.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            label3.AutoSize = true;
+            label3.Location = new System.Drawing.Point(55, 57);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(50, 15);
+            label3.TabIndex = 2;
+            label3.Text = "Old Rod";
             // 
             // encRateGoodRod
             // 
-            this.encRateGoodRod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.encRateGoodRod.Location = new System.Drawing.Point(128, 109);
-            this.encRateGoodRod.Maximum = new decimal(new int[] {
-            2147483647,
-            0,
-            0,
-            0});
-            this.encRateGoodRod.Minimum = new decimal(new int[] {
-            -2147483648,
-            0,
-            0,
-            -2147483648});
-            this.encRateGoodRod.Name = "encRateGoodRod";
-            this.encRateGoodRod.Size = new System.Drawing.Size(54, 27);
-            this.encRateGoodRod.TabIndex = 8;
+            encRateGoodRod.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            encRateGoodRod.Location = new System.Drawing.Point(111, 80);
+            encRateGoodRod.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            encRateGoodRod.Maximum = new decimal(new int[] { int.MaxValue, 0, 0, 0 });
+            encRateGoodRod.Minimum = new decimal(new int[] { int.MinValue, 0, 0, int.MinValue });
+            encRateGoodRod.Name = "encRateGoodRod";
+            encRateGoodRod.Size = new System.Drawing.Size(46, 23);
+            encRateGoodRod.TabIndex = 8;
             // 
             // label2
             // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(74, 42);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(48, 20);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Water";
+            label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(67, 31);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(38, 15);
+            label2.TabIndex = 1;
+            label2.Text = "Water";
             // 
             // encRateWater
             // 
-            this.encRateWater.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.encRateWater.Location = new System.Drawing.Point(128, 39);
-            this.encRateWater.Maximum = new decimal(new int[] {
-            2147483647,
-            0,
-            0,
-            0});
-            this.encRateWater.Minimum = new decimal(new int[] {
-            -2147483648,
-            0,
-            0,
-            -2147483648});
-            this.encRateWater.Name = "encRateWater";
-            this.encRateWater.Size = new System.Drawing.Size(54, 27);
-            this.encRateWater.TabIndex = 6;
+            encRateWater.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            encRateWater.Location = new System.Drawing.Point(111, 28);
+            encRateWater.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            encRateWater.Maximum = new decimal(new int[] { int.MaxValue, 0, 0, 0 });
+            encRateWater.Minimum = new decimal(new int[] { int.MinValue, 0, 0, int.MinValue });
+            encRateWater.Name = "encRateWater";
+            encRateWater.Size = new System.Drawing.Size(46, 23);
+            encRateWater.TabIndex = 6;
             // 
             // encRateOldRod
             // 
-            this.encRateOldRod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.encRateOldRod.Location = new System.Drawing.Point(128, 74);
-            this.encRateOldRod.Maximum = new decimal(new int[] {
-            2147483647,
-            0,
-            0,
-            0});
-            this.encRateOldRod.Minimum = new decimal(new int[] {
-            -2147483648,
-            0,
-            0,
-            -2147483648});
-            this.encRateOldRod.Name = "encRateOldRod";
-            this.encRateOldRod.Size = new System.Drawing.Size(54, 27);
-            this.encRateOldRod.TabIndex = 7;
+            encRateOldRod.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            encRateOldRod.Location = new System.Drawing.Point(111, 54);
+            encRateOldRod.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            encRateOldRod.Maximum = new decimal(new int[] { int.MaxValue, 0, 0, 0 });
+            encRateOldRod.Minimum = new decimal(new int[] { int.MinValue, 0, 0, int.MinValue });
+            encRateOldRod.Name = "encRateOldRod";
+            encRateOldRod.Size = new System.Drawing.Size(46, 23);
+            encRateOldRod.TabIndex = 7;
             // 
             // Species
             // 
-            this.Species.HeaderText = "Species";
-            this.Species.MinimumWidth = 6;
-            this.Species.Name = "Species";
-            this.Species.Width = 125;
+            Species.HeaderText = "Species";
+            Species.MinimumWidth = 6;
+            Species.Name = "Species";
+            Species.Width = 125;
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.pokeradarDataGridView);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(594, 612);
-            this.groupBox2.Name = "groupBox2";
-            this.tableLayoutPanel1.SetRowSpan(this.groupBox2, 3);
-            this.groupBox2.Size = new System.Drawing.Size(388, 338);
-            this.groupBox2.TabIndex = 10;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Pokéradar";
+            groupBox2.Controls.Add(pokeradarDataGridView);
+            groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            groupBox2.Location = new System.Drawing.Point(519, 455);
+            groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            tableLayoutPanel1.SetRowSpan(groupBox2, 3);
+            groupBox2.Size = new System.Drawing.Size(339, 258);
+            groupBox2.TabIndex = 10;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Pokéradar";
             // 
-            // dataGridView4
+            // pokeradarDataGridView
             // 
-            this.pokeradarDataGridView.AllowUserToAddRows = false;
-            this.pokeradarDataGridView.AllowUserToDeleteRows = false;
-            this.pokeradarDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.pokeradarDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.pokeradarDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.monsNoPokeradar,
-            this.dataGridViewTextBoxColumn8,
-            this.dataGridViewTextBoxColumn9,
-            this.pokeradarRateColumn});
-            this.pokeradarDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pokeradarDataGridView.Location = new System.Drawing.Point(3, 23);
-            this.pokeradarDataGridView.Name = "dataGridView4";
-            this.pokeradarDataGridView.RowHeadersVisible = false;
-            this.pokeradarDataGridView.RowHeadersWidth = 51;
-            this.pokeradarDataGridView.RowTemplate.Height = 29;
-            this.pokeradarDataGridView.Size = new System.Drawing.Size(382, 312);
-            this.pokeradarDataGridView.TabIndex = 3;
+            pokeradarDataGridView.AllowUserToAddRows = false;
+            pokeradarDataGridView.AllowUserToDeleteRows = false;
+            pokeradarDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            pokeradarDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            pokeradarDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { monsNoPokeradar, dataGridViewTextBoxColumn8, dataGridViewTextBoxColumn9, pokeradarRateColumn });
+            pokeradarDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            pokeradarDataGridView.Location = new System.Drawing.Point(3, 18);
+            pokeradarDataGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            pokeradarDataGridView.Name = "pokeradarDataGridView";
+            pokeradarDataGridView.RowHeadersVisible = false;
+            pokeradarDataGridView.RowHeadersWidth = 51;
+            pokeradarDataGridView.RowTemplate.Height = 29;
+            pokeradarDataGridView.Size = new System.Drawing.Size(333, 238);
+            pokeradarDataGridView.TabIndex = 3;
             // 
             // monsNoPokeradar
             // 
-            this.monsNoPokeradar.DataPropertyName = "monsNoPokeradar";
-            this.monsNoPokeradar.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.monsNoPokeradar.HeaderText = "Species";
-            this.monsNoPokeradar.MinimumWidth = 6;
-            this.monsNoPokeradar.Name = "monsNoPokeradar";
-            this.monsNoPokeradar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.monsNoPokeradar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            monsNoPokeradar.DataPropertyName = "monsNoPokeradar";
+            monsNoPokeradar.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            monsNoPokeradar.HeaderText = "Species";
+            monsNoPokeradar.MinimumWidth = 6;
+            monsNoPokeradar.Name = "monsNoPokeradar";
+            monsNoPokeradar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            monsNoPokeradar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // dataGridViewTextBoxColumn8
             // 
-            this.dataGridViewTextBoxColumn8.HeaderText = "Min Lvl";
-            this.dataGridViewTextBoxColumn8.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            dataGridViewTextBoxColumn8.HeaderText = "Min Lvl";
+            dataGridViewTextBoxColumn8.MinimumWidth = 6;
+            dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
             // 
             // dataGridViewTextBoxColumn9
             // 
-            this.dataGridViewTextBoxColumn9.HeaderText = "Max Lvl";
-            this.dataGridViewTextBoxColumn9.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            dataGridViewTextBoxColumn9.HeaderText = "Max Lvl";
+            dataGridViewTextBoxColumn9.MinimumWidth = 6;
+            dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
             // 
             // pokeradarRateColumn
             // 
-            this.pokeradarRateColumn.HeaderText = "Rate";
-            this.pokeradarRateColumn.MinimumWidth = 6;
-            this.pokeradarRateColumn.Name = "pokeradarRateColumn";
-            this.pokeradarRateColumn.ReadOnly = true;
+            pokeradarRateColumn.HeaderText = "Rate";
+            pokeradarRateColumn.MinimumWidth = 6;
+            pokeradarRateColumn.Name = "pokeradarRateColumn";
+            pokeradarRateColumn.ReadOnly = true;
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.waterDataGridView);
-            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.Location = new System.Drawing.Point(988, 3);
-            this.groupBox3.Name = "groupBox3";
-            this.tableLayoutPanel1.SetRowSpan(this.groupBox3, 4);
-            this.groupBox3.Size = new System.Drawing.Size(391, 218);
-            this.groupBox3.TabIndex = 11;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Surf Encounters";
+            groupBox3.Controls.Add(waterDataGridView);
+            groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            groupBox3.Location = new System.Drawing.Point(864, 2);
+            groupBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            tableLayoutPanel1.SetRowSpan(groupBox3, 4);
+            groupBox3.Size = new System.Drawing.Size(342, 162);
+            groupBox3.TabIndex = 11;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Surf Encounters";
             // 
-            // dataGridView5
+            // waterDataGridView
             // 
-            this.waterDataGridView.AllowUserToAddRows = false;
-            this.waterDataGridView.AllowUserToDeleteRows = false;
-            this.waterDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.waterDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.waterDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.monsNoSurf,
-            this.dataGridViewTextBoxColumn11,
-            this.dataGridViewTextBoxColumn12,
-            this.surfRateColumn});
-            this.waterDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.waterDataGridView.Location = new System.Drawing.Point(3, 23);
-            this.waterDataGridView.Name = "dataGridView5";
-            this.waterDataGridView.RowHeadersVisible = false;
-            this.waterDataGridView.RowHeadersWidth = 51;
-            this.waterDataGridView.RowTemplate.Height = 29;
-            this.waterDataGridView.Size = new System.Drawing.Size(385, 192);
-            this.waterDataGridView.TabIndex = 3;
+            waterDataGridView.AllowUserToAddRows = false;
+            waterDataGridView.AllowUserToDeleteRows = false;
+            waterDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            waterDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            waterDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { monsNoSurf, dataGridViewTextBoxColumn11, dataGridViewTextBoxColumn12, surfRateColumn });
+            waterDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            waterDataGridView.Location = new System.Drawing.Point(3, 18);
+            waterDataGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            waterDataGridView.Name = "waterDataGridView";
+            waterDataGridView.RowHeadersVisible = false;
+            waterDataGridView.RowHeadersWidth = 51;
+            waterDataGridView.RowTemplate.Height = 29;
+            waterDataGridView.Size = new System.Drawing.Size(336, 142);
+            waterDataGridView.TabIndex = 3;
             // 
             // monsNoSurf
             // 
-            this.monsNoSurf.DataPropertyName = "monsNoSurf";
-            this.monsNoSurf.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.monsNoSurf.HeaderText = "Species";
-            this.monsNoSurf.MinimumWidth = 6;
-            this.monsNoSurf.Name = "monsNoSurf";
-            this.monsNoSurf.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.monsNoSurf.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            monsNoSurf.DataPropertyName = "monsNoSurf";
+            monsNoSurf.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            monsNoSurf.HeaderText = "Species";
+            monsNoSurf.MinimumWidth = 6;
+            monsNoSurf.Name = "monsNoSurf";
+            monsNoSurf.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            monsNoSurf.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // dataGridViewTextBoxColumn11
             // 
-            this.dataGridViewTextBoxColumn11.HeaderText = "Min Lvl";
-            this.dataGridViewTextBoxColumn11.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            dataGridViewTextBoxColumn11.HeaderText = "Min Lvl";
+            dataGridViewTextBoxColumn11.MinimumWidth = 6;
+            dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
             // 
             // dataGridViewTextBoxColumn12
             // 
-            this.dataGridViewTextBoxColumn12.HeaderText = "Max Lvl";
-            this.dataGridViewTextBoxColumn12.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
+            dataGridViewTextBoxColumn12.HeaderText = "Max Lvl";
+            dataGridViewTextBoxColumn12.MinimumWidth = 6;
+            dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
             // 
             // surfRateColumn
             // 
-            this.surfRateColumn.HeaderText = "Rate";
-            this.surfRateColumn.MinimumWidth = 6;
-            this.surfRateColumn.Name = "surfRateColumn";
-            this.surfRateColumn.ReadOnly = true;
+            surfRateColumn.HeaderText = "Rate";
+            surfRateColumn.MinimumWidth = 6;
+            surfRateColumn.Name = "surfRateColumn";
+            surfRateColumn.ReadOnly = true;
             // 
-            // dataGridView6
+            // oldRodDataGridView6
             // 
-            this.oldRodDataGridView6.AllowUserToAddRows = false;
-            this.oldRodDataGridView6.AllowUserToDeleteRows = false;
-            this.oldRodDataGridView6.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.oldRodDataGridView6.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.oldRodDataGridView6.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.monsNoOldRod,
-            this.dataGridViewTextBoxColumn14,
-            this.dataGridViewTextBoxColumn15,
-            this.oldRodRateColumn});
-            this.oldRodDataGridView6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.oldRodDataGridView6.Location = new System.Drawing.Point(3, 23);
-            this.oldRodDataGridView6.Name = "dataGridView6";
-            this.oldRodDataGridView6.RowHeadersVisible = false;
-            this.oldRodDataGridView6.RowHeadersWidth = 51;
-            this.oldRodDataGridView6.RowTemplate.Height = 29;
-            this.oldRodDataGridView6.Size = new System.Drawing.Size(385, 199);
-            this.oldRodDataGridView6.TabIndex = 2;
+            oldRodDataGridView6.AllowUserToAddRows = false;
+            oldRodDataGridView6.AllowUserToDeleteRows = false;
+            oldRodDataGridView6.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            oldRodDataGridView6.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            oldRodDataGridView6.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { monsNoOldRod, dataGridViewTextBoxColumn14, dataGridViewTextBoxColumn15, oldRodRateColumn });
+            oldRodDataGridView6.Dock = System.Windows.Forms.DockStyle.Fill;
+            oldRodDataGridView6.Location = new System.Drawing.Point(3, 18);
+            oldRodDataGridView6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            oldRodDataGridView6.Name = "oldRodDataGridView6";
+            oldRodDataGridView6.RowHeadersVisible = false;
+            oldRodDataGridView6.RowHeadersWidth = 51;
+            oldRodDataGridView6.RowTemplate.Height = 29;
+            oldRodDataGridView6.Size = new System.Drawing.Size(336, 148);
+            oldRodDataGridView6.TabIndex = 2;
             // 
             // monsNoOldRod
             // 
-            this.monsNoOldRod.DataPropertyName = "monsNoOldRod";
-            this.monsNoOldRod.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.monsNoOldRod.HeaderText = "Species";
-            this.monsNoOldRod.MinimumWidth = 6;
-            this.monsNoOldRod.Name = "monsNoOldRod";
-            this.monsNoOldRod.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.monsNoOldRod.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            monsNoOldRod.DataPropertyName = "monsNoOldRod";
+            monsNoOldRod.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            monsNoOldRod.HeaderText = "Species";
+            monsNoOldRod.MinimumWidth = 6;
+            monsNoOldRod.Name = "monsNoOldRod";
+            monsNoOldRod.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            monsNoOldRod.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // dataGridViewTextBoxColumn14
             // 
-            this.dataGridViewTextBoxColumn14.HeaderText = "Min Lvl";
-            this.dataGridViewTextBoxColumn14.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
+            dataGridViewTextBoxColumn14.HeaderText = "Min Lvl";
+            dataGridViewTextBoxColumn14.MinimumWidth = 6;
+            dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
             // 
             // dataGridViewTextBoxColumn15
             // 
-            this.dataGridViewTextBoxColumn15.HeaderText = "Max Lvl";
-            this.dataGridViewTextBoxColumn15.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
+            dataGridViewTextBoxColumn15.HeaderText = "Max Lvl";
+            dataGridViewTextBoxColumn15.MinimumWidth = 6;
+            dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
             // 
             // oldRodRateColumn
             // 
-            this.oldRodRateColumn.HeaderText = "Rate";
-            this.oldRodRateColumn.MinimumWidth = 6;
-            this.oldRodRateColumn.Name = "oldRodRateColumn";
-            this.oldRodRateColumn.ReadOnly = true;
+            oldRodRateColumn.HeaderText = "Rate";
+            oldRodRateColumn.MinimumWidth = 6;
+            oldRodRateColumn.Name = "oldRodRateColumn";
+            oldRodRateColumn.ReadOnly = true;
             // 
-            // dataGridView7
+            // goodRodDataGridView7
             // 
-            this.goodRodDataGridView7.AllowUserToAddRows = false;
-            this.goodRodDataGridView7.AllowUserToDeleteRows = false;
-            this.goodRodDataGridView7.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.goodRodDataGridView7.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.goodRodDataGridView7.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.monsNoGoodRod,
-            this.dataGridViewTextBoxColumn17,
-            this.dataGridViewTextBoxColumn18,
-            this.goodRodRateColumn});
-            this.goodRodDataGridView7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.goodRodDataGridView7.Location = new System.Drawing.Point(3, 23);
-            this.goodRodDataGridView7.Name = "dataGridView7";
-            this.goodRodDataGridView7.RowHeadersVisible = false;
-            this.goodRodDataGridView7.RowHeadersWidth = 51;
-            this.goodRodDataGridView7.RowTemplate.Height = 29;
-            this.goodRodDataGridView7.Size = new System.Drawing.Size(385, 199);
-            this.goodRodDataGridView7.TabIndex = 3;
+            goodRodDataGridView7.AllowUserToAddRows = false;
+            goodRodDataGridView7.AllowUserToDeleteRows = false;
+            goodRodDataGridView7.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            goodRodDataGridView7.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            goodRodDataGridView7.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { monsNoGoodRod, dataGridViewTextBoxColumn17, dataGridViewTextBoxColumn18, goodRodRateColumn });
+            goodRodDataGridView7.Dock = System.Windows.Forms.DockStyle.Fill;
+            goodRodDataGridView7.Location = new System.Drawing.Point(3, 18);
+            goodRodDataGridView7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            goodRodDataGridView7.Name = "goodRodDataGridView7";
+            goodRodDataGridView7.RowHeadersVisible = false;
+            goodRodDataGridView7.RowHeadersWidth = 51;
+            goodRodDataGridView7.RowTemplate.Height = 29;
+            goodRodDataGridView7.Size = new System.Drawing.Size(336, 148);
+            goodRodDataGridView7.TabIndex = 3;
             // 
             // monsNoGoodRod
             // 
-            this.monsNoGoodRod.DataPropertyName = "monsNoGoodRod";
-            this.monsNoGoodRod.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.monsNoGoodRod.HeaderText = "Species";
-            this.monsNoGoodRod.MinimumWidth = 6;
-            this.monsNoGoodRod.Name = "monsNoGoodRod";
-            this.monsNoGoodRod.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.monsNoGoodRod.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            monsNoGoodRod.DataPropertyName = "monsNoGoodRod";
+            monsNoGoodRod.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            monsNoGoodRod.HeaderText = "Species";
+            monsNoGoodRod.MinimumWidth = 6;
+            monsNoGoodRod.Name = "monsNoGoodRod";
+            monsNoGoodRod.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            monsNoGoodRod.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // dataGridViewTextBoxColumn17
             // 
-            this.dataGridViewTextBoxColumn17.HeaderText = "Min Lvl";
-            this.dataGridViewTextBoxColumn17.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn17.Name = "dataGridViewTextBoxColumn17";
+            dataGridViewTextBoxColumn17.HeaderText = "Min Lvl";
+            dataGridViewTextBoxColumn17.MinimumWidth = 6;
+            dataGridViewTextBoxColumn17.Name = "dataGridViewTextBoxColumn17";
             // 
             // dataGridViewTextBoxColumn18
             // 
-            this.dataGridViewTextBoxColumn18.HeaderText = "Max Lvl";
-            this.dataGridViewTextBoxColumn18.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn18.Name = "dataGridViewTextBoxColumn18";
+            dataGridViewTextBoxColumn18.HeaderText = "Max Lvl";
+            dataGridViewTextBoxColumn18.MinimumWidth = 6;
+            dataGridViewTextBoxColumn18.Name = "dataGridViewTextBoxColumn18";
             // 
             // goodRodRateColumn
             // 
-            this.goodRodRateColumn.HeaderText = "Rate";
-            this.goodRodRateColumn.MinimumWidth = 6;
-            this.goodRodRateColumn.Name = "goodRodRateColumn";
-            this.goodRodRateColumn.ReadOnly = true;
+            goodRodRateColumn.HeaderText = "Rate";
+            goodRodRateColumn.MinimumWidth = 6;
+            goodRodRateColumn.Name = "goodRodRateColumn";
+            goodRodRateColumn.ReadOnly = true;
             // 
-            // dataGridView8
+            // superRodDataGridView8
             // 
-            this.superRodDataGridView8.AllowUserToAddRows = false;
-            this.superRodDataGridView8.AllowUserToDeleteRows = false;
-            this.superRodDataGridView8.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.superRodDataGridView8.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.superRodDataGridView8.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.monsNoSuperRod,
-            this.dataGridViewTextBoxColumn20,
-            this.dataGridViewTextBoxColumn21,
-            this.superRodRateColumn});
-            this.superRodDataGridView8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superRodDataGridView8.Location = new System.Drawing.Point(3, 23);
-            this.superRodDataGridView8.Name = "dataGridView8";
-            this.superRodDataGridView8.RowHeadersVisible = false;
-            this.superRodDataGridView8.RowHeadersWidth = 51;
-            this.superRodDataGridView8.RowTemplate.Height = 29;
-            this.superRodDataGridView8.Size = new System.Drawing.Size(385, 235);
-            this.superRodDataGridView8.TabIndex = 3;
+            superRodDataGridView8.AllowUserToAddRows = false;
+            superRodDataGridView8.AllowUserToDeleteRows = false;
+            superRodDataGridView8.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            superRodDataGridView8.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            superRodDataGridView8.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { monsNoSuperRod, dataGridViewTextBoxColumn20, dataGridViewTextBoxColumn21, superRodRateColumn });
+            superRodDataGridView8.Dock = System.Windows.Forms.DockStyle.Fill;
+            superRodDataGridView8.Location = new System.Drawing.Point(3, 18);
+            superRodDataGridView8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            superRodDataGridView8.Name = "superRodDataGridView8";
+            superRodDataGridView8.RowHeadersVisible = false;
+            superRodDataGridView8.RowHeadersWidth = 51;
+            superRodDataGridView8.RowTemplate.Height = 29;
+            superRodDataGridView8.Size = new System.Drawing.Size(336, 181);
+            superRodDataGridView8.TabIndex = 3;
             // 
             // monsNoSuperRod
             // 
-            this.monsNoSuperRod.DataPropertyName = "monsNoSuperRod";
-            this.monsNoSuperRod.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.monsNoSuperRod.HeaderText = "Species";
-            this.monsNoSuperRod.MinimumWidth = 6;
-            this.monsNoSuperRod.Name = "monsNoSuperRod";
-            this.monsNoSuperRod.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.monsNoSuperRod.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            monsNoSuperRod.DataPropertyName = "monsNoSuperRod";
+            monsNoSuperRod.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            monsNoSuperRod.HeaderText = "Species";
+            monsNoSuperRod.MinimumWidth = 6;
+            monsNoSuperRod.Name = "monsNoSuperRod";
+            monsNoSuperRod.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            monsNoSuperRod.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // dataGridViewTextBoxColumn20
             // 
-            this.dataGridViewTextBoxColumn20.HeaderText = "Min Lvl";
-            this.dataGridViewTextBoxColumn20.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn20.Name = "dataGridViewTextBoxColumn20";
+            dataGridViewTextBoxColumn20.HeaderText = "Min Lvl";
+            dataGridViewTextBoxColumn20.MinimumWidth = 6;
+            dataGridViewTextBoxColumn20.Name = "dataGridViewTextBoxColumn20";
             // 
             // dataGridViewTextBoxColumn21
             // 
-            this.dataGridViewTextBoxColumn21.HeaderText = "Max Lvl";
-            this.dataGridViewTextBoxColumn21.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn21.Name = "dataGridViewTextBoxColumn21";
+            dataGridViewTextBoxColumn21.HeaderText = "Max Lvl";
+            dataGridViewTextBoxColumn21.MinimumWidth = 6;
+            dataGridViewTextBoxColumn21.Name = "dataGridViewTextBoxColumn21";
             // 
             // superRodRateColumn
             // 
-            this.superRodRateColumn.HeaderText = "Rate";
-            this.superRodRateColumn.MinimumWidth = 6;
-            this.superRodRateColumn.Name = "superRodRateColumn";
-            this.superRodRateColumn.ReadOnly = true;
+            superRodRateColumn.HeaderText = "Rate";
+            superRodRateColumn.MinimumWidth = 6;
+            superRodRateColumn.Name = "superRodRateColumn";
+            superRodRateColumn.ReadOnly = true;
             // 
             // versionComboBox
             // 
-            this.versionComboBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.versionComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.versionComboBox.FormattingEnabled = true;
-            this.versionComboBox.Location = new System.Drawing.Point(3, 3);
-            this.versionComboBox.Name = "versionComboBox";
-            this.versionComboBox.Size = new System.Drawing.Size(191, 28);
-            this.versionComboBox.TabIndex = 0;
+            versionComboBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            versionComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            versionComboBox.FormattingEnabled = true;
+            versionComboBox.Location = new System.Drawing.Point(3, 2);
+            versionComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            versionComboBox.Name = "versionComboBox";
+            versionComboBox.Size = new System.Drawing.Size(166, 23);
+            versionComboBox.TabIndex = 0;
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.tableLayoutPanel3);
-            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox4.Location = new System.Drawing.Point(397, 612);
-            this.groupBox4.Name = "groupBox4";
-            this.tableLayoutPanel1.SetRowSpan(this.groupBox4, 2);
-            this.groupBox4.Size = new System.Drawing.Size(191, 302);
-            this.groupBox4.TabIndex = 5;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Forms";
+            groupBox4.Controls.Add(tableLayoutPanel3);
+            groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            groupBox4.Location = new System.Drawing.Point(347, 455);
+            groupBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox4.Name = "groupBox4";
+            groupBox4.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            tableLayoutPanel1.SetRowSpan(groupBox4, 2);
+            groupBox4.Size = new System.Drawing.Size(166, 226);
+            groupBox4.TabIndex = 5;
+            groupBox4.TabStop = false;
+            groupBox4.Text = "Forms";
             // 
             // tableLayoutPanel3
             // 
-            this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tableLayoutPanel3.Controls.Add(this.formProbNumericUpDown, 1, 0);
-            this.tableLayoutPanel3.Controls.Add(this.unownTableNumericUpDown, 1, 1);
-            this.tableLayoutPanel3.Controls.Add(this.label6, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.label7, 0, 1);
-            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 23);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 3;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(185, 276);
-            this.tableLayoutPanel3.TabIndex = 10;
+            tableLayoutPanel3.ColumnCount = 2;
+            tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 52F));
+            tableLayoutPanel3.Controls.Add(formProbNumericUpDown, 1, 0);
+            tableLayoutPanel3.Controls.Add(unownTableNumericUpDown, 1, 1);
+            tableLayoutPanel3.Controls.Add(label6, 0, 0);
+            tableLayoutPanel3.Controls.Add(label7, 0, 1);
+            tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel3.Location = new System.Drawing.Point(3, 18);
+            tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            tableLayoutPanel3.Name = "tableLayoutPanel3";
+            tableLayoutPanel3.RowCount = 3;
+            tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel3.Size = new System.Drawing.Size(160, 206);
+            tableLayoutPanel3.TabIndex = 10;
             // 
             // formProbNumericUpDown
             // 
-            this.formProbNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.formProbNumericUpDown.Location = new System.Drawing.Point(128, 4);
-            this.formProbNumericUpDown.Maximum = new decimal(new int[] {
-            2147483647,
-            0,
-            0,
-            0});
-            this.formProbNumericUpDown.Minimum = new decimal(new int[] {
-            -2147483648,
-            0,
-            0,
-            -2147483648});
-            this.formProbNumericUpDown.Name = "formProbNumericUpDown";
-            this.formProbNumericUpDown.Size = new System.Drawing.Size(54, 27);
-            this.formProbNumericUpDown.TabIndex = 7;
+            formProbNumericUpDown.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            formProbNumericUpDown.Location = new System.Drawing.Point(111, 2);
+            formProbNumericUpDown.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            formProbNumericUpDown.Maximum = new decimal(new int[] { int.MaxValue, 0, 0, 0 });
+            formProbNumericUpDown.Minimum = new decimal(new int[] { int.MinValue, 0, 0, int.MinValue });
+            formProbNumericUpDown.Name = "formProbNumericUpDown";
+            formProbNumericUpDown.Size = new System.Drawing.Size(46, 23);
+            formProbNumericUpDown.TabIndex = 7;
             // 
             // unownTableNumericUpDown
             // 
-            this.unownTableNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.unownTableNumericUpDown.Location = new System.Drawing.Point(128, 39);
-            this.unownTableNumericUpDown.Maximum = new decimal(new int[] {
-            2147483647,
-            0,
-            0,
-            0});
-            this.unownTableNumericUpDown.Minimum = new decimal(new int[] {
-            -2147483648,
-            0,
-            0,
-            -2147483648});
-            this.unownTableNumericUpDown.Name = "unownTableNumericUpDown";
-            this.unownTableNumericUpDown.Size = new System.Drawing.Size(54, 27);
-            this.unownTableNumericUpDown.TabIndex = 9;
+            unownTableNumericUpDown.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            unownTableNumericUpDown.Location = new System.Drawing.Point(111, 28);
+            unownTableNumericUpDown.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            unownTableNumericUpDown.Maximum = new decimal(new int[] { int.MaxValue, 0, 0, 0 });
+            unownTableNumericUpDown.Minimum = new decimal(new int[] { int.MinValue, 0, 0, int.MinValue });
+            unownTableNumericUpDown.Name = "unownTableNumericUpDown";
+            unownTableNumericUpDown.Size = new System.Drawing.Size(46, 23);
+            unownTableNumericUpDown.TabIndex = 9;
             // 
             // label6
             // 
-            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(50, 7);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(72, 20);
-            this.label6.TabIndex = 6;
-            this.label6.Text = "formProb";
+            label6.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            label6.AutoSize = true;
+            label6.Location = new System.Drawing.Point(47, 5);
+            label6.Name = "label6";
+            label6.Size = new System.Drawing.Size(58, 15);
+            label6.TabIndex = 6;
+            label6.Text = "formProb";
             // 
             // label7
             // 
-            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(28, 42);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(94, 20);
-            this.label7.TabIndex = 8;
-            this.label7.Text = "Unown Table";
+            label7.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            label7.AutoSize = true;
+            label7.Location = new System.Drawing.Point(30, 31);
+            label7.Name = "label7";
+            label7.Size = new System.Drawing.Size(75, 15);
+            label7.TabIndex = 8;
+            label7.Text = "Unown Table";
             // 
             // button1
             // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Location = new System.Drawing.Point(397, 920);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(191, 30);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "Unused Tables";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.OpenGBAEncounterEditor);
+            button1.Dock = System.Windows.Forms.DockStyle.Fill;
+            button1.Location = new System.Drawing.Point(347, 685);
+            button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            button1.Name = "button1";
+            button1.Size = new System.Drawing.Size(166, 28);
+            button1.TabIndex = 10;
+            button1.Text = "Unused Tables";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += OpenGBAEncounterEditor;
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 5;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28572F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28572F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.57143F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.57143F));
-            this.tableLayoutPanel1.Controls.Add(this.groupBox7, 3, 3);
-            this.tableLayoutPanel1.Controls.Add(this.versionComboBox, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.button1, 2, 9);
-            this.tableLayoutPanel1.Controls.Add(this.groupBox3, 4, 0);
-            this.tableLayoutPanel1.Controls.Add(this.groupBox2, 3, 7);
-            this.tableLayoutPanel1.Controls.Add(this.groupBox4, 2, 7);
-            this.tableLayoutPanel1.Controls.Add(this.zoneIDListBox, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.groupBox1, 1, 7);
-            this.tableLayoutPanel1.Controls.Add(this.groupBox5, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.groupBox6, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.groupBox8, 3, 5);
-            this.tableLayoutPanel1.Controls.Add(this.groupBox9, 3, 6);
-            this.tableLayoutPanel1.Controls.Add(this.groupBox10, 4, 4);
-            this.tableLayoutPanel1.Controls.Add(this.groupBox11, 4, 6);
-            this.tableLayoutPanel1.Controls.Add(this.groupBox12, 4, 8);
-            this.tableLayoutPanel1.Controls.Add(this.sortComboBox, 0, 1);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 10;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.091045F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.091045F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.091045F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 18.18209F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 18.18159F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.090796F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 27.27239F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1382, 953);
-            this.tableLayoutPanel1.TabIndex = 11;
+            tableLayoutPanel1.ColumnCount = 5;
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28572F));
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28572F));
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.57143F));
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.57143F));
+            tableLayoutPanel1.Controls.Add(groupBox7, 3, 3);
+            tableLayoutPanel1.Controls.Add(versionComboBox, 0, 0);
+            tableLayoutPanel1.Controls.Add(button1, 2, 9);
+            tableLayoutPanel1.Controls.Add(groupBox3, 4, 0);
+            tableLayoutPanel1.Controls.Add(groupBox2, 3, 7);
+            tableLayoutPanel1.Controls.Add(groupBox4, 2, 7);
+            tableLayoutPanel1.Controls.Add(zoneIDListBox, 0, 2);
+            tableLayoutPanel1.Controls.Add(groupBox1, 1, 7);
+            tableLayoutPanel1.Controls.Add(groupBox5, 1, 0);
+            tableLayoutPanel1.Controls.Add(groupBox6, 3, 0);
+            tableLayoutPanel1.Controls.Add(groupBox8, 3, 5);
+            tableLayoutPanel1.Controls.Add(groupBox9, 3, 6);
+            tableLayoutPanel1.Controls.Add(groupBox10, 4, 4);
+            tableLayoutPanel1.Controls.Add(groupBox11, 4, 6);
+            tableLayoutPanel1.Controls.Add(groupBox12, 4, 8);
+            tableLayoutPanel1.Controls.Add(sortComboBox, 0, 1);
+            tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 10;
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.091045F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.091045F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.091045F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 18.18209F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 18.18159F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.090796F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 27.27239F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            tableLayoutPanel1.Size = new System.Drawing.Size(1209, 715);
+            tableLayoutPanel1.TabIndex = 11;
             // 
             // groupBox7
             // 
-            this.groupBox7.Controls.Add(this.morningDataGridView);
-            this.groupBox7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox7.Location = new System.Drawing.Point(594, 150);
-            this.groupBox7.Name = "groupBox7";
-            this.tableLayoutPanel1.SetRowSpan(this.groupBox7, 2);
-            this.groupBox7.Size = new System.Drawing.Size(388, 148);
-            this.groupBox7.TabIndex = 7;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Morning";
+            groupBox7.Controls.Add(morningDataGridView);
+            groupBox7.Dock = System.Windows.Forms.DockStyle.Fill;
+            groupBox7.Location = new System.Drawing.Point(519, 111);
+            groupBox7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox7.Name = "groupBox7";
+            groupBox7.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            tableLayoutPanel1.SetRowSpan(groupBox7, 2);
+            groupBox7.Size = new System.Drawing.Size(339, 110);
+            groupBox7.TabIndex = 7;
+            groupBox7.TabStop = false;
+            groupBox7.Text = "Morning";
             // 
             // morningDataGridView
             // 
-            this.morningDataGridView.AllowUserToAddRows = false;
-            this.morningDataGridView.AllowUserToDeleteRows = false;
-            this.morningDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.morningDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.morningDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.monsNoMorning,
-            this.dataGridViewTextBoxColumn4,
-            this.dataGridViewTextBoxColumn5,
-            this.dataGridViewTextBoxColumn6});
-            this.morningDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.morningDataGridView.Location = new System.Drawing.Point(3, 23);
-            this.morningDataGridView.Name = "morningDataGridView";
-            this.morningDataGridView.RowHeadersVisible = false;
-            this.morningDataGridView.RowHeadersWidth = 51;
-            this.morningDataGridView.RowTemplate.Height = 29;
-            this.morningDataGridView.Size = new System.Drawing.Size(382, 122);
-            this.morningDataGridView.TabIndex = 5;
+            morningDataGridView.AllowUserToAddRows = false;
+            morningDataGridView.AllowUserToDeleteRows = false;
+            morningDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            morningDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            morningDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { monsNoMorning, dataGridViewTextBoxColumn4, dataGridViewTextBoxColumn5, dataGridViewTextBoxColumn6 });
+            morningDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            morningDataGridView.Location = new System.Drawing.Point(3, 18);
+            morningDataGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            morningDataGridView.Name = "morningDataGridView";
+            morningDataGridView.RowHeadersVisible = false;
+            morningDataGridView.RowHeadersWidth = 51;
+            morningDataGridView.RowTemplate.Height = 29;
+            morningDataGridView.Size = new System.Drawing.Size(333, 90);
+            morningDataGridView.TabIndex = 5;
             // 
             // monsNoMorning
             // 
-            this.monsNoMorning.DataPropertyName = "monsNoPokeradar";
-            this.monsNoMorning.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.monsNoMorning.HeaderText = "Species";
-            this.monsNoMorning.MinimumWidth = 6;
-            this.monsNoMorning.Name = "monsNoMorning";
-            this.monsNoMorning.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.monsNoMorning.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            monsNoMorning.DataPropertyName = "monsNoPokeradar";
+            monsNoMorning.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            monsNoMorning.HeaderText = "Species";
+            monsNoMorning.MinimumWidth = 6;
+            monsNoMorning.Name = "monsNoMorning";
+            monsNoMorning.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            monsNoMorning.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // dataGridViewTextBoxColumn4
             // 
-            this.dataGridViewTextBoxColumn4.HeaderText = "Min Lvl";
-            this.dataGridViewTextBoxColumn4.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            dataGridViewTextBoxColumn4.HeaderText = "Min Lvl";
+            dataGridViewTextBoxColumn4.MinimumWidth = 6;
+            dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             // 
             // dataGridViewTextBoxColumn5
             // 
-            this.dataGridViewTextBoxColumn5.HeaderText = "Max Lvl";
-            this.dataGridViewTextBoxColumn5.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            dataGridViewTextBoxColumn5.HeaderText = "Max Lvl";
+            dataGridViewTextBoxColumn5.MinimumWidth = 6;
+            dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             // 
             // dataGridViewTextBoxColumn6
             // 
-            this.dataGridViewTextBoxColumn6.HeaderText = "Rate";
-            this.dataGridViewTextBoxColumn6.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.ReadOnly = true;
+            dataGridViewTextBoxColumn6.HeaderText = "Rate";
+            dataGridViewTextBoxColumn6.MinimumWidth = 6;
+            dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            dataGridViewTextBoxColumn6.ReadOnly = true;
             // 
             // zoneIDListBox
             // 
-            this.zoneIDListBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.zoneIDListBox.FormattingEnabled = true;
-            this.zoneIDListBox.ItemHeight = 20;
-            this.zoneIDListBox.Location = new System.Drawing.Point(3, 73);
-            this.zoneIDListBox.Name = "zoneIDListBox";
-            this.tableLayoutPanel1.SetRowSpan(this.zoneIDListBox, 8);
-            this.zoneIDListBox.Size = new System.Drawing.Size(191, 877);
-            this.zoneIDListBox.TabIndex = 2;
+            zoneIDListBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            zoneIDListBox.FormattingEnabled = true;
+            zoneIDListBox.ItemHeight = 15;
+            zoneIDListBox.Location = new System.Drawing.Point(3, 54);
+            zoneIDListBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            zoneIDListBox.Name = "zoneIDListBox";
+            tableLayoutPanel1.SetRowSpan(zoneIDListBox, 8);
+            zoneIDListBox.Size = new System.Drawing.Size(166, 659);
+            zoneIDListBox.TabIndex = 2;
             // 
             // groupBox5
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.groupBox5, 2);
-            this.groupBox5.Controls.Add(this.groundMonsDataGridView);
-            this.groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox5.Location = new System.Drawing.Point(200, 3);
-            this.groupBox5.Name = "groupBox5";
-            this.tableLayoutPanel1.SetRowSpan(this.groupBox5, 7);
-            this.groupBox5.Size = new System.Drawing.Size(388, 603);
-            this.groupBox5.TabIndex = 3;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Ground Encounters";
+            tableLayoutPanel1.SetColumnSpan(groupBox5, 2);
+            groupBox5.Controls.Add(groundMonsDataGridView);
+            groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
+            groupBox5.Location = new System.Drawing.Point(175, 2);
+            groupBox5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox5.Name = "groupBox5";
+            groupBox5.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            tableLayoutPanel1.SetRowSpan(groupBox5, 7);
+            groupBox5.Size = new System.Drawing.Size(338, 449);
+            groupBox5.TabIndex = 3;
+            groupBox5.TabStop = false;
+            groupBox5.Text = "Ground Encounters";
             // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.swarmDataGridView);
-            this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox6.Location = new System.Drawing.Point(594, 3);
-            this.groupBox6.Name = "groupBox6";
-            this.tableLayoutPanel1.SetRowSpan(this.groupBox6, 3);
-            this.groupBox6.Size = new System.Drawing.Size(388, 141);
-            this.groupBox6.TabIndex = 6;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Swarm Encounters";
+            groupBox6.Controls.Add(swarmDataGridView);
+            groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
+            groupBox6.Location = new System.Drawing.Point(519, 2);
+            groupBox6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox6.Name = "groupBox6";
+            groupBox6.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            tableLayoutPanel1.SetRowSpan(groupBox6, 3);
+            groupBox6.Size = new System.Drawing.Size(339, 105);
+            groupBox6.TabIndex = 6;
+            groupBox6.TabStop = false;
+            groupBox6.Text = "Swarm Encounters";
             // 
             // swarmDataGridView
             // 
-            this.swarmDataGridView.AllowUserToAddRows = false;
-            this.swarmDataGridView.AllowUserToDeleteRows = false;
-            this.swarmDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.swarmDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.swarmDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.monsNoSwarm,
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3});
-            this.swarmDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.swarmDataGridView.Location = new System.Drawing.Point(3, 23);
-            this.swarmDataGridView.Name = "swarmDataGridView";
-            this.swarmDataGridView.RowHeadersVisible = false;
-            this.swarmDataGridView.RowHeadersWidth = 51;
-            this.swarmDataGridView.RowTemplate.Height = 29;
-            this.swarmDataGridView.Size = new System.Drawing.Size(382, 115);
-            this.swarmDataGridView.TabIndex = 4;
+            swarmDataGridView.AllowUserToAddRows = false;
+            swarmDataGridView.AllowUserToDeleteRows = false;
+            swarmDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            swarmDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            swarmDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { monsNoSwarm, dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3 });
+            swarmDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            swarmDataGridView.Location = new System.Drawing.Point(3, 18);
+            swarmDataGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            swarmDataGridView.Name = "swarmDataGridView";
+            swarmDataGridView.RowHeadersVisible = false;
+            swarmDataGridView.RowHeadersWidth = 51;
+            swarmDataGridView.RowTemplate.Height = 29;
+            swarmDataGridView.Size = new System.Drawing.Size(333, 85);
+            swarmDataGridView.TabIndex = 4;
             // 
             // monsNoSwarm
             // 
-            this.monsNoSwarm.DataPropertyName = "monsNoPokeradar";
-            this.monsNoSwarm.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.monsNoSwarm.HeaderText = "Species";
-            this.monsNoSwarm.MinimumWidth = 6;
-            this.monsNoSwarm.Name = "monsNoSwarm";
-            this.monsNoSwarm.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.monsNoSwarm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            monsNoSwarm.DataPropertyName = "monsNoPokeradar";
+            monsNoSwarm.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            monsNoSwarm.HeaderText = "Species";
+            monsNoSwarm.MinimumWidth = 6;
+            monsNoSwarm.Name = "monsNoSwarm";
+            monsNoSwarm.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            monsNoSwarm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // dataGridViewTextBoxColumn1
             // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Min Lvl";
-            this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            dataGridViewTextBoxColumn1.HeaderText = "Min Lvl";
+            dataGridViewTextBoxColumn1.MinimumWidth = 6;
+            dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             // 
             // dataGridViewTextBoxColumn2
             // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Max Lvl";
-            this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            dataGridViewTextBoxColumn2.HeaderText = "Max Lvl";
+            dataGridViewTextBoxColumn2.MinimumWidth = 6;
+            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
             // dataGridViewTextBoxColumn3
             // 
-            this.dataGridViewTextBoxColumn3.HeaderText = "Rate";
-            this.dataGridViewTextBoxColumn3.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            dataGridViewTextBoxColumn3.HeaderText = "Rate";
+            dataGridViewTextBoxColumn3.MinimumWidth = 6;
+            dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            dataGridViewTextBoxColumn3.ReadOnly = true;
             // 
             // groupBox8
             // 
-            this.groupBox8.Controls.Add(this.dayDataGridView);
-            this.groupBox8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox8.Location = new System.Drawing.Point(594, 304);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(388, 148);
-            this.groupBox8.TabIndex = 8;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Day";
+            groupBox8.Controls.Add(dayDataGridView);
+            groupBox8.Dock = System.Windows.Forms.DockStyle.Fill;
+            groupBox8.Location = new System.Drawing.Point(519, 225);
+            groupBox8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox8.Name = "groupBox8";
+            groupBox8.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox8.Size = new System.Drawing.Size(339, 111);
+            groupBox8.TabIndex = 8;
+            groupBox8.TabStop = false;
+            groupBox8.Text = "Day";
             // 
             // dayDataGridView
             // 
-            this.dayDataGridView.AllowUserToAddRows = false;
-            this.dayDataGridView.AllowUserToDeleteRows = false;
-            this.dayDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dayDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dayDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.monsNoDay,
-            this.dataGridViewTextBoxColumn7,
-            this.dataGridViewTextBoxColumn10,
-            this.dataGridViewTextBoxColumn13});
-            this.dayDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dayDataGridView.Location = new System.Drawing.Point(3, 23);
-            this.dayDataGridView.Name = "dayDataGridView";
-            this.dayDataGridView.RowHeadersVisible = false;
-            this.dayDataGridView.RowHeadersWidth = 51;
-            this.dayDataGridView.RowTemplate.Height = 29;
-            this.dayDataGridView.Size = new System.Drawing.Size(382, 122);
-            this.dayDataGridView.TabIndex = 6;
+            dayDataGridView.AllowUserToAddRows = false;
+            dayDataGridView.AllowUserToDeleteRows = false;
+            dayDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dayDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dayDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { monsNoDay, dataGridViewTextBoxColumn7, dataGridViewTextBoxColumn10, dataGridViewTextBoxColumn13 });
+            dayDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            dayDataGridView.Location = new System.Drawing.Point(3, 18);
+            dayDataGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            dayDataGridView.Name = "dayDataGridView";
+            dayDataGridView.RowHeadersVisible = false;
+            dayDataGridView.RowHeadersWidth = 51;
+            dayDataGridView.RowTemplate.Height = 29;
+            dayDataGridView.Size = new System.Drawing.Size(333, 91);
+            dayDataGridView.TabIndex = 6;
             // 
             // monsNoDay
             // 
-            this.monsNoDay.DataPropertyName = "monsNoPokeradar";
-            this.monsNoDay.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.monsNoDay.HeaderText = "Species";
-            this.monsNoDay.MinimumWidth = 6;
-            this.monsNoDay.Name = "monsNoDay";
-            this.monsNoDay.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.monsNoDay.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            monsNoDay.DataPropertyName = "monsNoPokeradar";
+            monsNoDay.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            monsNoDay.HeaderText = "Species";
+            monsNoDay.MinimumWidth = 6;
+            monsNoDay.Name = "monsNoDay";
+            monsNoDay.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            monsNoDay.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // dataGridViewTextBoxColumn7
             // 
-            this.dataGridViewTextBoxColumn7.HeaderText = "Min Lvl";
-            this.dataGridViewTextBoxColumn7.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            dataGridViewTextBoxColumn7.HeaderText = "Min Lvl";
+            dataGridViewTextBoxColumn7.MinimumWidth = 6;
+            dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
             // 
             // dataGridViewTextBoxColumn10
             // 
-            this.dataGridViewTextBoxColumn10.HeaderText = "Max Lvl";
-            this.dataGridViewTextBoxColumn10.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            dataGridViewTextBoxColumn10.HeaderText = "Max Lvl";
+            dataGridViewTextBoxColumn10.MinimumWidth = 6;
+            dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
             // 
             // dataGridViewTextBoxColumn13
             // 
-            this.dataGridViewTextBoxColumn13.HeaderText = "Rate";
-            this.dataGridViewTextBoxColumn13.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
-            this.dataGridViewTextBoxColumn13.ReadOnly = true;
+            dataGridViewTextBoxColumn13.HeaderText = "Rate";
+            dataGridViewTextBoxColumn13.MinimumWidth = 6;
+            dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
+            dataGridViewTextBoxColumn13.ReadOnly = true;
             // 
             // groupBox9
             // 
-            this.groupBox9.Controls.Add(this.nightDataGridView);
-            this.groupBox9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox9.Location = new System.Drawing.Point(594, 458);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(388, 148);
-            this.groupBox9.TabIndex = 9;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "Night";
+            groupBox9.Controls.Add(nightDataGridView);
+            groupBox9.Dock = System.Windows.Forms.DockStyle.Fill;
+            groupBox9.Location = new System.Drawing.Point(519, 340);
+            groupBox9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox9.Name = "groupBox9";
+            groupBox9.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox9.Size = new System.Drawing.Size(339, 111);
+            groupBox9.TabIndex = 9;
+            groupBox9.TabStop = false;
+            groupBox9.Text = "Night";
             // 
             // nightDataGridView
             // 
-            this.nightDataGridView.AllowUserToAddRows = false;
-            this.nightDataGridView.AllowUserToDeleteRows = false;
-            this.nightDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.nightDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.nightDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.monsNoNight,
-            this.dataGridViewTextBoxColumn16,
-            this.dataGridViewTextBoxColumn19,
-            this.dataGridViewTextBoxColumn22});
-            this.nightDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.nightDataGridView.Location = new System.Drawing.Point(3, 23);
-            this.nightDataGridView.Name = "nightDataGridView";
-            this.nightDataGridView.RowHeadersVisible = false;
-            this.nightDataGridView.RowHeadersWidth = 51;
-            this.nightDataGridView.RowTemplate.Height = 29;
-            this.nightDataGridView.Size = new System.Drawing.Size(382, 122);
-            this.nightDataGridView.TabIndex = 6;
+            nightDataGridView.AllowUserToAddRows = false;
+            nightDataGridView.AllowUserToDeleteRows = false;
+            nightDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            nightDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            nightDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { monsNoNight, dataGridViewTextBoxColumn16, dataGridViewTextBoxColumn19, dataGridViewTextBoxColumn22 });
+            nightDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            nightDataGridView.Location = new System.Drawing.Point(3, 18);
+            nightDataGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            nightDataGridView.Name = "nightDataGridView";
+            nightDataGridView.RowHeadersVisible = false;
+            nightDataGridView.RowHeadersWidth = 51;
+            nightDataGridView.RowTemplate.Height = 29;
+            nightDataGridView.Size = new System.Drawing.Size(333, 91);
+            nightDataGridView.TabIndex = 6;
             // 
             // monsNoNight
             // 
-            this.monsNoNight.DataPropertyName = "monsNoPokeradar";
-            this.monsNoNight.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.monsNoNight.HeaderText = "Species";
-            this.monsNoNight.MinimumWidth = 6;
-            this.monsNoNight.Name = "monsNoNight";
-            this.monsNoNight.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.monsNoNight.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            monsNoNight.DataPropertyName = "monsNoPokeradar";
+            monsNoNight.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            monsNoNight.HeaderText = "Species";
+            monsNoNight.MinimumWidth = 6;
+            monsNoNight.Name = "monsNoNight";
+            monsNoNight.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            monsNoNight.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // dataGridViewTextBoxColumn16
             // 
-            this.dataGridViewTextBoxColumn16.HeaderText = "Min Lvl";
-            this.dataGridViewTextBoxColumn16.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn16.Name = "dataGridViewTextBoxColumn16";
+            dataGridViewTextBoxColumn16.HeaderText = "Min Lvl";
+            dataGridViewTextBoxColumn16.MinimumWidth = 6;
+            dataGridViewTextBoxColumn16.Name = "dataGridViewTextBoxColumn16";
             // 
             // dataGridViewTextBoxColumn19
             // 
-            this.dataGridViewTextBoxColumn19.HeaderText = "Max Lvl";
-            this.dataGridViewTextBoxColumn19.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn19.Name = "dataGridViewTextBoxColumn19";
+            dataGridViewTextBoxColumn19.HeaderText = "Max Lvl";
+            dataGridViewTextBoxColumn19.MinimumWidth = 6;
+            dataGridViewTextBoxColumn19.Name = "dataGridViewTextBoxColumn19";
             // 
             // dataGridViewTextBoxColumn22
             // 
-            this.dataGridViewTextBoxColumn22.HeaderText = "Rate";
-            this.dataGridViewTextBoxColumn22.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn22.Name = "dataGridViewTextBoxColumn22";
-            this.dataGridViewTextBoxColumn22.ReadOnly = true;
+            dataGridViewTextBoxColumn22.HeaderText = "Rate";
+            dataGridViewTextBoxColumn22.MinimumWidth = 6;
+            dataGridViewTextBoxColumn22.Name = "dataGridViewTextBoxColumn22";
+            dataGridViewTextBoxColumn22.ReadOnly = true;
             // 
             // groupBox10
             // 
-            this.groupBox10.Controls.Add(this.oldRodDataGridView6);
-            this.groupBox10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox10.Location = new System.Drawing.Point(988, 227);
-            this.groupBox10.Name = "groupBox10";
-            this.tableLayoutPanel1.SetRowSpan(this.groupBox10, 2);
-            this.groupBox10.Size = new System.Drawing.Size(391, 225);
-            this.groupBox10.TabIndex = 12;
-            this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "Old Rod";
+            groupBox10.Controls.Add(oldRodDataGridView6);
+            groupBox10.Dock = System.Windows.Forms.DockStyle.Fill;
+            groupBox10.Location = new System.Drawing.Point(864, 168);
+            groupBox10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox10.Name = "groupBox10";
+            groupBox10.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            tableLayoutPanel1.SetRowSpan(groupBox10, 2);
+            groupBox10.Size = new System.Drawing.Size(342, 168);
+            groupBox10.TabIndex = 12;
+            groupBox10.TabStop = false;
+            groupBox10.Text = "Old Rod";
             // 
             // groupBox11
             // 
-            this.groupBox11.Controls.Add(this.goodRodDataGridView7);
-            this.groupBox11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox11.Location = new System.Drawing.Point(988, 458);
-            this.groupBox11.Name = "groupBox11";
-            this.tableLayoutPanel1.SetRowSpan(this.groupBox11, 2);
-            this.groupBox11.Size = new System.Drawing.Size(391, 225);
-            this.groupBox11.TabIndex = 13;
-            this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "Good Rod";
+            groupBox11.Controls.Add(goodRodDataGridView7);
+            groupBox11.Dock = System.Windows.Forms.DockStyle.Fill;
+            groupBox11.Location = new System.Drawing.Point(864, 340);
+            groupBox11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox11.Name = "groupBox11";
+            groupBox11.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            tableLayoutPanel1.SetRowSpan(groupBox11, 2);
+            groupBox11.Size = new System.Drawing.Size(342, 168);
+            groupBox11.TabIndex = 13;
+            groupBox11.TabStop = false;
+            groupBox11.Text = "Good Rod";
             // 
             // groupBox12
             // 
-            this.groupBox12.Controls.Add(this.superRodDataGridView8);
-            this.groupBox12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox12.Location = new System.Drawing.Point(988, 689);
-            this.groupBox12.Name = "groupBox12";
-            this.tableLayoutPanel1.SetRowSpan(this.groupBox12, 2);
-            this.groupBox12.Size = new System.Drawing.Size(391, 261);
-            this.groupBox12.TabIndex = 14;
-            this.groupBox12.TabStop = false;
-            this.groupBox12.Text = "Super Rod";
+            groupBox12.Controls.Add(superRodDataGridView8);
+            groupBox12.Dock = System.Windows.Forms.DockStyle.Fill;
+            groupBox12.Location = new System.Drawing.Point(864, 512);
+            groupBox12.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            groupBox12.Name = "groupBox12";
+            groupBox12.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            tableLayoutPanel1.SetRowSpan(groupBox12, 2);
+            groupBox12.Size = new System.Drawing.Size(342, 201);
+            groupBox12.TabIndex = 14;
+            groupBox12.TabStop = false;
+            groupBox12.Text = "Super Rod";
             // 
             // sortComboBox
             // 
-            this.sortComboBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sortComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.sortComboBox.FormattingEnabled = true;
-            this.sortComboBox.Location = new System.Drawing.Point(3, 38);
-            this.sortComboBox.Name = "sortComboBox";
-            this.sortComboBox.Size = new System.Drawing.Size(191, 28);
-            this.sortComboBox.TabIndex = 1;
+            sortComboBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            sortComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            sortComboBox.FormattingEnabled = true;
+            sortComboBox.Location = new System.Drawing.Point(3, 28);
+            sortComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            sortComboBox.Name = "sortComboBox";
+            sortComboBox.Size = new System.Drawing.Size(166, 23);
+            sortComboBox.TabIndex = 1;
             // 
             // EncounterTableEditorForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1382, 953);
-            this.Controls.Add(this.tableLayoutPanel1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "EncounterTableEditorForm";
-            this.Text = "Wild Encounter Editor";
-            ((System.ComponentModel.ISupportInitialize)(this.groundMonsDataGridView)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.encRateGround)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.encRateSuperRod)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.encRateGoodRod)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.encRateWater)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.encRateOldRod)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pokeradarDataGridView)).EndInit();
-            this.groupBox3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.waterDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.oldRodDataGridView6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.goodRodDataGridView7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.superRodDataGridView8)).EndInit();
-            this.groupBox4.ResumeLayout(false);
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.formProbNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.unownTableNumericUpDown)).EndInit();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.groupBox7.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.morningDataGridView)).EndInit();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.swarmDataGridView)).EndInit();
-            this.groupBox8.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dayDataGridView)).EndInit();
-            this.groupBox9.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.nightDataGridView)).EndInit();
-            this.groupBox10.ResumeLayout(false);
-            this.groupBox11.ResumeLayout(false);
-            this.groupBox12.ResumeLayout(false);
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(1209, 715);
+            Controls.Add(tableLayoutPanel1);
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+            Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "EncounterTableEditorForm";
+            Text = "Wild Encounter Editor";
+            ((System.ComponentModel.ISupportInitialize)groundMonsDataGridView).EndInit();
+            groupBox1.ResumeLayout(false);
+            tableLayoutPanel2.ResumeLayout(false);
+            tableLayoutPanel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)encRateGround).EndInit();
+            ((System.ComponentModel.ISupportInitialize)encRateSuperRod).EndInit();
+            ((System.ComponentModel.ISupportInitialize)encRateGoodRod).EndInit();
+            ((System.ComponentModel.ISupportInitialize)encRateWater).EndInit();
+            ((System.ComponentModel.ISupportInitialize)encRateOldRod).EndInit();
+            groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pokeradarDataGridView).EndInit();
+            groupBox3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)waterDataGridView).EndInit();
+            ((System.ComponentModel.ISupportInitialize)oldRodDataGridView6).EndInit();
+            ((System.ComponentModel.ISupportInitialize)goodRodDataGridView7).EndInit();
+            ((System.ComponentModel.ISupportInitialize)superRodDataGridView8).EndInit();
+            groupBox4.ResumeLayout(false);
+            tableLayoutPanel3.ResumeLayout(false);
+            tableLayoutPanel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)formProbNumericUpDown).EndInit();
+            ((System.ComponentModel.ISupportInitialize)unownTableNumericUpDown).EndInit();
+            tableLayoutPanel1.ResumeLayout(false);
+            groupBox7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)morningDataGridView).EndInit();
+            groupBox5.ResumeLayout(false);
+            groupBox6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)swarmDataGridView).EndInit();
+            groupBox8.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dayDataGridView).EndInit();
+            groupBox9.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)nightDataGridView).EndInit();
+            groupBox10.ResumeLayout(false);
+            groupBox11.ResumeLayout(false);
+            groupBox12.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion

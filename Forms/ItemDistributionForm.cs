@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -27,6 +28,84 @@ namespace ImpostersOrdeal
             RefreshDistributionDisplay();
 
             distributionSelectComboBox.SelectedIndexChanged += SelectedDistributionChanged;
+
+            ContextMenuStrip ctxDataGrid = new();
+            ctxDataGrid.Opening += CtxDataGrid_Opening;
+
+            ToolStripMenuItem btnCheckSelected = new("Check Selected");
+            btnCheckSelected.Click += BtnCheckSelected_Click;
+            ctxDataGrid.Items.Add(btnCheckSelected);
+
+            ToolStripMenuItem btnUncheckSelected = new("Uncheck Selected");
+            btnUncheckSelected.Click += BtnUncheckSelected_Click;
+            ctxDataGrid.Items.Add(btnUncheckSelected);
+
+            ToolStripMenuItem btnToggleSelected = new("Toggle Selected");
+            btnToggleSelected.Click += BtnToggleSelected_Click;
+            ctxDataGrid.Items.Add(btnToggleSelected);
+
+            dataGridView1.ContextMenuStrip = ctxDataGrid;
+        }
+
+        private void CtxDataGrid_Opening(object sender, CancelEventArgs e)
+        {
+            foreach (var cell in dataGridView1.SelectedCells)
+            {
+                if (cell is DataGridViewCheckBoxCell)
+                {
+                    e.Cancel = false;
+                    return;
+                }
+            }
+
+            e.Cancel = true;
+        }
+
+        private void BtnToggleSelected_Click(object sender, EventArgs e)
+        {
+            foreach (var cell in dataGridView1.SelectedCells)
+            {
+                if (cell is DataGridViewCheckBoxCell checkBoxCell)
+                {
+                    if (checkBoxCell.Value is bool isChecked)
+                    {
+                        checkBoxCell.Value = !isChecked;
+                    }
+                    else
+                    {
+                        // This checkbox has a default value (for some reason)
+                        checkBoxCell.Value = true;
+                    }
+                }
+            }
+
+            dataGridView1.EndEdit();
+        }
+
+        private void BtnUncheckSelected_Click(object sender, EventArgs e)
+        {
+            foreach (var cell in dataGridView1.SelectedCells)
+            {
+                if (cell is DataGridViewCheckBoxCell checkBoxCell)
+                {
+                    checkBoxCell.Value = false;
+                }
+            }
+
+            dataGridView1.EndEdit();
+        }
+
+        private void BtnCheckSelected_Click(object sender, EventArgs e)
+        {
+            foreach (var cell in dataGridView1.SelectedCells)
+            {
+                if (cell is DataGridViewCheckBoxCell checkBoxCell)
+                {
+                    checkBoxCell.Value = true;
+                }
+            }
+
+            dataGridView1.EndEdit();
         }
 
         private void SelectedDistributionChanged(object sender, EventArgs e)
@@ -68,6 +147,30 @@ namespace ImpostersOrdeal
                     break;
             }
             dataGridView1.DataSource = dataTable;
+        }
+
+        private void DataGridView1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Space)
+            {
+                e.Handled = true;
+                var i = 0;
+                foreach (var cell in dataGridView1.SelectedCells)
+                {
+                    if (cell is DataGridViewCheckBoxCell checkBoxCell)
+                    {
+                        if (checkBoxCell.Value is bool isChecked)
+                        {
+                            checkBoxCell.Value = !isChecked;
+                        }
+                        else
+                        {
+                            // This cell is null for some reason.
+                            checkBoxCell.Value = true;
+                        }
+                    }
+                }
+            }
         }
 
         private void DataError(object sender, DataGridViewDataErrorEventArgs e)

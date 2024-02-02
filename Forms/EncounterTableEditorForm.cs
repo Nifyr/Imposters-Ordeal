@@ -302,7 +302,7 @@ namespace ImpostersOrdeal
                 if (uint16DexID)
                     iRow.Cells[4].Value = (ushort)(encounter.dexID >> 16);
             }
-            
+
             // Good Rod
             for (int i = 0; i < encounterTable.goodRodMons.Count; i++)
             {
@@ -467,11 +467,11 @@ namespace ImpostersOrdeal
             encounterTable.goodRodMons = goodRodMons;
             encounterTable.superRodMons = superRodMons;
 
-            encounterTable.encRateGround = (int) encRateGround.Value;
-            encounterTable.encRateWater = (int) encRateWater.Value;
-            encounterTable.encRateOldRod = (int) encRateOldRod.Value;
-            encounterTable.encRateGoodRod = (int) encRateGoodRod.Value;
-            encounterTable.encRateSuperRod = (int) encRateSuperRod.Value;
+            encounterTable.encRateGround = (int)encRateGround.Value;
+            encounterTable.encRateWater = (int)encRateWater.Value;
+            encounterTable.encRateOldRod = (int)encRateOldRod.Value;
+            encounterTable.encRateGoodRod = (int)encRateGoodRod.Value;
+            encounterTable.encRateSuperRod = (int)encRateSuperRod.Value;
 
             encounterTable.formProb = (int)formProbNumericUpDown.Value;
             encounterTable.unownTable = (int)unownTableNumericUpDown.Value;
@@ -497,7 +497,7 @@ namespace ImpostersOrdeal
             {
                 int index = i + 2;
 
-                
+
                 DataGridViewRow iRow = morningDataGridView.Rows[i];
 
                 Encounter morningEnc = new();
