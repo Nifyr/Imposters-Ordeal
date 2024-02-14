@@ -1212,8 +1212,11 @@ namespace ImpostersOrdeal
                 string m_Name = gameObject["m_Name"].value.AsString();
                 AssetFileInfoEx afie = afi.table.GetAssetInfo(m_Name, (int)AssetClassID.GameObject);
 
-                m_Name = ReplacePM(m_Name, refPM);
-                gameObject["m_Name"].GetValue().Set(m_Name);
+                if (Regex.Match(m_Name, @"\Apm\d{4}_\d{2}_\d{2}\z").Success)
+                {
+                    m_Name = ReplacePM(m_Name, refPM);
+                    gameObject["m_Name"].GetValue().Set(m_Name);
+                }
 
                 byte[] b = gameObject.WriteToByteArray();
                 AssetsReplacerFromMemory arfm = new(0, afie.index, (int)afie.curFileType, AssetHelper.GetScriptIndex(afi.file, afie), b);
