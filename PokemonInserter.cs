@@ -367,6 +367,17 @@ namespace ImpostersOrdeal
             gameData.contestResultMotion.Add(dstRM);
         }
 
+        private long GeneratePathID(List<long> pathIDs)
+        {
+            long newPathID = 0;
+            do
+            {
+                newPathID = NextInt64();
+            } while (pathIDs.Contains(newPathID));
+            pathIDs.Add(newPathID);
+            return newPathID;
+        }
+
         private void DuplicateIcons(Dictionary<string, string> menuSprites, Dictionary<string, string> largeSprites, Dictionary<string, string> dpSprites)
         {
             foreach (KeyValuePair<string, string> pair in largeSprites)
@@ -391,12 +402,13 @@ namespace ImpostersOrdeal
             AssetTypeTemplateField renderDataPairATTF = spriteAtlas["m_RenderDataMap"]["Array"][0].GetTemplateField();
             List<AssetTypeValueField> renderDataPairATVFs = spriteAtlas["m_RenderDataMap"]["Array"].GetChildrenList().ToList();
             List<AssetsReplacer> ars = new();
+            List<long> pathIDs = afi.table.assetFileInfo.Select(afie => afie.index).ToList();
             foreach (KeyValuePair<string, string> pair in menuSprites)
             {
                 AssetTypeValueField texture2DATVF = ValueBuilder.DefaultValueFieldFromTemplate(attf);
                 FillTexture2D(texture2DATVF);
                 texture2DATVF["m_Name"].GetValue().Set(pair.Value + "_Texture2D");
-                long texture2DPathID = afi.table.assetFileInfo.Max(afie => afie.index) + 1;
+                long texture2DPathID = GeneratePathID(pathIDs);
                 ars.Add(new AssetsReplacerFromMemory(0, texture2DPathID, 28, 0xFFFF, texture2DATVF.WriteToByteArray()));
 
                 AssetTypeValueField spriteATVF = afi.table.GetAssetsOfType(213)
@@ -422,7 +434,7 @@ namespace ImpostersOrdeal
                 spriteATVF["m_RD"]["textureRect"]["height"].GetValue().Set(128);
                 spriteATVF["m_RD"]["textureRectOffset"]["x"].GetValue().Set(0);
                 spriteATVF["m_RD"]["textureRectOffset"]["y"].GetValue().Set(0);
-                long spritePathID = afi.table.assetFileInfo.Max(afie => afie.index) + 2;
+                long spritePathID = GeneratePathID(pathIDs);
                 ars.Add(new AssetsReplacerFromMemory(0, spritePathID, 213, 0xFFFF, spriteATVF.WriteToByteArray()));
 
                 AssetTypeValueField atlasSprite = ValueBuilder.DefaultValueFieldFromTemplate(spriteATTF);
@@ -475,6 +487,7 @@ namespace ImpostersOrdeal
             atvf["m_CompleteImageSize"].GetValue().Set(7744);
             atvf["m_TextureFormat"].GetValue().Set(50);
             atvf["m_MipCount"].GetValue().Set(1);
+            atvf["m_IsReadable"].GetValue().Set(true);
             atvf["m_ImageCount"].GetValue().Set(1);
             atvf["m_TextureDimension"].GetValue().Set(2);
             atvf["m_TextureSettings"]["m_FilterMode"].GetValue().Set(1);
