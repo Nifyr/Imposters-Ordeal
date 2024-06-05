@@ -487,7 +487,7 @@ namespace ImpostersOrdeal
             atvf["m_CompleteImageSize"].GetValue().Set(7744);
             atvf["m_TextureFormat"].GetValue().Set(50);
             atvf["m_MipCount"].GetValue().Set(1);
-            atvf["m_IsReadable"].GetValue().Set(true);
+            atvf["m_IsReadable"].GetValue().Set(false);
             atvf["m_ImageCount"].GetValue().Set(1);
             atvf["m_TextureDimension"].GetValue().Set(2);
             atvf["m_TextureSettings"]["m_FilterMode"].GetValue().Set(1);
@@ -1164,6 +1164,8 @@ namespace ImpostersOrdeal
                     bfi = fileManager.GetPokemonBundleFileInstance(srcPath.Replace('/', '\\'));
                     break;
             }
+            if (bfi == null)
+                return c;
 
             bfi.name = ReplacePM(bfi.name, refPM);
 
