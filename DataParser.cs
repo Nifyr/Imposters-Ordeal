@@ -493,15 +493,15 @@ namespace ImpostersOrdeal
             for (int trainerIdx = 0; trainerIdx < trainerFields.Length; trainerIdx++)
             {
                 BattleTowerTrainer trainer = new();
-                trainer.trainerID2 = trainerFields[trainerIdx].children[0].value.value.asUInt32;
-                trainer.trainerTypeID = trainerFields[trainerIdx].children[1].value.value.asInt32;
+                trainer.trainerID2 = trainerFields[trainerIdx].children[0].GetValue().AsUInt();
+                trainer.trainerTypeID = trainerFields[trainerIdx].children[1].GetValue().AsInt();
                 trainer.trainerTypeID2 = -1; ;
-                trainer.battleTowerPokemonID1 = trainerFields[trainerIdx].children[2].children[0].children[0].value.value.asUInt32;
-                trainer.battleTowerPokemonID2 = trainerFields[trainerIdx].children[2].children[0].children[1].value.value.asUInt32;
-                trainer.battleTowerPokemonID3 = trainerFields[trainerIdx].children[2].children[0].children[2].value.value.asUInt32;
+                trainer.battleTowerPokemonID1 = trainerFields[trainerIdx].children[2].children[0].children[0].GetValue().AsUInt();
+                trainer.battleTowerPokemonID2 = trainerFields[trainerIdx].children[2].children[0].children[1].GetValue().AsUInt();
+                trainer.battleTowerPokemonID3 = trainerFields[trainerIdx].children[2].children[0].children[2].GetValue().AsUInt();
                 trainer.battleTowerPokemonID4 = 0;
-                trainer.battleBGM = trainerFields[trainerIdx].children[3].value.value.ToString();
-                trainer.winBGM = trainerFields[trainerIdx].children[4].value.value.ToString();
+                trainer.battleBGM = trainerFields[trainerIdx].children[3].GetValue().AsString();
+                trainer.winBGM = trainerFields[trainerIdx].children[4].GetValue().AsString();
                 trainer.nameLabel = nameFieldsTower[trainer.trainerTypeID].children[1].GetValue().AsString();
                 trainer.name = trainerNames[trainer.nameLabel];
                 trainer.nameLabel2 = null;
@@ -513,15 +513,15 @@ namespace ImpostersOrdeal
             for (int trainerIdx = 0; trainerIdx < trainerFieldsDouble.Length; trainerIdx++)
             {
                 BattleTowerTrainer trainer = new();
-                trainer.trainerID2 = trainerFieldsDouble[trainerIdx].children[0].value.value.asUInt32;
-                trainer.trainerTypeID = trainerFieldsDouble[trainerIdx].children[1].children[0].children[0].value.value.asInt32; ;
-                trainer.trainerTypeID2 = trainerFieldsDouble[trainerIdx].children[1].children[0].children[1].value.value.asInt32; ;
-                trainer.battleTowerPokemonID1 = trainerFieldsDouble[trainerIdx].children[2].children[0].children[0].value.value.asUInt32;
-                trainer.battleTowerPokemonID2 = trainerFieldsDouble[trainerIdx].children[2].children[0].children[1].value.value.asUInt32;
-                trainer.battleTowerPokemonID3 = trainerFieldsDouble[trainerIdx].children[2].children[0].children[2].value.value.asUInt32;
-                trainer.battleTowerPokemonID4 = trainerFieldsDouble[trainerIdx].children[2].children[0].children[3].value.value.asUInt32;
-                trainer.battleBGM = trainerFieldsDouble[trainerIdx].children[3].value.value.ToString();
-                trainer.winBGM = trainerFieldsDouble[trainerIdx].children[4].value.value.ToString();
+                trainer.trainerID2 = trainerFieldsDouble[trainerIdx].children[0].GetValue().AsUInt();
+                trainer.trainerTypeID = trainerFieldsDouble[trainerIdx].children[1].children[0].children[0].GetValue().AsInt();
+                trainer.trainerTypeID2 = trainerFieldsDouble[trainerIdx].children[1].children[0].children[1].GetValue().AsInt();
+                trainer.battleTowerPokemonID1 = trainerFieldsDouble[trainerIdx].children[2].children[0].children[0].GetValue().AsUInt();
+                trainer.battleTowerPokemonID2 = trainerFieldsDouble[trainerIdx].children[2].children[0].children[1].GetValue().AsUInt();
+                trainer.battleTowerPokemonID3 = trainerFieldsDouble[trainerIdx].children[2].children[0].children[2].GetValue().AsUInt();
+                trainer.battleTowerPokemonID4 = trainerFieldsDouble[trainerIdx].children[2].children[0].children[3].GetValue().AsUInt();
+                trainer.battleBGM = trainerFieldsDouble[trainerIdx].children[3].GetValue().AsString();
+                trainer.winBGM = trainerFieldsDouble[trainerIdx].children[4].GetValue().AsString();
                 trainer.nameLabel = nameFieldsTower[trainer.trainerTypeID].children[1].GetValue().AsString();
                 trainer.name = trainerNames[trainer.nameLabel];
                 if (trainer.trainerTypeID2 != -1)
