@@ -1032,7 +1032,7 @@ namespace ImpostersOrdeal
             AssetTypeValueField monoBehaviour = (await monoBehaviourCollection[PathEnum.PersonalMasterdatas]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "ItemTable");
 
             AssetTypeValueField[] tmFields = monoBehaviour.children[5].children[0].children;
-            AssetTypeValueField[] textFields = await FindLabelArrayOfMessageFileAsync("ss_itemname", Language.French);
+            AssetTypeValueField[] textFields = await FindLabelArrayOfMessageFileAsync("ss_itemname", Language.English);
             for (int tmID = 0; tmID < tmFields.Length; tmID++)
             {
                 TM tm = new();
@@ -1558,13 +1558,13 @@ namespace ImpostersOrdeal
             AssetTypeValueField monoBehaviour = (await monoBehaviourCollection[PathEnum.PersonalMasterdatas]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "ItemTable");
 
             AssetTypeValueField[] itemFields = monoBehaviour.children[4].children[0].children;
-            AssetTypeValueField[] textFields = await FindLabelArrayOfMessageFileAsync("ss_itemname", Language.French);
+            AssetTypeValueField[] textFields = await FindLabelArrayOfMessageFileAsync("ss_itemname", Language.English);
 
             if (textFields.Length < itemFields.Length)
-                MainForm.ShowParserError("Oh my, this " + FormatMessageFileNameForLanguage("ss_itemname", Language.French) + " is missing some stuff...\n" +
+                MainForm.ShowParserError("Oh my, this " + FormatMessageFileNameForLanguage("ss_itemname", Language.English) + " is missing some stuff...\n" +
                     "I don't feel so good...\n" +
                     "ItemTable entries: " + itemFields.Length + "\n" +
-                    FormatMessageFileNameForLanguage("ss_itemname", Language.French) + " entries: " + textFields.Length + "??");
+                    FormatMessageFileNameForLanguage("ss_itemname", Language.English) + " entries: " + textFields.Length + "??");
 
             for (int itemIdx = 0; itemIdx < itemFields.Length; itemIdx++)
             {
@@ -2199,7 +2199,7 @@ namespace ImpostersOrdeal
             AssetTypeValueField monoBehaviour = fileManager.GetMonoBehaviours(PathEnum.PersonalMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "ItemTable");
 
             AssetTypeValueField[] tmFields = monoBehaviour.children[5].children[0].children;
-            AssetTypeValueField[] textFields = FindLabelArrayOfMessageFile("ss_itemname", Language.French);
+            AssetTypeValueField[] textFields = FindLabelArrayOfMessageFile("ss_itemname", Language.English);
             for (int tmID = 0; tmID < tmFields.Length; tmID++)
             {
                 TM tm = gameData.tms[tmID];
@@ -2219,7 +2219,7 @@ namespace ImpostersOrdeal
             AssetTypeValueField monoBehaviour = fileManager.GetMonoBehaviours(PathEnum.PersonalMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "ItemTable");
 
             AssetTypeValueField[] itemFields = monoBehaviour.children[4].children[0].children;
-            AssetTypeValueField[] textFields = FindLabelArrayOfMessageFile("ss_itemname", Language.French);
+            AssetTypeValueField[] textFields = FindLabelArrayOfMessageFile("ss_itemname", Language.English);
             for (int itemIdx = 0; itemIdx < itemFields.Length; itemIdx++)
             {
                 Item item = gameData.items[itemIdx];
@@ -2947,7 +2947,7 @@ distributionTable
         }
 
         /// <summary>
-        ///  Updates loaded bundle with EncounterTables.
+        ///  Updates loaded bundle with MessageFileSets.
         /// </summary>
         private static void CommitMessageFileSets()
         {
