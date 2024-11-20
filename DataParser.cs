@@ -123,15 +123,88 @@ namespace ImpostersOrdeal
         }
 
         /// <summary>
+        ///  Gets the appropriate path for a specific language.
+        /// </summary>
+        private static PathEnum GetMessageBundlePathForLanguage(Language language, bool isKanji = false)
+        {
+            return language switch
+            {
+                Language.Japanese => isKanji ? PathEnum.JpnKanji : PathEnum.Jpn,
+                Language.English => PathEnum.English,
+                Language.French => PathEnum.French,
+                Language.Italian => PathEnum.Italian,
+                Language.German => PathEnum.German,
+                Language.Spanish => PathEnum.Spanish,
+                Language.Korean => PathEnum.Korean,
+                Language.SimpChinese => PathEnum.SimpChinese,
+                Language.TradChinese => PathEnum.TradChinese,
+                _ => PathEnum.CommonMsbt,
+            };
+        }
+
+        /// <summary>
+        ///  Gets the appropriate message file prefix for a specific language.
+        /// </summary>
+        private static string GetMessageFilePrefixForLanguage(Language language, bool isKanji = false)
+        {
+            return language switch
+            {
+                Language.Japanese => isKanji ? "jpn_kanji" : "jpn",
+                Language.English => "english",
+                Language.French => "french",
+                Language.Italian => "italian",
+                Language.German => "german",
+                Language.Spanish => "spanish",
+                Language.Korean => "korean",
+                Language.SimpChinese => "simp_chinese",
+                Language.TradChinese => "trad_chinese",
+                _ => "",
+            };
+        }
+
+        /// <summary>
+        ///  Formats the message file name to have the proper language prefix.
+        /// </summary>
+        private static string FormatMessageFileNameForLanguage(string fileName, Language language, bool isKanji = false)
+        {
+            return string.Join("_", GetMessageFilePrefixForLanguage(language, isKanji), fileName);
+        }
+
+        /// <summary>
+        ///  Gets all the labels of a message file in a specific language.
+        /// </summary>
+        private static async Task<AssetTypeValueField[]> FindLabelArrayOfMessageFileAsync(string fileName, Language language, bool isKanji = false)
+        {
+            string fullFileName = FormatMessageFileNameForLanguage(fileName, language, isKanji);
+            PathEnum pathForLanguage = GetMessageBundlePathForLanguage(language, isKanji);
+
+            var baseField = (await monoBehaviourCollection[PathEnum.CommonMsbt]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == fullFileName) ??
+                            (await monoBehaviourCollection[pathForLanguage]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == fullFileName);
+            return baseField?.children[8].children[0].children ?? Array.Empty<AssetTypeValueField>();
+        }
+
+        /// <summary>
+        ///  Gets all the labels of a message file in a specific language.
+        /// </summary>
+        private static AssetTypeValueField[] FindLabelArrayOfMessageFile(string fileName, Language language, bool isKanji = false)
+        {
+            string fullFileName = FormatMessageFileNameForLanguage(fileName, language, isKanji);
+            PathEnum pathForLanguage = GetMessageBundlePathForLanguage(language, isKanji);
+            
+            var baseField = fileManager.GetMonoBehaviours(PathEnum.CommonMsbt).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == fullFileName) ??
+                            fileManager.GetMonoBehaviours(pathForLanguage).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == fullFileName);
+            return baseField?.children[8].children[0].children ?? Array.Empty<AssetTypeValueField>();
+        }
+
+        /// <summary>
         ///  Overwrites GlobalData with parsed TrainerTypes.
         /// </summary>
         private static async Task ParseTrainerTypes()
         {
             gameData.trainerTypes = new();
             AssetTypeValueField monoBehaviour = (await monoBehaviourCollection[PathEnum.DprMasterdatas]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "TrainerTable");
-            AssetTypeValueField nameData = (await monoBehaviourCollection[PathEnum.English]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_dp_trainers_type");
 
-            AssetTypeValueField[] nameFields = nameData.children[8].children[0].children;
+            AssetTypeValueField[] nameFields = await FindLabelArrayOfMessageFileAsync("dp_trainers_type", Language.English);
             Dictionary<string, string> trainerTypeNames = new();
             foreach (AssetTypeValueField label in nameFields)
                 if (label.children[6].children[0].childrenCount > 0)
@@ -159,7 +232,7 @@ namespace ImpostersOrdeal
         private static async Task ParseNatures()
         {
             gameData.natures = new();
-            AssetTypeValueField[] natureFields = (await monoBehaviourCollection[PathEnum.English]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_ss_seikaku").children[8].children[0].children;
+            AssetTypeValueField[] natureFields = await FindLabelArrayOfMessageFileAsync("ss_seikaku", Language.English);
 
             for (int natureID = 0; natureID < natureFields.Length; natureID++)
             {
@@ -191,7 +264,7 @@ namespace ImpostersOrdeal
         private static async Task ParseTypings()
         {
             gameData.typings = new();
-            AssetTypeValueField[] typingFields = (await monoBehaviourCollection[PathEnum.English]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_ss_typename").children[8].children[0].children;
+            AssetTypeValueField[] typingFields = await FindLabelArrayOfMessageFileAsync("ss_typename", Language.English);
 
             for (int typingID = 0; typingID < typingFields.Length; typingID++)
             {
@@ -209,7 +282,7 @@ namespace ImpostersOrdeal
         private static async Task ParseAbilities()
         {
             gameData.abilities = new();
-            AssetTypeValueField[] abilityFields = (await monoBehaviourCollection[PathEnum.English]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_ss_tokusei").children[8].children[0].children;
+            AssetTypeValueField[] abilityFields = await FindLabelArrayOfMessageFileAsync("ss_tokusei", Language.English);
 
             for (int abilityID = 0; abilityID < abilityFields.Length; abilityID++)
             {
@@ -324,9 +397,8 @@ namespace ImpostersOrdeal
         {
             gameData.trainers = new();
             AssetTypeValueField monoBehaviour = (await monoBehaviourCollection[PathEnum.DprMasterdatas]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "TrainerTable");
-            AssetTypeValueField nameData = (await monoBehaviourCollection[PathEnum.English]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_dp_trainers_name");
 
-            AssetTypeValueField[] nameFields = nameData.children[8].children[0].children;
+            AssetTypeValueField[] nameFields = await FindLabelArrayOfMessageFileAsync("dp_trainers_name", Language.English);
             Dictionary<string, string> trainerNames = new();
             gameData.trainerNames = trainerNames;
             foreach (AssetTypeValueField label in nameFields)
@@ -406,9 +478,8 @@ namespace ImpostersOrdeal
             AssetTypeValueField monoBehaviour = (await monoBehaviourCollection[PathEnum.DprMasterdatas]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "TowerTrainerTable");
             AssetTypeValueField monoBehaviour2 = (await monoBehaviourCollection[PathEnum.DprMasterdatas]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "TowerSingleStockTable");
             AssetTypeValueField monoBehaviour3 = (await monoBehaviourCollection[PathEnum.DprMasterdatas]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "TowerDoubleStockTable");
-            AssetTypeValueField nameData = (await monoBehaviourCollection[PathEnum.English]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_dp_trainers_name");
 
-            AssetTypeValueField[] nameFields = nameData.children[8].children[0].children;
+            AssetTypeValueField[] nameFields = await FindLabelArrayOfMessageFileAsync("dp_trainers_name", Language.English);
             Dictionary<string, string> trainerNames = new();
             gameData.trainerNames = trainerNames;
             foreach (AssetTypeValueField label in nameFields)
@@ -635,13 +706,12 @@ namespace ImpostersOrdeal
             gameData.dexEntries = new();
             gameData.personalEntries = new();
             List<AssetTypeValueField> monoBehaviours = (await monoBehaviourCollection[PathEnum.PersonalMasterdatas]);
-            AssetTypeValueField textData = (await monoBehaviourCollection[PathEnum.CommonMsbt]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_ss_monsname");
 
             AssetTypeValueField[] levelUpMoveFields = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "WazaOboeTable").children[4].children[0].children;
             AssetTypeValueField[] eggMoveFields = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "TamagoWazaTable").children[4].children[0].children;
             AssetTypeValueField[] evolveFields = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "EvolveTable").children[4].children[0].children;
             AssetTypeValueField[] personalFields = monoBehaviours.Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "PersonalTable").children[4].children[0].children;
-            AssetTypeValueField[] textFields = textData.children[8].children[0].children;
+            AssetTypeValueField[] textFields = await FindLabelArrayOfMessageFileAsync("ss_monsname", Language.English);
 
             if (levelUpMoveFields.Length < personalFields.Length)
                 MainForm.ShowParserError("Oh my, this WazaOboeTable is missing some stuff...\n" +
@@ -960,10 +1030,9 @@ namespace ImpostersOrdeal
         {
             gameData.tms = new();
             AssetTypeValueField monoBehaviour = (await monoBehaviourCollection[PathEnum.PersonalMasterdatas]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "ItemTable");
-            AssetTypeValueField textData = (await monoBehaviourCollection[PathEnum.English]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_ss_itemname");
 
             AssetTypeValueField[] tmFields = monoBehaviour.children[5].children[0].children;
-            AssetTypeValueField[] textFields = textData.children[8].children[0].children;
+            AssetTypeValueField[] textFields = await FindLabelArrayOfMessageFileAsync("ss_itemname", Language.French);
             for (int tmID = 0; tmID < tmFields.Length; tmID++)
             {
                 TM tm = new();
@@ -1339,11 +1408,10 @@ namespace ImpostersOrdeal
             gameData.moves = new();
             AssetTypeValueField monoBehaviour = (await monoBehaviourCollection[PathEnum.PersonalMasterdatas]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "WazaTable");
             AssetTypeValueField animationData = (await monoBehaviourCollection[PathEnum.BattleMasterdatas]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "BattleDataTable");
-            AssetTypeValueField textData = (await monoBehaviourCollection[PathEnum.English]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_ss_wazaname");
 
             AssetTypeValueField[] moveFields = monoBehaviour.children[4].children[0].children;
             AssetTypeValueField[] animationFields = animationData.children[8].children[0].children;
-            AssetTypeValueField[] textFields = textData.children[8].children[0].children;
+            AssetTypeValueField[] textFields = await FindLabelArrayOfMessageFileAsync("ss_wazaname", Language.English);
 
             if (animationFields.Length < moveFields.Length)
                 MainForm.ShowParserError("Oh my, this BattleDataTable is missing some stuff...\n" +
@@ -1488,16 +1556,15 @@ namespace ImpostersOrdeal
         {
             gameData.items = new();
             AssetTypeValueField monoBehaviour = (await monoBehaviourCollection[PathEnum.PersonalMasterdatas]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "ItemTable");
-            AssetTypeValueField textData = (await monoBehaviourCollection[PathEnum.English]).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_ss_itemname");
 
             AssetTypeValueField[] itemFields = monoBehaviour.children[4].children[0].children;
-            AssetTypeValueField[] textFields = textData.children[8].children[0].children;
+            AssetTypeValueField[] textFields = await FindLabelArrayOfMessageFileAsync("ss_itemname", Language.French);
 
             if (textFields.Length < itemFields.Length)
-                MainForm.ShowParserError("Oh my, this english_ss_itemname is missing some stuff...\n" +
+                MainForm.ShowParserError("Oh my, this " + FormatMessageFileNameForLanguage("ss_itemname", Language.French) + " is missing some stuff...\n" +
                     "I don't feel so good...\n" +
                     "ItemTable entries: " + itemFields.Length + "\n" +
-                    "english_ss_itemname entries: " + textFields.Length + "??");
+                    FormatMessageFileNameForLanguage("ss_itemname", Language.French) + " entries: " + textFields.Length + "??");
 
             for (int itemIdx = 0; itemIdx < itemFields.Length; itemIdx++)
             {
@@ -1579,16 +1646,16 @@ namespace ImpostersOrdeal
                 gameData.messageFileSets[i] = new();
                 gameData.messageFileSets[i].messageFiles = new();
             }
-            gameData.messageFileSets[0].langID = 1;
-            gameData.messageFileSets[1].langID = 1;
-            gameData.messageFileSets[2].langID = 2;
-            gameData.messageFileSets[3].langID = 3;
-            gameData.messageFileSets[4].langID = 4;
-            gameData.messageFileSets[5].langID = 5;
-            gameData.messageFileSets[6].langID = 7;
-            gameData.messageFileSets[7].langID = 8;
-            gameData.messageFileSets[8].langID = 9;
-            gameData.messageFileSets[9].langID = 10;
+            gameData.messageFileSets[0].langID = Language.Japanese;
+            gameData.messageFileSets[1].langID = Language.Japanese;
+            gameData.messageFileSets[2].langID = Language.English;
+            gameData.messageFileSets[3].langID = Language.French;
+            gameData.messageFileSets[4].langID = Language.Italian;
+            gameData.messageFileSets[5].langID = Language.German;
+            gameData.messageFileSets[6].langID = Language.Spanish;
+            gameData.messageFileSets[7].langID = Language.Korean;
+            gameData.messageFileSets[8].langID = Language.SimpChinese;
+            gameData.messageFileSets[9].langID = Language.TradChinese;
 
             List<AssetTypeValueField> monoBehaviours = await monoBehaviourCollection[PathEnum.CommonMsbt];
             monoBehaviours.AddRange(await monoBehaviourCollection[PathEnum.English]);
@@ -1606,7 +1673,7 @@ namespace ImpostersOrdeal
             {
                 MessageFile messageFile = new();
                 messageFile.mName = Encoding.Default.GetString(monoBehaviours[mIdx].children[3].value.value.asString);
-                messageFile.langID = monoBehaviours[mIdx].children[5].value.value.asInt32;
+                messageFile.langID = (Language)monoBehaviours[mIdx].children[5].value.value.asInt32;
                 messageFile.isKanji = monoBehaviours[mIdx].children[7].value.value.asUInt8;
 
                 //Parse LabelData
@@ -1676,34 +1743,34 @@ namespace ImpostersOrdeal
 
                 switch (messageFile.langID)
                 {
-                    case 1:
+                    case Language.Japanese:
                         if (messageFile.isKanji == 0)
                             gameData.messageFileSets[0].messageFiles.Add(messageFile);
                         else
                             gameData.messageFileSets[1].messageFiles.Add(messageFile);
                         break;
-                    case 2:
+                    case Language.English:
                         gameData.messageFileSets[2].messageFiles.Add(messageFile);
                         break;
-                    case 3:
+                    case Language.French:
                         gameData.messageFileSets[3].messageFiles.Add(messageFile);
                         break;
-                    case 4:
+                    case Language.Italian:
                         gameData.messageFileSets[4].messageFiles.Add(messageFile);
                         break;
-                    case 5:
+                    case Language.German:
                         gameData.messageFileSets[5].messageFiles.Add(messageFile);
                         break;
-                    case 7:
+                    case Language.Spanish:
                         gameData.messageFileSets[6].messageFiles.Add(messageFile);
                         break;
-                    case 8:
+                    case Language.Korean:
                         gameData.messageFileSets[7].messageFiles.Add(messageFile);
                         break;
-                    case 9:
+                    case Language.SimpChinese:
                         gameData.messageFileSets[8].messageFiles.Add(messageFile);
                         break;
-                    case 10:
+                    case Language.TradChinese:
                         gameData.messageFileSets[9].messageFiles.Add(messageFile);
                         break;
                 }
@@ -2070,11 +2137,10 @@ namespace ImpostersOrdeal
         {
             AssetTypeValueField monoBehaviour = fileManager.GetMonoBehaviours(PathEnum.PersonalMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "WazaTable");
             AssetTypeValueField animationData = fileManager.GetMonoBehaviours(PathEnum.BattleMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "BattleDataTable");
-            AssetTypeValueField textData = fileManager.GetMonoBehaviours(PathEnum.English).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_ss_wazaname");
 
             AssetTypeValueField[] moveFields = monoBehaviour.children[4].children[0].children;
             AssetTypeValueField[] animationFields = animationData.children[8].children[0].children;
-            AssetTypeValueField[] textFields = textData.children[8].children[0].children;
+            AssetTypeValueField[] textFields = FindLabelArrayOfMessageFile("ss_wazaname", Language.English);
             for (int moveID = 0; moveID < moveFields.Length; moveID++)
             {
                 Move move = gameData.moves[moveID];
@@ -2131,10 +2197,9 @@ namespace ImpostersOrdeal
         private static void CommitTMs()
         {
             AssetTypeValueField monoBehaviour = fileManager.GetMonoBehaviours(PathEnum.PersonalMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "ItemTable");
-            AssetTypeValueField textData = fileManager.GetMonoBehaviours(PathEnum.English).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_ss_itemname");
 
             AssetTypeValueField[] tmFields = monoBehaviour.children[5].children[0].children;
-            AssetTypeValueField[] textFields = textData.children[8].children[0].children;
+            AssetTypeValueField[] textFields = FindLabelArrayOfMessageFile("ss_itemname", Language.French);
             for (int tmID = 0; tmID < tmFields.Length; tmID++)
             {
                 TM tm = gameData.tms[tmID];
@@ -2152,10 +2217,9 @@ namespace ImpostersOrdeal
         private static void CommitItems()
         {
             AssetTypeValueField monoBehaviour = fileManager.GetMonoBehaviours(PathEnum.PersonalMasterdatas).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "ItemTable");
-            AssetTypeValueField textData = fileManager.GetMonoBehaviours(PathEnum.English).Find(m => Encoding.Default.GetString(m.children[3].value.value.asString) == "english_ss_itemname");
 
             AssetTypeValueField[] itemFields = monoBehaviour.children[4].children[0].children;
-            AssetTypeValueField[] textFields = textData.children[8].children[0].children;
+            AssetTypeValueField[] textFields = FindLabelArrayOfMessageFile("ss_itemname", Language.French);
             for (int itemIdx = 0; itemIdx < itemFields.Length; itemIdx++)
             {
                 Item item = gameData.items[itemIdx];

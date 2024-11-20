@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using static ImpostersOrdeal.ExternalJsonStructs;
+using static ImpostersOrdeal.GlobalData;
 
 namespace ImpostersOrdeal
 {
@@ -657,7 +658,7 @@ namespace ImpostersOrdeal
 
         public class MessageFileSet
         {
-            public int langID;
+            public Language langID;
             public List<MessageFile> messageFiles;
 
             public List<LabelData> GetStrings()
@@ -678,7 +679,7 @@ namespace ImpostersOrdeal
         public class MessageFile
         {
             public string mName;
-            public int langID;
+            public Language langID;
             public byte isKanji;
             public List<LabelData> labelDatas;
 
@@ -1785,6 +1786,19 @@ namespace ImpostersOrdeal
             public int GetID();
             public string GetName();
             public bool IsValid();
+        }
+
+        public enum Language
+        {
+            Japanese = 1,
+            English = 2,
+            French = 3,
+            Italian = 4,
+            German = 5,
+            Spanish = 7,
+            Korean = 8,
+            SimpChinese = 9,
+            TradChinese = 10
         }
     }
 }
