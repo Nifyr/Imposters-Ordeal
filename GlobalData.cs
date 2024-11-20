@@ -199,9 +199,10 @@ namespace ImpostersOrdeal
 
         public static string GetZoneName(int index)
         {
-            if (index == -1)
-                return Zones.zoneNames.Last();
-            return Zones.zoneNames[index];
+            if (index > -1 && index < Zones.zoneNames.Length)
+                return Zones.zoneNames[index];
+
+            return Zones.defaultName;
         }
 
         public enum PathEnum
