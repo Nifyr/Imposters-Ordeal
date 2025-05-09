@@ -141,7 +141,6 @@ namespace ImpostersOrdeal
         private void RefreshPokemonDisplay()
         {
             RefreshTextBoxDisplay();
-            speciesComboBox.SelectedIndex = tp.dexID;
             ResetFormComboBox();
             PopulatePartyDataGridView();
         }
@@ -154,6 +153,7 @@ namespace ImpostersOrdeal
 
         private void PopulatePartyDataGridView()
         {
+            speciesComboBox.SelectedIndex = tp.dexID;
             levelNumericUpDown.Value = tp.level;
 
             numericUpDown4.Value = tp.hpIV;
@@ -305,7 +305,11 @@ namespace ImpostersOrdeal
         {
             btpsef.SetBTP(tp);
             btpsef.ShowDialog();
+            DeactivateControls();
             PopulatePartyDataGridView();
+            PopulateListBox();
+            ActivateControls();
+            RefreshTextBoxDisplay();
         }
 
         private void PopulateListBox()
