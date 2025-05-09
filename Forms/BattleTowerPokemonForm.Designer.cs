@@ -1,4 +1,4 @@
-﻿namespace ImpostersOrdeal.Forms
+﻿namespace ImpostersOrdeal
 {
     partial class BattleTowerPokemonForm
     {
@@ -85,6 +85,7 @@
             numericUpDown14 = new System.Windows.Forms.NumericUpDown();
             label25 = new System.Windows.Forms.Label();
             numericUpDown15 = new System.Windows.Forms.NumericUpDown();
+            showdownButton = new System.Windows.Forms.Button();
             sortByComboBox = new System.Windows.Forms.ComboBox();
             trainerDisplayTextBox = new System.Windows.Forms.TextBox();
             listBox = new System.Windows.Forms.ListBox();
@@ -670,6 +671,16 @@
             numericUpDown15.Size = new System.Drawing.Size(50, 27);
             numericUpDown15.TabIndex = 19;
             // 
+            // ShowdownButton
+            // 
+            showdownButton.Location = new System.Drawing.Point(208, 426);
+            showdownButton.Name = "ShowdownButton";
+            showdownButton.Size = new System.Drawing.Size(160, 29);
+            showdownButton.TabIndex = 1;
+            showdownButton.Text = "Showdown Editor";
+            showdownButton.UseVisualStyleBackColor = true;
+            showdownButton.Click += new System.EventHandler(this.ShowdownButtonClick);
+            // 
             // sortByComboBox
             // 
             sortByComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -710,6 +721,7 @@
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
+            Controls.Add(showdownButton);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;
@@ -810,5 +822,6 @@
         private System.Windows.Forms.ComboBox sortByComboBox;
         private System.Windows.Forms.TextBox trainerDisplayTextBox;
         private System.Windows.Forms.ListBox listBox;
+        private System.Windows.Forms.Button showdownButton;
     }
 }
