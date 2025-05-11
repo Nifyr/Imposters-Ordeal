@@ -48,8 +48,7 @@ namespace ImpostersOrdeal
             BattleTowerTrainerPokemon pokemon4 = gameData.battleTowerTrainerPokemons.FirstOrDefault(t1 => t1.pokemonID == btt.battleTowerPokemonID4);
             bttMons = new() {pokemon1, pokemon2, pokemon3};
             if (pokemon4 != null) bttMons.Add(pokemon4);
-            Text = "Battle Tower Trainer Pokémon Editor: " + bttef.trainerTypeNames[btt.trainerTypeID] +
-                " " + btt.GetName();
+            Text = "Battle Tower Trainer Pokémon Editor: " + " " + btt.GetName();
         }
 
         public TrainerShowdownEditorForm(TrainerEditorForm tef)
