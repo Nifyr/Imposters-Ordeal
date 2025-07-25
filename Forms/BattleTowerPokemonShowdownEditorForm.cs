@@ -389,10 +389,5 @@ namespace ImpostersOrdeal
 
             return returnList;
         }
-
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }
