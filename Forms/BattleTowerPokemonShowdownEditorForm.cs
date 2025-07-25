@@ -286,13 +286,19 @@ namespace ImpostersOrdeal
 
             showdownText += GetIVText(new List<byte>() {bttp.hpIV, bttp.atkIV, bttp.defIV, bttp.spAtkIV, bttp.spDefIV, bttp.spdIV});
             
-            List<int> moveList = new() {0, 0, 0, 0};
-            moveList.Add(bttp.moveID1);
-            moveList.Add(bttp.moveID2);
-            moveList.Add(bttp.moveID3);
-            moveList.Add(bttp.moveID4);
+            List<int> moveList = new()
+            {
+                0,
+                0,
+                0,
+                0,
+                bttp.moveID1,
+                bttp.moveID2,
+                bttp.moveID3,
+                bttp.moveID4
+            };
 
-            foreach (ushort moveID in moveList)
+            foreach (ushort moveID in moveList.Select(v => (ushort)v))
             {
                 if (moveID != 0 && moveID != 65535)
                 {
