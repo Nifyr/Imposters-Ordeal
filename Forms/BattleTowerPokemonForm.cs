@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using static ImpostersOrdeal.GameDataTypes;
 using static ImpostersOrdeal.GlobalData;
 
-namespace ImpostersOrdeal.Forms
+namespace ImpostersOrdeal
 {
     public partial class BattleTowerPokemonForm : Form
     {
@@ -25,6 +25,7 @@ namespace ImpostersOrdeal.Forms
         public List<string> items;
         public BattleTowerTrainerPokemon t;
         public string pokemonName;
+        private BattleTowerPokemonShowdownEditorForm btpsef;
 
         private readonly string[] sortNames = new string[]
         {
@@ -73,6 +74,7 @@ namespace ImpostersOrdeal.Forms
             battleTowerTrainerPokemons.Sort(sortComparisons[sortByComboBox.SelectedIndex]);
             PopulateListBox();
 
+            btpsef = new();
         }
 
 
@@ -139,7 +141,7 @@ namespace ImpostersOrdeal.Forms
         private void RefreshPokemonDisplay()
         {
             RefreshTextBoxDisplay();
-
+            ResetFormComboBox();
             PopulatePartyDataGridView();
         }
 
@@ -152,7 +154,6 @@ namespace ImpostersOrdeal.Forms
         private void PopulatePartyDataGridView()
         {
             speciesComboBox.SelectedIndex = tp.dexID;
-            ResetFormComboBox();
             levelNumericUpDown.Value = tp.level;
 
             numericUpDown4.Value = tp.hpIV;
@@ -298,6 +299,17 @@ namespace ImpostersOrdeal.Forms
             formComboBox.DataSource = gameData.dexEntries[tp.dexID].forms.Select((p, i) => i.ToString()).ToArray();
             int convertedFormID = (int)tp.formID;
             formComboBox.SelectedIndex = convertedFormID;
+        }
+
+        private void ShowdownButtonClick(object sender, EventArgs e)
+        {
+            btpsef.SetBTP(tp);
+            btpsef.ShowDialog();
+            DeactivateControls();
+            PopulatePartyDataGridView();
+            PopulateListBox();
+            ActivateControls();
+            RefreshTextBoxDisplay();
         }
 
         private void PopulateListBox()

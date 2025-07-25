@@ -1,4 +1,4 @@
-﻿namespace ImpostersOrdeal.Forms
+﻿namespace ImpostersOrdeal
 {
     partial class BattleTowerTrainerEditorForm
     {
@@ -38,6 +38,7 @@
             sortByComboBox = new System.Windows.Forms.ComboBox();
             button2 = new System.Windows.Forms.Button();
             Column1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            ShowdownButton = new System.Windows.Forms.Button();
             groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)partyDataGridView).BeginInit();
             SuspendLayout();
@@ -62,6 +63,7 @@
             // groupBox4
             // 
             groupBox4.Controls.Add(partyDataGridView);
+            groupBox4.Controls.Add(ShowdownButton);
             groupBox4.Location = new System.Drawing.Point(207, 45);
             groupBox4.Name = "groupBox4";
             groupBox4.Size = new System.Drawing.Size(753, 352);
@@ -138,6 +140,16 @@
             Column1.Name = "Column1";
             Column1.Width = 125;
             // 
+            // ShowdownButton
+            // 
+            this.ShowdownButton.Location = new System.Drawing.Point(6, 317);
+            this.ShowdownButton.Name = "ShowdownButton";
+            this.ShowdownButton.Size = new System.Drawing.Size(160, 29);
+            this.ShowdownButton.TabIndex = 1;
+            this.ShowdownButton.Text = "Showdown Editor";
+            this.ShowdownButton.UseVisualStyleBackColor = true;
+            this.ShowdownButton.Click += new System.EventHandler(this.ShowdownButtonClick);
+            // 
             // BattleTowerTrainerEditorForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -170,6 +182,7 @@
         private System.Windows.Forms.ComboBox sortByComboBox;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.DataGridViewComboBoxColumn Column1;
+        private System.Windows.Forms.Button ShowdownButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn tpDisplayColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn pokemonSelector;
     }

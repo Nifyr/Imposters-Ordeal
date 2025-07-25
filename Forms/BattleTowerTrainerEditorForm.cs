@@ -12,7 +12,7 @@ using System.Windows.Forms;
 using static ImpostersOrdeal.GameDataTypes;
 using static ImpostersOrdeal.GlobalData;
 
-namespace ImpostersOrdeal.Forms
+namespace ImpostersOrdeal
 {
     public partial class BattleTowerTrainerEditorForm : Form
     {
@@ -28,6 +28,7 @@ namespace ImpostersOrdeal.Forms
         private BattleTowerTrainerPokemon trainerPokemon2;
         private BattleTowerTrainerPokemon trainerPokemon3;
         private BattleTowerTrainerPokemon trainerPokemon4;
+        private TrainerShowdownEditorForm tsef;
         private int mostRecentModifiedRowIndex = -1;
         private bool doubleTrainerMode = false;
 
@@ -60,6 +61,7 @@ namespace ImpostersOrdeal.Forms
                 trainerTypeToCC.Add(tt.GetID(), i + 1);
             }
             InitializeComponent();
+            tsef = new(this);
             battleTowertrainers = new();
             battleTowertrainers.AddRange(gameData.battleTowerTrainers);
             battleTowertrainersDoubles = new();
@@ -206,6 +208,13 @@ namespace ImpostersOrdeal.Forms
 
         private void ConfigureTP(object sender, DataGridViewCellEventArgs e)
         {
+        }
+
+        private void ShowdownButtonClick(object sender, EventArgs e)
+        {
+            tsef.SetBTTP(t);
+            tsef.ShowDialog();
+            PopulatePartyDataGridView();
         }
 
         private void PopulateListBox(bool resetIndex)
