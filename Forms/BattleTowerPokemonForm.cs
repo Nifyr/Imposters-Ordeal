@@ -74,7 +74,7 @@ namespace ImpostersOrdeal
             battleTowerTrainerPokemons.Sort(sortComparisons[sortByComboBox.SelectedIndex]);
             PopulateListBox();
 
-            btpsef = new(this);
+            btpsef = new();
         }
 
 

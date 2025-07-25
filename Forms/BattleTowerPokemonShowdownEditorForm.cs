@@ -10,7 +10,6 @@ namespace ImpostersOrdeal
 {
     public partial class BattleTowerPokemonShowdownEditorForm : Form
     {
-        private BattleTowerPokemonForm btpf;
         private List<string> dexEntries;
         private List<string> natures;
         private List<string> abilities;
@@ -37,9 +36,8 @@ namespace ImpostersOrdeal
             Text = "Battle Tower Pokémon Editor: " + bttMon.GetID() + " " + bttMon.GetName();
         }
 
-        public BattleTowerPokemonShowdownEditorForm(BattleTowerPokemonForm btp)
+        public BattleTowerPokemonShowdownEditorForm()
         {
-            this.btpf = btp;
             Init();
         }
 
