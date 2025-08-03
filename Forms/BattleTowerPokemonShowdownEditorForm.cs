@@ -189,6 +189,12 @@ namespace ImpostersOrdeal
                         IVs[statNum] = (byte) stat;
                         statNum++;
                     }
+                } 
+                else if (data.ToUpper().StartsWith("TERA"))
+                {
+                    //Tera types are not supported in Imposters Ordeal
+                    //This is just to skip the line
+                    continue;
                 }
             }
 
